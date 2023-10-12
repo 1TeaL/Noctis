@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 2516897067
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shiggyassetbundle
+      Dependencies: {}
