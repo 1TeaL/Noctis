@@ -61,6 +61,7 @@ namespace NoctisMod.Modules.Survivors
         public static Material buttonsMat = Assets.mainAssetBundle.LoadAsset<Material>("buttonsMat");
         public static Material ringMat = Assets.mainAssetBundle.LoadAsset<Material>("ringMat");
         public static Material teethMat = Assets.mainAssetBundle.LoadAsset<Material>("teethMat");
+        public static Material hopooHairMat = Materials.CreateHopooMaterial("hairMat");
 
         internal override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
@@ -92,12 +93,12 @@ namespace NoctisMod.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "hairAShape",
-                    material = hairMat,
+                    material = hopooHairMat,
                 },
                 new CustomRendererInfo
                 {
                     childName = "hairBShape",
-                    material = hairMat,
+                    material = hopooHairMat,
                 },
                 new CustomRendererInfo
                 {

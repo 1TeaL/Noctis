@@ -588,7 +588,7 @@ namespace NoctisMod.Modules
             mat.SetFloat("_EmPower", emission);
             mat.SetTexture("_EmTex", tempMat.GetTexture("_EmissionMap"));
             mat.SetFloat("_NormalStrength", normalStrength);
-
+            
             return mat;
         }
 
