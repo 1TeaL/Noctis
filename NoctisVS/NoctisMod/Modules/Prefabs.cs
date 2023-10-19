@@ -3,7 +3,7 @@ using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     // module for creating body prefabs and whatnot
     // recommended to simply avoid touching this unless you REALLY need to
@@ -20,10 +20,10 @@ namespace ShiggyMod.Modules
 
         internal static void RegisterNewSurvivor(GameObject bodyPrefab, GameObject displayPrefab, Color charColor, string namePrefix, UnlockableDef unlockableDef, float sortPosition)
         {
-            string fullNameString = ShiggyPlugin.developerPrefix + "_" + namePrefix + "_BODY_NAME";
-            string fullDescString = ShiggyPlugin.developerPrefix + "_" + namePrefix + "_BODY_DESCRIPTION";
-            string fullOutroString = ShiggyPlugin.developerPrefix + "_" + namePrefix + "_BODY_OUTRO_FLAVOR";
-            string fullFailureString = ShiggyPlugin.developerPrefix + "_" + namePrefix + "_BODY_OUTRO_FAILURE";
+            string fullNameString = NoctisPlugin.developerPrefix + "_" + namePrefix + "_BODY_NAME";
+            string fullDescString = NoctisPlugin.developerPrefix + "_" + namePrefix + "_BODY_DESCRIPTION";
+            string fullOutroString = NoctisPlugin.developerPrefix + "_" + namePrefix + "_BODY_OUTRO_FLAVOR";
+            string fullFailureString = NoctisPlugin.developerPrefix + "_" + namePrefix + "_BODY_OUTRO_FAILURE";
 
             SurvivorDef survivorDef = ScriptableObject.CreateInstance<SurvivorDef>();
             survivorDef.bodyPrefab = bodyPrefab;
@@ -197,9 +197,9 @@ namespace ShiggyMod.Modules
 
         private static GameObject CreateModel(GameObject main, string modelName)
         {
-            ShiggyPlugin.DestroyImmediate(main.transform.Find("ModelBase").gameObject);
-            ShiggyPlugin.DestroyImmediate(main.transform.Find("CameraPivot").gameObject);
-            ShiggyPlugin.DestroyImmediate(main.transform.Find("AimOrigin").gameObject);
+            NoctisPlugin.DestroyImmediate(main.transform.Find("ModelBase").gameObject);
+            NoctisPlugin.DestroyImmediate(main.transform.Find("CameraPivot").gameObject);
+            NoctisPlugin.DestroyImmediate(main.transform.Find("AimOrigin").gameObject);
 
             if (Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName) == null)
             {
@@ -210,7 +210,7 @@ namespace ShiggyMod.Modules
             return GameObject.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>(modelName));
         }
 
-        internal static void SetupCharacterModel(GameObject prefab, CustomRendererInfo[] rendererInfo, int mainRendererIndex)
+        internal static CharacterModel SetupCharacterModel(GameObject prefab, CustomRendererInfo[] rendererInfo, int mainRendererIndex)
         {
             CharacterModel characterModel = prefab.GetComponent<ModelLocator>().modelTransform.gameObject.AddComponent<CharacterModel>();
             ChildLocator childLocator = characterModel.GetComponent<ChildLocator>();
@@ -221,7 +221,7 @@ namespace ShiggyMod.Modules
             if (!childLocator)
             {
                 Debug.LogError("Failed CharacterModel setup: ChildLocator component does not exist on the model");
-                return;
+                return null;
             }
 
             List<CharacterModel.RendererInfo> rendererInfos = new List<CharacterModel.RendererInfo>();
@@ -261,10 +261,12 @@ namespace ShiggyMod.Modules
             if (mainRendererIndex > characterModel.baseRendererInfos.Length)
             {
                 Debug.LogError("mainRendererIndex out of range: not setting mainSkinnedMeshRenderer for " + prefab.name);
-                return;
+                return null;
             }
 
             characterModel.mainSkinnedMeshRenderer = characterModel.baseRendererInfos[mainRendererIndex].renderer.GetComponent<SkinnedMeshRenderer>();
+
+            return characterModel;
         }
         #endregion
 

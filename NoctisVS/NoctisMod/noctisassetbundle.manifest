@@ -1,0 +1,103 @@
+ManifestFileVersion: 0
+CRC: 3560409515
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 76e1f3790d7cd1a36a3e64a08d8d5605
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 13081c0a8c7c141e470ccf732f40773b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ae1190b3512db204ab995d13bfad878e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 562668a6adab7834489488a577ad8d84, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Noctis/Assets/Material/Clothes.png
+- Assets/Noctis/Emotes/noctisHumanoid.prefab
+- Assets/Noctis/Assets/Material/nh00_010_skin_01_b_$h.btex.png
+- Assets/Noctis/Assets/NoctisDisplay.prefab
+- Assets/Noctis/Assets/Mesh/TearShapeMesh.mesh
+- Assets/Noctis/Assets/Material/faceMat.mat
+- Assets/Noctis/Assets/Material/bootsShapeMat.mat
+- Assets/Noctis/Assets/Material/nh00_010_skin_01_n_$h.btex.png
+- Assets/Noctis/Assets/Material/shirtShapeMat.mat
+- Assets/Noctis/Assets/Material/Panner.shader
+- Assets/Noctis/Assets/Mesh/BootsShapeMesh.mesh
+- Assets/Noctis/Assets/mdlNoctis.prefab
+- Assets/Noctis/Assets/Material/teethMat.mat
+- Assets/Noctis/Assets/Material/nh00_010_cloth_00_n_$h.btex.png
+- Assets/Noctis/Assets/Material/bodyShapeMat.mat
+- Assets/Noctis/Assets/Material/faceNormal.png
+- Assets/Noctis/Assets/Mesh/TeardropVFXAShapeMesh.mesh
+- Assets/Noctis/Animations/animNoctis.controller
+- Assets/Noctis/Animations/NoctisIdle.anim
+- Assets/Noctis/Assets/Material/nh00_000_skin_00_b_$h.btex.png
+- Assets/Noctis/Assets/Material/nh00_010_basic_01_b_$h.btex.png
+- Assets/Noctis/Assets/Material/nh00_010_basic_00_b_$h.btex.png
+- Assets/Noctis/Assets/Mesh/TeardropVFXBShapeMesh.mesh
+- Assets/Noctis/Assets/Material/buttonsMat.mat
+- Assets/Noctis/Assets/Mesh/bodyShapeMesh.mesh
+- Assets/Noctis/Assets/Material/ringMat.mat
+- Assets/Noctis/Animations/animNoctisDiplay.controller
+- Assets/Noctis/Assets/Mesh/U_TeethShapeMesh.mesh
+- Assets/Noctis/Animations/NoctisAvatar.asset
+- Assets/Noctis/Assets/noctisCustomUI.prefab
+- Assets/Noctis/Assets/Mesh/ShirtShapeMesh.mesh
+- Assets/Noctis/Assets/Material/hairMat.mat
+- Assets/Noctis/Assets/Mesh/EyeShapeMesh.mesh
+- Assets/Noctis/Assets/Material/noise3blur.png
+- Assets/Noctis/Assets/Material/EmptyMaterial.mat
+- Assets/Noctis/Assets/Mesh/FaceShapeMesh.mesh
+- Assets/Noctis/Assets/Mesh/HairAShapeMesh.mesh
+- Assets/Noctis/Emotes/NoctisHumanoidAvatar.asset
+- Assets/Noctis/Assets/Material/nh00_000_eye_00_b_$h.btex.png
+- Assets/Noctis/Assets/Mesh/ButtonShapeMesh.mesh
+- Assets/Noctis/Assets/Mesh/DiamondShapeMesh.mesh
+- Assets/Noctis/Assets/Material/Mask1.png
+- Assets/Noctis/Assets/Mesh/HairBShapeMesh.mesh
+- Assets/Noctis/Assets/Material/nh00_000_skin_02_b_$h.btex.png
+- Assets/Noctis/Assets/Material/eyeMat.mat
+- Assets/Noctis/Assets/Material/Ring.png
+- Assets/Noctis/Assets/Mesh/EyelashShapeMesh.mesh
+- Assets/Noctis/Assets/Material/nh00_000_hair_00_b_$h.btex.png
+- Assets/Noctis/GUI/Base/Shiggybaseskin.png
+Dependencies: []

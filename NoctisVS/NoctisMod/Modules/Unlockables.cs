@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal static class Unlockables
     {

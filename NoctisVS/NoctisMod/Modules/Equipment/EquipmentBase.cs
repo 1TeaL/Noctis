@@ -6,7 +6,7 @@
 //using System.Linq;
 //using UnityEngine;
 
-//namespace ShiggyMod.Equipment
+//namespace NoctisMod.Equipment
 //{
 //    public abstract class EquipmentBase<T> : EquipmentBase where T : EquipmentBase<T>
 //    {

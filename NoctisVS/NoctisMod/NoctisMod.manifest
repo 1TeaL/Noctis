@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 4260468075
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: noctisassetbundle
+      Dependencies: {}

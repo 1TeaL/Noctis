@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ShiggyMod.SkillStates.BaseStates
+namespace NoctisMod.SkillStates.BaseStates
 {
     public class BaseMeleeAttack : BaseSkillState
     {

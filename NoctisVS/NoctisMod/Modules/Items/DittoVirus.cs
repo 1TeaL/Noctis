@@ -1,6 +1,6 @@
 ﻿//using BepInEx.Configuration;
-//using ShiggyMod.Items;
-//using ShiggyMod.Modules.Survivors;
+//using NoctisMod.Items;
+//using NoctisMod.Modules.Survivors;
 //using R2API;
 //using RoR2;
 //using RoR2.Skills;
@@ -10,7 +10,7 @@
 //using UnityEngine;
 //using UnityEngine.Networking;
 
-//namespace ShiggyMod.Modules.Items
+//namespace NoctisMod.Modules.Items
 //{
 //    public class ShiggyVirus : ItemBase<ShiggyVirus>
 //    {
@@ -107,7 +107,7 @@
 //            speciallist.Add("ImpBossBody");
 //            speciallist.Add("BrotherBody");
 //            speciallist.Add("BrotherHurtBody");
-//            speciallist.Add("ShiggyBody");
+//            speciallist.Add("NoctisBody");
 
 //            if (!NetworkServer.active || !victim || !damageInfo.attacker || damageInfo.procCoefficient <= 0f || damageInfo.procChainMask.HasProc(ProcType.Missile)) return;
 
@@ -134,7 +134,7 @@
 //                    if (speciallist.Contains(vicb.master.bodyPrefab.name))
 //                    {
 //                        //self.body.ApplyBuff(Modules.Buffs.transformBuff.buffIndex, 1);
-//                        vicb.master.TransformBody("ShiggyBody");
+//                        vicb.master.TransformBody("NoctisBody");
 
 //                        body = vicb.master.GetBody();
 //                        AkSoundEngine.PostEvent(1531773223, vicb.gameObject);
@@ -259,10 +259,10 @@
 //        //        {
 //        //            if (!self.body.isChampion)
 //        //            {
-//        //                if (self.body.master.bodyPrefab.name != "ShiggyBody")
+//        //                if (self.body.master.bodyPrefab.name != "NoctisBody")
 //        //                {
 //        //                    //self.body.ApplyBuff(Modules.Buffs.transformBuff.buffIndex, 1);
-//        //                    self.body.master.TransformBody("ShiggyBody");
+//        //                    self.body.master.TransformBody("NoctisBody");
 //        //                    body = self.body;
 
 //        //                    AkSoundEngine.PostEvent(1531773223, self.gameObject);

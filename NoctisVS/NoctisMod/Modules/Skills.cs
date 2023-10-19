@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal static class Skills
     {
@@ -17,7 +17,7 @@ namespace ShiggyMod.Modules
         {
             foreach (GenericSkill obj in targetPrefab.GetComponentsInChildren<GenericSkill>())
             {
-                ShiggyPlugin.DestroyImmediate(obj);
+                NoctisPlugin.DestroyImmediate(obj);
             }
 
             SkillLocator skillLocator = targetPrefab.GetComponent<SkillLocator>();

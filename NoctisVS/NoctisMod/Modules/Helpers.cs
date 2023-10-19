@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal static class Helpers
     {

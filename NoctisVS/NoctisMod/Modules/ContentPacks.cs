@@ -1,11 +1,11 @@
 ﻿using RoR2.ContentManagement;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal class ContentPacks : IContentPackProvider
     {
         internal ContentPack contentPack = new ContentPack();
-        public string identifier => ShiggyPlugin.MODUID + "alt_CONTENT_PACK";
+        public string identifier => NoctisPlugin.MODUID + "alt_CONTENT_PACK";
 
         public void Initialize()
         {

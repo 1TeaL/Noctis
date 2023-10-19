@@ -10,7 +10,7 @@ using UnityEngine.AddressableAssets;
 using System.Runtime.CompilerServices;
 using System;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal static class Assets
     {
@@ -35,7 +35,7 @@ namespace ShiggyMod.Modules
         private static string[] assetNames = new string[0];
 
         // CHANGE THIS
-        private const string assetbundleName = "shiggyassetbundle";
+        private const string assetbundleName = "noctisassetbundle";
 
         //tracers
         public static GameObject VoidFiendBeamTracer = Addressables.LoadAssetAsync<GameObject>("RoR2/DLC1/VoidSurvivor/VoidSurvivorBeamTracer.prefab").WaitForCompletion();
@@ -84,13 +84,7 @@ namespace ShiggyMod.Modules
         public static Material alphaconstructShieldBuffMat;
         public static Material blastingZoneBurnMat;
 
-        //own material
-        public static Material multiplierShieldBuffMat;
-        public static Material lightAndDarknessMat;
-        public static Material lightFormBuffMat;
-        public static Material deathAuraBuffMat;
-        public static Material limitBreakBuffMat; 
-        public static Material voidFormBuffMat;
+
 
         //own effects
         public static GameObject decayattackEffect;
@@ -226,7 +220,7 @@ namespace ShiggyMod.Modules
         {
             if (mainAssetBundle == null)
             {
-                using (var assetStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ShiggyMod." + assetbundleName))
+                using (var assetStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("NoctisMod." + assetbundleName))
                 {
                     mainAssetBundle = AssetBundle.LoadFromStream(assetStream);
                 }
@@ -237,7 +231,7 @@ namespace ShiggyMod.Modules
 
         internal static void LoadSoundbank()
         {
-            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream("ShiggyMod.Shiggy.bnk"))
+            using (Stream manifestResourceStream2 = Assembly.GetExecutingAssembly().GetManifestResourceStream("NoctisMod.Noctis.bnk"))
             {
                 byte[] array = new byte[manifestResourceStream2.Length];
                 manifestResourceStream2.Read(array, 0, array.Length);
@@ -254,189 +248,168 @@ namespace ShiggyMod.Modules
             }
 
             //sword swing
-            shiggySwingEffect = Assets.LoadEffect("SwingEffect", true);
-            shiggyHitImpactEffect = Assets.LoadEffect("ImpactEffect");
-            //own effects
-            blastingZoneEffect = Assets.LoadEffect("BlastingZoneSword", true);
-            finalReleasePulseEffect = Assets.LoadEffect("finalReleasePulse", true);
-            //AFO effects
-            AFOLineRenderer = mainAssetBundle.LoadAsset<GameObject>("LineRendererAFO");
+            //shiggySwingEffect = Assets.LoadEffect("SwingEffect", true);
+            //shiggyHitImpactEffect = Assets.LoadEffect("ImpactEffect");
+            ////own effects
+            //blastingZoneEffect = Assets.LoadEffect("BlastingZoneSword", true);
+            //finalReleasePulseEffect = Assets.LoadEffect("finalReleasePulse", true);
+            ////AFO effects
+            //AFOLineRenderer = mainAssetBundle.LoadAsset<GameObject>("LineRendererAFO");
 
-            //warbanner material setup
-            Material warbannerMat = Addressables.LoadAssetAsync<Material>(key: "RoR2/Base/WardOnLevel/matWarbannerSphereIndicator.mat").WaitForCompletion();
-            Material[] warbannerArray = new Material[1];
-            warbannerArray[0] = warbannerMat;
+            ////warbanner material setup
+            //Material warbannerMat = Addressables.LoadAssetAsync<Material>(key: "RoR2/Base/WardOnLevel/matWarbannerSphereIndicator.mat").WaitForCompletion();
+            //Material[] warbannerArray = new Material[1];
+            //warbannerArray[0] = warbannerMat;
 
             
-            //Creating spheres and adding the material to them
-            sphereIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
-            sphereIndicator.AddComponent<NetworkIdentity>();
-            PrefabAPI.RegisterNetworkPrefab(sphereIndicator);
+            ////Creating spheres and adding the material to them
+            //sphereIndicator = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("SphereIndicator");
+            //sphereIndicator.AddComponent<NetworkIdentity>();
+            //PrefabAPI.RegisterNetworkPrefab(sphereIndicator);
 
-            deathAuraIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "deathAuraIndicator");
+            //deathAuraIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "deathAuraIndicator");
 
-            MeshRenderer deathAuraIndicatorMeshRender = deathAuraIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!deathAuraIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            deathAuraIndicatorMeshRender.materials = warbannerArray;
-            deathAuraIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 21f / 255f, 63f / 255f)); //new Color(153/255f, 21/255f, 63/255f)
-            networkObjDefs.Add(deathAuraIndicator);
-            PrefabAPI.RegisterNetworkPrefab(deathAuraIndicator);
+            //MeshRenderer deathAuraIndicatorMeshRender = deathAuraIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!deathAuraIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //deathAuraIndicatorMeshRender.materials = warbannerArray;
+            //deathAuraIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 21f / 255f, 63f / 255f)); //new Color(153/255f, 21/255f, 63/255f)
+            //networkObjDefs.Add(deathAuraIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(deathAuraIndicator);
 
-            theWorldIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "theWorldIndicator"); 
+            //theWorldIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "theWorldIndicator"); 
 
-            MeshRenderer theWorldIndicatorMeshRender = theWorldIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!theWorldIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            theWorldIndicatorMeshRender.materials = warbannerArray;
-            theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.cyan);
-            networkObjDefs.Add(theWorldIndicator);
-            PrefabAPI.RegisterNetworkPrefab(theWorldIndicator);
-
-
-            hermitCrabMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "hermitCrabMortarIndicator");
-
-            MeshRenderer hermitCrabMortarIndicatorMeshRender = hermitCrabMortarIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!hermitCrabMortarIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            hermitCrabMortarIndicatorMeshRender.materials = warbannerArray;
-            hermitCrabMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
-            networkObjDefs.Add(hermitCrabMortarIndicator);
-            PrefabAPI.RegisterNetworkPrefab(hermitCrabMortarIndicator);
-
-            voidBarnacleMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "voidBarnacleMortarIndicator");
-
-            MeshRenderer voidBarnacleMortarIndicatorMeshRender = voidBarnacleMortarIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!voidBarnacleMortarIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            voidBarnacleMortarIndicatorMeshRender.materials = warbannerArray;
-            voidBarnacleMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.magenta);
-            networkObjDefs.Add(voidBarnacleMortarIndicator);
-            PrefabAPI.RegisterNetworkPrefab(voidBarnacleMortarIndicator);
-
-            barbedSpikesIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "barbedSpikesIndicator");
-
-            MeshRenderer barbedSpikesIndicatorMeshRender = barbedSpikesIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!barbedSpikesIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            barbedSpikesIndicatorMeshRender.materials = warbannerArray;
-            barbedSpikesIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 74f / 255f, 21f / 255f));
-            networkObjDefs.Add(barbedSpikesIndicator);
-            PrefabAPI.RegisterNetworkPrefab(barbedSpikesIndicator);
-
-            auraOfBlightIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "auraOfBlightIndicator");
-
-            MeshRenderer auraOfBlightIndicatorMeshRender = auraOfBlightIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!auraOfBlightIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            auraOfBlightIndicatorMeshRender.materials = warbannerArray;
-            auraOfBlightIndicatorMeshRender.material.SetColor("_TintColor", new Color(125f / 255f, 156f / 255f, 42f / 255f));
-            networkObjDefs.Add(auraOfBlightIndicator);
-            PrefabAPI.RegisterNetworkPrefab(auraOfBlightIndicator);
-
-            doubleTimeIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
-
-            MeshRenderer doubleTimeIndicatorMeshRender = doubleTimeIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!doubleTimeIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            doubleTimeIndicatorMeshRender.materials = warbannerArray;
-            doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247f / 255f, 222f / 255f, 27f / 255f));
-            networkObjDefs.Add(doubleTimeIndicator);
-            PrefabAPI.RegisterNetworkPrefab(doubleTimeIndicator);
-
-            xBeamerIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
-
-            MeshRenderer xBeamerIndicatorMeshRender = xBeamerIndicator.gameObject.GetComponent<MeshRenderer>();
-            if (!xBeamerIndicatorMeshRender)
-            {
-                Debug.Log("Failed to find Mesh renderer!");
-            }
-            xBeamerIndicatorMeshRender.materials = warbannerArray;
-            xBeamerIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
-            networkObjDefs.Add(xBeamerIndicator);
-            PrefabAPI.RegisterNetworkPrefab(xBeamerIndicator);
+            //MeshRenderer theWorldIndicatorMeshRender = theWorldIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!theWorldIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //theWorldIndicatorMeshRender.materials = warbannerArray;
+            //theWorldIndicatorMeshRender.material.SetColor("_TintColor", Color.cyan);
+            //networkObjDefs.Add(theWorldIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(theWorldIndicator);
 
 
+            //hermitCrabMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "hermitCrabMortarIndicator");
 
-            //decay particle
-            decayattackEffect = LoadEffect("DecayAttack");
-            //decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
-            decaybuffEffect = LoadEffect("DecayBuff");
-            decayspreadEffect = LoadEffect("DecaySpread");
-            //sounds
-            hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
-            strongHitSoundEffect = CreateNetworkSoundEventDef("ShiggyStrongAttack");
+            //MeshRenderer hermitCrabMortarIndicatorMeshRender = hermitCrabMortarIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!hermitCrabMortarIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //hermitCrabMortarIndicatorMeshRender.materials = warbannerArray;
+            //hermitCrabMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
+            //networkObjDefs.Add(hermitCrabMortarIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(hermitCrabMortarIndicator);
+
+            //voidBarnacleMortarIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "voidBarnacleMortarIndicator");
+
+            //MeshRenderer voidBarnacleMortarIndicatorMeshRender = voidBarnacleMortarIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!voidBarnacleMortarIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //voidBarnacleMortarIndicatorMeshRender.materials = warbannerArray;
+            //voidBarnacleMortarIndicatorMeshRender.material.SetColor("_TintColor", Color.magenta);
+            //networkObjDefs.Add(voidBarnacleMortarIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(voidBarnacleMortarIndicator);
+
+            //barbedSpikesIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "barbedSpikesIndicator");
+
+            //MeshRenderer barbedSpikesIndicatorMeshRender = barbedSpikesIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!barbedSpikesIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //barbedSpikesIndicatorMeshRender.materials = warbannerArray;
+            //barbedSpikesIndicatorMeshRender.material.SetColor("_TintColor", new Color(153f / 255f, 74f / 255f, 21f / 255f));
+            //networkObjDefs.Add(barbedSpikesIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(barbedSpikesIndicator);
+
+            //auraOfBlightIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "auraOfBlightIndicator");
+
+            //MeshRenderer auraOfBlightIndicatorMeshRender = auraOfBlightIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!auraOfBlightIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //auraOfBlightIndicatorMeshRender.materials = warbannerArray;
+            //auraOfBlightIndicatorMeshRender.material.SetColor("_TintColor", new Color(125f / 255f, 156f / 255f, 42f / 255f));
+            //networkObjDefs.Add(auraOfBlightIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(auraOfBlightIndicator);
+
+            //doubleTimeIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
+
+            //MeshRenderer doubleTimeIndicatorMeshRender = doubleTimeIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!doubleTimeIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //doubleTimeIndicatorMeshRender.materials = warbannerArray;
+            //doubleTimeIndicatorMeshRender.material.SetColor("_TintColor", new Color(247f / 255f, 222f / 255f, 27f / 255f));
+            //networkObjDefs.Add(doubleTimeIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(doubleTimeIndicator);
+
+            //xBeamerIndicator = PrefabAPI.InstantiateClone(sphereIndicator, "doubleTimeIndicator");
+
+            //MeshRenderer xBeamerIndicatorMeshRender = xBeamerIndicator.gameObject.GetComponent<MeshRenderer>();
+            //if (!xBeamerIndicatorMeshRender)
+            //{
+            //    Debug.Log("Failed to find Mesh renderer!");
+            //}
+            //xBeamerIndicatorMeshRender.materials = warbannerArray;
+            //xBeamerIndicatorMeshRender.material.SetColor("_TintColor", Color.yellow);
+            //networkObjDefs.Add(xBeamerIndicator);
+            //PrefabAPI.RegisterNetworkPrefab(xBeamerIndicator);
 
 
-            //xiconstruct beam effect
-            beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
-            beam.AddComponent<NetworkIdentity>();
-            networkObjDefs.Add(beam);
 
-            //materials
-            //alpha shield effect
-            alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
-            alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
-            blastingZoneBurnMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/BurnNearby/matHelfireIgniteEffectFlare.mat").WaitForCompletion();
-
-
-            //multiplier effect
-            multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
-            //limit break
-            limitBreakBuffMat = mainAssetBundle.LoadAsset<Material>("LimitBreakMat");
-            //void form
-            voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
-            //death aura effect
-            deathAuraBuffMat = mainAssetBundle.LoadAsset<Material>("DeathAuraMat");
-            //light form effect
-            lightFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matFlashWhite.mat").WaitForCompletion();
-            //light form effect
-            lightAndDarknessMat = mainAssetBundle.LoadAsset<Material>("LightAndDarknessMat");
+            ////decay particle
+            //decayattackEffect = LoadEffect("DecayAttack");
+            ////decaybuffEffect = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("DecayBuff");
+            //decaybuffEffect = LoadEffect("DecayBuff");
+            //decayspreadEffect = LoadEffect("DecaySpread");
+            ////sounds
+            //hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
+            //strongHitSoundEffect = CreateNetworkSoundEventDef("ShiggyStrongAttack");
 
 
-            PopulateEffects();
+            ////xiconstruct beam effect
+            //beam = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("XiConstructBeam");
+            //beam.AddComponent<NetworkIdentity>();
+            //networkObjDefs.Add(beam);
 
-            PrefabAPI.RegisterNetworkPrefab(beam);
+            ////materials
+            ////alpha shield effect
+            //alphaconstructShieldBuffMat = UnityEngine.GameObject.Instantiate<Material>(RoR2.LegacyResourcesAPI.Load<Material>("Materials/matEnergyShield"));
+            //alphaconstructShieldBuffMat.SetColor("_TintColor", new Color(0.8f, 0.5f, 0f));
+            //blastingZoneBurnMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/BurnNearby/matHelfireIgniteEffectFlare.mat").WaitForCompletion();
+
+
+            ////multiplier effect
+            //multiplierShieldBuffMat = mainAssetBundle.LoadAsset<Material>("MultiplierMat");
+            ////limit break
+            //limitBreakBuffMat = mainAssetBundle.LoadAsset<Material>("LimitBreakMat");
+            ////void form
+            //voidFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/DLC1/VoidSurvivor/matVoidBlinkBodyOverlay.mat").WaitForCompletion();
+            ////death aura effect
+            //deathAuraBuffMat = mainAssetBundle.LoadAsset<Material>("DeathAuraMat");
+            ////light form effect
+            //lightFormBuffMat = Addressables.LoadAssetAsync<Material>("RoR2/Base/Common/matFlashWhite.mat").WaitForCompletion();
+            ////light form effect
+            //lightAndDarknessMat = mainAssetBundle.LoadAsset<Material>("LightAndDarknessMat");
+
+
+            //PopulateEffects();
+
+            //PrefabAPI.RegisterNetworkPrefab(beam);
 
             //Shiggy Equipment prefab
             //ShiggyEquipmentPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyEquipmentModel");
             ////Shiggy Item prefab
             //ShiggyItemPrefab = Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("ShiggyItemModel");
-
-        }
-
-        private static void PopulateEffects()
-        {
-            //grandparent Sun 
-            grandparentSunPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Grandparent/GrandParentSun.prefab").WaitForCompletion(), "ShiggySun", true);
-
-            //grandparentSunPrefab.transform.localScale = new Vector3(0.375f, 0.375f, 0.375f);
-            //grandparentSunPrefab.transform.Find("VfxRoot/LightSpinner/LightSpinner/Point Light").GetComponent<Light>().intensity *= 0.375f;
-            //grandparentSunPrefab.transform.Find("VfxRoot/LightSpinner/LightSpinner/Point Light").GetComponent<Light>().range = 200 * 0.375f;
-            //grandparentSunPrefab.transform.Find("VfxRoot/Mesh/SunMesh").transform.localScale = new Vector3(10, 10, 10);
-            //grandparentSunPrefab.transform.Find("VfxRoot/Mesh/AreaIndicator").transform.localScale = new Vector3(105, 105, 105);
-
-            //grandparent Sun spawn explosion effect
-            //grandparentSunSpawnPrefab = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Grandparent/GrandParentSunSpawn.prefab").WaitForCompletion(), "ShiggySunSpawn", false);
-            //grandparentSunSpawnPrefab.transform.localScale = new Vector3(0.375f, 0.375f, 0.375f);
-            //grandparentSunSpawnPrefab.transform.Find("Point Light").GetComponent<Light>().intensity *= 0.375f;
-            //grandparentSunSpawnPrefab.transform.Find("Point Light").GetComponent<Light>().range = 200 * 0.375f;
-            //grandparentSunSpawnPrefab.GetComponent<DestroyOnTimer>().duration = 1.5f;
-            //AddNewEffectDef(grandparentSunPrefab);
 
         }
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     public static class Damage
     {

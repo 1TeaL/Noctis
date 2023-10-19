@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShiggyMod.Modules.Survivors
+namespace NoctisMod.Modules.Survivors
 {
     internal abstract class SurvivorBase
     {
@@ -33,6 +33,8 @@ namespace ShiggyMod.Modules.Survivors
         internal abstract ItemDisplayRuleSet itemDisplayRuleSet { get; set; }
         internal abstract List<ItemDisplayRuleSet.KeyAssetRuleGroup> itemDisplayRules { get; set; }
 
+        internal virtual CharacterModel prefabCharacterModel { get; set; }
+
         internal virtual void Initialize()
         {
             instance = this;
@@ -51,7 +53,7 @@ namespace ShiggyMod.Modules.Survivors
                 bodyPrefab = Modules.Prefabs.CreatePrefab(bodyName + "Body", "mdl" + bodyName, bodyInfo);
                 bodyPrefab.GetComponent<EntityStateMachine>().mainStateType = new EntityStates.SerializableEntityStateType(characterMainState);
 
-                Modules.Prefabs.SetupCharacterModel(bodyPrefab, customRendererInfos, mainRendererIndex);
+                prefabCharacterModel = Modules.Prefabs.SetupCharacterModel(bodyPrefab, customRendererInfos, mainRendererIndex);
 
                 displayPrefab = Modules.Prefabs.CreateDisplayPrefab(bodyName + "Display", bodyPrefab, bodyInfo);
 

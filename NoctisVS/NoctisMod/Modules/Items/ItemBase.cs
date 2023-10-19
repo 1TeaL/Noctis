@@ -6,7 +6,7 @@
 //using System.Text;
 //using UnityEngine;
 
-//namespace ShiggyMod.Items
+//namespace NoctisMod.Items
 //{
 //	public abstract class ItemBase<T> : ItemBase where T : ItemBase<T>
 //	{

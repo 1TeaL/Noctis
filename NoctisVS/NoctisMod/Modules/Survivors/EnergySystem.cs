@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ShiggyMod.Modules.Survivors
+namespace NoctisMod.Modules.Survivors
 {
 
     public class EnergySystem : MonoBehaviour
@@ -14,23 +14,23 @@ namespace ShiggyMod.Modules.Survivors
 
         //UI Energymeter
         public GameObject CustomUIObject;
-        public RectTransform plusChaosMeter;
-        public RectTransform plusChaosMeterGlowRect;
-        public Image plusChaosMeterGlowBackground;
+        public RectTransform manaMeter;
+        public RectTransform manaMeterGlowRect;
+        public Image manaMeterGlowBackground;
         public HGTextMeshProUGUI plusChaosNumber;
-        public HGTextMeshProUGUI quirkGetUI;
+        //public HGTextMeshProUGUI quirkGetUI;
         private bool informAFOToPlayers;
         public string quirkGetString;
         public float quirkGetStopwatch;
 
 
         //Energy system
-        public float maxPlusChaos;
-        public float currentplusChaos;
-        public float regenPlusChaos;
+        public float maxMana;
+        public float currentMana;
+        public float regenMana;
         public float costmultiplierplusChaos;
         public float costflatplusChaos;
-        public float plusChaosDecayTimer;
+        //public float plusChaosDecayTimer;
         public bool SetActiveTrue;
         //bools to stop energy regen after skill used
         private bool ifEnergyUsed;
@@ -60,30 +60,30 @@ namespace ShiggyMod.Modules.Survivors
         public void Start()
         {
             //Energy
-            maxPlusChaos = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos);
-            currentplusChaos = maxPlusChaos;
-            regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
+            maxMana = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos);
+            currentMana = maxMana;
+            regenMana = maxMana * StaticValues.regenManaFraction;
             costmultiplierplusChaos = 1f;
             costflatplusChaos = 0f;
             ifEnergyRegenAllowed = true;
             ifEnergyUsed = false;
 
             //UI objects 
-            CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("shiggyCustomUI"));
+            CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("noctisCustomUI"));
             CustomUIObject.SetActive(false);
             SetActiveTrue = false;
 
-            plusChaosMeter = CustomUIObject.transform.GetChild(0).GetComponent<RectTransform>();
-            plusChaosMeterGlowBackground = CustomUIObject.transform.GetChild(1).GetComponent<Image>();
-            plusChaosMeterGlowRect = CustomUIObject.transform.GetChild(1).GetComponent<RectTransform>();
+            manaMeter = CustomUIObject.transform.GetChild(0).GetComponent<RectTransform>();
+            manaMeterGlowBackground = CustomUIObject.transform.GetChild(1).GetComponent<Image>();
+            manaMeterGlowRect = CustomUIObject.transform.GetChild(1).GetComponent<RectTransform>();
 
             //setup the UI element for the min/max
-            plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentplusChaos} / {maxPlusChaos}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
+            plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentMana} / {maxMana}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
 
             //ui element for information below the energy
-            quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
-            quirkGetUI.SetText(quirkGetString);
-            quirkGetUI.enabled = true;
+            //quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
+            //quirkGetUI.SetText(quirkGetString);
+            //quirkGetUI.enabled = true;
 
 
             // Start timer on 1f to turn off the timer.
@@ -97,13 +97,6 @@ namespace ShiggyMod.Modules.Survivors
 
         }
 
-        public void quirkGetInformation(string stringToPass, float duration)
-        {
-            quirkGetStopwatch = duration;
-            quirkGetString = stringToPass;
-            quirkGetUI.enabled = true;
-            
-        }
 
         //Creates the label.
         private HGTextMeshProUGUI CreateLabel(Transform parent, string name, string text, Vector2 position, float textScale, Color color)
@@ -127,37 +120,6 @@ namespace ShiggyMod.Modules.Survivors
             rectTransform.anchoredPosition = position;
             return hgtextMeshProUGUI;
 
-            //GameObject textObj;
-            //if (!parent)
-            //{
-            //    CustomUIObject = new GameObject(name);
-            //    textObj = CustomUIObject;
-            //    Canvas canvas = textObj.AddComponent<Canvas>();
-            //    canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            //}
-            //else
-            //{
-            //    textObj = new GameObject(name);
-            //    textObj.transform.parent = parent;
-
-            //}
-
-            //textObj.AddComponent<CanvasRenderer>();
-            //RectTransform rectTransform = textObj.AddComponent<RectTransform>();
-            //HGTextMeshProUGUI hgtextMeshProUGUI = textObj.AddComponent<HGTextMeshProUGUI>();
-            //hgtextMeshProUGUI.enabled = true;
-            //hgtextMeshProUGUI.text = text;
-            //hgtextMeshProUGUI.fontSize = textScale;
-            //hgtextMeshProUGUI.color = color;
-            //hgtextMeshProUGUI.alignment = TextAlignmentOptions.Center;
-            //hgtextMeshProUGUI.enableWordWrapping = false;
-            //rectTransform.localPosition = Vector2.zero;
-            //rectTransform.anchorMin = Vector2.zero;
-            //rectTransform.anchorMax = Vector2.one;
-            //rectTransform.localScale = Vector3.one;
-            //rectTransform.sizeDelta = Vector2.zero;
-            //rectTransform.anchoredPosition = position;
-            //return hgtextMeshProUGUI;
         }
 
         private void CalculateEnergyStats()
@@ -165,12 +127,12 @@ namespace ShiggyMod.Modules.Survivors
             //Energy updates
             if (characterBody)
             {
-                maxPlusChaos = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos)
+                maxMana = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos)
                     + (StaticValues.backupGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine))
                     + (StaticValues.afterburnerGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.UtilitySkillMagazine))
                     + (StaticValues.lysateGain * characterBody.master.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid));
 
-                regenPlusChaos = maxPlusChaos * StaticValues.regenPlusChaosFraction;
+                regenMana = maxMana * StaticValues.regenManaFraction;
 
                 costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));
                 costflatplusChaos = (StaticValues.costFlatPlusChaosSpend * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
@@ -201,34 +163,34 @@ namespace ShiggyMod.Modules.Survivors
             }
             if(ifEnergyRegenAllowed)
             {
-                currentplusChaos += regenPlusChaos * Time.fixedDeltaTime;
+                currentMana += regenMana * Time.fixedDeltaTime;
             }
 
 
-            if (currentplusChaos > maxPlusChaos)
+            if (currentMana > maxMana)
             {
-                currentplusChaos = maxPlusChaos;
+                currentMana = maxMana;
             }
-            if (currentplusChaos < 0f)
+            if (currentMana < 0f)
             {
-                currentplusChaos = 0f;
+                currentMana = 0f;
             }
 
             if (plusChaosNumber)
             {
-                plusChaosNumber.SetText($"{(int)currentplusChaos} / {maxPlusChaos}");
+                plusChaosNumber.SetText($"{(int)currentMana} / {maxMana}");
             }
 
-            if (plusChaosMeter)
+            if (manaMeter)
             {
                 // 2f because meter is too small probably.
                 // Logarithmically scale.
-                float logVal = Mathf.Log10(((maxPlusChaos / StaticValues.basePlusChaos) * 10f) + 1) * (currentplusChaos / maxPlusChaos);
-                plusChaosMeter.localScale = new Vector3(2.0f * logVal, 0.05f, 1f);
-                plusChaosMeterGlowRect.localScale = new Vector3(2.3f * logVal, 0.1f, 1f);
+                float logVal = Mathf.Log10(((maxMana / StaticValues.basePlusChaos) * 10f) + 1) * (currentMana / maxMana);
+                manaMeter.localScale = new Vector3(2.0f * logVal, 0.05f, 1f);
+                manaMeterGlowRect.localScale = new Vector3(2.3f * logVal, 0.1f, 1f);
             }
 
-            //Chat.AddMessage($"{currentplusChaos}/{maxPlusChaos}");
+            //Chat.AddMessage($"{currentMana}/{maxMana}");
         }
 
         public void FixedUpdate()
@@ -249,29 +211,6 @@ namespace ShiggyMod.Modules.Survivors
         {
             //Debug.Log(quirkGetString+ "quirkgetstring");
 
-            if (quirkGetUI.isActiveAndEnabled)
-            {
-                quirkGetUI.SetText(quirkGetString);
-                if (!informAFOToPlayers)
-                {
-                    informAFOToPlayers = true;
-                    Chat.AddMessage($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
-                    $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.");
-                    quirkGetInformation($"Press the [{Config.AFOHotkey.Value}] key to use <style=cIsUtility>All For One and steal quirks</style>."
-                    + $" Press the [{Config.RemoveHotkey.Value}] key to <style=cIsUtility>remove quirks</style>." +
-                    $" Press the [{Config.AFOGiveHotkey.Value}] key to <style=cIsUtility>give passive quirks</style>.", 5f);
-                }
-
-                if (quirkGetStopwatch > 0f)
-                {
-                    quirkGetStopwatch -= Time.deltaTime;
-                }
-                else if (quirkGetStopwatch <= 0f)
-                {
-                    quirkGetString = "";
-                }
-            }
 
             if (state != GlowState.STOP)
             {
@@ -310,7 +249,7 @@ namespace ShiggyMod.Modules.Survivors
                 }
             }
 
-            plusChaosMeterGlowBackground.color = currentColor;
+            manaMeterGlowBackground.color = currentColor;
         }
 
 
@@ -322,7 +261,7 @@ namespace ShiggyMod.Modules.Survivors
             //float plusChaosCost = rageplusChaosCost * costmultiplierplusChaos * plusChaosflatCost;
             //if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-            currentplusChaos -= plusChaos;
+            currentMana -= plusChaos;
             TriggerGlow(0.3f, 0.3f, Color.magenta);
             ifEnergyUsed = true;
 
@@ -335,7 +274,7 @@ namespace ShiggyMod.Modules.Survivors
             //float plusChaosCost = rageplusChaosCost * costmultiplierplusChaos * plusChaosflatCost;
             //if (plusChaosCost < 0f) plusChaosCost = 0f;
 
-            currentplusChaos += plusChaos;
+            currentMana += plusChaos;
             TriggerGlow(0.3f, 0.3f, Color.cyan);
 
         }

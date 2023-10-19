@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     public static class Projectiles
     {

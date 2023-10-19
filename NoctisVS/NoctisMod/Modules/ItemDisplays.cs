@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShiggyMod.Modules
+namespace NoctisMod.Modules
 {
     internal static class ItemDisplays
     {

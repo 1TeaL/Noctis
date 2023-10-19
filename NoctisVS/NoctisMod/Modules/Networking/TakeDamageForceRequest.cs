@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 
-namespace ShiggyMod.Modules.Networking
+namespace NoctisMod.Modules.Networking
 {
     internal class TakeMeleeDamageForceRequest : INetMessage
     {
@@ -74,58 +74,9 @@ namespace ShiggyMod.Modules.Networking
                 charbodyObj = charcharBody.gameObject;
 
                 //Damage target and stun
-                DamageTargets(enemycharBody, charcharBody);
             }
         }
-
-        private void DamageTargets(CharacterBody enemycharBody, CharacterBody charcharBody)
-        {
-
-            if (enemycharBody.healthComponent && enemycharBody.healthComponent.body)
-            {
-                float Weight = 1f;
-
-                if (enemycharBody.characterMotor)
-                {
-                    Weight = enemycharBody.characterMotor.mass;
-                }
-                else if (enemycharBody.rigidbody)
-                {
-                    Weight = enemycharBody.rigidbody.mass;
-                }
-
-                int buffcount = enemycharBody.GetBuffCount(Modules.Buffs.extremeSpeedHitsDebuff.buffIndex);
-
-                enemycharBody.ApplyBuff(Modules.Buffs.extremeSpeedHitsDebuff.buffIndex, buffcount-1);
-
-                DamageInfo damageInfo = new DamageInfo
-                {
-                    attacker = charbodyObj,
-                    inflictor = charbodyObj,
-                    damage = damage,
-                    position = enemycharBody.transform.position,
-                    procCoefficient = StaticValues.extremeSpeedProcCoefficient,
-                    damageType = DamageType.Generic,
-                    crit = charcharBody.RollCrit(),
-
-                };
-                DamageAPI.AddModdedDamageType(damageInfo, Damage.shiggyDecay);
-
-                enemycharBody.healthComponent.TakeDamageForce(direction * force * (Weight), true, true);
-                enemycharBody.healthComponent.TakeDamage(damageInfo);
-                GlobalEventManager.instance.OnHitEnemy(damageInfo, enemycharBody.healthComponent.gameObject);
-
-                
-
-                EffectManager.SpawnEffect(blastEffectPrefab, new EffectData
-                {
-                    origin = enemycharBody.transform.position,
-                    scale = 1f,
-                    rotation = Quaternion.LookRotation(direction),
-
-                }, true);
-            }
-        }      
+     
 
     }
 }
