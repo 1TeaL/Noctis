@@ -7,11 +7,11 @@ namespace NoctisMod.Modules
 {
     public static class Damage
     {
-        internal static DamageAPI.ModdedDamageType shiggyDecay;
+        internal static DamageAPI.ModdedDamageType noctisVulnerability;
 
         internal static void SetupModdedDamage()
         {
-            shiggyDecay = DamageAPI.ReserveDamageType();
+            noctisVulnerability = DamageAPI.ReserveDamageType();
         }
     }
 }

@@ -93,12 +93,12 @@ namespace NoctisMod.Modules.Survivors
                 new CustomRendererInfo
                 {
                     childName = "hairAShape",
-                    material = hopooHairMat,
+                    material = hairMat,
                 },
                 new CustomRendererInfo
                 {
                     childName = "hairBShape",
-                    material = hopooHairMat,
+                    material = hairMat,
                 },
                 new CustomRendererInfo
                 {

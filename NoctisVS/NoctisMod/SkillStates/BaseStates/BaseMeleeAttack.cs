@@ -37,7 +37,7 @@ namespace NoctisMod.SkillStates.BaseStates
 
         private float earlyExitTime;
         public float duration;
-        private bool hasFired;
+        public bool hasFired;
         private float hitPauseTimer;
         public OverlapAttack attack;
         protected bool inHitPause;
@@ -131,7 +131,7 @@ namespace NoctisMod.SkillStates.BaseStates
             }
         }
 
-        private void FireAttack()
+        public void FireAttack()
         {
             if (!this.hasFired)
             {
@@ -156,14 +156,22 @@ namespace NoctisMod.SkillStates.BaseStates
 
         protected virtual void SetNextState()
         {
-            int index = this.swingIndex;
-            if (index == 0) index = 1;
-            else index = 0;
+            if (!this.hasFired) this.FireAttack();
 
-            this.outer.SetNextState(new BaseMeleeAttack
+            if(base.isAuthority && base.IsKeyDownAuthority())
             {
-                swingIndex = index
-            });
+                int index = this.swingIndex;
+                if (index == 0) index = 1;
+                else index = 0;
+                this.outer.SetNextState(new BaseMeleeAttack
+                {
+                    swingIndex = index
+                });
+
+            }
+
+
+            return;
         }
 
         public override void FixedUpdate()
@@ -197,12 +205,7 @@ namespace NoctisMod.SkillStates.BaseStates
 
             if (this.stopwatch >= (this.duration - this.earlyExitTime) && base.isAuthority)
             {
-                if (base.inputBank.skill1.down)
-                {
-                    if (!this.hasFired) this.FireAttack();
-                    this.SetNextState();
-                    return;
-                }
+                SetNextState();
             }
 
             if (this.stopwatch >= this.duration && base.isAuthority)

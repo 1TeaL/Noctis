@@ -39,8 +39,6 @@ namespace NoctisMod.Modules.Survivors
         public float maxTrackingDistance = 70f;
         public float maxTrackingAngle = 20f;
         public float trackerUpdateFrequency = 10f;
-        private Indicator indicator;
-        private Indicator passiveindicator;
         private Indicator activeindicator;
         public HurtBox trackingTarget;
         public HurtBox Target;
@@ -60,7 +58,7 @@ namespace NoctisMod.Modules.Survivors
         private ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
 
-        
+
 
         //Particles
         //public ParticleSystem RARM;
@@ -71,6 +69,16 @@ namespace NoctisMod.Modules.Survivors
         //public ParticleSystem SWORDAURAR;
 
         //particle bools
+
+        public weaponType weaponState;
+        public enum weaponType : ushort
+        {
+            NONE = 1,
+            SWORD = 2,
+            GREATSWORD = 3,
+            POLEARM = 4,
+        }
+
 
 
         public void Awake()
@@ -97,8 +105,6 @@ namespace NoctisMod.Modules.Survivors
             //SWORDAURAL.Stop();
             //SWORDAURAR.Stop();
 
-            indicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator"));
-            passiveindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/EngiMissileTrackingIndicator"));
             activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
             //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             inputBank = gameObject.GetComponent<InputBankTest>();
@@ -122,7 +128,7 @@ namespace NoctisMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-           
+            weaponState = weaponType.NONE;
 
 
         }
@@ -136,15 +142,11 @@ namespace NoctisMod.Modules.Survivors
 
         public void OnEnable()
         {
-            this.indicator.active = true;
-            this.passiveindicator.active = true;
             this.activeindicator.active = true;
         }
 
         public void OnDisable()
         {
-            this.indicator.active = false;
-            this.passiveindicator.active = false;
             this.activeindicator.active = false;
         }
 
@@ -166,17 +168,13 @@ namespace NoctisMod.Modules.Survivors
                 HurtBox hurtBox = this.trackingTarget;
                 if (hurtBox)
                 {
-                    this.activeindicator.active = false;
-                    this.passiveindicator.active = false;
-                    this.indicator.active = true;
-                    this.indicator.targetTransform = this.trackingTarget.transform;
+                    this.activeindicator.active = true;
+                    this.activeindicator.targetTransform = this.trackingTarget.transform;
 
                 }
                 else
                 {
-                    this.indicator.active = false;
                     this.activeindicator.active = false;
-                    this.passiveindicator.active = false;
 
                 }
 

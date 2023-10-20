@@ -34,6 +34,7 @@ namespace NoctisMod.SkillStates
                 weaponSwap = false;
             }
 
+            noctisCon.weaponState = NoctisController.weaponType.SWORD;
 
         }
 
@@ -90,6 +91,47 @@ namespace NoctisMod.SkillStates
             else if (!weaponSwap)
             {
                 //normal combos
+
+                //weapon swap combos
+                if (!base.isGrounded)
+                {
+                    //aerial attack
+
+                }
+                else
+                {
+                    if (base.inputBank.moveVector == Vector3.zero)
+                    {
+                        //neutral attack
+                        Chat.AddMessage("neutral attack- swap");
+                    }
+                    else
+                    {
+                        Vector3 moveVector = base.inputBank.moveVector;
+                        Vector3 aimDirection = base.inputBank.aimDirection;
+                        Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
+                        Vector3 up = base.transform.up;
+                        Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
+
+                        if (Vector3.Dot(base.inputBank.moveVector, normalized) >= 0.8f)
+                        {
+                            //forward attack
+                            Chat.AddMessage("forward attack- swap");
+                        }
+                        else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
+                        {
+                            //backward attack
+                            Chat.AddMessage("backward attack- swap");
+                        }
+                        else
+                        {
+                            //neutral attack
+                            Chat.AddMessage("neutral attack- swap");
+                        }
+
+                    }
+
+                }
             }
         }
 
