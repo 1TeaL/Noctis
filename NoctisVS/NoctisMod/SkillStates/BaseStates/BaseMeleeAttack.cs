@@ -35,8 +35,6 @@ namespace NoctisMod.SkillStates.BaseStates
         protected GameObject hitEffectPrefab;
         protected NetworkSoundEventIndex impactSound;
 
-        private float earlyExitTime;
-        public float duration;
         public bool hasFired;
         private float hitPauseTimer;
         public OverlapAttack attack;
@@ -47,19 +45,28 @@ namespace NoctisMod.SkillStates.BaseStates
         private BaseState.HitStopCachedState hitStopCachedState;
         private Vector3 storedVelocity;
 
+        private int attackAmount;
+        private float partialAttack;
+        private HitBoxGroup hitBoxGroup;
+
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / this.attackSpeedStat;
-            this.earlyExitTime = this.baseEarlyExitTime / this.attackSpeedStat;
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
-            base.StartAimMode(0.5f + this.duration, false);
+            base.StartAimMode(this.baseDuration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
 
-            HitBoxGroup hitBoxGroup = null;
+            attackAmount = (int)this.attackSpeedStat;
+            if (attackAmount < 1)
+            {
+                attackAmount = 1;
+            }
+            partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
+
+            hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
 
             if (modelTransform)
@@ -90,7 +97,7 @@ namespace NoctisMod.SkillStates.BaseStates
         protected virtual void PlayAttackAnimation()
         {
             //update animations one day
-            base.PlayCrossfade("RightArm, Override", "RArmSwipe" + (1 + swingIndex), "Attack.playbackRate", this.duration/2f, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "SwordSlashNeutral" + (1 + swingIndex), "Attack.playbackRate", baseDuration, 0.05f);
             //base.PlayCrossfade("FullBody, Override", "Slam" , "Slash.playbackRate", this.duration/2, 0.05f);
         }
 
@@ -143,18 +150,57 @@ namespace NoctisMod.SkillStates.BaseStates
                     this.PlaySwingEffect();
                     base.AddRecoil(-1f * this.attackRecoil, -2f * this.attackRecoil, -0.5f * this.attackRecoil, 0.5f * this.attackRecoil);
                 }
-            }
 
-            if (base.isAuthority)
-            {
-                if (this.attack.Fire())
+                if (base.isAuthority)
                 {
-                    this.OnHitEnemyAuthority();
+                    for (int i = 0; i < attackAmount; i++)
+                    {
+                        // Create Attack, fire it, do the on hit enemy authority.
+                        this.attack = new OverlapAttack();
+                        this.attack.damageType = this.damageType;
+                        this.attack.attacker = base.gameObject;
+                        this.attack.inflictor = base.gameObject;
+                        this.attack.teamIndex = base.GetTeam();
+                        this.attack.damage = this.damageCoefficient * this.damageStat;
+                        this.attack.procCoefficient = this.procCoefficient;
+                        this.attack.hitEffectPrefab = this.hitEffectPrefab;
+                        this.attack.forceVector = this.bonusForce;
+                        this.attack.pushAwayForce = this.pushForce;
+                        this.attack.hitBoxGroup = hitBoxGroup;
+                        this.attack.isCrit = base.RollCrit();
+                        this.attack.impactSound = this.impactSound;
+                        if (this.attack.Fire())
+                        {
+                            this.OnHitEnemyAuthority();
+                        }
+                    }
+                    if (partialAttack > 0.0f)
+                    {
+                        // Create Attack, fire it, do the on hit enemy authority, partaial damage on final 
+                        this.attack = new OverlapAttack();
+                        this.attack.damageType = this.damageType;
+                        this.attack.attacker = base.gameObject;
+                        this.attack.inflictor = base.gameObject;
+                        this.attack.teamIndex = base.GetTeam();
+                        this.attack.damage = this.damageCoefficient * this.damageStat * partialAttack;
+                        this.attack.procCoefficient = this.procCoefficient * partialAttack;
+                        this.attack.hitEffectPrefab = this.hitEffectPrefab;
+                        this.attack.forceVector = this.bonusForce;
+                        this.attack.pushAwayForce = this.pushForce;
+                        this.attack.hitBoxGroup = hitBoxGroup;
+                        this.attack.isCrit = base.RollCrit();
+                        this.attack.impactSound = this.impactSound;
+                        if (this.attack.Fire())
+                        {
+                            this.OnHitEnemyAuthority();
+                        }
+                    }
                 }
             }
+
         }
 
-        protected virtual void SetNextState()
+        protected virtual void CheckNextState()
         {
             if (!this.hasFired) this.FireAttack();
 
@@ -198,17 +244,17 @@ namespace NoctisMod.SkillStates.BaseStates
                 this.animator.SetFloat("Slash.playbackRate", 0f);
             }
 
-            if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
             {
                 this.FireAttack();
             }
 
-            if (this.stopwatch >= (this.duration - this.earlyExitTime) && base.isAuthority)
+            if (this.stopwatch >= (this.baseDuration - this.baseEarlyExitTime) && base.isAuthority)
             {
-                SetNextState();
+                CheckNextState();
             }
 
-            if (this.stopwatch >= this.duration && base.isAuthority)
+            if (this.stopwatch >= this.baseDuration && base.isAuthority)
             {
                 this.outer.SetNextStateToMain();
                 return;

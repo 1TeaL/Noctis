@@ -44,7 +44,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: EntranceLoop
-  m_Speed: 0.2
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1028339939988193190}
@@ -57,7 +57,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: af642424b8c4ed340ab0a127b8eae9f0, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0c6ec17d3f226404bb71e1064abc72de, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -127,7 +127,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Entrance
-  m_Speed: 0.2
+  m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1923707903103396983}
@@ -140,7 +140,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: af642424b8c4ed340ab0a127b8eae9f0, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0c6ec17d3f226404bb71e1064abc72de, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

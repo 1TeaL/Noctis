@@ -19,23 +19,46 @@ namespace NoctisMod.SkillStates
 
             this.hitboxName = "SwordHitbox";
 
-            this.damageCoefficient = 1f;
-            this.procCoefficient = 1f;
-            this.pushForce = 0f;
             this.damageType = DamageType.Generic;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.2f;
-            this.attackEndTime = 0.4f;
-            this.baseEarlyExitTime = 0.4f;
-            this.hitStopDuration = 0.08f;
+            switch (this.swingIndex)
+            {
+                case 0:
+                    this.damageCoefficient = 1f;
+                    this.procCoefficient = 1f;
+                    this.pushForce = 300f;
+                    this.baseDuration = 0.5f;
+                    this.attackStartTime = 0.2f;
+                    this.attackEndTime = 0.4f;
+                    this.baseEarlyExitTime = 0.4f;
+                    break;
+                case 1:
+                    this.damageCoefficient = 1f;
+                    this.procCoefficient = 1f;
+                    this.pushForce = 0f;
+                    this.baseDuration = 0.5f;
+                    this.attackStartTime = 0.2f;
+                    this.attackEndTime = 0.4f;
+                    this.baseEarlyExitTime = 0.4f;
+                    break;
+                case 2:
+                    this.damageCoefficient = 1f;
+                    this.procCoefficient = 1f;
+                    this.pushForce = 1000f;
+                    this.baseDuration = 1f;
+                    this.attackStartTime = 0.4f;
+                    this.attackEndTime = 0.8f;
+                    this.baseEarlyExitTime = 0.4f;
+                    break;
+            }
+            this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = ChooseAnimationString();
-            this.swingEffectPrefab = Modules.Assets.shiggySwingEffect;
-            this.hitEffectPrefab = Modules.Assets.shiggyHitImpactEffect;
+            this.muzzleString = $"SwordSwingNeutral{this.swingIndex + 1}";
+            this.swingEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
@@ -44,29 +67,10 @@ namespace NoctisMod.SkillStates
         }
 
 
-        private string ChooseAnimationString()
-        {
-            string returnVal = "SwordSwing1";
-            switch (this.swingIndex)
-            {
-                case 0:
-                    returnVal = "SwordSwing1";
-                    break;
-                case 1:
-                    returnVal = "SwordSwing2";
-                    break;
-                case 2:
-                    returnVal = "SwordSwing3";
-                    break;
-            }
-
-            return returnVal;
-        }
-
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayAttackAnimation();
+            base.PlayCrossfade("FullBody, Override", "SwordSlashNeutral" + (1 + swingIndex), "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -80,7 +84,7 @@ namespace NoctisMod.SkillStates
 
         }
 
-        protected override void SetNextState()
+        protected override void CheckNextState()
         {
             if (!this.hasFired) this.FireAttack();
 
@@ -92,14 +96,15 @@ namespace NoctisMod.SkillStates
                 {
                     index = 0;
                 }
-                this.outer.SetNextState(new SwordNeutral
+                this.outer.SetNextState(new SwordCombo
                 {
-                    swingIndex = index
+                    currentSwingIndex = index
                 });
+
+                return;
 
             }
 
-            return;
 
         }
 

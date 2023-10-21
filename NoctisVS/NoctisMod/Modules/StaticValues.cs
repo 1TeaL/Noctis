@@ -24,5 +24,13 @@ namespace NoctisMod.Modules
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
 
+        //Sword
+        internal static float swordProc = 1f;
+        internal static float swordNeutralDamage1 = 2f;
+        internal static float swordNeutralDamage2 = 1f;
+        internal static float swordNeutralDamage3 = 4f;
+        internal static float swordDashDistance = 4f;
+        internal static float swordDashSpeed = 6f;
+
     }
 }

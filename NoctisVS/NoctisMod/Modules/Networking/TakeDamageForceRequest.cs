@@ -24,7 +24,7 @@ namespace NoctisMod.Modules.Networking
         GameObject charbodyObj;
         private BullseyeSearch search;
         private List<HurtBox> trackingTargets;
-        private GameObject blastEffectPrefab = Assets.loaderOmniImpactLightningEffect;
+        private GameObject blastEffectPrefab;
 
         public TakeMeleeDamageForceRequest()
         {

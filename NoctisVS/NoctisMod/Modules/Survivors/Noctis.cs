@@ -61,7 +61,6 @@ namespace NoctisMod.Modules.Survivors
         public static Material buttonsMat = Assets.mainAssetBundle.LoadAsset<Material>("buttonsMat");
         public static Material ringMat = Assets.mainAssetBundle.LoadAsset<Material>("ringMat");
         public static Material teethMat = Assets.mainAssetBundle.LoadAsset<Material>("teethMat");
-        public static Material hopooHairMat = Materials.CreateHopooMaterial("hairMat");
 
         internal override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
@@ -156,8 +155,8 @@ namespace NoctisMod.Modules.Survivors
             ChildLocator childLocator = bodyPrefab.GetComponentInChildren<ChildLocator>();
             GameObject model = childLocator.gameObject;
 
-            //Transform hitboxTransform = childLocator.FindChild("SmallHitbox");
-            //Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SmallHitbox");
+            Transform hitboxTransform = childLocator.FindChild("SwordHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SwordHitbox");
 
             //Transform hitboxTransform2 = childLocator.FindChild("DetectSmallHitbox");
             //Modules.Prefabs.SetupHitbox(model, hitboxTransform2, "DetectSmallHitbox");
@@ -195,12 +194,12 @@ namespace NoctisMod.Modules.Survivors
             swordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
             {
 
-                skillName = prefix + "DECAY_NAME",
-                skillNameToken = prefix + "DECAY_NAME",
-                skillDescriptionToken = prefix + "DECAY_DESCRIPTION",
+                skillName = prefix + "SWORD_NAME",
+                skillNameToken = prefix + "SWORD_NAME",
+                skillDescriptionToken = prefix + "SWORD_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.SwordCombo)),
-                activationStateMachineName = "Weapon",
+                activationStateMachineName = "Body",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = true,
@@ -211,7 +210,7 @@ namespace NoctisMod.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
-                cancelSprintingOnActivation = false,
+                cancelSprintingOnActivation = true,
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
