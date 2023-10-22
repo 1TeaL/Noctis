@@ -14,9 +14,21 @@ namespace NoctisMod.Modules
         {
             entityStates.Add(typeof(BaseMeleeAttack));
 
+            //Utility
+            entityStates.Add(typeof(Dodge));
 
-            //base skills
+            //Sword
             entityStates.Add(typeof(SwordCombo));
+            entityStates.Add(typeof(SwordNeutral));
+            entityStates.Add(typeof(SwordForward));
+            entityStates.Add(typeof(SwordBackward));
+            entityStates.Add(typeof(SwordAerial));
+            entityStates.Add(typeof(SwordSwapNeutral));
+            entityStates.Add(typeof(SwordSwapNeutral2));
+            entityStates.Add(typeof(SwordSwapForward));
+            entityStates.Add(typeof(SwordSwapBackward));
+            entityStates.Add(typeof(SwordSwapAerial));
+            entityStates.Add(typeof(SwordSwapAerial2));
         }
     }
 }

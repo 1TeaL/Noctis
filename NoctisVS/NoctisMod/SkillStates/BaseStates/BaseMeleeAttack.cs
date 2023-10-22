@@ -1,4 +1,6 @@
 ﻿using EntityStates;
+using IL.RoR2.Skills;
+using NoctisMod.Modules.Survivors;
 using R2API;
 using RoR2;
 using RoR2.Audio;
@@ -49,12 +51,14 @@ namespace NoctisMod.SkillStates.BaseStates
         private float partialAttack;
         private HitBoxGroup hitBoxGroup;
 
+        public RoR2.Skills.SkillDef weaponDef;
+
         public override void OnEnter()
         {
             base.OnEnter();
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
-            base.StartAimMode(this.baseDuration, false);
+            base.StartAimMode(this.baseDuration, true);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -104,10 +108,10 @@ namespace NoctisMod.SkillStates.BaseStates
         public override void OnExit()
         {
             if (!this.hasFired && !this.cancelled) this.FireAttack();
-
+            
             base.OnExit();
 
-            this.animator.SetBool("attacking", false);
+            //this.animator.SetBool("attacking", false);
         }
 
         protected virtual void PlaySwingEffect()
@@ -200,12 +204,11 @@ namespace NoctisMod.SkillStates.BaseStates
 
         }
 
-        protected virtual void CheckNextState()
+        protected virtual void SetNextState()
         {
-            if (!this.hasFired) this.FireAttack();
-
-            if(base.isAuthority && base.IsKeyDownAuthority())
+            if(base.isAuthority)
             {
+                if (!this.hasFired) this.FireAttack();
                 int index = this.swingIndex;
                 if (index == 0) index = 1;
                 else index = 0;
@@ -213,11 +216,11 @@ namespace NoctisMod.SkillStates.BaseStates
                 {
                     swingIndex = index
                 });
+                return;
 
             }
 
 
-            return;
         }
 
         public override void FixedUpdate()
@@ -240,8 +243,9 @@ namespace NoctisMod.SkillStates.BaseStates
             else
             {
                 if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
-                if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
+                if (this.animator) this.animator.SetFloat("Attack.playbackRate", 0f);
                 this.animator.SetFloat("Slash.playbackRate", 0f);
+                this.animator.SetFloat("Swing.playbackRate", 0f);
             }
 
             if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
@@ -251,7 +255,23 @@ namespace NoctisMod.SkillStates.BaseStates
 
             if (this.stopwatch >= (this.baseDuration - this.baseEarlyExitTime) && base.isAuthority)
             {
-                CheckNextState();
+                if (inputBank.skill1.down && skillLocator.primary.skillDef == weaponDef)
+                {
+                    SetNextState();
+                }
+                if (inputBank.skill2.down && skillLocator.secondary.skillDef == weaponDef)
+                {
+                    SetNextState();
+                }
+                if (inputBank.skill3.down)
+                {
+                    this.outer.SetNextState(new Dodge());
+                    return;
+                }
+                if (inputBank.skill4.down && skillLocator.special.skillDef == weaponDef)
+                {
+                    SetNextState();
+                }
             }
 
             if (this.stopwatch >= this.baseDuration && base.isAuthority)

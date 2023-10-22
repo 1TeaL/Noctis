@@ -26,6 +26,7 @@ namespace NoctisMod.SkillStates
             noctisCon = gameObject.GetComponent<NoctisController>();
             Ray aimRay = base.GetAimRay();
 
+            weaponSwap = false;
             //check weapon swap
             if (noctisCon.weaponState == NoctisController.weaponType.NONE || noctisCon.weaponState == NoctisController.weaponType.SWORD)
             {
@@ -66,31 +67,28 @@ namespace NoctisMod.SkillStates
                             if (distance > Modules.StaticValues.swordDashDistance)
                             {
                                 Chat.AddMessage("aerial attack");
-                                this.outer.SetNextState(new SwordSwapAerial
-                                {
-                                    isTarget = true,
-                                    Target = Target
-                                });
+                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                                SwordSwapAerial.isTarget = true;
+                                SwordSwapAerial.Target = Target;
+                                this.outer.SetNextState(SwordSwapAerial);
                                 return;
 
                             }
                             else
                             {
                                 Chat.AddMessage("aerial attack");
-                                this.outer.SetNextState(new SwordSwapAerial
-                                {
-                                    isTarget = false,
-                                });
+                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                                SwordSwapAerial.isTarget = false;
+                                this.outer.SetNextState(SwordSwapAerial);
                                 return;
 
                             }
                         }
                         else
                         {
-                            this.outer.SetNextState(new SwordSwapAerial
-                            {
-                                isTarget = false
-                            });
+                            SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                            SwordSwapAerial.isTarget = false;
+                            this.outer.SetNextState(SwordSwapAerial);
                             return;
 
                         }
@@ -102,10 +100,9 @@ namespace NoctisMod.SkillStates
                         {
                             //neutral attack
                             Chat.AddMessage("neutral attack- swap");
-                            this.outer.SetNextState(new SwordSwapNeutral
-                            {
-                                swingIndex = currentSwingIndex,
-                            });
+                            SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
+                            SwordSwapNeutral.swingIndex = currentSwingIndex;
+                            this.outer.SetNextState(SwordSwapNeutral);
                             return;
                         }
                         else
@@ -126,11 +123,10 @@ namespace NoctisMod.SkillStates
                                     if (distance > Modules.StaticValues.swordDashDistance)
                                     {
                                         Chat.AddMessage("forward attack- swap");
-                                        this.outer.SetNextState(new SwordSwapForward
-                                        {
-                                            isTarget = true,
-                                            Target = Target
-                                        });
+                                        SwordSwapForward SwordSwapForward = new SwordSwapForward();
+                                        SwordSwapForward.isTarget = true;
+                                        SwordSwapForward.Target = Target;
+                                        this.outer.SetNextState(SwordSwapForward);
                                         return;
 
                                     }
@@ -138,10 +134,9 @@ namespace NoctisMod.SkillStates
                                     {
                                         //neutral attack
                                         Chat.AddMessage("neutral attack- swap");
-                                        this.outer.SetNextState(new SwordSwapNeutral
-                                        {
-                                            swingIndex = currentSwingIndex,
-                                        });
+                                        SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
+                                        SwordSwapNeutral.swingIndex = currentSwingIndex;
+                                        this.outer.SetNextState(SwordSwapNeutral);
                                         return;
 
                                     }
@@ -149,10 +144,9 @@ namespace NoctisMod.SkillStates
                                 else
                                 {
                                     Chat.AddMessage("forward attack- swap");
-                                    this.outer.SetNextState(new SwordSwapForward
-                                    {
-                                        isTarget = false
-                                    });
+                                    SwordSwapForward SwordSwapForward = new SwordSwapForward();
+                                    SwordSwapForward.isTarget = false;
+                                    this.outer.SetNextState(SwordSwapForward);
                                     return;
 
                                 }
@@ -168,10 +162,9 @@ namespace NoctisMod.SkillStates
                             {
                                 //neutral attack
                                 Chat.AddMessage("neutral attack- swap");
-                                this.outer.SetNextState(new SwordSwapNeutral
-                                {
-                                    swingIndex = currentSwingIndex,
-                                });
+                                SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
+                                SwordSwapNeutral.swingIndex = currentSwingIndex;
+                                this.outer.SetNextState(SwordSwapNeutral);
                                 return;
                             }
 
@@ -196,32 +189,30 @@ namespace NoctisMod.SkillStates
                             if (distance > Modules.StaticValues.swordDashDistance)
                             {
                                 Chat.AddMessage("aerial attack");
-                                this.outer.SetNextState(new SwordAerial
-                                {
-                                    isTarget = true,
-                                    Target = Target
-                                });
+                                SwordAerial SwordAerial = new SwordAerial();
+                                SwordAerial.isTarget = true;
+                                SwordAerial.Target = Target;
+                                this.outer.SetNextState(SwordAerial);
                                 return;
 
                             }
                             else
                             {
-                                //neutral attack
-                                Chat.AddMessage("neutral attack");
-                                this.outer.SetNextState(new SwordAerial
-                                {
-                                    isTarget = false,
-                                });
+                                //aerial attack
+                                Chat.AddMessage("aerial attack");
+                                SwordAerial SwordAerial = new SwordAerial();
+                                SwordAerial.isTarget = false;
+                                this.outer.SetNextState(SwordAerial);
                                 return;
 
                             }
                         }
                         else
                         {
-                            this.outer.SetNextState(new SwordAerial
-                            {
-                                isTarget = false
-                            });
+                            Chat.AddMessage("aerial attack");
+                            SwordAerial SwordAerial = new SwordAerial();
+                            SwordAerial.isTarget = false;
+                            this.outer.SetNextState(SwordAerial);
                             return;
 
                         }
@@ -233,10 +224,9 @@ namespace NoctisMod.SkillStates
                         {
                             //neutral attack
                             Chat.AddMessage("neutral attack");
-                            this.outer.SetNextState(new SwordNeutral
-                            {
-                                swingIndex = currentSwingIndex,
-                            });
+                            SwordNeutral SwordNeutral = new SwordNeutral();
+                            SwordNeutral.swingIndex = currentSwingIndex;
+                            this.outer.SetNextState(SwordNeutral);
                             return;
                         }
                         else
@@ -258,11 +248,10 @@ namespace NoctisMod.SkillStates
                                     if (distance > Modules.StaticValues.swordDashDistance)
                                     {
                                         Chat.AddMessage("forward attack");
-                                        this.outer.SetNextState(new SwordForward
-                                        {
-                                            isTarget = true,
-                                            Target = Target
-                                        });
+                                        SwordForward SwordForward = new SwordForward();
+                                        SwordForward.isTarget = true;
+                                        SwordForward.isTarget = Target;
+                                        this.outer.SetNextState(SwordForward);
                                         return;
 
                                     }
@@ -270,20 +259,19 @@ namespace NoctisMod.SkillStates
                                     {
                                         //neutral attack
                                         Chat.AddMessage("neutral attack");
-                                        this.outer.SetNextState(new SwordNeutral
-                                        {
-                                            swingIndex = currentSwingIndex,
-                                        });
+                                        SwordNeutral SwordNeutral = new SwordNeutral();
+                                        SwordNeutral.swingIndex = currentSwingIndex;
+                                        this.outer.SetNextState(SwordNeutral);
                                         return;
 
                                     }
                                 }
                                 else
                                 {
-                                    this.outer.SetNextState(new SwordForward
-                                    {
-                                        isTarget = false
-                                    });
+                                    Chat.AddMessage("forward attack");
+                                    SwordForward SwordForward = new SwordForward();
+                                    SwordForward.isTarget = false;
+                                    this.outer.SetNextState(SwordForward);
                                     return;
 
                                 }
@@ -299,10 +287,9 @@ namespace NoctisMod.SkillStates
                             {
                                 //neutral attack
                                 Chat.AddMessage("neutral attack");
-                                this.outer.SetNextState(new SwordNeutral
-                                {
-                                    swingIndex = currentSwingIndex,
-                                });
+                                SwordNeutral SwordNeutral = new SwordNeutral();
+                                SwordNeutral.swingIndex = currentSwingIndex;
+                                this.outer.SetNextState(SwordNeutral);
                                 return;
                             }
 
@@ -325,6 +312,17 @@ namespace NoctisMod.SkillStates
             return InterruptPriority.Skill;
         }
 
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            base.OnSerialize(writer);
+            writer.Write(this.currentSwingIndex);
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            base.OnDeserialize(reader);
+            this.currentSwingIndex = reader.ReadInt32();            
+        }
     }
 }
 

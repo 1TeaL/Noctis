@@ -19,35 +19,38 @@ namespace NoctisMod.SkillStates
         private float rollSpeed;
         private float SpeedCoefficient;
         public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
-        private float finalSpeedCoefficient = 0f;
+        private float finalSpeedCoefficient = 1f;
 
 
         public override void OnEnter()
         {
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            weaponDef = Noctis.swordSkillDef;
             this.hitboxName = "SwordHitbox";
 
             this.damageType = DamageType.Generic;
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
-            this.pushForce = 1000f;
+            this.pushForce = 0f;
             this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.4f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.6f;
+            this.baseEarlyExitTime = 0.3f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = $"SwordSwingNeutral{this.swingIndex + 1}";
-            this.swingEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.muzzleString = $"SwordSwingStab";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            this.direction = -base.GetAimRay().direction.normalized;
+            this.direction.y = 0;
 
             if (base.characterBody)
             {
@@ -64,22 +67,19 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, (base.fixedAge/ base.baseDuration)- (baseDuration * attackEndTime));
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch >= (this.baseDuration * this.attackEndTime) && this.stopwatch <= (this.baseDuration - this.baseEarlyExitTime))
+            base.StartAimMode(0.3f, true);
+            if (this.stopwatch >= (this.baseDuration * this.attackEndTime))
             {
                 RecalculateRollSpeed();
-                if (base.isAuthority)
-                {
-                    base.characterDirection.forward  = this.direction;
-                    base.characterMotor.velocity = Vector3.zero;
-                    base.characterMotor.rootMotion -= this.direction * this.rollSpeed * Time.fixedDeltaTime;
-                }          
+                Vector3 velocity = direction * rollSpeed;
+                base.characterMotor.velocity = velocity;                       
 
 
             }
@@ -103,12 +103,12 @@ namespace NoctisMod.SkillStates
 
         }
 
-        protected override void CheckNextState()
+        protected override void SetNextState()
         {
-            if (!this.hasFired) this.FireAttack();
 
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
+                if (!this.hasFired) this.FireAttack();
                 this.outer.SetNextState(new SwordCombo());
                 return;
             }

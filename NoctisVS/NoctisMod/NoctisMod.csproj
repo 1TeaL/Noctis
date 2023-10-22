@@ -84,7 +84,6 @@
   <ItemGroup>
     <Folder Include="SkillStates\Skills\Greatsword\" />
     <Folder Include="SkillStates\Skills\Polearm\" />
-    <Folder Include="SkillStates\Skills\Utility\" />
   </ItemGroup>
 
 </Project>

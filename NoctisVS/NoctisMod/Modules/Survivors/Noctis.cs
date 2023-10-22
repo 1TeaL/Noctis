@@ -78,11 +78,13 @@ namespace NoctisMod.Modules.Survivors
                 {
                     childName = "eyelashShape",
                     material = faceMat,
+                    ignoreOverlays = true,
                 },
                 new CustomRendererInfo
                 {
                     childName = "eyeShape",
                     material = eyeMat,
+                    ignoreOverlays = true,
                 },
                 new CustomRendererInfo
                 {
@@ -103,16 +105,19 @@ namespace NoctisMod.Modules.Survivors
                 {
                     childName = "teethShape",
                     material = teethMat,
+                    ignoreOverlays = true,
                 },
                 new CustomRendererInfo
                 {
                     childName = "buttonShape",
                     material = buttonsMat,
+                    ignoreOverlays = true,
                 },
                 new CustomRendererInfo
                 {
                     childName = "ringShape",
                     material = ringMat,
+                    ignoreOverlays = true,
                 },
                 new CustomRendererInfo
                 {
@@ -222,14 +227,14 @@ namespace NoctisMod.Modules.Survivors
             #region Utility
             dodgeSkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = prefix + "AIRCANNON_NAME",
-                skillNameToken = prefix + "AIRCANNON_NAME",
-                skillDescriptionToken = prefix + "AIRCANNON_DESCRIPTION",
+                skillName = prefix + "DODGE_NAME",
+                skillNameToken = prefix + "DODGE_NAME",
+                skillDescriptionToken = prefix + "DODGE_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.SwordCombo)),
-                activationStateMachineName = "Slide",
+                activationState = new SerializableEntityStateType(typeof(SkillStates.Dodge)),
+                activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 8f,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,
@@ -237,7 +242,7 @@ namespace NoctisMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = false,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,

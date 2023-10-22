@@ -22,13 +22,13 @@ namespace NoctisMod.Modules
 
 
 
-            string outro = "..and so he left, continuing to destroy everything";
-            string outroFailure = "They cheated!";
+            string outro = "..and so he left, becoming the true king.";
+            string outroFailure = "I even amaze myself sometimes...";
 
-            LanguageAPI.Add(prefix + "NAME", "Shigaraki Tomura");
+            LanguageAPI.Add(prefix + "NAME", "Noctis Lucis Caelum");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "2nd All For One User");
-            LanguageAPI.Add(prefix + "LORE", "Let's clear this level and go home.");
+            LanguageAPI.Add(prefix + "SUBTITLE", "King of Lucis");
+            LanguageAPI.Add(prefix + "LORE", "I am Noctis, prince of Lucis and king of fishing!");
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
 

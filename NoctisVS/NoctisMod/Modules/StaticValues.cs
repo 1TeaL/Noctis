@@ -29,8 +29,12 @@ namespace NoctisMod.Modules
         internal static float swordNeutralDamage1 = 2f;
         internal static float swordNeutralDamage2 = 1f;
         internal static float swordNeutralDamage3 = 4f;
-        internal static float swordDashDistance = 4f;
+        internal static float swordDashDistance = 3f;
         internal static float swordDashSpeed = 6f;
 
+        //Dodge
+        internal static float dodgeSpeed = 12f;
+        internal static float dodgeArmor = 300f;
+        internal static float dodgeHop = 10f;
     }
 }

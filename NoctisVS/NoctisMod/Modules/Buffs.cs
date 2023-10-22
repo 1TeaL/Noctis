@@ -5,6 +5,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using UnityEngine.AddressableAssets;
 using System;
+using Rewired;
 
 namespace NoctisMod.Modules
 {
@@ -12,13 +13,11 @@ namespace NoctisMod.Modules
     {
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
-
+        internal static BuffDef dodgeBuff;
 
         internal static void RegisterBuffs()
         {
-           
-
-
+            dodgeBuff = Buffs.AddNewBuff($"Dodge armor buff", Assets.shieldBuffIcon, Color.white, false, false);
         }
 
         // simple helper method

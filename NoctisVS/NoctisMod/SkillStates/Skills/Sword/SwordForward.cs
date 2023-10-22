@@ -36,23 +36,24 @@ namespace NoctisMod.SkillStates
             this.damageType = DamageType.Generic;
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
-            this.pushForce = 1000f;
+            this.pushForce = 0f;
             this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.7f;
             this.baseEarlyExitTime = 0.4f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 7f;
+            this.hitHopVelocity = 10f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = $"SwordSlashNeutral{this.swingIndex + 1}";
-            this.swingEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.muzzleString = $"SwordSlashDown";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            this.direction = base.GetAimRay().direction.normalized;
 
             if (base.characterBody)
             {
@@ -69,7 +70,8 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            //this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            rollSpeed = num * (SpeedCoefficient + finalSpeedCoefficient)/2;
         }
 
         public override void FixedUpdate()
@@ -79,15 +81,16 @@ namespace NoctisMod.SkillStates
             if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
             {
                 RecalculateRollSpeed();
+                if (Target)
+                {
+                    this.direction = Target.transform.position;
+                }
                 if (isTarget)
                 {
-                    if (Target)
-                    {
-                        this.direction = Target.transform.position;
-                    }
                     if (base.isAuthority)
                     {
                         Vector3 velocity = (this.direction - base.transform.position).normalized * rollSpeed;
+                        velocity.y = 0;
                         base.characterMotor.velocity = velocity;
                         base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }
@@ -95,13 +98,10 @@ namespace NoctisMod.SkillStates
                 }
                 else
                 {
-                    if (base.isAuthority)
-                    {
-                        base.characterDirection.forward = this.direction;
-                        base.characterMotor.velocity = Vector3.zero;
-                        base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
-                    }
-
+                    Vector3 velocity = this.direction * rollSpeed;
+                    velocity.y = 0;
+                    base.characterMotor.velocity = velocity;
+                    base.characterDirection.forward = base.characterMotor.velocity.normalized;
                 }
 
 
@@ -113,7 +113,6 @@ namespace NoctisMod.SkillStates
         protected override void PlayAttackAnimation()
         {
             base.PlayCrossfade("FullBody, Override", "SwordLeapSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
-            
         }
 
         protected override void PlaySwingEffect()
@@ -128,12 +127,12 @@ namespace NoctisMod.SkillStates
 
         }
 
-        protected override void CheckNextState()
+        protected override void SetNextState()
         {
-            if (!this.hasFired) this.FireAttack();
 
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
+                if (!this.hasFired) this.FireAttack();
                 this.outer.SetNextState(new SwordCombo());
                 return;
             }

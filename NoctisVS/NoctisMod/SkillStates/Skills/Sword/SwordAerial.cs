@@ -36,23 +36,24 @@ namespace NoctisMod.SkillStates
             this.damageType = DamageType.Generic;
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
-            this.pushForce = 1000f;
+            this.pushForce = 0f;
             this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.7f;
             this.baseEarlyExitTime = 0.4f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 7f;
+            this.hitHopVelocity = 10f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = $"SwordSwingNeutral{this.swingIndex + 1}";
-            this.swingEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.muzzleString = $"SwordSwingRight";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            this.direction = base.GetAimRay().direction.normalized;
 
             if (base.characterBody)
             {
@@ -102,7 +103,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);            
+            base.PlayCrossfade("FullBody, Override", "AerialSwordSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);            
         }
 
         protected override void PlaySwingEffect()
@@ -117,12 +118,12 @@ namespace NoctisMod.SkillStates
 
         }
 
-        protected override void CheckNextState()
+        protected override void SetNextState()
         {
-            if (!this.hasFired) this.FireAttack();
 
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
+                if (!this.hasFired) this.FireAttack();
                 this.outer.SetNextState(new SwordCombo());
                 return;
             }

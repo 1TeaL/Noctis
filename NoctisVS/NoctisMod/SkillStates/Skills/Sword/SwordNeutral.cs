@@ -16,48 +16,50 @@ namespace NoctisMod.SkillStates
         {
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
-
+            weaponDef = Noctis.swordSkillDef;
             this.hitboxName = "SwordHitbox";
 
             this.damageType = DamageType.Generic;
-            switch (this.swingIndex)
+
+            if (swingIndex == 0)
             {
-                case 0:
-                    this.damageCoefficient = 1f;
-                    this.procCoefficient = 1f;
-                    this.pushForce = 300f;
-                    this.baseDuration = 0.5f;
-                    this.attackStartTime = 0.2f;
-                    this.attackEndTime = 0.4f;
-                    this.baseEarlyExitTime = 0.4f;
-                    break;
-                case 1:
-                    this.damageCoefficient = 1f;
-                    this.procCoefficient = 1f;
-                    this.pushForce = 0f;
-                    this.baseDuration = 0.5f;
-                    this.attackStartTime = 0.2f;
-                    this.attackEndTime = 0.4f;
-                    this.baseEarlyExitTime = 0.4f;
-                    break;
-                case 2:
-                    this.damageCoefficient = 1f;
-                    this.procCoefficient = 1f;
-                    this.pushForce = 1000f;
-                    this.baseDuration = 1f;
-                    this.attackStartTime = 0.4f;
-                    this.attackEndTime = 0.8f;
-                    this.baseEarlyExitTime = 0.4f;
-                    break;
+                this.damageCoefficient = 2f;
+                this.procCoefficient = 1f;
+                this.pushForce = 300f;
+                this.baseDuration = 1f;
+                this.attackStartTime = 0.2f;
+                this.attackEndTime = 0.4f;
+                this.baseEarlyExitTime = 0.4f;
             }
+            else if (swingIndex == 1)
+            {
+                this.damageCoefficient = 1f;
+                this.procCoefficient = 1f;
+                this.pushForce = 0f;
+                this.baseDuration = 0.5f;
+                this.attackStartTime = 0.2f;
+                this.attackEndTime = 0.4f;
+                this.baseEarlyExitTime = 0.1f;
+            }
+            else if (swingIndex == 2)
+            {
+                this.damageCoefficient = 4f;
+                this.procCoefficient = 1f;
+                this.pushForce = 1000f;
+                this.baseDuration = 2f;
+                this.attackStartTime = 0.5f;
+                this.attackEndTime = 0.8f;
+                this.baseEarlyExitTime = 0.2f;
+            }
+
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = $"SwordSwingNeutral{this.swingIndex + 1}";
-            this.swingEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.muzzleString = ChooseMuzzleString();
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
@@ -66,6 +68,24 @@ namespace NoctisMod.SkillStates
 
         }
 
+        private string ChooseMuzzleString()
+        {
+            string returnVal = "SwordSwingDown";
+            switch (this.swingIndex)
+            {
+                case 0:
+                    returnVal = "SwordSwingDown";
+                    break;
+                case 1:
+                    returnVal = "SwordSwingStab";
+                    break;
+                case 2:
+                    returnVal = "SwordSwingRight";
+                    break;
+            }
+
+            return returnVal;
+        }
 
 
         protected override void PlayAttackAnimation()
@@ -84,23 +104,20 @@ namespace NoctisMod.SkillStates
 
         }
 
-        protected override void CheckNextState()
+        protected override void SetNextState()
         {
-            if (!this.hasFired) this.FireAttack();
-
-            if (base.isAuthority && base.IsKeyDownAuthority())
+            if (base.isAuthority)
             {
+                if (!this.hasFired) this.FireAttack();
                 int index = this.swingIndex;
                 index += 1;
                 if (index > 2)
                 {
                     index = 0;
                 }
-                this.outer.SetNextState(new SwordCombo
-                {
-                    currentSwingIndex = index
-                });
-
+                SwordCombo SwordCombo = new SwordCombo();
+                SwordCombo.currentSwingIndex = index;
+                this.outer.SetNextState(SwordCombo);
                 return;
 
             }

@@ -50,7 +50,7 @@ namespace NoctisMod.Modules
         //public static Sprite spikyDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Treebot/bdEntangle.asset").WaitForCompletion().iconSprite;
         //public static Sprite ruinDebuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/LunarSkillReplacements/bdLunarDetonationCharge.asset").WaitForCompletion().iconSprite;
         //public static Sprite warcryBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/WarCryOnMultiKill/bdWarCryBuff.asset").WaitForCompletion().iconSprite;
-        //public static Sprite shieldBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
+        public static Sprite shieldBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdArmorBoost.asset").WaitForCompletion().iconSprite;
         //public static Sprite tarBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdClayGoo.asset").WaitForCompletion().iconSprite;
         //public static Sprite crippleBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdCripple.asset").WaitForCompletion().iconSprite;
         //public static Sprite speedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
@@ -88,9 +88,10 @@ namespace NoctisMod.Modules
         //melee swing
         internal static GameObject noctisDashEffect;
         internal static GameObject noctisHitEffect;
+        internal static GameObject noctisSwingEffect;
 
 
-        
+
 
         internal static void Initialize()
         {
@@ -141,6 +142,12 @@ namespace NoctisMod.Modules
             //sword swing
             noctisHitEffect = Assets.LoadEffect("hitEffect");
             noctisDashEffect = Assets.LoadEffect("DashParticle", true);
+            noctisSwingEffect = Assets.LoadEffect("swingEffect", true);
+
+
+            //sounds
+            hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
+            strongHitSoundEffect = CreateNetworkSoundEventDef("ShiggyStrongAttack");
 
         }
 

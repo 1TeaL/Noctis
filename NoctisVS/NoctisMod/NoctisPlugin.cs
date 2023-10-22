@@ -268,6 +268,10 @@ namespace NoctisMod
             if (self?.healthComponent)
             {
                 orig.Invoke(self);
+                if (self.HasBuff(Buffs.dodgeBuff))
+                {
+                    self.armor += StaticValues.dodgeArmor;
+                }
                                 
             }
             

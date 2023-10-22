@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 970354047
+CRC: 771791596
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 96d8f8847b7c8b6fbee64b09274032f8
+    Hash: 84c3ccf33b2524383a0733edc3f6fb0b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -115,6 +115,7 @@ Assets:
 - Assets/Noctis/Animations/Sword/SwordLeapSlash.anim
 - Assets/Noctis/Animations/Movement/NoctisRunLooped.anim
 - Assets/Noctis/Assets/Mesh/ShirtShapeMesh.mesh
+- Assets/Noctis/Assets/Particle/swingEffect.prefab
 - Assets/Noctis/Assets/Material/hairMat.mat
 - Assets/Noctis/Assets/Mesh/EyeShapeMesh.mesh
 - Assets/Noctis/Assets/Material/noise3blur.png
