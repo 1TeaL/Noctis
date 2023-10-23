@@ -86,12 +86,15 @@ namespace NoctisMod.Modules
 
         //own effects
         //melee swing
-        internal static GameObject noctisDashEffect;
         internal static GameObject noctisHitEffect;
         internal static GameObject noctisSwingEffect;
 
+        //particles
+        internal static GameObject noctisDashEffect;
 
-
+        //fake projectiles
+        internal static GameObject swordThrowParticle;
+        internal static GameObject polearmThrowParticle;
 
         internal static void Initialize()
         {
@@ -141,8 +144,14 @@ namespace NoctisMod.Modules
 
             //sword swing
             noctisHitEffect = Assets.LoadEffect("hitEffect");
-            noctisDashEffect = Assets.LoadEffect("DashParticle", true);
             noctisSwingEffect = Assets.LoadEffect("swingEffect", true);
+
+            //particles
+            noctisDashEffect = Assets.LoadEffect("DashParticle", true);
+
+            //fake projectiles
+            swordThrowParticle = Assets.LoadEffect("swordThrow", true);
+            polearmThrowParticle = Assets.LoadEffect("polearmThrow", true);
 
 
             //sounds

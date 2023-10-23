@@ -7,129 +7,121 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
+using NoctisMod.Modules;
+using EntityStates.Huntress;
 
 namespace NoctisMod.SkillStates
 {
-    public class GreatswordSwapBackward : BaseMeleeAttack
+    public class GreatswordSwapBackward : BaseSkillState
     {
+        float baseDuration = 0.7f;
+        private Animator animator;
+        private float chargePercent;
+        private float maxCharge = StaticValues.GSMaxCharge;
+        private float damageMult;
+        private float baseDistance = 2f;
+        private RaycastHit raycastHit;
+        private float hitDis;
+        private GameObject areaIndicator;
+        private float radius;
+        private float baseRadius = 2f;
+        private Vector3 maxMoveVec;
+
         public override void OnEnter()
         {
-
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
-            weaponDef = Noctis.swordSkillDef;
-            this.hitboxName = "SwordHitbox";
-
-            this.damageType = DamageType.Generic;
-
-            if (swingIndex == 0)
-            {
-                this.damageCoefficient = 2f;
-                this.procCoefficient = 1f;
-                this.pushForce = 300f;
-                this.baseDuration = 1f;
-                this.attackStartTime = 0.3f;
-                this.attackEndTime = 0.6f;
-                this.baseEarlyExitTime = 0.4f;
-            }
-            else if (swingIndex == 1)
-            {
-                this.damageCoefficient = 1f;
-                this.procCoefficient = 1f;
-                this.pushForce = 0f;
-                this.baseDuration = 1f;
-                this.attackStartTime = 0.3f;
-                this.attackEndTime = 0.6f;
-                this.baseEarlyExitTime = 0.4f;
-            }
-            else if (swingIndex == 2)
-            {
-                this.damageCoefficient = 4f;
-                this.procCoefficient = 1f;
-                this.pushForce = 1000f;
-                this.baseDuration = 2f;
-                this.attackStartTime = 0.3f;
-                this.attackEndTime = 0.6f;
-                this.baseEarlyExitTime = 1f;
-            }
-
-            this.hitStopDuration = 0.1f;
-            this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 7f;
-
-            this.swingSoundString = "ShiggyMelee";
-            this.hitSoundString = "";
-            this.muzzleString = ChooseMuzzleString();
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
-
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
-
             base.OnEnter();
+            this.animator = base.GetModelAnimator();
+            base.StartAimMode(this.baseDuration, false);
+            this.animator.SetBool("releaseChargeLeap", false);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
 
+            base.PlayCrossfade("FullBody, Override", "GSCharge", "Attack.playbackRate", this.baseDuration, 0.05f);
+            this.areaIndicator = UnityEngine.Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
+            this.areaIndicator.SetActive(true);
         }
 
-        private string ChooseMuzzleString()
+        public void ChargeCalc()
         {
-            string returnVal = "SwordSwingDown";
-            switch (this.swingIndex)
+            Ray aimRay = base.GetAimRay();
+            Vector3 direction = aimRay.direction;
+            aimRay.origin = base.characterBody.corePosition;
+            Physics.Raycast(aimRay.origin, aimRay.direction, out this.raycastHit, this.baseDistance);
+            this.hitDis = this.raycastHit.distance;
+            bool flag = this.hitDis < this.baseDistance && this.hitDis > 0f;
+            if (flag)
             {
-                case 0:
-                    returnVal = "SwordSwingDown";
-                    break;
-                case 1:
-                    returnVal = "SwordSwingStab";
-                    break;
-                case 2:
-                    returnVal = "SwordSwingRight";
-                    break;
+                this.baseDistance = this.hitDis;
             }
-
-            return returnVal;
+            this.damageMult = StaticValues.GSChargeDamage + StaticValues.GSChargeMultiplier * (this.chargePercent * StaticValues.GSChargeDamage);
+            this.radius = (this.baseRadius * this.damageMult + 10f) / 4f;
+            this.maxMoveVec = this.baseDistance * direction;
+            this.areaIndicator.transform.localScale = Vector3.one * this.radius;
+            this.areaIndicator.transform.localPosition = aimRay.origin + this.maxMoveVec;
         }
 
-
-        protected override void PlayAttackAnimation()
+        public override void FixedUpdate()
         {
-            base.PlayCrossfade("FullBody, Override", "SwordSlashNeutral" + (1 + swingIndex), "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
-        }
-
-        protected override void PlaySwingEffect()
-        {
-            base.PlaySwingEffect();
-        }
-
-        protected override void OnHitEnemyAuthority()
-        {
-            base.OnHitEnemyAuthority();
-
-        }
-
-        protected override void SetNextState()
-        {
-            if (base.isAuthority)
+            base.FixedUpdate();
+            if (base.fixedAge < maxCharge)
             {
-                if (!this.hasFired) this.FireAttack();
-                int index = this.swingIndex;
-                index += 1;
-                if (index > 2)
+                if (inputBank.skill1.down && skillLocator.primary.skillDef == Noctis.greatswordSkillDef)
                 {
-                    index = 0;
-                }
-                SwordCombo SwordCombo = new SwordCombo();
-                SwordCombo.currentSwingIndex = index;
-                this.outer.SetNextState(SwordCombo);
-                return;
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
+                    ChargeCalc();
 
+                }
+                else if (inputBank.skill2.down && skillLocator.secondary.skillDef == Noctis.greatswordSkillDef)
+                {
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
+                    ChargeCalc();
+
+
+                }
+                else if (inputBank.skill4.down && skillLocator.special.skillDef == Noctis.greatswordSkillDef)
+                {
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
+                    ChargeCalc();
+
+                }
+                else
+                {
+                    GreatswordSwapBackward2 GreatswordSwapBackward2 = new GreatswordSwapBackward2();
+                    GreatswordSwapBackward2.damageMult = damageMult;
+                    GreatswordSwapBackward2.radius = this.radius;
+                    this.outer.SetNextState(GreatswordSwapBackward2);
+                    this.animator.SetBool("releaseChargeSlash", true);
+                    return;
+                }
+            }
+            else
+            {
+                GreatswordSwapBackward2 GreatswordSwapBackward2 = new GreatswordSwapBackward2();
+                GreatswordSwapBackward2.damageMult = damageMult;
+                GreatswordSwapBackward2.radius = this.radius;
+                this.outer.SetNextState(GreatswordSwapBackward2);
+                this.animator.SetBool("releaseChargeSlash", true);
+                return;
             }
 
-
         }
+
 
         public override void OnExit()
         {
             base.OnExit();
         }
 
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            base.OnSerialize(writer);
+            writer.Write(this.damageMult);
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            base.OnDeserialize(reader);
+            this.damageMult = reader.ReadInt64();
+        }
     }
 }
 

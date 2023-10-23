@@ -61,22 +61,31 @@ namespace NoctisMod.Modules.Survivors
 
 
         //Particles
-        //public ParticleSystem RARM;
-        //public ParticleSystem LARM;
-        //public ParticleSystem OFA;
-        //public ParticleSystem FINALRELEASEAURA;
-        //public ParticleSystem SWORDAURAL;
-        //public ParticleSystem SWORDAURAR;
+        public ParticleSystem SpinningWeaponAura;
 
-        //particle bools
+        //Weapons
+        public GameObject swordWeapon;
+        public GameObject greatswordWeapon;
+        public GameObject polearmWeapon;
+        public GameObject polearmDownRightWeapon;
+        public GameObject polearmDownLeftWeapon;
 
-        public weaponType weaponState;
-        public enum weaponType : ushort
+        public GameObject currentWeapon;
+        public SkinnedMeshRenderer currentWeaponSkinMesh;
+
+        public bool isTransitioning;
+        public float transitionTimer;
+        public float weaponTimer;
+        public WeaponType weaponState;
+
+        public enum WeaponType : ushort
         {
             NONE = 1,
             SWORD = 2,
             GREATSWORD = 3,
             POLEARM = 4,
+            POLEARML = 5,
+            POLEARMR = 6,
         }
 
 
@@ -90,26 +99,75 @@ namespace NoctisMod.Modules.Survivors
 
             if (child)
             {
-                //LARM = child.FindChild("lArmAura").GetComponent<ParticleSystem>();
-                //RARM = child.FindChild("rArmAura").GetComponent<ParticleSystem>();
-                //OFA = child.FindChild("OFAlightning").GetComponent<ParticleSystem>();
-                //FINALRELEASEAURA = child.FindChild("finalReleaseAura").GetComponent<ParticleSystem>();
-                //SWORDAURAL = child.FindChild("WindSwordL").GetComponent<ParticleSystem>();
-                //SWORDAURAR = child.FindChild("WindSwordR").GetComponent<ParticleSystem>();
+                SpinningWeaponAura = child.FindChild("SpinningWeaponAura").GetComponent<ParticleSystem>();
+                swordWeapon = child.FindChild("Sword").gameObject;
+                greatswordWeapon = child.FindChild("Greatsword").gameObject;
+                polearmWeapon = child.FindChild("Polearm").gameObject;
+                polearmDownLeftWeapon = child.FindChild("PolearmDownLeft").gameObject;
+                polearmDownRightWeapon = child.FindChild("PolearmDownRight").gameObject;
             }
 
-            //LARM.Stop();
-            //RARM.Stop();
-            //OFA.Stop();
-            //FINALRELEASEAURA.Stop();
-            //SWORDAURAL.Stop();
-            //SWORDAURAR.Stop();
+            SpinningWeaponAura.Stop();
+
 
             activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));
             //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             inputBank = gameObject.GetComponent<InputBankTest>();
 
 
+        }
+
+        public void DisableAllWeapons()
+        {
+            swordWeapon.SetActive(false);
+            greatswordWeapon.SetActive(false);
+            polearmWeapon.SetActive(false);
+            polearmDownLeftWeapon.SetActive(false);
+            polearmDownRightWeapon.SetActive(false);
+        }
+
+        public void WeaponAppear(float timer, WeaponType weaponType)
+        {
+            if(weaponType == weaponState)
+            {
+                //refresh time
+                weaponTimer = timer;
+            }
+            else
+            {
+                weaponState = weaponType;
+                switch (weaponType)
+                {
+                    case WeaponType.NONE:
+                        DisableAllWeapons();
+                        currentWeapon = null;
+                        currentWeaponSkinMesh = null;
+                        break;
+                    case WeaponType.SWORD:
+                        currentWeapon = swordWeapon;
+                        break;
+                    case WeaponType.GREATSWORD:
+                        currentWeapon = greatswordWeapon;
+                        break;
+                    case WeaponType.POLEARM:
+                        currentWeapon = polearmWeapon;
+                        break;
+                    case WeaponType.POLEARML:
+                        currentWeapon = polearmDownLeftWeapon;
+                        break;
+                    case WeaponType.POLEARMR:
+                        currentWeapon = polearmDownRightWeapon;
+                        break;
+                }
+                if (currentWeapon)
+                {
+                    currentWeapon.SetActive(true);
+                    currentWeaponSkinMesh = currentWeapon.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+                    isTransitioning = true;
+                    transitionTimer = 0f;
+                } 
+
+            }
         }
 
 
@@ -128,7 +186,7 @@ namespace NoctisMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-            weaponState = weaponType.NONE;
+            weaponState = WeaponType.NONE;
 
 
         }
@@ -193,7 +251,41 @@ namespace NoctisMod.Modules.Survivors
 
         public void Update()
         {
+            if (weaponState != WeaponType.NONE)
+            {
+                if(isTransitioning)
+                {
+                    if(transitionTimer < StaticValues.weaponTransitionThreshold)
+                    {
+                        transitionTimer += Time.deltaTime;
+                        if(currentWeapon && currentWeaponSkinMesh)
+                        {
+                            Material[] Array = currentWeaponSkinMesh.materials;
+                            Array[0].SetFloat("_transitionLerp", Mathf.Lerp(0f, 1f, transitionTimer / StaticValues.weaponTransitionThreshold));
 
+                        }
+                    }
+                    else
+                    {
+                        isTransitioning = false;
+                        transitionTimer = 0f;
+                    }
+                }
+
+                weaponTimer -= Time.deltaTime;
+                if (weaponTimer < 0f)
+                {
+                    weaponTimer = 0f;
+                    weaponState = WeaponType.NONE;
+                    if (currentWeapon)
+                    {
+                        currentWeapon.SetActive(false);
+                        currentWeaponSkinMesh = null;
+                        currentWeapon = null;
+                    }
+                }
+
+            }
         }
 
 

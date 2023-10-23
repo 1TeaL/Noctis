@@ -17,7 +17,7 @@ namespace NoctisMod.Modules.Survivors
         public RectTransform manaMeter;
         public RectTransform manaMeterGlowRect;
         public Image manaMeterGlowBackground;
-        public HGTextMeshProUGUI plusChaosNumber;
+        public HGTextMeshProUGUI ManaNumber;
         //public HGTextMeshProUGUI quirkGetUI;
         private bool informAFOToPlayers;
         public string quirkGetString;
@@ -28,9 +28,9 @@ namespace NoctisMod.Modules.Survivors
         public float maxMana;
         public float currentMana;
         public float regenMana;
-        public float costmultiplierplusChaos;
-        public float costflatplusChaos;
-        //public float plusChaosDecayTimer;
+        public float costmultiplierMana;
+        public float costflatMana;
+        //public float ManaDecayTimer;
         public bool SetActiveTrue;
         //bools to stop energy regen after skill used
         private bool ifEnergyUsed;
@@ -60,11 +60,11 @@ namespace NoctisMod.Modules.Survivors
         public void Start()
         {
             //Energy
-            maxMana = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos);
+            maxMana = StaticValues.baseMana + ((characterBody.level - 1) * StaticValues.levelMana);
             currentMana = maxMana;
             regenMana = maxMana * StaticValues.regenManaFraction;
-            costmultiplierplusChaos = 1f;
-            costflatplusChaos = 0f;
+            costmultiplierMana = 1f;
+            costflatMana = 0f;
             ifEnergyRegenAllowed = true;
             ifEnergyUsed = false;
 
@@ -78,7 +78,7 @@ namespace NoctisMod.Modules.Survivors
             manaMeterGlowRect = CustomUIObject.transform.GetChild(1).GetComponent<RectTransform>();
 
             //setup the UI element for the min/max
-            plusChaosNumber = this.CreateLabel(CustomUIObject.transform, "plusChaosNumber", $"{(int)currentMana} / {maxMana}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
+            ManaNumber = this.CreateLabel(CustomUIObject.transform, "ManaNumber", $"{(int)currentMana} / {maxMana}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
 
             //ui element for information below the energy
             //quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);
@@ -127,24 +127,24 @@ namespace NoctisMod.Modules.Survivors
             //Energy updates
             if (characterBody)
             {
-                maxMana = StaticValues.basePlusChaos + ((characterBody.level - 1) * StaticValues.levelPlusChaos)
+                maxMana = StaticValues.baseMana + ((characterBody.level - 1) * StaticValues.levelMana)
                     + (StaticValues.backupGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.SecondarySkillMagazine))
                     + (StaticValues.afterburnerGain * characterBody.master.inventory.GetItemCount(RoR2Content.Items.UtilitySkillMagazine))
                     + (StaticValues.lysateGain * characterBody.master.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid));
 
                 regenMana = maxMana * StaticValues.regenManaFraction;
 
-                costmultiplierplusChaos = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));
-                costflatplusChaos = (StaticValues.costFlatPlusChaosSpend * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
+                costmultiplierMana = (float)Math.Pow(0.75f, characterBody.master.inventory.GetItemCount(RoR2Content.Items.AlienHead));
+                costflatMana = (StaticValues.costFlatManaSpend * characterBody.master.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck));
 
-                if (costmultiplierplusChaos > 1f)
+                if (costmultiplierMana > 1f)
                 {
-                    costmultiplierplusChaos = 1f;
+                    costmultiplierMana = 1f;
                 }
             }
 
 
-            //plusChaos Currently have
+            //Mana Currently have
 
             //allow regen
             if (ifEnergyUsed)
@@ -176,16 +176,16 @@ namespace NoctisMod.Modules.Survivors
                 currentMana = 0f;
             }
 
-            if (plusChaosNumber)
+            if (ManaNumber)
             {
-                plusChaosNumber.SetText($"{(int)currentMana} / {maxMana}");
+                ManaNumber.SetText($"{(int)currentMana} / {maxMana}");
             }
 
             if (manaMeter)
             {
                 // 2f because meter is too small probably.
                 // Logarithmically scale.
-                float logVal = Mathf.Log10(((maxMana / StaticValues.basePlusChaos) * 10f) + 1) * (currentMana / maxMana);
+                float logVal = Mathf.Log10(((maxMana / StaticValues.baseMana) * 10f) + 1) * (currentMana / maxMana);
                 manaMeter.localScale = new Vector3(2.0f * logVal, 0.05f, 1f);
                 manaMeterGlowRect.localScale = new Vector3(2.3f * logVal, 0.1f, 1f);
             }
@@ -253,28 +253,28 @@ namespace NoctisMod.Modules.Survivors
         }
 
 
-        public void SpendplusChaos(float plusChaos)
+        public void SpendMana(float Mana)
         {
-            //float plusChaosflatCost = plusChaos - costflatplusChaos;
-            //if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+            //float ManaflatCost = Mana - costflatMana;
+            //if (ManaflatCost < 0f) ManaflatCost = 0f;
 
-            //float plusChaosCost = rageplusChaosCost * costmultiplierplusChaos * plusChaosflatCost;
-            //if (plusChaosCost < 0f) plusChaosCost = 0f;
+            //float ManaCost = rageManaCost * costmultiplierMana * ManaflatCost;
+            //if (ManaCost < 0f) ManaCost = 0f;
 
-            currentMana -= plusChaos;
+            currentMana -= Mana;
             TriggerGlow(0.3f, 0.3f, Color.magenta);
             ifEnergyUsed = true;
 
         }
-        public void GainplusChaos(float plusChaos)
+        public void GainMana(float Mana)
         {
-            //float plusChaosflatCost = plusChaos - costflatplusChaos;
-            //if (plusChaosflatCost < 0f) plusChaosflatCost = 0f;
+            //float ManaflatCost = Mana - costflatMana;
+            //if (ManaflatCost < 0f) ManaflatCost = 0f;
 
-            //float plusChaosCost = rageplusChaosCost * costmultiplierplusChaos * plusChaosflatCost;
-            //if (plusChaosCost < 0f) plusChaosCost = 0f;
+            //float ManaCost = rageManaCost * costmultiplierMana * ManaflatCost;
+            //if (ManaCost < 0f) ManaCost = 0f;
 
-            currentMana += plusChaos;
+            currentMana += Mana;
             TriggerGlow(0.3f, 0.3f, Color.cyan);
 
         }

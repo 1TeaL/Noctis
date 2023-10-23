@@ -27,7 +27,7 @@ namespace NoctisMod.SkillStates
             this.animator = base.GetModelAnimator();
             base.StartAimMode(this.baseDuration, false);
             this.animator.SetBool("releaseChargeSlash", false);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
 
             base.PlayCrossfade("FullBody, Override", "GSCharge", "Attack.playbackRate", this.baseDuration, 0.05f);
         }
@@ -44,20 +44,20 @@ namespace NoctisMod.SkillStates
             {
                 if (inputBank.skill1.down && skillLocator.primary.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge / this.maxCharge;
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
                     ChargeCalc();
 
                 }
                 else if (inputBank.skill2.down && skillLocator.secondary.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge / this.maxCharge;
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
                     ChargeCalc();
                     
 
                 }
                 else if (inputBank.skill4.down && skillLocator.special.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge / this.maxCharge;
+                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
                     ChargeCalc();                    
 
                 }

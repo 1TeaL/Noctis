@@ -28,7 +28,7 @@ namespace NoctisMod.SkillStates
 
             weaponSwap = false;
             //check weapon swap
-            if (noctisCon.weaponState == NoctisController.weaponType.NONE || noctisCon.weaponState == NoctisController.weaponType.GREATSWORD)
+            if (noctisCon.weaponState == NoctisController.WeaponType.NONE || noctisCon.weaponState == NoctisController.WeaponType.GREATSWORD)
             {
                 weaponSwap = false;
             }
@@ -43,7 +43,6 @@ namespace NoctisMod.SkillStates
         public void Exit()
         {
             base.OnExit();
-            noctisCon.weaponState = NoctisController.weaponType.SWORD;
         }
 
         public override void Update()

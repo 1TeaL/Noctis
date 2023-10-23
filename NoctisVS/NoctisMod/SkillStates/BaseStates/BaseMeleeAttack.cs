@@ -13,6 +13,7 @@ namespace NoctisMod.SkillStates.BaseStates
     public class BaseMeleeAttack : BaseSkillState
     {
         public int swingIndex;
+        public NoctisController noctisCon;
 
         protected string hitboxName = "Sword";
 
@@ -52,16 +53,19 @@ namespace NoctisMod.SkillStates.BaseStates
         private HitBoxGroup hitBoxGroup;
 
         public RoR2.Skills.SkillDef weaponDef;
+        public NoctisController.WeaponType weaponType = NoctisController.WeaponType.NONE;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = base.gameObject.GetComponent<NoctisController>();
+            noctisCon.WeaponAppear(baseDuration + 0.5f, weaponType);
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
             base.StartAimMode(this.baseDuration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
 
             attackAmount = (int)this.attackSpeedStat;
             if (attackAmount < 1)

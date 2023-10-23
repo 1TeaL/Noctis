@@ -17,6 +17,7 @@ namespace NoctisMod.SkillStates
     {
         private Animator animator;
         public NoctisController noctisCon;
+        public EnergySystem energySystem;
         private Ray aimRay;
         private float rollSpeed;
         private float SpeedCoefficient;
@@ -37,9 +38,29 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
             noctisCon = gameObject.GetComponent<NoctisController>();
+            energySystem = gameObject.GetComponent<EnergySystem>();
+
+            //energy cost
+            float manaflatCost = (StaticValues.dodgeCost) - (energySystem.costflatMana);
+            if (manaflatCost < 0f) manaflatCost = StaticValues.minimumManaCost;
+
+            float manaCost = energySystem.costmultiplierMana * manaflatCost;
+            if (manaCost < 0f) manaCost = 0f;
+
+            if (energySystem.currentMana < manaCost)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
+            else if (energySystem.currentMana >= manaCost)
+            {
+                energySystem.SpendMana(manaCost);
+
+            }
+
             this.animator = base.GetModelAnimator();
             aimRay = base.GetAimRay();
-            noctisCon.weaponState = NoctisController.weaponType.NONE;
+            noctisCon.weaponState = NoctisController.WeaponType.NONE;
 
             direction = base.inputBank.moveVector;
             duration = baseDuration / attackSpeedStat;
@@ -109,8 +130,35 @@ namespace NoctisMod.SkillStates
                     base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
                 }
             }
-            
-            if(base.fixedAge > duration)
+
+            if (base.fixedAge > this.baseDuration * this.dodgeEndTime)
+            {
+                if (base.isAuthority)
+                {
+                    if (inputBank.skill1.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill2.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill3.down)
+                    {
+                        this.outer.SetNextState(new Dodge());
+                        return;
+                    }
+                    if (inputBank.skill4.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
+            if (base.fixedAge > duration)
             {
                 this.outer.SetNextStateToMain();
                 return;

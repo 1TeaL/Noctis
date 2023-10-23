@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{13683CD5-802B-8A69-1933-2F38FFC6BD1E}</ProjectGuid>
+    <ProjectGuid>{FDE91BF2-6F05-3D6A-0C15-18D608AD0895}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>com.unity.postprocessing.Editor</AssemblyName>
@@ -282,7 +282,7 @@
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -638,22 +638,22 @@
  <Reference Include="Boo.Lang">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="com.unity.postprocessing.Runtime.csproj">
-      <Project>{D31A1EC2-9F09-AC45-53E3-3D6F9C5F0C27}</Project>
+      <Project>{AF1E2270-74A6-9E0F-05DA-4FF3FFE2CA02}</Project>
       <Name>com.unity.postprocessing.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

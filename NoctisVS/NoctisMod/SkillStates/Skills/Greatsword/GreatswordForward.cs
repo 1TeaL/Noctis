@@ -17,7 +17,7 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
+        public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
 
 

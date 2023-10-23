@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D31A1EC2-9F09-AC45-53E3-3D6F9C5F0C27}</ProjectGuid>
+    <ProjectGuid>{AF1E2270-74A6-9E0F-05DA-4FF3FFE2CA02}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>com.unity.postprocessing.Runtime</AssemblyName>
@@ -648,11 +648,11 @@
  <Reference Include="System.Xml.Serialization">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/ShiggyRor2/ShiggyUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

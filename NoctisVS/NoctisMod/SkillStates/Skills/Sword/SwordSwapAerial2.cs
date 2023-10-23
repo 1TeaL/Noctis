@@ -49,7 +49,7 @@ namespace NoctisMod.SkillStates
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = $"SwordSwingRight";
+            this.muzzleString = $"SwordSwingUp";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
@@ -95,7 +95,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "SwordKickFlip", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()

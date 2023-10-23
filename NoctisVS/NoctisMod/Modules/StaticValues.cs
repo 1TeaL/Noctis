@@ -10,15 +10,15 @@ namespace NoctisMod.Modules
 {
     internal static class StaticValues
     {
+        //weapon timer
+        internal static float weaponTransitionThreshold = 0.2f;
+
         //Energy
-        internal static float basePlusChaos = 100f;
-        internal static float levelPlusChaos = 10f;
+        internal static float baseMana = 100f;
+        internal static float levelMana = 10f;
         internal static float regenManaRate = 8f;
-        internal static float basePlusChaosGain = 1f;
-        internal static float killPlusChaosGain = 0.1f;
-        internal static float minimumCostFlatPlusChaosSpend = 0.005f;
-        internal static float costFlatPlusChaosSpend = 5f;
-        internal static float costFlatContantlyDrainingCoefficient = 0.005f;
+        internal static float minimumManaCost = 1f;
+        internal static float costFlatManaSpend = 5f;
         internal static float regenManaFraction = 0.025f;
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
@@ -34,6 +34,7 @@ namespace NoctisMod.Modules
         internal static float swordBackSpeed = 6f;
 
         //GS
+        internal static float GSLeapSpeed = 8f;
         internal static float GSMaxCharge = 3f;
         internal static float GSChargeDamage = 6f;
         internal static float GSChargeMultiplier = 2f;
@@ -43,5 +44,11 @@ namespace NoctisMod.Modules
         internal static float dodgeSpeed = 3f;
         internal static float dodgeArmor = 300f;
         internal static float dodgeHop = 10f;
+        internal static float dodgeCost = 10f;
+
+        //Warpstrike
+        internal static float warpstrikeSpeed = 100f;
+        internal static float warpstrikeDamageScaling = 0.3f;
+        internal static float warpstrikeCost = 30f;
     }
 }

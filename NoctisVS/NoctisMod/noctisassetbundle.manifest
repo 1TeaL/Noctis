@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2658325488
+CRC: 1120301122
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7ea413e100e20e759a44aa0dfe47e5b1
+    Hash: f95a2cf91d84bf323ed5540482ff092d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -119,6 +119,7 @@ Assets:
 - Assets/Noctis/Animations/Greatsword/GSChargeLeapSlash.anim
 - Assets/Noctis/Assets/Weapons/swordNormalImage.png
 - Assets/Noctis/Assets/Material/buttonsMat.mat
+- Assets/Noctis/Assets/Weapons/polearmMatL.mat
 - Assets/Noctis/Animations/Greatsword/GSDoubleSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSLeapSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSUpDownSlam.anim
@@ -143,6 +144,7 @@ Assets:
 - Assets/Noctis/Animations/NoctisAvatar.asset
 - Assets/Noctis/Animations/Combat/TripleSlash.anim
 - Assets/Noctis/Assets/noctisCustomUI.prefab
+- Assets/Noctis/Assets/Weapons/polearmMatR.mat
 - Assets/Noctis/Assets/Weapons/greatswordMat 2.mat
 - Assets/Noctis/Assets/Weapons/noctisPolearm.prefab
 - Assets/Noctis/Animations/Sword/SwordLeapSlash.anim
@@ -167,8 +169,10 @@ Assets:
 - Assets/Noctis/Emotes/NoctisHumanoidAvatar.asset
 - Assets/Noctis/Animations/Sword/SwordStab.anim
 - Assets/Noctis/Assets/Material/nh00_000_eye_00_b_$h.btex.png
+- Assets/Noctis/Assets/Particle/swordThrow.prefab
 - Assets/Noctis/Animations/Combat/WarpStrike.anim
 - Assets/Noctis/Assets/Mesh/ButtonShapeMesh.mesh
+- Assets/Noctis/Assets/Particle/polearmThrow.prefab
 - Assets/Noctis/Animations/Movement/Idle.anim
 - Assets/Noctis/Animations/Polearm/PolearmSweep.anim
 - Assets/Noctis/Assets/Mesh/DiamondShapeMesh.mesh

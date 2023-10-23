@@ -28,7 +28,7 @@ namespace NoctisMod.SkillStates
 
             weaponSwap = false;
             //check weapon swap
-            if (noctisCon.weaponState == NoctisController.weaponType.NONE || noctisCon.weaponState == NoctisController.weaponType.SWORD)
+            if (noctisCon.weaponState == NoctisController.WeaponType.NONE || noctisCon.weaponState >= NoctisController.WeaponType.POLEARM)
             {
                 weaponSwap = false;
             }
@@ -43,7 +43,7 @@ namespace NoctisMod.SkillStates
         public void Exit()
         {
             base.OnExit();
-            noctisCon.weaponState = NoctisController.weaponType.SWORD;
+            noctisCon.weaponState = NoctisController.WeaponType.SWORD;
         }
 
         public override void Update()
@@ -224,9 +224,9 @@ namespace NoctisMod.SkillStates
                         {
                             //neutral attack
                             Chat.AddMessage("neutral attack");
-                            SwordNeutral SwordNeutral = new SwordNeutral();
-                            SwordNeutral.swingIndex = currentSwingIndex;
-                            this.outer.SetNextState(SwordNeutral);
+                            PolearmNeutral PolearmNeutral = new PolearmNeutral();
+                            PolearmNeutral.swingIndex = currentSwingIndex;
+                            this.outer.SetNextState(PolearmNeutral);
                             return;
                         }
                         else
