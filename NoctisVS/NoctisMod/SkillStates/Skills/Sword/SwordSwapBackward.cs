@@ -57,7 +57,7 @@ namespace NoctisMod.SkillStates
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
 
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
-            this.direction = base.GetAimRay().direction.normalized;
+            this.direction = -base.GetAimRay().direction.normalized;
 
             if (base.characterBody)
             {

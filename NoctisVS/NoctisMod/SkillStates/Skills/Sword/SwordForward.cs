@@ -13,11 +13,7 @@ namespace NoctisMod.SkillStates
 {
     public class SwordForward : BaseMeleeAttack
     {
-
-        public HurtBox Target;
         private Vector3 direction;
-
-        public bool isTarget;
 
         private bool keepMoving;
         private float rollSpeed;
@@ -30,6 +26,7 @@ namespace NoctisMod.SkillStates
         {
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            weaponDef = Noctis.swordSkillDef;
             keepMoving = true;
             this.hitboxName = "SwordHitbox";
 
@@ -37,10 +34,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.7f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseDuration = 1.2f;
+            this.attackStartTime = 0.15f;
+            this.attackEndTime = 0.4f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;
@@ -70,8 +67,7 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            //this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
-            rollSpeed = num * (SpeedCoefficient + finalSpeedCoefficient)/2;
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
         }
 
         public override void FixedUpdate()
@@ -81,28 +77,10 @@ namespace NoctisMod.SkillStates
             if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
             {
                 RecalculateRollSpeed();
-                if (Target)
-                {
-                    this.direction = Target.transform.position;
-                }
-                if (isTarget)
-                {
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = (this.direction - base.transform.position).normalized * rollSpeed;
-                        velocity.y = 0;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-
-                }
-                else
-                {
-                    Vector3 velocity = this.direction * rollSpeed;
-                    velocity.y = 0;
-                    base.characterMotor.velocity = velocity;
-                    base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                }
+                Vector3 velocity = this.direction * rollSpeed;
+                velocity.y = 0;
+                base.characterMotor.velocity = velocity;
+                base.characterDirection.forward = base.characterMotor.velocity.normalized;                
 
 
             }

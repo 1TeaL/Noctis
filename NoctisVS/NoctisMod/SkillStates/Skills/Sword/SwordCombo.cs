@@ -249,8 +249,6 @@ namespace NoctisMod.SkillStates
                                     {
                                         Chat.AddMessage("forward attack");
                                         SwordForward SwordForward = new SwordForward();
-                                        SwordForward.isTarget = true;
-                                        SwordForward.isTarget = Target;
                                         this.outer.SetNextState(SwordForward);
                                         return;
 
@@ -270,7 +268,6 @@ namespace NoctisMod.SkillStates
                                 {
                                     Chat.AddMessage("forward attack");
                                     SwordForward SwordForward = new SwordForward();
-                                    SwordForward.isTarget = false;
                                     this.outer.SetNextState(SwordForward);
                                     return;
 

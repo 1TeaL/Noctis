@@ -13,11 +13,11 @@ namespace NoctisMod.Modules
     {
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
-        internal static BuffDef dodgeBuff;
+        internal static BuffDef armorBuff;
 
         internal static void RegisterBuffs()
         {
-            dodgeBuff = Buffs.AddNewBuff($"Dodge armor buff", Assets.shieldBuffIcon, Color.white, false, false);
+            armorBuff = Buffs.AddNewBuff($"Armor buff", Assets.shieldBuffIcon, Color.white, false, false);
         }
 
         // simple helper method

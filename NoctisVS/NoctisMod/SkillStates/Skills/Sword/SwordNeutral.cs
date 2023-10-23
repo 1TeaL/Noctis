@@ -27,8 +27,8 @@ namespace NoctisMod.SkillStates
                 this.procCoefficient = 1f;
                 this.pushForce = 300f;
                 this.baseDuration = 1f;
-                this.attackStartTime = 0.2f;
-                this.attackEndTime = 0.4f;
+                this.attackStartTime = 0.3f;
+                this.attackEndTime = 0.6f;
                 this.baseEarlyExitTime = 0.4f;
             }
             else if (swingIndex == 1)
@@ -36,10 +36,10 @@ namespace NoctisMod.SkillStates
                 this.damageCoefficient = 1f;
                 this.procCoefficient = 1f;
                 this.pushForce = 0f;
-                this.baseDuration = 0.5f;
-                this.attackStartTime = 0.2f;
-                this.attackEndTime = 0.4f;
-                this.baseEarlyExitTime = 0.1f;
+                this.baseDuration = 1f;
+                this.attackStartTime = 0.3f;
+                this.attackEndTime = 0.6f;
+                this.baseEarlyExitTime = 0.4f;
             }
             else if (swingIndex == 2)
             {
@@ -47,9 +47,9 @@ namespace NoctisMod.SkillStates
                 this.procCoefficient = 1f;
                 this.pushForce = 1000f;
                 this.baseDuration = 2f;
-                this.attackStartTime = 0.5f;
-                this.attackEndTime = 0.8f;
-                this.baseEarlyExitTime = 0.2f;
+                this.attackStartTime = 0.3f;
+                this.attackEndTime = 0.6f;
+                this.baseEarlyExitTime = 1f;
             }
 
             this.hitStopDuration = 0.1f;

@@ -58,7 +58,7 @@ namespace NoctisMod.SkillStates.BaseStates
             base.OnEnter();
             this.hasFired = false;
             this.animator = base.GetModelAnimator();
-            base.StartAimMode(this.baseDuration, true);
+            base.StartAimMode(this.baseDuration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -253,24 +253,55 @@ namespace NoctisMod.SkillStates.BaseStates
                 this.FireAttack();
             }
 
+            if (this.stopwatch >= (this.baseDuration * this.attackEndTime))
+            {
+                if (inputBank.skill1.down)
+                {
+                    if (skillLocator.primary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill2.down)
+                {
+                    if (skillLocator.secondary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill4.down)
+                {
+                    if (skillLocator.special.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
             if (this.stopwatch >= (this.baseDuration - this.baseEarlyExitTime) && base.isAuthority)
             {
-                if (inputBank.skill1.down && skillLocator.primary.skillDef == weaponDef)
-                {
-                    SetNextState();
-                }
-                if (inputBank.skill2.down && skillLocator.secondary.skillDef == weaponDef)
-                {
-                    SetNextState();
-                }
                 if (inputBank.skill3.down)
                 {
                     this.outer.SetNextState(new Dodge());
                     return;
-                }
-                if (inputBank.skill4.down && skillLocator.special.skillDef == weaponDef)
-                {
-                    SetNextState();
                 }
             }
 

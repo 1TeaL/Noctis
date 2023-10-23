@@ -30,6 +30,7 @@ namespace NoctisMod.SkillStates
         {
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            weaponDef = Noctis.swordSkillDef;
             keepMoving = true;
             this.hitboxName = "SwordHitbox";
 
@@ -37,10 +38,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.baseDuration = 1f;
+            this.baseDuration = 0.9f;
             this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.7f;
-            this.baseEarlyExitTime = 0.4f;
+            this.attackEndTime = 0.6f;
+            this.baseEarlyExitTime = 0.3f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;
@@ -59,6 +60,7 @@ namespace NoctisMod.SkillStates
             {
                 base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
             }
+            base.SmallHop(base.characterMotor, hitHopVelocity);
             base.OnEnter();
 
         }

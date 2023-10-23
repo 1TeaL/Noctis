@@ -80,10 +80,5 @@
       <HintPath>..\libs\ScrollableLobbyUI.dll</HintPath>
     </Reference>
   </ItemGroup>
-	
-  <ItemGroup>
-    <Folder Include="SkillStates\Skills\Greatsword\" />
-    <Folder Include="SkillStates\Skills\Polearm\" />
-  </ItemGroup>
 
 </Project>

@@ -18,6 +18,8 @@ namespace NoctisMod.Modules.Survivors
 
         //weapon skill def
         internal static SkillDef swordSkillDef;
+        internal static SkillDef greatswordSkillDef;
+        internal static SkillDef polearmSkillDef;
 
         //utility
         internal static SkillDef dodgeSkillDef;
@@ -163,14 +165,14 @@ namespace NoctisMod.Modules.Survivors
             Transform hitboxTransform = childLocator.FindChild("SwordHitbox");
             Modules.Prefabs.SetupHitbox(model, hitboxTransform, "SwordHitbox");
 
-            //Transform hitboxTransform2 = childLocator.FindChild("DetectSmallHitbox");
-            //Modules.Prefabs.SetupHitbox(model, hitboxTransform2, "DetectSmallHitbox");
+            Transform hitboxTransform2 = childLocator.FindChild("GreatswordHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform2, "GreatswordHitbox");
 
-            //Transform hitboxTransform3 = childLocator.FindChild("FrontHitbox");
-            //Modules.Prefabs.SetupHitbox(model, hitboxTransform3, "FrontHitbox");
+            Transform hitboxTransform3 = childLocator.FindChild("PolearmThrustHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform3, "PolearmThrustHitbox");
 
-            //Transform hitboxTransform4 = childLocator.FindChild("AroundHitbox");
-            //Modules.Prefabs.SetupHitbox(model, hitboxTransform4, "AroundHitbox");
+            Transform hitboxTransform4 = childLocator.FindChild("AOEHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform4, "AOEHitbox");
 
             //Transform hitboxTransform5 = childLocator.FindChild("DecayHitbox");
             //Modules.Prefabs.SetupHitbox(model, hitboxTransform5, "DecayHitbox");
@@ -203,7 +205,7 @@ namespace NoctisMod.Modules.Survivors
                 skillNameToken = prefix + "SWORD_NAME",
                 skillDescriptionToken = prefix + "SWORD_DESCRIPTION",
                 skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
-                activationState = new SerializableEntityStateType(typeof(SkillStates.SwordCombo)),
+                activationState = new SerializableEntityStateType(typeof(SwordCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
                 baseRechargeInterval = 0f,
@@ -221,6 +223,55 @@ namespace NoctisMod.Modules.Survivors
                 stockToConsume = 1,
             });
 
+            greatswordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+
+                skillName = prefix + "GREATSWORD_NAME",
+                skillNameToken = prefix + "GREATSWORD_NAME",
+                skillDescriptionToken = prefix + "GREATSWORD_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
+                activationState = new SerializableEntityStateType(typeof(GreatswordCombo)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = EntityStates.InterruptPriority.Any,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+            });
+
+            polearmSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+
+                skillName = prefix + "POLEARM_NAME",
+                skillNameToken = prefix + "POLEARM_NAME",
+                skillDescriptionToken = prefix + "POLEARM_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
+                activationState = new SerializableEntityStateType(typeof(PolearmCombo)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = EntityStates.InterruptPriority.Any,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = false,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+            });
             #endregion            
 
 
@@ -242,7 +293,7 @@ namespace NoctisMod.Modules.Survivors
                 interruptPriority = InterruptPriority.Skill,
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
-                mustKeyPress = true,
+                mustKeyPress = false,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,

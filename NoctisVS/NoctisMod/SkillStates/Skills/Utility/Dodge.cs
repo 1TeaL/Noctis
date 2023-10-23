@@ -23,8 +23,9 @@ namespace NoctisMod.SkillStates
         public static float initialSpeedCoefficient = Modules.StaticValues.dodgeSpeed;
         private float finalSpeedCoefficient = 0.1f;
 
-        private float baseDuration = 1f;
+        private float baseDuration = 0.6f;
         private float duration;
+        private float dodgeEndTime = 0.8f;
 
         
 
@@ -44,12 +45,9 @@ namespace NoctisMod.SkillStates
             duration = baseDuration / attackSpeedStat;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
+            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
 
-            characterBody.ApplyBuff(Modules.Buffs.dodgeBuff.buffIndex, 1);
-            if (!characterMotor.isGrounded)
-            {
-                base.SmallHop(base.characterMotor, StaticValues.dodgeHop);
-            }
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
             PlayAnimation();
         }
 
@@ -57,12 +55,14 @@ namespace NoctisMod.SkillStates
         {
             if (!characterMotor.isGrounded)
             {
-                base.PlayCrossfade("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration, 0.05f);
+                //base.PlayCrossfade("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration, 0.05f);
+                base.PlayAnimation("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration * dodgeEndTime);
             }
             else
             if (characterMotor.isGrounded)
             {
-                base.PlayCrossfade("FullBody, Override", "Roll", "Attack.playbackRate", this.duration, 0.05f);
+                //base.PlayCrossfade("FullBody, Override", "Roll", "Attack.playbackRate", this.duration, 0.05f);
+                base.PlayAnimation("FullBody, Override", "Roll", "Attack.playbackRate", this.duration * dodgeEndTime);
             }
         }
 
@@ -80,24 +80,34 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(Modules.Buffs.dodgeBuff.buffIndex, 0);
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
         }
 
         public override void Update()
         {
             base.Update();
             RecalculateRollSpeed();
-            Vector3 velocity = direction.normalized * rollSpeed;
-            base.characterMotor.velocity = velocity;
+            base.characterMotor.velocity = Vector3.zero;
+                    
 
-            if (!characterMotor.isGrounded)
+            if (base.fixedAge <= duration * dodgeEndTime)
             {
-                base.StartAimMode(0.5f, true);
-            }
-            else
-            if (characterMotor.isGrounded)
-            {
-                base.characterDirection.forward = base.inputBank.moveVector;
+                //if (!characterMotor.isGrounded)
+                //{
+                //    base.SmallHop(base.characterMotor, StaticValues.dodgeHop);
+                //}
+                if (!characterMotor.isGrounded)
+                {
+                    base.StartAimMode(0.5f, true);
+                    base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
+                    base.SmallHop(base.characterMotor, StaticValues.dodgeHop);
+                }
+                else
+                if (characterMotor.isGrounded)
+                {
+                    base.characterDirection.forward = this.direction;
+                    base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
+                }
             }
             
             if(base.fixedAge > duration)

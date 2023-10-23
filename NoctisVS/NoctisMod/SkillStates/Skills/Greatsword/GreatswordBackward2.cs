@@ -1,0 +1,104 @@
+﻿using EntityStates;
+using RoR2;
+using UnityEngine;
+using NoctisMod.Modules.Survivors;
+using System;
+using System.Collections.Generic;
+using UnityEngine.Networking;
+using NoctisMod.SkillStates.BaseStates;
+using R2API;
+using System.Runtime.CompilerServices;
+using NoctisMod.Modules;
+using System.Reflection;
+
+namespace NoctisMod.SkillStates
+{
+    public class GreatswordBackward2 : BaseMeleeAttack
+    {
+        public float damageMult;
+        public override void OnEnter()
+        {
+
+            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            weaponDef = Noctis.greatswordSkillDef;
+            this.hitboxName = "GreatswordHitbox";
+
+            this.damageType = DamageType.Generic;
+
+            this.damageCoefficient = damageMult;
+            this.procCoefficient = 1f;
+            this.pushForce = 500f * damageMult;
+            this.bonusForce = new Vector3(1000f, 0f, 0f);
+            this.baseDuration = 2f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.6f;
+            this.baseEarlyExitTime = 1f;
+            this.hitStopDuration = 0.1f;
+            this.attackRecoil = 0.75f;
+            this.hitHopVelocity = 7f;
+
+            this.swingSoundString = "ShiggyMelee";
+            this.hitSoundString = "";
+            this.muzzleString = "SwordSwingLeft";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
+            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
+
+            this.impactSound = Modules.Assets.hitSoundEffect.index;
+
+            base.OnEnter();
+            this.animator.SetBool("releaseChargeSlash", true);
+
+        }
+
+        protected override void PlayAttackAnimation()
+        {
+            base.PlayCrossfade("FullBody, Override", "GSChargeSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+        }
+
+        protected override void PlaySwingEffect()
+        {
+            base.PlaySwingEffect();
+        }
+
+        protected override void OnHitEnemyAuthority()
+        {
+            base.OnHitEnemyAuthority();
+
+        }
+
+        protected override void SetNextState()
+        {
+            if (base.isAuthority)
+            {
+                if (!this.hasFired) this.FireAttack();
+
+                GreatswordCombo GreatswordCombo = new GreatswordCombo();
+                this.outer.SetNextState(GreatswordCombo);
+                return;
+            }
+
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+        }
+
+        public override void OnSerialize(NetworkWriter writer)
+        {
+            base.OnSerialize(writer);
+            writer.Write(this.damageMult);
+        }
+
+        public override void OnDeserialize(NetworkReader reader)
+        {
+            base.OnDeserialize(reader);
+            this.damageMult = reader.ReadInt64();
+        }
+    }
+
+}
+
+
+
+

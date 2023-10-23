@@ -9,6 +9,7 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
 using R2API.Networking;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -38,10 +39,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseDuration = 2f;
+            this.attackStartTime = 0.1f;
+            this.attackEndTime = 0.4f;
+            this.baseEarlyExitTime = 1f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -84,32 +85,9 @@ namespace NoctisMod.SkillStates
             if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
             {
                 RecalculateRollSpeed();
-                if (isTarget)
-                {
-                    if (Target)
-                    {
-                        this.direction = Target.transform.position;
-                    }
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = (base.transform.position - this.direction).normalized * rollSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = (base.transform.position - this.direction).normalized * rollSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-
-                }
-
-
+                Vector3 velocity = direction * rollSpeed;
+                base.characterMotor.velocity = velocity;
+                base.SmallHop(base.characterMotor, 1f);
             }
 
         }
