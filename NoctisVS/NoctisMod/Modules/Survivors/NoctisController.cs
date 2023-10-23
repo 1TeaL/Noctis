@@ -262,7 +262,7 @@ namespace NoctisMod.Modules.Survivors
                         {
                             Material[] Array = currentWeaponSkinMesh.materials;
                             Array[0].SetFloat("_transitionLerp", Mathf.Lerp(0f, 1f, transitionTimer / StaticValues.weaponTransitionThreshold));
-
+                            currentWeaponSkinMesh.materials = Array;
                         }
                     }
                     else

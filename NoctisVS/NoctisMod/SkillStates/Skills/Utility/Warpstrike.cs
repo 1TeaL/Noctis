@@ -75,7 +75,7 @@ namespace NoctisMod.SkillStates
 
 
             aimRay = base.GetAimRay();
-            noctisCon.weaponState = NoctisController.WeaponType.NONE;
+            noctisCon.WeaponAppear(0f, NoctisController.WeaponType.NONE);
             keepMoving = true;
 
             direction = aimRay.direction.normalized;

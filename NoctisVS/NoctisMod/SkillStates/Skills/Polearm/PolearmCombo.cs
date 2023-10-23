@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
+using static NoctisMod.Modules.Survivors.NoctisController;
 
 namespace NoctisMod.SkillStates
 {
@@ -38,6 +39,7 @@ namespace NoctisMod.SkillStates
             }
 
 
+            noctisCon.WeaponAppear(2f, WeaponType.POLEARM);
         }
 
         public void Exit()

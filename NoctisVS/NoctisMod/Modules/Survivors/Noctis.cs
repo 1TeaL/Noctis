@@ -307,10 +307,14 @@ namespace NoctisMod.Modules.Survivors
             Skills.AddPrimarySkills(bodyPrefab, new SkillDef[]
             {
                 swordSkillDef,
+                greatswordSkillDef,
+                polearmSkillDef,
             });
             Skills.AddSecondarySkills(this.bodyPrefab, new SkillDef[]
             {
+                greatswordSkillDef,
                 swordSkillDef,
+                polearmSkillDef,
             });
             Skills.AddUtilitySkills(this.bodyPrefab, new SkillDef[]
             {
@@ -318,11 +322,13 @@ namespace NoctisMod.Modules.Survivors
             });
             Skills.AddSpecialSkills(this.bodyPrefab, new SkillDef[]
             {
+                polearmSkillDef,
                 swordSkillDef,
+                greatswordSkillDef,
             });
             Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
             {
-                swordSkillDef,
+                polearmSkillDef,
             });
             #endregion
 

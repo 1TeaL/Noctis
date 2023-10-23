@@ -63,7 +63,6 @@ namespace NoctisMod.SkillStates
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-            weaponType = NoctisController.WeaponType.SWORD;
             base.OnEnter();
         }
 
