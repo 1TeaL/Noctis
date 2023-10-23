@@ -28,7 +28,7 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = damageMult;
             this.procCoefficient = 1f;
             this.pushForce = 500f * damageMult;
-            this.bonusForce = new Vector3(1000f, 0f, 0f);
+            this.bonusForce = characterBody.characterDirection.forward * pushForce;
             this.baseDuration = 2f;
             this.attackStartTime = 0.3f;
             this.attackEndTime = 0.6f;

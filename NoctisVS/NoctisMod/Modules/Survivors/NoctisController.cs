@@ -119,6 +119,8 @@ namespace NoctisMod.Modules.Survivors
 
         public void DisableAllWeapons()
         {
+            currentWeapon = null;
+
             swordWeapon.SetActive(false);
             greatswordWeapon.SetActive(false);
             polearmWeapon.SetActive(false);
@@ -135,11 +137,12 @@ namespace NoctisMod.Modules.Survivors
             }
             else
             {
+                DisableAllWeapons();
+                weaponTimer = timer;
                 weaponState = weaponType;
                 switch (weaponType)
                 {
                     case WeaponType.NONE:
-                        DisableAllWeapons();
                         currentWeapon = null;
                         currentWeaponSkinMesh = null;
                         break;
@@ -261,7 +264,7 @@ namespace NoctisMod.Modules.Survivors
                         if(currentWeapon && currentWeaponSkinMesh)
                         {
                             Material[] Array = currentWeaponSkinMesh.materials;
-                            Array[0].SetFloat("_transitionLerp", Mathf.Lerp(0f, 1f, transitionTimer / StaticValues.weaponTransitionThreshold));
+                            Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(0f, 4f, transitionTimer / StaticValues.weaponTransitionThreshold));
                             currentWeaponSkinMesh.materials = Array;
                         }
                     }

@@ -44,7 +44,7 @@ namespace NoctisMod.SkillStates
             this.baseEarlyExitTime = 0.3f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 10f;
+            this.hitHopVelocity = 6f;
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";

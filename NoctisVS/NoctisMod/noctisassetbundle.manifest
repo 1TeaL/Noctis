@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1120301122
+CRC: 3354318558
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f95a2cf91d84bf323ed5540482ff092d
+    Hash: a82b5147eeb3af655c4fbefb98904246
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -72,6 +72,7 @@ Assets:
 - Assets/Noctis/Animations/Greatsword/GSRightDownSlash.anim
 - Assets/Noctis/Assets/Material/bootsShapeMat.mat
 - Assets/Noctis/Assets/Material/matHitboxPreview.mat
+- Assets/Noctis/Assets/Material/upsidedowngradient.png
 - Assets/Noctis/Animations/Polearm/PolearmDashingThrust.anim
 - Assets/Noctis/Animations/Movement/Sprint.anim
 - Assets/Noctis/Assets/Material/nh00_010_skin_01_n_$h.btex.png
@@ -91,6 +92,7 @@ Assets:
 - Assets/Noctis/Assets/Weapons/polearmNormalImage.png
 - Assets/Noctis/Assets/Mesh/TeardropVFXAShapeMesh.mesh
 - Assets/Noctis/Animations/Polearm/PolearmStabBackjump.anim
+- Assets/Noctis/Assets/Particle/weaponSwap.prefab
 - Assets/Noctis/Animations/animNoctis.controller
 - Assets/Noctis/Animations/Combat/TwirlForward.anim
 - Assets/Noctis/Assets/Material/voronoi noise.jpg
@@ -145,7 +147,7 @@ Assets:
 - Assets/Noctis/Animations/Combat/TripleSlash.anim
 - Assets/Noctis/Assets/noctisCustomUI.prefab
 - Assets/Noctis/Assets/Weapons/polearmMatR.mat
-- Assets/Noctis/Assets/Weapons/greatswordMat 2.mat
+- Assets/Noctis/Assets/Weapons/greatswordMatMetal.mat
 - Assets/Noctis/Assets/Weapons/noctisPolearm.prefab
 - Assets/Noctis/Animations/Sword/SwordLeapSlash.anim
 - Assets/Noctis/Animations/Movement/NoctisRunLooped.anim
@@ -153,6 +155,7 @@ Assets:
 - Assets/Noctis/Assets/Mesh/ShirtShapeMesh.mesh
 - Assets/Noctis/Assets/Particle/swingEffect.prefab
 - Assets/Noctis/Assets/Material/hairMat.mat
+- Assets/Noctis/Assets/Weapons/fresnelMat.mat
 - Assets/Noctis/Assets/Mesh/EyeShapeMesh.mesh
 - Assets/Noctis/Assets/Material/noise3blur.png
 - Assets/Noctis/Assets/Weapons/polearmMesh.mesh
@@ -166,6 +169,7 @@ Assets:
 - Assets/Noctis/Assets/Material/FadeIn.shader
 - Assets/Noctis/Assets/Weapons/noctisSword.prefab
 - Assets/Noctis/Assets/Weapons/swordMatMetal.mat
+- Assets/Noctis/Assets/Material/gradient.png
 - Assets/Noctis/Emotes/NoctisHumanoidAvatar.asset
 - Assets/Noctis/Animations/Sword/SwordStab.anim
 - Assets/Noctis/Assets/Material/nh00_000_eye_00_b_$h.btex.png

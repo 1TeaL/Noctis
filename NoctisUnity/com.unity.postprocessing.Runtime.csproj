@@ -648,11 +648,11 @@
  <Reference Include="System.Xml.Serialization">
  <HintPath>F:/Theodore 3/Unity/2019.4.26f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>F:/Theodore 3/GameDev/Mods/NoctisRoR2/NoctisUnity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

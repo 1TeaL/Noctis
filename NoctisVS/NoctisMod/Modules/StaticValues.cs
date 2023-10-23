@@ -11,7 +11,7 @@ namespace NoctisMod.Modules
     internal static class StaticValues
     {
         //weapon timer
-        internal static float weaponTransitionThreshold = 0.2f;
+        internal static float weaponTransitionThreshold = 0.4f;
 
         //Energy
         internal static float baseMana = 100f;
