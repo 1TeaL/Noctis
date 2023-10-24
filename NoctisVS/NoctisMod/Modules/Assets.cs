@@ -95,6 +95,7 @@ namespace NoctisMod.Modules
         //fake projectiles
         internal static GameObject swordThrowParticle;
         internal static GameObject polearmThrowParticle;
+        internal static GameObject polearmTracer;
 
         internal static void Initialize()
         {
@@ -153,6 +154,27 @@ namespace NoctisMod.Modules
             swordThrowParticle = Assets.LoadEffect("swordThrow", true);
             polearmThrowParticle = Assets.LoadEffect("polearmThrow", true);
 
+            polearmTracer = LoadEffect("polearmParticle");
+
+            if (!polearmTracer.GetComponent<EffectComponent>()) polearmTracer.AddComponent<EffectComponent>();
+            if (!polearmTracer.GetComponent<VFXAttributes>()) polearmTracer.AddComponent<VFXAttributes>();
+            if (!polearmTracer.GetComponent<NetworkIdentity>()) polearmTracer.AddComponent<NetworkIdentity>();
+
+            Material bulletMat = null;
+
+            foreach (LineRenderer i in polearmTracer.GetComponentsInChildren<LineRenderer>())
+            {
+                if (i)
+                {
+                    bulletMat = UnityEngine.Object.Instantiate<Material>(i.material);
+                    bulletMat.SetColor("_TintColor", new Color(0.68f, 0.58f, 0.05f));
+                    i.material = bulletMat;
+                    i.startColor = new Color(0.68f, 0.58f, 0.05f);
+                    i.endColor = new Color(0.68f, 0.58f, 0.05f);
+
+                }
+            }
+            Modules.Effects.AddEffect(polearmTracer);
 
             //sounds
             hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");

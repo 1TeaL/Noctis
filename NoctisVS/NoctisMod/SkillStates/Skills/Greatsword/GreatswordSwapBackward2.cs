@@ -39,7 +39,7 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
 
             hasFired = false;
-            this.animator.SetBool("releaseChargeLeap", false);
+            this.animator.SetBool("releaseChargeLeap", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
             PlayCrossfade("FullBody, Override", "GSChargeLeapSlash", "Attack.playbackRate", baseDuration, 0.01f);
             //if (base.isAuthority)
@@ -159,6 +159,8 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("releaseChargeSlash", false);
+            this.animator.SetBool("releaseChargeLeap", false);
 
         }
     }

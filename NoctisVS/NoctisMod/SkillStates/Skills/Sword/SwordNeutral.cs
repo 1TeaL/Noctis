@@ -26,7 +26,7 @@ namespace NoctisMod.SkillStates
                 this.damageCoefficient = 2f;
                 this.procCoefficient = 1f;
                 this.pushForce = 300f;
-                this.baseDuration = 1f;
+                this.baseDuration = 2f;
                 this.attackStartTime = 0.3f;
                 this.attackEndTime = 0.6f;
                 this.baseEarlyExitTime = 0.4f;

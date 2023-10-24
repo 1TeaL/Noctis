@@ -10,11 +10,13 @@ using R2API;
 using System.Runtime.CompilerServices;
 using NoctisMod.Modules;
 using System.Reflection;
+using static NoctisMod.Modules.Survivors.NoctisController;
 
 namespace NoctisMod.SkillStates
 {
     public class GreatswordBackward : BaseSkillState
     {
+        NoctisController noctisCon;
         float baseDuration = 0.7f;
         private Animator animator;
         private float chargePercent;
@@ -24,9 +26,11 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = gameObject.GetComponent<NoctisController>();
             this.animator = base.GetModelAnimator();
             base.StartAimMode(this.baseDuration, false);
             this.animator.SetBool("releaseChargeSlash", false);
+            this.animator.SetBool("releaseChargeLeap", false);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
 
             base.PlayCrossfade("FullBody, Override", "GSCharge", "Attack.playbackRate", this.baseDuration, 0.05f);
@@ -34,7 +38,9 @@ namespace NoctisMod.SkillStates
 
         public void ChargeCalc()
         {
-            this.damageMult = StaticValues.GSChargeDamage + StaticValues.GSChargeMultiplier * (this.chargePercent * StaticValues.GSChargeDamage);            
+            this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
+            this.damageMult = StaticValues.GSChargeDamage + StaticValues.GSChargeMultiplier * (this.chargePercent * StaticValues.GSChargeDamage);
+            noctisCon.WeaponAppear(3f, WeaponType.GREATSWORD);
         }
 
         public override void FixedUpdate()
@@ -44,22 +50,15 @@ namespace NoctisMod.SkillStates
             {
                 if (inputBank.skill1.down && skillLocator.primary.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
                     ChargeCalc();
-
                 }
                 else if (inputBank.skill2.down && skillLocator.secondary.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
                     ChargeCalc();
-                    
-
                 }
                 else if (inputBank.skill4.down && skillLocator.special.skillDef == Noctis.greatswordSkillDef)
                 {
-                    this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
-                    ChargeCalc();                    
-
+                    ChargeCalc();        
                 }
                 else
                 {

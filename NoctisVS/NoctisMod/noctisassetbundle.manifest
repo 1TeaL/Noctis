@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3354318558
+CRC: 1278410969
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a82b5147eeb3af655c4fbefb98904246
+    Hash: 8613775424febb9771afec37538ee864
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -94,6 +94,7 @@ Assets:
 - Assets/Noctis/Animations/Polearm/PolearmStabBackjump.anim
 - Assets/Noctis/Assets/Particle/weaponSwap.prefab
 - Assets/Noctis/Animations/animNoctis.controller
+- Assets/Noctis/Assets/Material/masochismWaveShaderv2.shader
 - Assets/Noctis/Animations/Combat/TwirlForward.anim
 - Assets/Noctis/Assets/Material/voronoi noise.jpg
 - Assets/Noctis/Animations/Combat/WarpStrikeAttack.anim
@@ -118,6 +119,7 @@ Assets:
 - Assets/Noctis/Animations/Movement/Descend.anim
 - Assets/Noctis/Animations/Movement/walkForward.anim
 - Assets/Noctis/Animations/Polearm/PolearmThrow.anim
+- Assets/Noctis/Assets/Particle/polearmParticle.prefab
 - Assets/Noctis/Animations/Greatsword/GSChargeLeapSlash.anim
 - Assets/Noctis/Assets/Weapons/swordNormalImage.png
 - Assets/Noctis/Assets/Material/buttonsMat.mat

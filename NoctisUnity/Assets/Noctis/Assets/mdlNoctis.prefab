@@ -132893,6 +132893,8 @@ MonoBehaviour:
     transform: {fileID: 5503516611767221135}
   - name: SpinningWeaponAura
     transform: {fileID: 181398793632730285}
+  - name: RHand
+    transform: {fileID: 5924981763608541943}
 --- !u!1 &9087208661878661363
 GameObject:
   m_ObjectHideFlags: 0

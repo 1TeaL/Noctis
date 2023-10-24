@@ -62,7 +62,7 @@ namespace NoctisMod.SkillStates
                 base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
             }
             base.OnEnter();
-
+            autoStateChange = true;
         }
 
 

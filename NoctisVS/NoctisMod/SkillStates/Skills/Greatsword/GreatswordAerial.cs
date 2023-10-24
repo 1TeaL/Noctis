@@ -19,7 +19,7 @@ namespace NoctisMod.SkillStates
         private GameObject slamIndicatorInstance;
 
         private bool hasDropped;
-        public float dropForce = 160f;
+        public float dropForce = StaticValues.GSDropSpeed;
 
         public override void OnEnter()
         {
@@ -68,7 +68,6 @@ namespace NoctisMod.SkillStates
             if (!this.hasDropped)
             {
                 this.StartDrop();
-                base.PlayCrossfade("FullBody, Override", "ManchesterEnd", "Attack.playbackRate", 0.5f, 0.2f);
             }
 
             if (!this.slamIndicatorInstance)
@@ -137,7 +136,10 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                blastAttack.Fire();
+                for (int i = 0; i <= attackAmount; i++)
+                {
+                    blastAttack.Fire();
+                }
 
                 for (int i = 0; i <= 4; i += 1)
                 {
@@ -156,7 +158,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -175,6 +177,16 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
+
+                characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+                if (this.slamIndicatorInstance)
+                    this.slamIndicatorInstance.SetActive(false);
+                EntityState.Destroy(this.slamIndicatorInstance);
+
+                base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
+                base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+                base.characterMotor.Motor.RebuildCollidableLayers();
+
                 GreatswordCombo GreatswordCombo = new GreatswordCombo();
                 this.outer.SetNextState(GreatswordCombo);
                 return;

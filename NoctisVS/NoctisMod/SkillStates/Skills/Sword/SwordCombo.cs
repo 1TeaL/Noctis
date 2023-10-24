@@ -117,40 +117,10 @@ namespace NoctisMod.SkillStates
                             if (Vector3.Dot(base.inputBank.moveVector, normalized) >= 0.8f)
                             {
                                 //forward attack
-                                if (noctisCon.GetTrackingTarget())
-                                {
-                                    Target = noctisCon.GetTrackingTarget();
-                                    float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                                    if (distance > Modules.StaticValues.swordDashDistance)
-                                    {
-                                        Chat.AddMessage("forward attack- swap");
-                                        SwordSwapForward SwordSwapForward = new SwordSwapForward();
-                                        SwordSwapForward.isTarget = true;
-                                        SwordSwapForward.Target = Target;
-                                        this.outer.SetNextState(SwordSwapForward);
-                                        return;
-
-                                    }
-                                    else
-                                    {
-                                        //neutral attack
-                                        Chat.AddMessage("neutral attack- swap");
-                                        SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
-                                        SwordSwapNeutral.swingIndex = currentSwingIndex;
-                                        this.outer.SetNextState(SwordSwapNeutral);
-                                        return;
-
-                                    }
-                                }
-                                else
-                                {
-                                    Chat.AddMessage("forward attack- swap");
-                                    SwordSwapForward SwordSwapForward = new SwordSwapForward();
-                                    SwordSwapForward.isTarget = false;
-                                    this.outer.SetNextState(SwordSwapForward);
-                                    return;
-
-                                }
+                                Chat.AddMessage("forward attack- swap");
+                                SwordSwapForward SwordSwapForward = new SwordSwapForward();
+                                this.outer.SetNextState(SwordSwapForward);
+                                return;
                             }
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {

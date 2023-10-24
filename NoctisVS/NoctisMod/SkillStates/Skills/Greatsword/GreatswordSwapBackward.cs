@@ -32,6 +32,7 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
             base.StartAimMode(this.baseDuration, false);
+            this.animator.SetBool("releaseChargeSlash", false);
             this.animator.SetBool("releaseChargeLeap", false);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
 
@@ -89,7 +90,7 @@ namespace NoctisMod.SkillStates
                     GreatswordSwapBackward2.damageMult = damageMult;
                     GreatswordSwapBackward2.radius = this.radius;
                     this.outer.SetNextState(GreatswordSwapBackward2);
-                    this.animator.SetBool("releaseChargeSlash", true);
+                    this.animator.SetBool("releaseChargeLeap", true);
                     return;
                 }
             }
@@ -99,7 +100,7 @@ namespace NoctisMod.SkillStates
                 GreatswordSwapBackward2.damageMult = damageMult;
                 GreatswordSwapBackward2.radius = this.radius;
                 this.outer.SetNextState(GreatswordSwapBackward2);
-                this.animator.SetBool("releaseChargeSlash", true);
+                this.animator.SetBool("releaseChargeLeap", true);
                 return;
             }
 

@@ -23,6 +23,7 @@ namespace NoctisMod.Modules.Survivors
 
         //utility
         internal static SkillDef dodgeSkillDef;
+        internal static SkillDef warpstrikeSkillDef;
 
 
 
@@ -294,6 +295,31 @@ namespace NoctisMod.Modules.Survivors
                 resetCooldownTimerOnUse = false,
                 isCombatSkill = true,
                 mustKeyPress = false,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+            });
+
+            warpstrikeSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "WARPSTRIKE_NAME",
+                skillNameToken = prefix + "WARPSTRIKE_NAME",
+                skillDescriptionToken = prefix + "WARPSTRIKE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
+                activationState = new SerializableEntityStateType(typeof(Warpstrike)),
+                activationStateMachineName = "Body",
+                baseMaxStock = 1,
+                baseRechargeInterval = 1f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
                 cancelSprintingOnActivation = false,
                 rechargeStock = 1,
                 requiredStock = 1,

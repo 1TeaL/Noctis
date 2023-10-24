@@ -12,6 +12,7 @@ namespace NoctisMod.SkillStates.BaseStates
 {
     public class BaseMeleeAttack : BaseSkillState
     {
+        public bool autoStateChange;
         public int swingIndex;
         public NoctisController noctisCon;
 
@@ -48,7 +49,7 @@ namespace NoctisMod.SkillStates.BaseStates
         private BaseState.HitStopCachedState hitStopCachedState;
         private Vector3 storedVelocity;
 
-        private int attackAmount;
+        public int attackAmount;
         private float partialAttack;
         private HitBoxGroup hitBoxGroup;
 
@@ -58,6 +59,7 @@ namespace NoctisMod.SkillStates.BaseStates
         {
             base.OnEnter();
             this.hasFired = false;
+            autoStateChange = false;
             this.animator = base.GetModelAnimator();
             base.StartAimMode(this.baseDuration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
@@ -256,6 +258,11 @@ namespace NoctisMod.SkillStates.BaseStates
 
             if (this.stopwatch >= (this.baseDuration * this.attackEndTime))
             {
+                if(autoStateChange)
+                {
+                    SetNextState();
+                }
+
                 if (inputBank.skill1.down)
                 {
                     if (skillLocator.primary.skillDef == weaponDef)

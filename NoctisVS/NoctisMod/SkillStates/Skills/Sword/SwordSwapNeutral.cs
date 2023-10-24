@@ -45,6 +45,7 @@ namespace NoctisMod.SkillStates
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
 
             base.OnEnter();
+            autoStateChange = true;
 
         }
 

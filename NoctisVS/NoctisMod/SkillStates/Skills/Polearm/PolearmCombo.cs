@@ -45,7 +45,7 @@ namespace NoctisMod.SkillStates
         public void Exit()
         {
             base.OnExit();
-            noctisCon.weaponState = NoctisController.WeaponType.SWORD;
+            noctisCon.weaponState = NoctisController.WeaponType.POLEARM;
         }
 
         public override void Update()
@@ -61,38 +61,55 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        //check distance to target if target exists
-                        if (noctisCon.GetTrackingTarget())
+
+                        Vector3 moveVector = base.inputBank.moveVector;
+                        Vector3 aimDirection = base.inputBank.aimDirection;
+                        Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
+                        Vector3 up = base.transform.up;
+                        Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
+
+                        if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                         {
-                            Target = noctisCon.GetTrackingTarget();
-                            float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                            if (distance > Modules.StaticValues.swordDashDistance)
-                            {
-                                Chat.AddMessage("aerial attack");
-                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                                SwordSwapAerial.isTarget = true;
-                                SwordSwapAerial.Target = Target;
-                                this.outer.SetNextState(SwordSwapAerial);
-                                return;
-
-                            }
-                            else
-                            {
-                                Chat.AddMessage("aerial attack");
-                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                                SwordSwapAerial.isTarget = false;
-                                this.outer.SetNextState(SwordSwapAerial);
-                                return;
-
-                            }
+                            //backward attack
+                            Chat.AddMessage("backward aerial attack");
+                            this.outer.SetNextState(new PolearmDoubleDragoonThrust());
+                            return;
                         }
                         else
                         {
-                            SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                            SwordSwapAerial.isTarget = false;
-                            this.outer.SetNextState(SwordSwapAerial);
-                            return;
+                            //check distance to target if target exists
+                            if (noctisCon.GetTrackingTarget())
+                            {
+                                Target = noctisCon.GetTrackingTarget();
+                                float distance = Vector3.Distance(base.transform.position, Target.transform.position);
+                                if (distance > Modules.StaticValues.polearmDashSpeed)
+                                {
+                                    Chat.AddMessage("aerial attack");
+                                    PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
+                                    PolearmSwapAerial.isTarget = true;
+                                    PolearmSwapAerial.Target = Target;
+                                    this.outer.SetNextState(PolearmSwapAerial);
+                                    return;
 
+                                }
+                                else
+                                {
+                                    Chat.AddMessage("aerial attack");
+                                    PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
+                                    PolearmSwapAerial.isTarget = false;
+                                    this.outer.SetNextState(PolearmSwapAerial);
+                                    return;
+
+                                }
+                            }
+                            else
+                            {
+                                PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
+                                PolearmSwapAerial.isTarget = false;
+                                this.outer.SetNextState(PolearmSwapAerial);
+                                return;
+
+                            }
                         }
 
                     }
@@ -102,9 +119,9 @@ namespace NoctisMod.SkillStates
                         {
                             //neutral attack
                             Chat.AddMessage("neutral attack- swap");
-                            SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
-                            SwordSwapNeutral.swingIndex = currentSwingIndex;
-                            this.outer.SetNextState(SwordSwapNeutral);
+                            PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
+                            PolearmSwapNeutral.swingIndex = currentSwingIndex;
+                            this.outer.SetNextState(PolearmSwapNeutral);
                             return;
                         }
                         else
@@ -122,13 +139,11 @@ namespace NoctisMod.SkillStates
                                 {
                                     Target = noctisCon.GetTrackingTarget();
                                     float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                                    if (distance > Modules.StaticValues.swordDashDistance)
+                                    if (distance > Modules.StaticValues.polearmDashSpeed)
                                     {
                                         Chat.AddMessage("forward attack- swap");
-                                        SwordSwapForward SwordSwapForward = new SwordSwapForward();
-                                        SwordSwapForward.isTarget = true;
-                                        SwordSwapForward.Target = Target;
-                                        this.outer.SetNextState(SwordSwapForward);
+                                        PolearmSwapForward PolearmSwapForward = new PolearmSwapForward();
+                                        this.outer.SetNextState(PolearmSwapForward);
                                         return;
 
                                     }
@@ -136,9 +151,9 @@ namespace NoctisMod.SkillStates
                                     {
                                         //neutral attack
                                         Chat.AddMessage("neutral attack- swap");
-                                        SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
-                                        SwordSwapNeutral.swingIndex = currentSwingIndex;
-                                        this.outer.SetNextState(SwordSwapNeutral);
+                                        PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
+                                        PolearmSwapNeutral.swingIndex = currentSwingIndex;
+                                        this.outer.SetNextState(PolearmSwapNeutral);
                                         return;
 
                                     }
@@ -146,9 +161,8 @@ namespace NoctisMod.SkillStates
                                 else
                                 {
                                     Chat.AddMessage("forward attack- swap");
-                                    SwordSwapForward SwordSwapForward = new SwordSwapForward();
-                                    SwordSwapForward.isTarget = false;
-                                    this.outer.SetNextState(SwordSwapForward);
+                                    PolearmSwapForward PolearmSwapForward = new PolearmSwapForward();
+                                    this.outer.SetNextState(PolearmSwapForward);
                                     return;
 
                                 }
@@ -157,16 +171,16 @@ namespace NoctisMod.SkillStates
                             {
                                 //backward attack
                                 Chat.AddMessage("backward attack- swap");
-                                this.outer.SetNextState(new SwordSwapBackward());
+                                this.outer.SetNextState(new PolearmSwapBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
                                 Chat.AddMessage("neutral attack- swap");
-                                SwordSwapNeutral SwordSwapNeutral = new SwordSwapNeutral();
-                                SwordSwapNeutral.swingIndex = currentSwingIndex;
-                                this.outer.SetNextState(SwordSwapNeutral);
+                                PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
+                                PolearmSwapNeutral.swingIndex = currentSwingIndex;
+                                this.outer.SetNextState(PolearmSwapNeutral);
                                 return;
                             }
 
@@ -183,40 +197,26 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        //check distance to target if target exists
-                        if (noctisCon.GetTrackingTarget())
+                        Vector3 moveVector = base.inputBank.moveVector;
+                        Vector3 aimDirection = base.inputBank.aimDirection;
+                        Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
+                        Vector3 up = base.transform.up;
+                        Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
+
+                        if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                         {
-                            Target = noctisCon.GetTrackingTarget();
-                            float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                            if (distance > Modules.StaticValues.swordDashDistance)
-                            {
-                                Chat.AddMessage("aerial attack");
-                                SwordAerial SwordAerial = new SwordAerial();
-                                SwordAerial.isTarget = true;
-                                SwordAerial.Target = Target;
-                                this.outer.SetNextState(SwordAerial);
-                                return;
-
-                            }
-                            else
-                            {
-                                //aerial attack
-                                Chat.AddMessage("aerial attack");
-                                SwordAerial SwordAerial = new SwordAerial();
-                                SwordAerial.isTarget = false;
-                                this.outer.SetNextState(SwordAerial);
-                                return;
-
-                            }
+                            //backward attack
+                            Chat.AddMessage("backward aerial attack");
+                            this.outer.SetNextState(new PolearmDragoonThrust());
+                            return;
                         }
                         else
                         {
+                            //neutral attack
                             Chat.AddMessage("aerial attack");
-                            SwordAerial SwordAerial = new SwordAerial();
-                            SwordAerial.isTarget = false;
-                            this.outer.SetNextState(SwordAerial);
+                            PolearmAerial PolearmAerial = new PolearmAerial();
+                            this.outer.SetNextState(PolearmAerial);
                             return;
-
                         }
 
                     }
@@ -247,11 +247,11 @@ namespace NoctisMod.SkillStates
                                 {
                                     Target = noctisCon.GetTrackingTarget();
                                     float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                                    if (distance > Modules.StaticValues.swordDashDistance)
+                                    if (distance > Modules.StaticValues.polearmDashSpeed)
                                     {
                                         Chat.AddMessage("forward attack");
-                                        SwordForward SwordForward = new SwordForward();
-                                        this.outer.SetNextState(SwordForward);
+                                        PolearmForward PolearmForward = new PolearmForward();
+                                        this.outer.SetNextState(PolearmForward);
                                         return;
 
                                     }
@@ -259,9 +259,9 @@ namespace NoctisMod.SkillStates
                                     {
                                         //neutral attack
                                         Chat.AddMessage("neutral attack");
-                                        SwordNeutral SwordNeutral = new SwordNeutral();
-                                        SwordNeutral.swingIndex = currentSwingIndex;
-                                        this.outer.SetNextState(SwordNeutral);
+                                        PolearmNeutral PolearmNeutral = new PolearmNeutral();
+                                        PolearmNeutral.swingIndex = currentSwingIndex;
+                                        this.outer.SetNextState(PolearmNeutral);
                                         return;
 
                                     }
@@ -269,8 +269,8 @@ namespace NoctisMod.SkillStates
                                 else
                                 {
                                     Chat.AddMessage("forward attack");
-                                    SwordForward SwordForward = new SwordForward();
-                                    this.outer.SetNextState(SwordForward);
+                                    PolearmForward PolearmForward = new PolearmForward();
+                                    this.outer.SetNextState(PolearmForward);
                                     return;
 
                                 }
@@ -279,16 +279,16 @@ namespace NoctisMod.SkillStates
                             {
                                 //backward attack
                                 Chat.AddMessage("backward attack");
-                                this.outer.SetNextState(new SwordBackward());
+                                this.outer.SetNextState(new PolearmBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
                                 Chat.AddMessage("neutral attack");
-                                SwordNeutral SwordNeutral = new SwordNeutral();
-                                SwordNeutral.swingIndex = currentSwingIndex;
-                                this.outer.SetNextState(SwordNeutral);
+                                PolearmNeutral PolearmNeutral = new PolearmNeutral();
+                                PolearmNeutral.swingIndex = currentSwingIndex;
+                                this.outer.SetNextState(PolearmNeutral);
                                 return;
                             }
 

@@ -72,6 +72,8 @@ namespace NoctisMod.Modules.Survivors
 
         public GameObject currentWeapon;
         public SkinnedMeshRenderer currentWeaponSkinMesh;
+        public GameObject currentWeapon2;
+        public SkinnedMeshRenderer currentWeaponSkinMesh2;
 
         public bool isTransitioning;
         public float transitionTimer;
@@ -168,7 +170,7 @@ namespace NoctisMod.Modules.Survivors
                     currentWeaponSkinMesh = currentWeapon.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
                     isTransitioning = true;
                     transitionTimer = 0f;
-                } 
+                }
 
             }
         }

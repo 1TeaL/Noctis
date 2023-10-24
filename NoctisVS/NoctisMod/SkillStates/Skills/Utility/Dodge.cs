@@ -26,7 +26,7 @@ namespace NoctisMod.SkillStates
 
         private float baseDuration = 0.6f;
         private float duration;
-        private float dodgeEndTime = 0.8f;
+        private float dodgeEndTime = 0.9f;
 
         
 

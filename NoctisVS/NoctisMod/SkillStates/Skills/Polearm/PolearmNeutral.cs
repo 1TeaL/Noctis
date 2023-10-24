@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -16,15 +17,15 @@ namespace NoctisMod.SkillStates
         {
 
             //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
-            weaponDef = Noctis.greatswordSkillDef;
-            this.hitboxName = "GreatswordHitbox";
+            weaponDef = Noctis.polearmSkillDef;
+            this.hitboxName = "PolearmThrustHitbox";
 
             this.damageType = DamageType.Generic;
 
             this.damageCoefficient = 4f;
             this.procCoefficient = 1f;
             this.pushForce = 1000f;
-            this.bonusForce = new Vector3(10f, 1000f, 0f);
+            this.bonusForce = Vector3.zero;
             this.baseDuration = 2f;
             this.attackStartTime = 0.3f;
             this.attackEndTime = 0.6f;
@@ -35,19 +36,19 @@ namespace NoctisMod.SkillStates
 
             this.swingSoundString = "ShiggyMelee";
             this.hitSoundString = "";
-            this.muzzleString = "SwordSwingUp";
+            this.muzzleString = "SwordSwingStab";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
             base.OnEnter();
-
+            attackAmount += StaticValues.polearmExtraHit;
         }
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "GSUpper", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "PolearmNeutralThrust", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -67,8 +68,8 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
-                GreatswordCombo GreatswordCombo = new GreatswordCombo();
-                this.outer.SetNextState(GreatswordCombo);
+                PolearmCombo PolearmCombo = new PolearmCombo();
+                this.outer.SetNextState(PolearmCombo);
                 return;
             }
 

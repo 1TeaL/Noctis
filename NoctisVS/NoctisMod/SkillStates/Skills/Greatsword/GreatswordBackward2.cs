@@ -82,6 +82,8 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            this.animator.SetBool("releaseChargeSlash", false);
+            this.animator.SetBool("releaseChargeLeap", false);
         }
 
         public override void OnSerialize(NetworkWriter writer)
