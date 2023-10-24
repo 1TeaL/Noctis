@@ -10,6 +10,7 @@ using R2API;
 using R2API.Networking;
 using EntityStates.Huntress;
 using NoctisMod.Modules;
+using static NoctisMod.Modules.Survivors.NoctisController;
 
 namespace NoctisMod.SkillStates
 {
@@ -60,6 +61,7 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 2f);
             attackAmount += StaticValues.polearmExtraHit;
+            noctisCon.WeaponAppearR(2f, WeaponTypeR.POLEARMR);
 
         }
 
@@ -70,7 +72,7 @@ namespace NoctisMod.SkillStates
 
             if (!this.hasDropped)
             {
-                base.characterMotor.rootMotion += Vector3.up* ((dropForce) * EntityStates.Mage.FlyUpState.speedCoefficientCurve.Evaluate(base.fixedAge / baseDuration * attackStartTime * 0.5f) * Time.fixedDeltaTime);
+                base.characterMotor.rootMotion += Vector3.up* ((dropForce) * EntityStates.Mage.FlyUpState.speedCoefficientCurve.Evaluate(base.fixedAge / baseDuration) * Time.fixedDeltaTime);
                 base.characterMotor.velocity.y = 0f;
             }
 

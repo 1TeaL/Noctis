@@ -45,6 +45,17 @@ namespace NoctisMod.Modules
             entityStates.Add(typeof(GreatswordSwapAerial));
 
             //Polearm
+            entityStates.Add(typeof(PolearmCombo));
+            entityStates.Add(typeof(PolearmNeutral));
+            entityStates.Add(typeof(PolearmForward));
+            entityStates.Add(typeof(PolearmBackward));
+            entityStates.Add(typeof(PolearmAerial));
+            entityStates.Add(typeof(PolearmSwapNeutral));
+            entityStates.Add(typeof(PolearmSwapForward));
+            entityStates.Add(typeof(PolearmSwapBackward));
+            entityStates.Add(typeof(PolearmSwapAerial));
+            entityStates.Add(typeof(PolearmDragoonThrust));
+            entityStates.Add(typeof(PolearmDoubleDragoonThrust));
         }
     }
 }

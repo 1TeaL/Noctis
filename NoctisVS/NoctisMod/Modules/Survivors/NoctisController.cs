@@ -70,26 +70,34 @@ namespace NoctisMod.Modules.Survivors
         public GameObject polearmDownRightWeapon;
         public GameObject polearmDownLeftWeapon;
 
-        public GameObject currentWeapon;
-        public SkinnedMeshRenderer currentWeaponSkinMesh;
-        public GameObject currentWeapon2;
-        public SkinnedMeshRenderer currentWeaponSkinMesh2;
+        public GameObject currentWeaponR;
+        public SkinnedMeshRenderer currentWeaponSkinMeshR;
+        public GameObject currentWeaponL;
+        public SkinnedMeshRenderer currentWeaponSkinMeshL;
 
-        public bool isTransitioning;
-        public float transitionTimer;
-        public float weaponTimer;
-        public WeaponType weaponState;
+        public bool isTransitioningL;
+        public float transitionTimerL;
+        public bool isTransitioningR;
+        public float transitionTimerR;
+        public float weaponTimerR;
+        public float weaponTimerL;
+        public WeaponTypeR weaponStateR;
+        public WeaponTypeL weaponStateL;
 
-        public enum WeaponType : ushort
+        public enum WeaponTypeR : ushort
         {
             NONE = 1,
             SWORD = 2,
             GREATSWORD = 3,
             POLEARM = 4,
-            POLEARML = 5,
-            POLEARMR = 6,
+            POLEARMR = 5,
         }
 
+        public enum WeaponTypeL : ushort
+        {
+            NONE = 1,
+            POLEARML = 2,
+        }
 
 
         public void Awake()
@@ -119,57 +127,91 @@ namespace NoctisMod.Modules.Survivors
 
         }
 
-        public void DisableAllWeapons()
+        public void DisableAllWeaponsL()
         {
-            currentWeapon = null;
+            currentWeaponL = null;
+
+            polearmDownLeftWeapon.SetActive(false);
+        }
+        public void DisableAllWeaponsR()
+        {
+            currentWeaponR = null;
 
             swordWeapon.SetActive(false);
             greatswordWeapon.SetActive(false);
             polearmWeapon.SetActive(false);
-            polearmDownLeftWeapon.SetActive(false);
             polearmDownRightWeapon.SetActive(false);
         }
 
-        public void WeaponAppear(float timer, WeaponType weaponType)
+        public void WeaponAppearL(float timer, WeaponTypeL weapTypeL)
         {
-            if(weaponType == weaponState)
+            if (weapTypeL == weaponStateL)
             {
                 //refresh time
-                weaponTimer = timer;
+                weaponTimerL = timer;
             }
             else
             {
-                DisableAllWeapons();
-                weaponTimer = timer;
-                weaponState = weaponType;
-                switch (weaponType)
+                DisableAllWeaponsL();
+                weaponTimerL = timer;
+                weaponStateL = weapTypeL;
+                switch (weapTypeL)
                 {
-                    case WeaponType.NONE:
-                        currentWeapon = null;
-                        currentWeaponSkinMesh = null;
+                    case WeaponTypeL.NONE:
+                        currentWeaponL = null;
+                        currentWeaponSkinMeshL = null;
                         break;
-                    case WeaponType.SWORD:
-                        currentWeapon = swordWeapon;
-                        break;
-                    case WeaponType.GREATSWORD:
-                        currentWeapon = greatswordWeapon;
-                        break;
-                    case WeaponType.POLEARM:
-                        currentWeapon = polearmWeapon;
-                        break;
-                    case WeaponType.POLEARML:
-                        currentWeapon = polearmDownLeftWeapon;
-                        break;
-                    case WeaponType.POLEARMR:
-                        currentWeapon = polearmDownRightWeapon;
+                    case WeaponTypeL.POLEARML:
+                        currentWeaponL = polearmDownLeftWeapon;
                         break;
                 }
-                if (currentWeapon)
+                if (currentWeaponR)
                 {
-                    currentWeapon.SetActive(true);
-                    currentWeaponSkinMesh = currentWeapon.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
-                    isTransitioning = true;
-                    transitionTimer = 0f;
+                    currentWeaponL.SetActive(true);
+                    currentWeaponSkinMeshL = currentWeaponL.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+                    isTransitioningL = true;
+                    transitionTimerL = 0f;
+                }
+
+            }
+        }
+        public void WeaponAppearR(float timer, WeaponTypeR weapTypeR)
+        {
+            if(weapTypeR == weaponStateR)
+            {
+                //refresh time
+                weaponTimerR = timer;
+            }
+            else
+            {
+                DisableAllWeaponsR();
+                weaponTimerR = timer;
+                weaponStateR = weapTypeR;
+                switch (weapTypeR)
+                {
+                    case WeaponTypeR.NONE:
+                        currentWeaponR = null;
+                        currentWeaponSkinMeshR = null;
+                        break;
+                    case WeaponTypeR.SWORD:
+                        currentWeaponR = swordWeapon;
+                        break;
+                    case WeaponTypeR.GREATSWORD:
+                        currentWeaponR = greatswordWeapon;
+                        break;
+                    case WeaponTypeR.POLEARM:
+                        currentWeaponR = polearmWeapon;
+                        break;
+                    case WeaponTypeR.POLEARMR:
+                        currentWeaponR = polearmDownRightWeapon;
+                        break;
+                }
+                if (currentWeaponR)
+                {
+                    currentWeaponR.SetActive(true);
+                    currentWeaponSkinMeshR = currentWeaponR.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+                    isTransitioningR = true;
+                    transitionTimerR = 0f;
                 }
 
             }
@@ -191,7 +233,8 @@ namespace NoctisMod.Modules.Survivors
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
 
-            weaponState = WeaponType.NONE;
+            weaponStateR = WeaponTypeR.NONE;
+            weaponStateL = WeaponTypeL.NONE;
 
 
         }
@@ -256,37 +299,72 @@ namespace NoctisMod.Modules.Survivors
 
         public void Update()
         {
-            if (weaponState != WeaponType.NONE)
+            if (weaponStateR != WeaponTypeR.NONE)
             {
-                if(isTransitioning)
+                if(isTransitioningR)
                 {
-                    if(transitionTimer < StaticValues.weaponTransitionThreshold)
+                    if(transitionTimerR < StaticValues.weaponTransitionThreshold)
                     {
-                        transitionTimer += Time.deltaTime;
-                        if(currentWeapon && currentWeaponSkinMesh)
+                        transitionTimerR += Time.deltaTime;
+                        if(currentWeaponR && currentWeaponSkinMeshR)
                         {
-                            Material[] Array = currentWeaponSkinMesh.materials;
-                            Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(0f, 4f, transitionTimer / StaticValues.weaponTransitionThreshold));
-                            currentWeaponSkinMesh.materials = Array;
+                            Material[] Array = currentWeaponSkinMeshR.materials;
+                            Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(0f, 4f, transitionTimerR / StaticValues.weaponTransitionThreshold));
+                            currentWeaponSkinMeshR.materials = Array;
                         }
                     }
                     else
                     {
-                        isTransitioning = false;
-                        transitionTimer = 0f;
+                        isTransitioningR = false;
+                        transitionTimerR = 0f;
                     }
                 }
 
-                weaponTimer -= Time.deltaTime;
-                if (weaponTimer < 0f)
+                weaponTimerR -= Time.deltaTime;
+                if (weaponTimerR < 0f)
                 {
-                    weaponTimer = 0f;
-                    weaponState = WeaponType.NONE;
-                    if (currentWeapon)
+                    weaponTimerR = 0f;
+                    weaponStateR = WeaponTypeR.NONE;
+                    if (currentWeaponR)
                     {
-                        currentWeapon.SetActive(false);
-                        currentWeaponSkinMesh = null;
-                        currentWeapon = null;
+                        currentWeaponR.SetActive(false);
+                        currentWeaponSkinMeshR = null;
+                        currentWeaponR = null;
+                    }
+                }
+
+            }
+            if (weaponStateL != WeaponTypeL.NONE)
+            {
+                if (isTransitioningL)
+                {
+                    if (transitionTimerL < StaticValues.weaponTransitionThreshold)
+                    {
+                        transitionTimerL += Time.deltaTime;
+                        if (currentWeaponL && currentWeaponSkinMeshL)
+                        {
+                            Material[] Array = currentWeaponSkinMeshL.materials;
+                            Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(0f, 4f, transitionTimerL / StaticValues.weaponTransitionThreshold));
+                            currentWeaponSkinMeshL.materials = Array;
+                        }
+                    }
+                    else
+                    {
+                        isTransitioningL = false;
+                        transitionTimerL = 0f;
+                    }
+                }
+
+                weaponTimerL -= Time.deltaTime;
+                if (weaponTimerL < 0f)
+                {
+                    weaponTimerL = 0f;
+                    weaponStateL = WeaponTypeL.NONE;
+                    if (currentWeaponL)
+                    {
+                        currentWeaponL.SetActive(false);
+                        currentWeaponSkinMeshL = null;
+                        currentWeaponL = null;
                     }
                 }
 

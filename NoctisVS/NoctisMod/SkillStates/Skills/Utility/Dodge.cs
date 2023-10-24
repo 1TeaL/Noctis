@@ -26,7 +26,6 @@ namespace NoctisMod.SkillStates
 
         private float baseDuration = 0.6f;
         private float duration;
-        private float dodgeEndTime = 0.9f;
 
         
 
@@ -60,7 +59,7 @@ namespace NoctisMod.SkillStates
 
             this.animator = base.GetModelAnimator();
             aimRay = base.GetAimRay();
-            noctisCon.WeaponAppear(0f, NoctisController.WeaponType.NONE);
+            noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
 
             direction = base.inputBank.moveVector;
             duration = baseDuration / attackSpeedStat;
@@ -77,13 +76,13 @@ namespace NoctisMod.SkillStates
             if (!characterMotor.isGrounded)
             {
                 //base.PlayCrossfade("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration, 0.05f);
-                base.PlayAnimation("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration * dodgeEndTime);
+                base.PlayAnimation("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration);
             }
             else
             if (characterMotor.isGrounded)
             {
                 //base.PlayCrossfade("FullBody, Override", "Roll", "Attack.playbackRate", this.duration, 0.05f);
-                base.PlayAnimation("FullBody, Override", "Roll", "Attack.playbackRate", this.duration * dodgeEndTime);
+                base.PlayAnimation("FullBody, Override", "Dash", "Attack.playbackRate", this.duration);
             }
         }
 
@@ -111,7 +110,7 @@ namespace NoctisMod.SkillStates
             base.characterMotor.velocity = Vector3.zero;
                     
 
-            if (base.fixedAge <= duration * dodgeEndTime)
+            if (base.fixedAge <= duration)
             {
                 //if (!characterMotor.isGrounded)
                 //{
@@ -128,33 +127,6 @@ namespace NoctisMod.SkillStates
                 {
                     base.characterDirection.forward = this.direction;
                     base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
-                }
-            }
-
-            if (base.fixedAge > this.baseDuration * this.dodgeEndTime)
-            {
-                if (base.isAuthority)
-                {
-                    if (inputBank.skill1.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                    if (inputBank.skill2.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                    if (inputBank.skill3.down)
-                    {
-                        this.outer.SetNextState(new Dodge());
-                        return;
-                    }
-                    if (inputBank.skill4.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
                 }
             }
 

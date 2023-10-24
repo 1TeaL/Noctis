@@ -48,7 +48,7 @@ namespace NoctisMod.Modules
         internal static int polearmExtraHit = 2;
         internal static int polearmSwapExtraHit = 3;
         internal static float polearmDashSpeed = 10f;
-        internal static float polearmDropSpeed = 100f;
+        internal static float polearmDropSpeed = 40f;
         internal static float polearmSlamRadius = 8f;
         internal static float polearmAerialDamage = 2f;
         internal static float polearmSwapBackwardDamage = 2f;

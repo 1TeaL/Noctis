@@ -29,7 +29,7 @@ namespace NoctisMod.SkillStates
 
             weaponSwap = false;
             //check weapon swap
-            if (noctisCon.weaponState == NoctisController.WeaponType.NONE || noctisCon.weaponState >= NoctisController.WeaponType.POLEARM)
+            if (noctisCon.weaponStateR == NoctisController.WeaponTypeR.NONE || noctisCon.weaponStateR >= NoctisController.WeaponTypeR.POLEARM)
             {
                 weaponSwap = false;
             }
@@ -39,13 +39,12 @@ namespace NoctisMod.SkillStates
             }
 
 
-            noctisCon.WeaponAppear(2f, WeaponType.POLEARM);
+            noctisCon.WeaponAppearR(2f, WeaponTypeR.POLEARM);
         }
 
         public void Exit()
         {
             base.OnExit();
-            noctisCon.weaponState = NoctisController.WeaponType.POLEARM;
         }
 
         public override void Update()
@@ -135,37 +134,9 @@ namespace NoctisMod.SkillStates
                             if (Vector3.Dot(base.inputBank.moveVector, normalized) >= 0.8f)
                             {
                                 //forward attack
-                                if (noctisCon.GetTrackingTarget())
-                                {
-                                    Target = noctisCon.GetTrackingTarget();
-                                    float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                                    if (distance > Modules.StaticValues.polearmDashSpeed)
-                                    {
-                                        Chat.AddMessage("forward attack- swap");
-                                        PolearmSwapForward PolearmSwapForward = new PolearmSwapForward();
-                                        this.outer.SetNextState(PolearmSwapForward);
-                                        return;
-
-                                    }
-                                    else
-                                    {
-                                        //neutral attack
-                                        Chat.AddMessage("neutral attack- swap");
-                                        PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
-                                        PolearmSwapNeutral.swingIndex = currentSwingIndex;
-                                        this.outer.SetNextState(PolearmSwapNeutral);
-                                        return;
-
-                                    }
-                                }
-                                else
-                                {
-                                    Chat.AddMessage("forward attack- swap");
-                                    PolearmSwapForward PolearmSwapForward = new PolearmSwapForward();
-                                    this.outer.SetNextState(PolearmSwapForward);
-                                    return;
-
-                                }
+                                PolearmSwapForward PolearmSwapForward = new PolearmSwapForward();
+                                this.outer.SetNextState(PolearmSwapForward);
+                                return;
                             }
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {

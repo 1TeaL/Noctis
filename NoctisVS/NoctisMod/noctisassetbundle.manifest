@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1278410969
+CRC: 1178339699
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8613775424febb9771afec37538ee864
+    Hash: bdf3e6fd1df50465bae1270e2f69c109
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -124,6 +124,7 @@ Assets:
 - Assets/Noctis/Assets/Weapons/swordNormalImage.png
 - Assets/Noctis/Assets/Material/buttonsMat.mat
 - Assets/Noctis/Assets/Weapons/polearmMatL.mat
+- Assets/Noctis/Animations/Combat/Dash.anim
 - Assets/Noctis/Animations/Greatsword/GSDoubleSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSLeapSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSUpDownSlam.anim

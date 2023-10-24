@@ -29,7 +29,7 @@ namespace NoctisMod.SkillStates
 
             weaponSwap = false;
             //check weapon swap
-            if (noctisCon.weaponState == NoctisController.WeaponType.NONE || noctisCon.weaponState == NoctisController.WeaponType.GREATSWORD)
+            if (noctisCon.weaponStateR == NoctisController.WeaponTypeR.NONE || noctisCon.weaponStateR == NoctisController.WeaponTypeR.GREATSWORD)
             {
                 weaponSwap = false;
             }
@@ -38,7 +38,7 @@ namespace NoctisMod.SkillStates
                 weaponSwap = true;
             }
 
-            noctisCon.WeaponAppear(3f, WeaponType.GREATSWORD);
+            noctisCon.WeaponAppearR(3f, WeaponTypeR.GREATSWORD);
 
         }
 

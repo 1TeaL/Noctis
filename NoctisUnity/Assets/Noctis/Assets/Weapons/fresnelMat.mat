@@ -99,7 +99,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Fade: 0.692
-    - _FrenelMultiplier: 0
+    - _FrenelMultiplier: 0.5
     - _GlossMapScale: 0.659
     - _Glossiness: 0.518
     - _GlossyReflections: 1
@@ -113,7 +113,7 @@ Material:
     - _OcclusionStrength: 1
     - _Opacity: 0.492
     - _Parallax: 0.02
-    - _PosterizeSteps: 20.3
+    - _PosterizeSteps: 10.7
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpeedU: 100
@@ -122,7 +122,7 @@ Material:
     - _SpeedVd: 100
     - _SrcBlend: 1
     - _StepThreshold: 0.59
-    - _TimeMultiplier: 2
+    - _TimeMultiplier: 0
     - _UVSec: 0
     - _UpperLerpOpacity: 0
     - _Vertexoffset: 0

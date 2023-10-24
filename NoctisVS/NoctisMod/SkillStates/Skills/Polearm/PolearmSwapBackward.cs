@@ -33,6 +33,7 @@ namespace NoctisMod.SkillStates
                        
 
             bulletcount = Mathf.RoundToInt(attackSpeedStat) + StaticValues.polearmSwapExtraHit;
+            base.PlayCrossfade("FullBody, Override", "PolearmThrow", "Attack.playbackRate", duration, 0.05f);
         }
 
         public override void OnExit()
@@ -48,8 +49,13 @@ namespace NoctisMod.SkillStates
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
                 hasFired = true;
-
                 Ray aimRay = base.GetAimRay();
+                EffectManager.SpawnEffect(Assets.polearmThrowParticle, new EffectData
+                {
+                    origin = aimRay.origin,
+                    rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
+                }, true);
+
                 var bulletAttack = new BulletAttack
                 {
                     bulletCount = (uint)bulletcount,
@@ -74,7 +80,7 @@ namespace NoctisMod.SkillStates
                     sniper = true,
                     stopperMask = LayerIndex.noCollision.mask,
                     weapon = null,
-                    tracerEffectPrefab = Assets.polearmTracer,
+                    //tracerEffectPrefab = Assets.polearmTracer,
                     spreadPitchScale = 0f,
                     spreadYawScale = 0f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,

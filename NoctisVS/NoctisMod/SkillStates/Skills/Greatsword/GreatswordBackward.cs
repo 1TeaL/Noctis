@@ -40,7 +40,7 @@ namespace NoctisMod.SkillStates
         {
             this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
             this.damageMult = StaticValues.GSChargeDamage + StaticValues.GSChargeMultiplier * (this.chargePercent * StaticValues.GSChargeDamage);
-            noctisCon.WeaponAppear(3f, WeaponType.GREATSWORD);
+            noctisCon.WeaponAppearR(3f, WeaponTypeR.GREATSWORD);
         }
 
         public override void FixedUpdate()

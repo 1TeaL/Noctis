@@ -262,6 +262,15 @@ namespace NoctisMod.SkillStates.BaseStates
                 {
                     SetNextState();
                 }
+                if (inputBank.skill3.down)
+                {
+                    this.outer.SetNextState(new Dodge());
+                    return;
+                }
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
+            {
 
                 if (inputBank.skill1.down)
                 {
@@ -301,15 +310,6 @@ namespace NoctisMod.SkillStates.BaseStates
                         this.outer.SetNextStateToMain();
                         return;
                     }
-                }
-            }
-
-            if (this.stopwatch >= (this.baseDuration - this.baseEarlyExitTime) && base.isAuthority)
-            {
-                if (inputBank.skill3.down)
-                {
-                    this.outer.SetNextState(new Dodge());
-                    return;
                 }
             }
 
