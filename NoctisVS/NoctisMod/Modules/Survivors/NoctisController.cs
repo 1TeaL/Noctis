@@ -79,6 +79,9 @@ namespace NoctisMod.Modules.Survivors
         public float transitionTimerL;
         public bool isTransitioningR;
         public float transitionTimerR;
+        public bool fadingL;
+        public bool fadingR;
+
         public float weaponTimerR;
         public float weaponTimerL;
         public WeaponTypeR weaponStateR;
@@ -171,6 +174,7 @@ namespace NoctisMod.Modules.Survivors
                     currentWeaponSkinMeshL = currentWeaponL.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
                     isTransitioningL = true;
                     transitionTimerL = 0f;
+                    fadingL = false;
                 }
 
             }
@@ -212,6 +216,7 @@ namespace NoctisMod.Modules.Survivors
                     currentWeaponSkinMeshR = currentWeaponR.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
                     isTransitioningR = true;
                     transitionTimerR = 0f;
+                    fadingR = false;
                 }
 
             }
@@ -327,9 +332,9 @@ namespace NoctisMod.Modules.Survivors
                     weaponStateR = WeaponTypeR.NONE;
                     if (currentWeaponR)
                     {
-                        currentWeaponR.SetActive(false);
-                        currentWeaponSkinMeshR = null;
-                        currentWeaponR = null;
+                        fadingR = true;
+                        isTransitioningR = true;
+                        transitionTimerR = 0f;
                     }
                 }
 
@@ -362,12 +367,56 @@ namespace NoctisMod.Modules.Survivors
                     weaponStateL = WeaponTypeL.NONE;
                     if (currentWeaponL)
                     {
-                        currentWeaponL.SetActive(false);
-                        currentWeaponSkinMeshL = null;
-                        currentWeaponL = null;
+                        fadingL = true;
+                        isTransitioningL = true;
+                        transitionTimerL = 0f;
                     }
                 }
 
+            }
+
+            if (fadingL) 
+            {
+                if (transitionTimerL < StaticValues.weaponTransitionThreshold) 
+                {
+                    transitionTimerL += Time.deltaTime;
+                    if (currentWeaponL && currentWeaponSkinMeshL) 
+                    {
+                        Material[] Array = currentWeaponSkinMeshL.materials;
+                        Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(4f, 0f, transitionTimerL / StaticValues.weaponTransitionThreshold));
+                        currentWeaponSkinMeshL.materials = Array;
+                    }
+                }
+
+                if (transitionTimerL > StaticValues.weaponTransitionThreshold)
+                {
+                    currentWeaponL.SetActive(false);
+                    currentWeaponSkinMeshL = null;
+                    currentWeaponL = null;
+                    fadingL = false;
+                }
+            }
+
+            if (fadingR) 
+            {
+                if (transitionTimerR < StaticValues.weaponTransitionThreshold)
+                {
+                    transitionTimerR += Time.deltaTime;
+                    if (currentWeaponR && currentWeaponSkinMeshR)
+                    {
+                        Material[] Array = currentWeaponSkinMeshR.materials;
+                        Array[1].SetFloat("_FrenelMultiplier", Mathf.Lerp(4f, 0f, transitionTimerR / StaticValues.weaponTransitionThreshold));
+                        currentWeaponSkinMeshR.materials = Array;
+                    }
+                }
+
+                if (transitionTimerR > StaticValues.weaponTransitionThreshold) 
+                {
+                    currentWeaponR.SetActive(false);
+                    currentWeaponSkinMeshR = null;
+                    currentWeaponR = null;
+                    fadingR = false;
+                }
             }
         }
 
