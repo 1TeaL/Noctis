@@ -189,12 +189,12 @@ namespace NoctisMod.Modules.Survivors
             string prefix = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_";
 
             #region Passive
-            SkillLocator skillloc = bodyPrefab.GetComponent<SkillLocator>();
-            skillloc.passiveSkill.enabled = true;
-            skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
-            skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone");
-            skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_PASSIVE";
+            //SkillLocator skillloc = bodyPrefab.GetComponent<SkillLocator>();
+            //skillloc.passiveSkill.enabled = true;
+            //skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
+            //skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
+            //skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone");
+            //skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_PASSIVE";
             #endregion
 
             #region Weapons
