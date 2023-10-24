@@ -33,11 +33,11 @@ namespace NoctisMod.SkillStates
             this.damageType = DamageType.Generic;
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
-            this.pushForce = 0f;
-            this.baseDuration = 1.2f;
+            this.pushForce = 300f;
+            this.baseDuration = 1.4f;
             this.attackStartTime = 0.15f;
-            this.attackEndTime = 0.4f;
-            this.baseEarlyExitTime = 0.6f;
+            this.attackEndTime = 0.5f;
+            this.baseEarlyExitTime = 0.4f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;

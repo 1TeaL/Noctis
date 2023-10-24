@@ -30,7 +30,7 @@ namespace NoctisMod.SkillStates
         public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
         private Vector3 direction;
-        private float attackEndTime = 0.5f;
+        private float attackEndTime = 0.2f;
         private bool hasFired;
 
         public override void OnEnter()
@@ -42,7 +42,6 @@ namespace NoctisMod.SkillStates
             this.animator = base.GetModelAnimator();
             this.animator.SetBool("releaseChargeLeap", true);
             this.animator.SetFloat("Attack.playbackRate", 1f);
-            PlayCrossfade("FullBody, Override", "GSChargeLeapSlash", "Attack.playbackRate", baseDuration, 0.01f);
             //if (base.isAuthority)
             //{
             //    AkSoundEngine.PostEvent("detroitexitvoice", this.gameObject);
@@ -77,16 +76,17 @@ namespace NoctisMod.SkillStates
             if (base.fixedAge <= (this.baseDuration * this.attackEndTime))
             {
                 RecalculateRollSpeed();
+                
                 Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = 0;
+                velocity.y = base.characterMotor.velocity.y;
                 base.characterMotor.velocity = velocity;
                 base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
 
             }
-            if(base.fixedAge > this.baseDuration * this.attackEndTime)
+            if (base.fixedAge > this.baseDuration * this.attackEndTime)
             {
-                if(!hasFired)
+                if (!hasFired)
                 {
                     FireAttack();
                     hasFired = true;
@@ -116,6 +116,11 @@ namespace NoctisMod.SkillStates
                 }
             }
 
+            if (base.fixedAge > this.baseDuration)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
         }
 
         private void FireAttack()

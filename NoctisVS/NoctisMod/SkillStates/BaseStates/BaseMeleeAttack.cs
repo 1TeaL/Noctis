@@ -24,9 +24,9 @@ namespace NoctisMod.SkillStates.BaseStates
         protected float pushForce = 300f;
         protected Vector3 bonusForce = Vector3.zero;
         protected float baseDuration = 1f;
-        protected float attackStartTime = 0.2f;
-        protected float attackEndTime = 0.4f;
-        protected float baseEarlyExitTime = 0.4f;
+        protected float attackStartTime = 0.4f;
+        protected float attackEndTime = 0.85f;
+        protected float baseEarlyExitTime = 0.85f;
         protected float hitStopDuration = 0.012f;
         protected float attackRecoil = 0.75f;
         protected float hitHopVelocity = 4f;
@@ -58,10 +58,11 @@ namespace NoctisMod.SkillStates.BaseStates
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = gameObject.GetComponent<NoctisController>();
             this.hasFired = false;
             autoStateChange = false;
             this.animator = base.GetModelAnimator();
-            base.StartAimMode(this.baseDuration, false);
+            base.StartAimMode(this.baseDuration, true);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);

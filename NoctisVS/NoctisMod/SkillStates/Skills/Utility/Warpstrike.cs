@@ -91,6 +91,11 @@ namespace NoctisMod.SkillStates
                 origin = aimRay.origin,
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
             }, true);
+            EffectManager.SpawnEffect(Assets.noctisDashEffect, new EffectData
+            {
+                origin = characterBody.corePosition,
+                rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
+            }, true);
         }
 
         private void PlayAnimation()
@@ -141,10 +146,9 @@ namespace NoctisMod.SkillStates
                 }
                 else
                 {
-                    this.storedPosition = direction;
                     if (base.isAuthority)
                     {
-                        Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
+                        Vector3 velocity = direction.normalized * dashSpeed;
                         base.characterMotor.velocity = velocity;
                         base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }

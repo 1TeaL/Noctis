@@ -16,6 +16,7 @@ namespace NoctisMod.Modules
 
             //Utility
             entityStates.Add(typeof(Dodge));
+            entityStates.Add(typeof(Warpstrike));
 
             //Sword
             entityStates.Add(typeof(SwordCombo));
@@ -38,7 +39,6 @@ namespace NoctisMod.Modules
             entityStates.Add(typeof(GreatswordBackward2));
             entityStates.Add(typeof(GreatswordAerial));
             entityStates.Add(typeof(GreatswordSwapNeutral));
-            entityStates.Add(typeof(GreatswordSwapNeutral2));
             entityStates.Add(typeof(GreatswordSwapForward));
             entityStates.Add(typeof(GreatswordSwapBackward));
             entityStates.Add(typeof(GreatswordSwapBackward2));

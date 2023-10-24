@@ -30,11 +30,11 @@ namespace NoctisMod.SkillStates
         private string muzzleString;
 
         public int numberOfHits;
-        public static float baseDuration = 3f;
-        public static float startMoving = 0.3f;
-        public static float endMoving = 0.7f;
-        public static float initialSpeedCoefficient = 8f;
-        public static float finalSpeedCoefficient = 1f;
+        public static float baseDuration = 1f;
+        public static float startMoving = 0.4f;
+        public static float endMoving = 0.5f;
+        public static float initialSpeedCoefficient = StaticValues.swordInstaDashSpeed;
+        public static float finalSpeedCoefficient = 0f;
         public static float SpeedCoefficient;
         public static float procCoefficient = 1f;
         private Animator animator;
@@ -42,8 +42,7 @@ namespace NoctisMod.SkillStates
         private Transform modelTransform;
         private CharacterModel characterModel;
         private float rollSpeed;
-        private Vector3 forwardDirection;
-        private Vector3 previousPosition;
+        private Vector3 direction;
 
         //checking location for networking
         public Vector3 origin;
@@ -56,31 +55,10 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             this.animator = base.GetModelAnimator();
 
-
-            if (base.isAuthority && base.inputBank && base.characterDirection)
-            {
-                this.forwardDirection = ((base.inputBank.moveVector == Vector3.zero) ? base.characterDirection.forward : base.inputBank.moveVector).normalized;
-            }
-
-            Vector3 rhs = base.characterDirection ? base.characterDirection.forward : this.forwardDirection;
-            Vector3 rhs2 = Vector3.Cross(Vector3.up, rhs);
-
-            float num = Vector3.Dot(this.forwardDirection, rhs);
-            float num2 = Vector3.Dot(this.forwardDirection, rhs2);
-
             this.RecalculateRollSpeed();
 
-            if (base.characterMotor && base.characterDirection)
-            {
-                base.characterMotor.velocity.y = 0f;
-                base.characterMotor.velocity = this.forwardDirection * this.rollSpeed;
-            }
-
-            Vector3 b = base.characterMotor ? base.characterMotor.velocity : Vector3.zero;
-            this.previousPosition = base.transform.position - b;
-
-
-            base.OnEnter();
+            this.direction = base.GetAimRay().direction.normalized;
+            this.direction.y = 0f;
 
             numberOfHits = Mathf.RoundToInt(StaticValues.swordBaseHit + attackSpeedStat);
 
@@ -88,26 +66,28 @@ namespace NoctisMod.SkillStates
             this.animator.SetBool("attacking", true);
             base.PlayCrossfade("FullBody, Override", "ShootStyleKick", "Attack.playbackRate", baseDuration, 0.1f);
 
-            base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.HiddenInvincibility.buffIndex, baseDuration);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
             base.characterMotor.useGravity = false;
             this.previousMass = base.characterMotor.mass;
             base.characterMotor.mass = 0f;
 
-
+            SpeedCoefficient = initialSpeedCoefficient;
             origin = base.transform.position;
-
         }
         private void RecalculateRollSpeed()
         {
-            this.rollSpeed = this.moveSpeedStat * Mathf.Lerp(initialSpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
-        }
-        private void CreateBlinkEffect(Vector3 origin)
-        {
-            EffectData effectData = new EffectData();
-            effectData.rotation = Util.QuaternionSafeLookRotation(this.forwardDirection);
-            effectData.origin = origin;
-            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
+            float num = this.moveSpeedStat;
+            bool isSprinting = base.characterBody.isSprinting;
+            if (isSprinting)
+            {
+                num /= base.characterBody.sprintingSpeedMultiplier;
+            }
+            if(num > 20f)
+            {
+                num = 20f;
+            }
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
         }
 
         public void DealDamage()
@@ -145,6 +125,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             Ray aimRay = base.GetAimRay();
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
             this.animator.SetBool("attacking", false);
             Util.PlaySound(EvisDash.endSoundString, base.gameObject);
 
@@ -170,20 +151,10 @@ namespace NoctisMod.SkillStates
             if(base.fixedAge >= baseDuration * startMoving && base.fixedAge < baseDuration * endMoving)
             {
                 this.RecalculateRollSpeed();
-                this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
-                if (base.characterDirection) base.characterDirection.forward = this.forwardDirection;
-
-                Vector3 normalized = (base.transform.position - this.previousPosition).normalized;
-                if (base.characterMotor && base.characterDirection && normalized != Vector3.zero)
-                {
-                    Vector3 vector = normalized * this.rollSpeed;
-                    float d = Mathf.Max(Vector3.Dot(vector, this.forwardDirection), 0f);
-                    vector = this.forwardDirection * d;
-                    vector.y = 0f;
-
-                    base.characterMotor.velocity = vector;
-                }
-                this.previousPosition = base.transform.position;
+                Vector3 velocity = this.direction * rollSpeed;
+                velocity.y = base.characterMotor.velocity.y;
+                base.characterMotor.velocity = velocity;
+                base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
                 if (this.modelTransform)
                 {
@@ -239,19 +210,6 @@ namespace NoctisMod.SkillStates
             }
         }
 
-
-
-        public override void OnSerialize(NetworkWriter writer)
-        {
-            base.OnSerialize(writer);
-            writer.Write(this.forwardDirection);
-        }
-
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-            this.forwardDirection = reader.ReadVector3();
-        }
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {

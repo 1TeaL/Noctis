@@ -35,9 +35,9 @@ namespace NoctisMod.SkillStates
             this.procCoefficient = 1f;
             this.pushForce = 300f;
             this.baseDuration = 2f;
-            this.attackStartTime = 0.5f;
-            this.attackEndTime = 0.9f;
-            this.baseEarlyExitTime = 0.4f;
+            this.attackStartTime = 0.4f;
+            this.attackEndTime = 0.85f;
+            this.baseEarlyExitTime = 0.85f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
@@ -63,6 +63,7 @@ namespace NoctisMod.SkillStates
             attackAmount += StaticValues.polearmExtraHit;
             noctisCon.WeaponAppearR(2f, WeaponTypeR.POLEARMR);
 
+            SmallHop(characterMotor, 40f);
         }
 
         public override void FixedUpdate()
@@ -72,7 +73,6 @@ namespace NoctisMod.SkillStates
 
             if (!this.hasDropped)
             {
-                base.characterMotor.rootMotion += Vector3.up* ((dropForce) * EntityStates.Mage.FlyUpState.speedCoefficientCurve.Evaluate(base.fixedAge / baseDuration) * Time.fixedDeltaTime);
                 base.characterMotor.velocity.y = 0f;
             }
 
@@ -81,7 +81,7 @@ namespace NoctisMod.SkillStates
                 this.CreateIndicator();
             }
 
-            if (base.fixedAge >= baseDuration * attackStartTime * 0.5f && !this.hasDropped)
+            if (base.fixedAge >= baseDuration * attackStartTime && !this.hasDropped)
             {
                 this.StartDrop();
             }
@@ -123,7 +123,7 @@ namespace NoctisMod.SkillStates
         {
             if (this.slamIndicatorInstance)
             {
-                this.slamIndicatorInstance.transform.localScale = Vector3.one * StaticValues.GSSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
+                this.slamIndicatorInstance.transform.localScale = Vector3.one * StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
                 this.slamIndicatorInstance.transform.localPosition = base.transform.position;
             }
         }

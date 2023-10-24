@@ -22,7 +22,7 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed/2f;
+        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed;
         private float finalSpeedCoefficient = 0f;
 
 
@@ -34,14 +34,14 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = 4f;
-            this.procCoefficient = 1f;
-            this.pushForce = 1000f;
+            this.damageCoefficient = StaticValues.polearmDamage;
+            this.procCoefficient = 1.9f;
+            this.pushForce = 500f;
             this.bonusForce = Vector3.zero;
             this.baseDuration = 2f;
-            this.attackStartTime = 0.3f;
+            this.attackStartTime = 0.25f;
             this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 1f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -91,6 +91,15 @@ namespace NoctisMod.SkillStates
                         base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }
 
+                }
+                else
+                {
+                    if (base.isAuthority)
+                    {
+                        Vector3 velocity = direction.normalized * rollSpeed;
+                        base.characterMotor.velocity = velocity;
+                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                    }
                 }
 
 

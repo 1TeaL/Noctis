@@ -26,10 +26,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
+            this.baseDuration = 1.2f;
+            this.attackStartTime = 0.5f;
             this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseEarlyExitTime = 0.8f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -41,7 +41,7 @@ namespace NoctisMod.SkillStates
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
             base.OnEnter();
 
@@ -70,8 +70,8 @@ namespace NoctisMod.SkillStates
 
             if (base.isAuthority)
             {
-
                 if (!this.hasFired) this.FireAttack();
+                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
                 this.outer.SetNextState(new SwordCombo());
                 return;
 
@@ -83,7 +83,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
         }
 
     }

@@ -29,10 +29,10 @@ namespace NoctisMod.SkillStates
             this.procCoefficient = 1f;
             this.pushForce = 500f * damageMult;
             this.bonusForce = characterBody.characterDirection.forward * pushForce;
-            this.baseDuration = 2f;
-            this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 1f;
+            this.baseDuration = 3.5f;
+            this.attackStartTime = 0.15f;
+            this.attackEndTime = 0.45f;
+            this.baseEarlyExitTime = 0.45f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;

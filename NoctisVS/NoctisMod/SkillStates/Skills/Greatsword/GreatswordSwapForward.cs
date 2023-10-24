@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -20,13 +21,13 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = 2f;
+            this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = 1f;
             this.pushForce = 300f;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseDuration = 2.7f;
+            this.attackStartTime = 0.1f;
+            this.attackEndTime = 0.8f;
+            this.baseEarlyExitTime = 0.8f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;

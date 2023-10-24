@@ -32,12 +32,12 @@ namespace NoctisMod.SkillStates
         private float stopwatch;
         private OverlapAttack detector;
         private OverlapAttack attack;
-        protected string hitboxName2 = "PolearmThrustHitbox";
+        protected string hitboxName2 = "SwordHitbox";
         protected string hitboxName = "PolearmThrustHitbox";
         protected float procCoefficient = 1f;
         protected float pushForce = 500f;
         protected Vector3 bonusForce = new Vector3(10f, 400f, 0f);
-        protected float baseDuration = 1f;
+        protected float baseDuration = 0.6f;
         protected float attackStartTime = 0.2f;
         protected float attackEndTime = 0.6f;
         protected float baseEarlyExitTime = 0.4f;
@@ -100,6 +100,22 @@ namespace NoctisMod.SkillStates
             {
                 this.animator = this.modelTransform.GetComponent<Animator>();
                 this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = 0.6f;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay2.duration = 0.7f;
+                temporaryOverlay2.animateShaderAlpha = true;
+                temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay2.destroyComponentOnEnd = true;
+                temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                
             }
 
 
@@ -167,23 +183,6 @@ namespace NoctisMod.SkillStates
             base.FixedUpdate();
             this.RecalculateRollSpeed();
 
-            if (this.modelTransform)
-            {
-                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = 0.6f;
-                temporaryOverlay.animateShaderAlpha = true;
-                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                temporaryOverlay.destroyComponentOnEnd = true;
-                temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
-                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay2.duration = 0.7f;
-                temporaryOverlay2.animateShaderAlpha = true;
-                temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
-                temporaryOverlay2.destroyComponentOnEnd = true;
-                temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
-                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-            }
             this.FireAttack();
             this.hitPauseTimer -= Time.fixedDeltaTime;
             bool flag = this.hitPauseTimer <= 0f && this.inHitPause;
@@ -223,6 +222,20 @@ namespace NoctisMod.SkillStates
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
             }
+            if(stopwatch >= duration * attackEndTime)
+            {
+
+                if (base.isAuthority)
+                {
+                    if (inputBank.skill3.down)
+                    {
+                        this.outer.SetNextState(new Dodge());
+                        return;
+                    }
+                
+                }
+            }
+
             bool flag7 = base.isAuthority && this.stopwatch >= duration;
             if (flag7)
             {
@@ -296,7 +309,7 @@ namespace NoctisMod.SkillStates
                 {
                     base.characterMotor.velocity = Vector3.zero;
                     this.bounceVector = base.GetAimRay().direction * -1f;
-                    this.bounceVector.y = 0.2f;
+                    this.bounceVector.y = 0.5f;
                     this.bounceVector *= bounceForce;
                 }
                 bool flag4 = !this.inHitPause && this.hitStopDuration > 0f;

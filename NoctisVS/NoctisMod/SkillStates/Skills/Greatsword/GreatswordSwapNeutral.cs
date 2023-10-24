@@ -7,11 +7,15 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
+using HG;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
     public class GreatswordSwapNeutral : BaseMeleeAttack
     {
+        private bool hasSlammed;
+        private float radius = StaticValues.GSSlamRadius;
         public override void OnEnter()
         {
 
@@ -24,10 +28,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 4f;
             this.procCoefficient = 1f;
             this.pushForce = 1000f;
-            this.baseDuration = 2f;
-            this.attackStartTime = 0.3f;
+            this.baseDuration = 4f;
+            this.attackStartTime = 0.2f;
             this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 1f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -39,11 +43,53 @@ namespace NoctisMod.SkillStates
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-
+            hasSlammed = false;
             base.OnEnter();
 
         }
 
+        public override void FixedUpdate()
+        {
+            if(base.fixedAge > this.baseDuration * attackEndTime && !hasSlammed)
+            {
+                hasSlammed = true;
+
+                for (int i = 0; i <= 4; i += 1)
+                {
+                    Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
+                    effectPosition.y = base.characterBody.footPosition.y;
+                    EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                    {
+                        origin = effectPosition,
+                        scale = radius / 2f,
+                    }, true);
+                }
+
+                bool isAuthority = base.isAuthority;
+                if (isAuthority)
+                {
+                    BlastAttack blastAttack = new BlastAttack();
+
+                    blastAttack.position = base.characterBody.corePosition;
+                    blastAttack.baseDamage = this.damageStat * attackAmount;
+                    blastAttack.baseForce = this.pushForce;
+                    blastAttack.radius = this.radius;
+                    blastAttack.attacker = base.gameObject;
+                    blastAttack.inflictor = base.gameObject;
+                    blastAttack.teamIndex = base.teamComponent.teamIndex;
+                    blastAttack.crit = base.RollCrit();
+                    blastAttack.procChainMask = default(ProcChainMask);
+                    blastAttack.procCoefficient = procCoefficient;
+                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                    blastAttack.damageColorIndex = DamageColorIndex.Default;
+                    blastAttack.damageType = DamageType.Stun1s;
+                    blastAttack.attackerFiltering = AttackerFiltering.Default;
+
+                    blastAttack.Fire();
+                }
+            }
+            base.FixedUpdate();
+        }
 
         protected override void PlayAttackAnimation()
         {
@@ -66,7 +112,7 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
-                this.outer.SetNextState(new GreatswordSwapNeutral2());
+                this.outer.SetNextState(new GreatswordCombo());
                 return;
 
             }

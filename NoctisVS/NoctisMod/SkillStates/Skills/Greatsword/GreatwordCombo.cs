@@ -38,7 +38,7 @@ namespace NoctisMod.SkillStates
                 weaponSwap = true;
             }
 
-            noctisCon.WeaponAppearR(3f, WeaponTypeR.GREATSWORD);
+            noctisCon.WeaponAppearR(5f, WeaponTypeR.GREATSWORD);
 
         }
 

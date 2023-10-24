@@ -54,7 +54,7 @@ namespace NoctisMod.SkillStates
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = -base.GetAimRay().direction.normalized;
@@ -154,7 +154,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
             base.characterMotor.velocity *= 0.1f;
 

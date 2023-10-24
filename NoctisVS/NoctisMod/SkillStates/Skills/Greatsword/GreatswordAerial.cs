@@ -30,13 +30,13 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = 2f;
+            this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = 1f;
             this.pushForce = 300f;
             this.baseDuration = 1f;
-            this.attackStartTime = 0.2f;
+            this.attackStartTime = 0.4f;
             this.attackEndTime = 0.9f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseEarlyExitTime = 0.9f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
@@ -65,14 +65,20 @@ namespace NoctisMod.SkillStates
         {
 
             dropTimer += Time.fixedDeltaTime;
+
             if (!this.hasDropped)
             {
-                this.StartDrop();
+                base.characterMotor.velocity.y = 0f;
             }
 
-            if (!this.slamIndicatorInstance)
+            if (base.fixedAge >= (baseDuration * attackStartTime * 0.25f) && !this.slamIndicatorInstance)
             {
                 this.CreateIndicator();
+            }
+
+            if (base.fixedAge >= baseDuration * attackStartTime && !this.hasDropped)
+            {
+                this.StartDrop();
             }
             if (this.hasDropped && base.isAuthority && !base.characterMotor.disableAirControlUntilCollision)
             {

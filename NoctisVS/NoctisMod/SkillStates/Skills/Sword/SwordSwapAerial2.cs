@@ -39,10 +39,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 0f;
-            this.baseDuration = 2f;
+            this.baseDuration = 1.5f;
             this.attackStartTime = 0.1f;
             this.attackEndTime = 0.4f;
-            this.baseEarlyExitTime = 1f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -57,7 +57,7 @@ namespace NoctisMod.SkillStates
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = base.GetAimRay().direction.normalized;
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
             if (base.characterBody)
             {
                 base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
@@ -127,7 +127,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
             base.characterMotor.velocity *= 0.1f;
         }

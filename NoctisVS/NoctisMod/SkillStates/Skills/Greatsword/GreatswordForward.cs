@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -30,13 +31,13 @@ namespace NoctisMod.SkillStates
             this.hitboxName = "GreatswordHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = 1f;
+            this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = 1f;
-            this.pushForce = 0f;
-            this.baseDuration = 1.2f;
-            this.attackStartTime = 0.15f;
-            this.attackEndTime = 0.4f;
-            this.baseEarlyExitTime = 0.6f;
+            this.pushForce = 1000f;
+            this.baseDuration = 3f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.8f;
+            this.baseEarlyExitTime = 0.8f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;
@@ -73,7 +74,7 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
             {
                 RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;

@@ -43,11 +43,11 @@ namespace NoctisMod.Modules.Survivors
             bodyColor = Color.magenta,
             characterPortrait = Modules.Assets.LoadCharacterIcon("Noctis"),
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
-            damage = 5f,
-            healthGrowth = 41f,
+            damage = 10f,
+            healthGrowth = 15f,
             healthRegen = 1f,
             jumpCount = 2,
-            maxHealth = 141f,
+            maxHealth = 162f,
             moveSpeed = 7f,
             subtitleNameToken = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_SUBTITLE",
             //podPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod")
@@ -354,7 +354,7 @@ namespace NoctisMod.Modules.Survivors
             });
             Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
             {
-                polearmSkillDef,
+                warpstrikeSkillDef,
             });
             #endregion
 

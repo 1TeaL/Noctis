@@ -18,8 +18,8 @@ namespace NoctisMod.SkillStates
 
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
-        private float finalSpeedCoefficient = 0f;
+        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed;
+        private float finalSpeedCoefficient = 1f;
 
 
         public override void OnEnter()
@@ -33,8 +33,8 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = 1f;
             this.procCoefficient = 1f;
             this.pushForce = 1000f;
-            this.baseDuration = 2f;
-            this.attackStartTime = 0.5f;
+            this.baseDuration = 3f;
+            this.attackStartTime = 0.4f;
             this.attackEndTime = 0.8f;
             this.baseEarlyExitTime = 1f;
             this.hitStopDuration = 0.1f;
@@ -67,14 +67,14 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration));
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackStartTime * 0.5f))
+            if (this.stopwatch <= (this.baseDuration * this.attackStartTime * 0.325f))
             {
                 RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;

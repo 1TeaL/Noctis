@@ -39,7 +39,7 @@ namespace NoctisMod.SkillStates
             }
 
 
-            noctisCon.WeaponAppearR(2f, WeaponTypeR.POLEARM);
+            noctisCon.WeaponAppearR(5f, WeaponTypeR.POLEARM);
         }
 
         public void Exit()

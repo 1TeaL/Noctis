@@ -28,8 +28,8 @@ namespace NoctisMod.SkillStates
             this.pushForce = 0f;
             this.baseDuration = 1f;
             this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.4f;
+            this.attackEndTime = 1f;
+            this.baseEarlyExitTime = 1f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -42,7 +42,7 @@ namespace NoctisMod.SkillStates
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
             base.OnEnter();
             autoStateChange = true;
@@ -53,7 +53,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "SwordUpDownSlash", "Attack.playbackRate", (this.baseDuration - this.baseEarlyExitTime) * 2f, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "SwordUpDownSlash", "Attack.playbackRate", 2f, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -80,7 +80,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
 
         }
 

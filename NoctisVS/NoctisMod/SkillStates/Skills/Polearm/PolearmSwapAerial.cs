@@ -41,7 +41,7 @@ namespace NoctisMod.SkillStates
             this.baseDuration = 0.9f;
             this.attackStartTime = 0.3f;
             this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.3f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 6f;

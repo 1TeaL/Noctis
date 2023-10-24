@@ -9,7 +9,7 @@ namespace NoctisMod.SkillStates
 {
     public class PolearmSwapBackward : BaseSkillState
     {
-
+        private NoctisController noctisCon;
         private Animator animator;
         public float duration = 2f;
         private float fireTime;
@@ -24,6 +24,9 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = gameObject.GetComponent<NoctisController>();
+            noctisCon.WeaponAppearR(3f, NoctisController.WeaponTypeR.POLEARMR);
+
             this.fireTime = 0.5f * this.duration;
             hasFired = false;
             Ray aimRay = base.GetAimRay();
@@ -34,6 +37,8 @@ namespace NoctisMod.SkillStates
 
             bulletcount = Mathf.RoundToInt(attackSpeedStat) + StaticValues.polearmSwapExtraHit;
             base.PlayCrossfade("FullBody, Override", "PolearmThrow", "Attack.playbackRate", duration, 0.05f);
+
+
         }
 
         public override void OnExit()
@@ -48,6 +53,7 @@ namespace NoctisMod.SkillStates
 
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
+                noctisCon.currentWeaponR.SetActive(false);
                 hasFired = true;
                 Ray aimRay = base.GetAimRay();
                 EffectManager.SpawnEffect(Assets.polearmThrowParticle, new EffectData
