@@ -35,18 +35,18 @@ namespace NoctisMod.SkillStates
             this.damageType = DamageType.Generic;
 
             this.damageCoefficient = StaticValues.polearmDamage;
-            this.procCoefficient = 1.9f;
+            this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 500f;
             this.bonusForce = Vector3.zero;
             this.baseDuration = 2f;
-            this.attackStartTime = 0.25f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.6f;
+            this.attackStartTime = 0.54f;
+            this.attackEndTime = 0.77f;
+            this.baseEarlyExitTime = 0.77f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -58,6 +58,8 @@ namespace NoctisMod.SkillStates
             this.direction = base.GetAimRay().direction.normalized;
             base.OnEnter();
             attackAmount += StaticValues.polearmExtraHit;
+          
+            keepMoving = true;
 
         }
         private void RecalculateRollSpeed()
@@ -68,39 +70,22 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration));
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
+            if (this.stopwatch > (this.baseDuration * this.attackStartTime) && keepMoving)
             {
                 RecalculateRollSpeed();
-                if (isTarget)
+                if (base.isAuthority)
                 {
-                    if (Target)
-                    {
-                        this.direction = Target.transform.position;
-                    }
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = (this.direction - base.transform.position).normalized * rollSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-
-                }
-                else
-                {
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = direction.normalized * rollSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-                }
+                    Vector3 velocity = direction.normalized * rollSpeed;
+                    base.characterMotor.velocity = velocity;
+                    //base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                }                
 
 
             }
@@ -110,7 +95,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "PolearmLeapingThrust", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "PolearmChargingThrust", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -131,17 +116,8 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
-
-                if(!keepMoving)
-                {
-                    this.outer.SetNextState(new PolearmDragoonThrust());
-                    return;
-                }
-                else
-                {
-                    this.outer.SetNextState(new PolearmCombo());
-                    return;
-                }
+                this.outer.SetNextState(new PolearmCombo());
+                return;                
 
             }
 

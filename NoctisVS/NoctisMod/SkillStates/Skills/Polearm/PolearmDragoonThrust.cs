@@ -25,24 +25,24 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
             this.hitboxName = "AOEHitbox";
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = 2f;
-            this.procCoefficient = 1f;
+            this.damageCoefficient = StaticValues.polearmDamage;
+            this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 300f;
             this.baseDuration = 2f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.85f;
-            this.baseEarlyExitTime = 0.85f;
+            this.attackStartTime = 0.33f;
+            this.attackEndTime = 0.6f;
+            this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -130,6 +130,7 @@ namespace NoctisMod.SkillStates
         private void LandingImpact()
         {
 
+            AkSoundEngine.PostEvent("SlamSFX", base.gameObject);
             if (base.isAuthority)
             {
                 Ray aimRay = base.GetAimRay();
@@ -142,7 +143,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.position = base.characterBody.footPosition;
                 blastAttack.attacker = base.gameObject;
                 blastAttack.crit = base.RollCrit();
-                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
+                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2);
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.baseForce = pushForce * (1 + dropTimer);
                 blastAttack.teamIndex = base.teamComponent.teamIndex;

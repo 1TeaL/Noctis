@@ -23,7 +23,6 @@ namespace NoctisMod.Modules
 
         // networked hit sounds
         internal static NetworkSoundEventDef hitSoundEffect;
-        internal static NetworkSoundEventDef strongHitSoundEffect;
 
         // lists of assets to add to contentpack
         internal static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
@@ -177,8 +176,7 @@ namespace NoctisMod.Modules
             Modules.Effects.AddEffect(polearmTracer);
 
             //sounds
-            hitSoundEffect = CreateNetworkSoundEventDef("ShiggyHitSFX");
-            strongHitSoundEffect = CreateNetworkSoundEventDef("ShiggyStrongAttack");
+            hitSoundEffect = CreateNetworkSoundEventDef("NoctisHitSFX");
 
         }
 

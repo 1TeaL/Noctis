@@ -78,7 +78,7 @@ namespace NoctisMod.Modules.Survivors
             manaMeterGlowRect = CustomUIObject.transform.GetChild(1).GetComponent<RectTransform>();
 
             //setup the UI element for the min/max
-            ManaNumber = this.CreateLabel(CustomUIObject.transform, "ManaNumber", $"{(int)currentMana} / {maxMana}", new Vector2(0, -110), 24f, new Color(0.92f, 0.12f, 0.8f));
+            ManaNumber = this.CreateLabel(CustomUIObject.transform, "ManaNumber", $"{(int)currentMana} / {maxMana}", new Vector2(0, -110), 24f, new Color(0f, 130 / 255f, 1f));
 
             //ui element for information below the energy
             //quirkGetUI = this.CreateLabel(CustomUIObject.transform, "quirkGetString", quirkGetString, new Vector2(0, -220), 24f, Color.white);

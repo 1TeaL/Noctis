@@ -20,7 +20,7 @@ namespace NoctisMod.SkillStates
         internal float radius;
         internal Vector3 moveVec;
         private float baseForce = 600f;
-        public float procCoefficient = 1f;
+        public float procCoefficient = StaticValues.GSProc;
         private Animator animator;
 
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
@@ -29,9 +29,10 @@ namespace NoctisMod.SkillStates
         private float SpeedCoefficient;
         public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
-        private Vector3 direction;
-        private float attackEndTime = 0.2f;
+        private float attackStartTime = 0.1f;
+        private float attackEndTime = 0.38f;
         private bool hasFired;
+        private Vector3 direction;
 
         public override void OnEnter()
         {
@@ -51,6 +52,11 @@ namespace NoctisMod.SkillStates
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
 
         }
         public override InterruptPriority GetMinimumInterruptPriority()
@@ -73,10 +79,20 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (base.fixedAge <= (this.baseDuration * this.attackEndTime))
+            if (base.fixedAge <= (this.baseDuration * this.attackStartTime))
             {
                 RecalculateRollSpeed();
-                
+
+                Vector3 velocity = this.direction * rollSpeed / 2f;
+                velocity.y = base.characterMotor.velocity.y;
+                base.characterMotor.velocity = velocity;
+                base.characterDirection.forward = base.characterMotor.velocity.normalized;
+            }
+
+            if (base.fixedAge > (this.baseDuration * this.attackStartTime) && base.fixedAge <= (this.baseDuration * this.attackEndTime))
+            {
+                RecalculateRollSpeed();
+
                 Vector3 velocity = this.direction * rollSpeed;
                 velocity.y = base.characterMotor.velocity.y;
                 base.characterMotor.velocity = velocity;
@@ -112,6 +128,12 @@ namespace NoctisMod.SkillStates
                     {
                         this.outer.SetNextStateToMain();
                         return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        this.outer.SetNextState(new Jump());
+                        return;
+
                     }
                 }
             }
@@ -157,7 +179,10 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageType = DamageType.Stun1s;
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
 
-                blastAttack.Fire();
+                for (int i = 0; i <= Mathf.RoundToInt(attackSpeedStat); i++)
+                {
+                    blastAttack.Fire();
+                }
             }
 
         }

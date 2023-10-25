@@ -12,6 +12,7 @@ namespace NoctisMod.SkillStates
         private NoctisController noctisCon;
         private Animator animator;
         public float duration = 2f;
+        public float earlyExitTime = 0.6f;
         private float fireTime;
         public bool hasFired;
 
@@ -30,7 +31,7 @@ namespace NoctisMod.SkillStates
             this.fireTime = 0.5f * this.duration;
             hasFired = false;
             Ray aimRay = base.GetAimRay();
-            base.characterBody.SetAimTimer(this.duration);
+            base.StartAimMode(this.duration, true);
             animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
                        
@@ -55,6 +56,7 @@ namespace NoctisMod.SkillStates
             {
                 noctisCon.currentWeaponR.SetActive(false);
                 hasFired = true;
+                AkSoundEngine.PostEvent("PolearmSwingSFX", base.gameObject);
                 Ray aimRay = base.GetAimRay();
                 EffectManager.SpawnEffect(Assets.polearmThrowParticle, new EffectData
                 {
@@ -95,7 +97,41 @@ namespace NoctisMod.SkillStates
                 };
                 bulletAttack.Fire();
             }
+            
+            if(base.fixedAge > this.duration * earlyExitTime)
+            {
 
+                if (base.isAuthority)
+                {
+                    if (inputBank.skill1.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill2.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill3.down)
+                    {
+                        this.outer.SetNextState(new Dodge());
+                        return;
+                    }
+                    if (inputBank.skill4.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        Jump Jump = new Jump();
+                        this.outer.SetNextState(Jump);
+                        return;
+
+                    }
+                }
+            }
 
             if (base.fixedAge >= this.duration && base.isAuthority)
             {

@@ -15,7 +15,7 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.swordSkillDef;
             this.hitboxName = "SwordHitbox";
 
@@ -56,7 +56,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = ChooseMuzzleString();
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;

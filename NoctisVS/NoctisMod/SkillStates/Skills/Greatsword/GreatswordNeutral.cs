@@ -16,14 +16,14 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.greatswordSkillDef;
             this.hitboxName = "GreatswordHitbox";
 
             this.damageType = DamageType.Generic;
 
             this.damageCoefficient = StaticValues.GSDamage;
-            this.procCoefficient = 1f;
+            this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 10000f;
             this.bonusForce = new Vector3(0f, 1000f, 0f);
             this.baseDuration = 2.7f;
@@ -34,7 +34,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "GreatswordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingUp";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -43,6 +43,10 @@ namespace NoctisMod.SkillStates
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
             base.OnEnter();
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
 
         }
 

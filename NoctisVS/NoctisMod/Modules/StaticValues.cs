@@ -26,6 +26,7 @@ namespace NoctisMod.Modules
 
         //Sword
         internal static float swordProc = 1f;
+        internal static float swordDamage = 2f;
         internal static float swordNeutralDamage1 = 2f;
         internal static float swordNeutralDamage2 = 1f;
         internal static float swordNeutralDamage3 = 4f;
@@ -37,8 +38,9 @@ namespace NoctisMod.Modules
         internal static float swordSwapForwardDamage = 2f;
 
         //GS
+        internal static float GSProc = 2f;
         internal static float GSDamage = 4f;
-        internal static float GSLeapSpeed = 4f;
+        internal static float GSLeapSpeed = 6f;
         internal static float GSMaxCharge = 3f;
         internal static float GSChargeDamage = 6f;
         internal static float GSChargeMultiplier = 2f;
@@ -61,6 +63,10 @@ namespace NoctisMod.Modules
         internal static float dodgeArmor = 300f;
         internal static float dodgeHop = 10f;
         internal static float dodgeCost = 10f;
+
+        //Jump
+        internal static float jumpSpeed = 1f;
+        internal static float jumpHop = 20f;
 
         //Warpstrike
         internal static float warpstrikeSpeed = 100f;

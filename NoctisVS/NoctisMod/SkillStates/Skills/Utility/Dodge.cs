@@ -16,6 +16,7 @@ namespace NoctisMod.SkillStates
     public class Dodge : BaseSkillState
     {
         private Animator animator;
+        private CharacterModel characterModel;
         public NoctisController noctisCon;
         public EnergySystem energySystem;
         private Ray aimRay;
@@ -30,7 +31,7 @@ namespace NoctisMod.SkillStates
         
 
         private Vector3 direction;
-
+        private Transform modelTransform;
 
         public override void OnEnter()
         {
@@ -57,6 +58,29 @@ namespace NoctisMod.SkillStates
 
             }
 
+            this.modelTransform = base.GetModelTransform();
+            if (this.modelTransform)
+            {
+                this.animator = this.modelTransform.GetComponent<Animator>();
+                this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = 0.3f;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay2.duration = 0.3f;
+                temporaryOverlay2.animateShaderAlpha = true;
+                temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay2.destroyComponentOnEnd = true;
+                temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+            }
+
             this.animator = base.GetModelAnimator();
             aimRay = base.GetAimRay();
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
@@ -73,16 +97,19 @@ namespace NoctisMod.SkillStates
 
         private void PlayAnimation()
         {
+            AkSoundEngine.PostEvent("Dodge", base.gameObject);
             if (!characterMotor.isGrounded)
             {
                 //base.PlayCrossfade("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration, 0.05f);
                 base.PlayAnimation("FullBody, Override", "AerialDodge", "Attack.playbackRate", this.duration);
+                
             }
             else
             if (characterMotor.isGrounded)
             {
                 //base.PlayCrossfade("FullBody, Override", "Roll", "Attack.playbackRate", this.duration, 0.05f);
                 base.PlayAnimation("FullBody, Override", "Dash", "Attack.playbackRate", this.duration);
+               
             }
         }
 

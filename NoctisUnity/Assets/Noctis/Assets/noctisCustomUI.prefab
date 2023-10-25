@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5152563029306567006}
   - component: {fileID: 5152563029306567001}
   m_Layer: 0
-  m_Name: shiggyCustomUI
+  m_Name: noctisCustomUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9136019, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.50980395, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

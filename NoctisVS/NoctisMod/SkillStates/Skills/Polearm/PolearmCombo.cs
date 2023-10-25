@@ -40,6 +40,11 @@ namespace NoctisMod.SkillStates
 
 
             noctisCon.WeaponAppearR(5f, WeaponTypeR.POLEARM);
+
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
         }
 
         public void Exit()
@@ -61,16 +66,9 @@ namespace NoctisMod.SkillStates
                     {
                         //aerial attack
 
-                        Vector3 moveVector = base.inputBank.moveVector;
-                        Vector3 aimDirection = base.inputBank.aimDirection;
-                        Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
-                        Vector3 up = base.transform.up;
-                        Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
-
-                        if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
+                        if (base.inputBank.jump.down)
                         {
                             //backward attack
-                            Chat.AddMessage("backward aerial attack");
                             this.outer.SetNextState(new PolearmDoubleDragoonThrust());
                             return;
                         }
@@ -83,7 +81,7 @@ namespace NoctisMod.SkillStates
                                 float distance = Vector3.Distance(base.transform.position, Target.transform.position);
                                 if (distance > Modules.StaticValues.polearmDashSpeed)
                                 {
-                                    Chat.AddMessage("aerial attack");
+                                    //Chat.AddMessage("aerial attack");
                                     PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
                                     PolearmSwapAerial.isTarget = true;
                                     PolearmSwapAerial.Target = Target;
@@ -93,7 +91,7 @@ namespace NoctisMod.SkillStates
                                 }
                                 else
                                 {
-                                    Chat.AddMessage("aerial attack");
+                                    //Chat.AddMessage("aerial attack");
                                     PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
                                     PolearmSwapAerial.isTarget = false;
                                     this.outer.SetNextState(PolearmSwapAerial);
@@ -117,7 +115,7 @@ namespace NoctisMod.SkillStates
                         if (base.inputBank.moveVector == Vector3.zero)
                         {
                             //neutral attack
-                            Chat.AddMessage("neutral attack- swap");
+                            //Chat.AddMessage("neutral attack- swap");
                             PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
                             PolearmSwapNeutral.swingIndex = currentSwingIndex;
                             this.outer.SetNextState(PolearmSwapNeutral);
@@ -141,14 +139,14 @@ namespace NoctisMod.SkillStates
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {
                                 //backward attack
-                                Chat.AddMessage("backward attack- swap");
+                                //Chat.AddMessage("backward attack- swap");
                                 this.outer.SetNextState(new PolearmSwapBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
-                                Chat.AddMessage("neutral attack- swap");
+                                //Chat.AddMessage("neutral attack- swap");
                                 PolearmSwapNeutral PolearmSwapNeutral = new PolearmSwapNeutral();
                                 PolearmSwapNeutral.swingIndex = currentSwingIndex;
                                 this.outer.SetNextState(PolearmSwapNeutral);
@@ -168,23 +166,16 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        Vector3 moveVector = base.inputBank.moveVector;
-                        Vector3 aimDirection = base.inputBank.aimDirection;
-                        Vector3 normalized = new Vector3(aimDirection.x, 0f, aimDirection.z).normalized;
-                        Vector3 up = base.transform.up;
-                        Vector3 normalized2 = Vector3.Cross(up, normalized).normalized;
 
-                        if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
+                        if (base.inputBank.jump.down)
                         {
-                            //backward attack
-                            Chat.AddMessage("backward aerial attack");
+                            //jump attack
                             this.outer.SetNextState(new PolearmDragoonThrust());
                             return;
                         }
                         else
                         {
-                            //neutral attack
-                            Chat.AddMessage("aerial attack");
+                            //aerial attack
                             PolearmAerial PolearmAerial = new PolearmAerial();
                             this.outer.SetNextState(PolearmAerial);
                             return;
@@ -196,7 +187,7 @@ namespace NoctisMod.SkillStates
                         if (base.inputBank.moveVector == Vector3.zero)
                         {
                             //neutral attack
-                            Chat.AddMessage("neutral attack");
+                            //Chat.AddMessage("neutral attack");
                             PolearmNeutral PolearmNeutral = new PolearmNeutral();
                             PolearmNeutral.swingIndex = currentSwingIndex;
                             this.outer.SetNextState(PolearmNeutral);
@@ -220,7 +211,7 @@ namespace NoctisMod.SkillStates
                                     float distance = Vector3.Distance(base.transform.position, Target.transform.position);
                                     if (distance > Modules.StaticValues.polearmDashSpeed)
                                     {
-                                        Chat.AddMessage("forward attack");
+                                        //Chat.AddMessage("forward attack");
                                         PolearmForward PolearmForward = new PolearmForward();
                                         this.outer.SetNextState(PolearmForward);
                                         return;
@@ -229,7 +220,7 @@ namespace NoctisMod.SkillStates
                                     else
                                     {
                                         //neutral attack
-                                        Chat.AddMessage("neutral attack");
+                                        //Chat.AddMessage("neutral attack");
                                         PolearmNeutral PolearmNeutral = new PolearmNeutral();
                                         PolearmNeutral.swingIndex = currentSwingIndex;
                                         this.outer.SetNextState(PolearmNeutral);
@@ -239,7 +230,7 @@ namespace NoctisMod.SkillStates
                                 }
                                 else
                                 {
-                                    Chat.AddMessage("forward attack");
+                                    //Chat.AddMessage("forward attack");
                                     PolearmForward PolearmForward = new PolearmForward();
                                     this.outer.SetNextState(PolearmForward);
                                     return;
@@ -249,14 +240,14 @@ namespace NoctisMod.SkillStates
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {
                                 //backward attack
-                                Chat.AddMessage("backward attack");
+                                //Chat.AddMessage("backward attack");
                                 this.outer.SetNextState(new PolearmBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
-                                Chat.AddMessage("neutral attack");
+                                //Chat.AddMessage("neutral attack");
                                 PolearmNeutral PolearmNeutral = new PolearmNeutral();
                                 PolearmNeutral.swingIndex = currentSwingIndex;
                                 this.outer.SetNextState(PolearmNeutral);

@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -22,21 +23,21 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
+        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed;
         private float finalSpeedCoefficient = 0f;
 
 
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
             keepMoving = true;
             this.hitboxName = "PolearmThrustHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = 1f;
-            this.procCoefficient = 1f;
+            this.damageCoefficient = StaticValues.polearmDamage;
+            this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 0f;
             this.baseDuration = 0.9f;
             this.attackStartTime = 0.3f;
@@ -46,7 +47,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 6f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = $"SwordSwingStab";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -62,6 +63,7 @@ namespace NoctisMod.SkillStates
             }
             base.SmallHop(base.characterMotor, hitHopVelocity);
             base.OnEnter();
+          
 
         }
         private void RecalculateRollSpeed()

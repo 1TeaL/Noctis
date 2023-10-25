@@ -1,5 +1,5 @@
 ﻿using EntityStates;
-using IL.RoR2.Skills;
+using RoR2.Skills;
 using NoctisMod.Modules.Survivors;
 using R2API;
 using RoR2;
@@ -7,6 +7,7 @@ using RoR2.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Reflection;
 
 namespace NoctisMod.SkillStates.BaseStates
 {
@@ -62,7 +63,7 @@ namespace NoctisMod.SkillStates.BaseStates
             this.hasFired = false;
             autoStateChange = false;
             this.animator = base.GetModelAnimator();
-            base.StartAimMode(this.baseDuration, true);
+            base.StartAimMode(this.baseDuration, false);
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
@@ -266,6 +267,13 @@ namespace NoctisMod.SkillStates.BaseStates
                 if (inputBank.skill3.down)
                 {
                     this.outer.SetNextState(new Dodge());
+                    return;
+                }
+                if (inputBank.jump.down)
+                {
+                    this.outer.SetNextState(new Jump
+                    {
+                    });
                     return;
                 }
             }

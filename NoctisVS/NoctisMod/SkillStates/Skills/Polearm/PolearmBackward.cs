@@ -25,23 +25,23 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
             this.hitboxName = "PolearmThrustHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = 1f;
-            this.procCoefficient = 1f;
+            this.damageCoefficient = StaticValues.polearmDamage;
+            this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 1000f;
-            this.baseDuration = 3f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 1f;
+            this.baseDuration = 1.2f;
+            this.attackStartTime = 0.15f;
+            this.attackEndTime = 0.5f;
+            this.baseEarlyExitTime = 0.5f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = $"SwordSlashStab";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -49,7 +49,8 @@ namespace NoctisMod.SkillStates
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
-            this.direction = base.GetAimRay().direction.normalized;
+            this.direction = -base.GetAimRay().direction.normalized;
+            this.direction.y = 0f;
 
             if (base.characterBody)
             {
@@ -57,6 +58,7 @@ namespace NoctisMod.SkillStates
             }
             base.OnEnter();
             attackAmount += StaticValues.polearmExtraHit;
+          
 
         }
         private void RecalculateRollSpeed()
@@ -67,28 +69,20 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration));
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * attackEndTime));
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackStartTime * 0.325f))
-            {
-                RecalculateRollSpeed();
-                Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = 0;
-                base.characterMotor.velocity = -velocity/2f;
-                base.characterDirection.forward = base.characterMotor.velocity.normalized;
-            }
-            if (this.stopwatch > (this.baseDuration * this.attackStartTime))
+            if (this.stopwatch < (this.baseDuration * this.attackEndTime))
             {
                 RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;
                 velocity.y = 0;
                 base.characterMotor.velocity = velocity;
-                base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                //base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
 
             }
@@ -98,7 +92,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "Backstep", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "PolearmStabBackjump", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()
@@ -118,7 +112,7 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
-                this.outer.SetNextState(new SwordCombo());
+                this.outer.SetNextState(new PolearmCombo());
                 return;
             }
 

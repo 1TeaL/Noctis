@@ -16,6 +16,7 @@ namespace NoctisMod.Modules
 
             //Utility
             entityStates.Add(typeof(Dodge));
+            entityStates.Add(typeof(Jump));
             entityStates.Add(typeof(Warpstrike));
 
             //Sword

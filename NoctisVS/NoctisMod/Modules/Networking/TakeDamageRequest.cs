@@ -83,7 +83,7 @@ namespace NoctisMod.Modules.Networking
                 attacker = bodyObj,
                 damage = damage,
                 position = enemycharBody.transform.position,
-                procCoefficient = 1f,
+                procCoefficient = StaticValues.swordProc,
                 damageType = DamageType.Generic,
                 crit = charBody.RollCrit(),
 

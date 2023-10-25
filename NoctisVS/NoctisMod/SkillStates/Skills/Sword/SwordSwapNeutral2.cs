@@ -9,6 +9,7 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
 using R2API.Networking;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -17,14 +18,14 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
 
             weaponDef = Noctis.swordSkillDef;
             this.hitboxName = "SwordHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = 1f;
-            this.procCoefficient = 1f;
+            this.damageCoefficient = StaticValues.swordDamage;
+            this.procCoefficient = StaticValues.swordProc;
             this.pushForce = 0f;
             this.baseDuration = 1.2f;
             this.attackStartTime = 0.5f;
@@ -34,7 +35,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = $"SwordSwingDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;

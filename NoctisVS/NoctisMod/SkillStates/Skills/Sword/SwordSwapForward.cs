@@ -30,13 +30,14 @@ namespace NoctisMod.SkillStates
         private string muzzleString;
 
         public int numberOfHits;
-        public static float baseDuration = 1f;
-        public static float startMoving = 0.4f;
-        public static float endMoving = 0.5f;
+        public static float baseDuration = 3f;
+        public static float startMoving = 0.33f;
+        public static float endMoving = 0.46f;
+        public static float earlyExitTime = 0.7f;
         public static float initialSpeedCoefficient = StaticValues.swordInstaDashSpeed;
         public static float finalSpeedCoefficient = 0f;
         public static float SpeedCoefficient;
-        public static float procCoefficient = 1f;
+        public static float procCoefficient = StaticValues.swordProc;
         private Animator animator;
 
         private Transform modelTransform;
@@ -64,7 +65,7 @@ namespace NoctisMod.SkillStates
 
 
             this.animator.SetBool("attacking", true);
-            base.PlayCrossfade("FullBody, Override", "ShootStyleKick", "Attack.playbackRate", baseDuration, 0.1f);
+            base.PlayCrossfade("FullBody, Override", "SwordInstaSlash", "Attack.playbackRate", baseDuration, 0.05f);
 
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
@@ -147,6 +148,10 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
+            if(base.fixedAge == baseDuration * endMoving)
+            {
+                EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingRight", true);
+            }
 
             if(base.fixedAge >= baseDuration * startMoving && base.fixedAge < baseDuration * endMoving)
             {
@@ -175,7 +180,7 @@ namespace NoctisMod.SkillStates
                 }
 
             }
-            if(base.fixedAge > baseDuration * endMoving)
+            if(base.fixedAge > baseDuration * earlyExitTime)
             {
 
                 if (base.isAuthority)

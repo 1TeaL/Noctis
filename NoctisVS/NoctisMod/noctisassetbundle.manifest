@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4052358310
+CRC: 2609562423
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9315c3f3208d0d1d3c23c4b70ff3a0e7
+    Hash: 5419915038f783a12a469b8a76647bdd
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -120,6 +120,7 @@ Assets:
 - Assets/Noctis/Assets/Weapons/swordNormalImage.png
 - Assets/Noctis/Assets/Material/buttonsMat.mat
 - Assets/Noctis/Assets/Weapons/polearmMatL.mat
+- Assets/Noctis/Animations/Movement/Death.anim
 - Assets/Noctis/Animations/Combat/Dash.anim
 - Assets/Noctis/Animations/Greatsword/GSLeapSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSUpDownSlam.anim
@@ -184,6 +185,7 @@ Assets:
 - Assets/Noctis/Animations/Greatsword/GSCharging.anim
 - Assets/Noctis/Assets/Material/nh00_000_skin_02_b_$h.btex.png
 - Assets/Noctis/Assets/Material/eyeMat.mat
+- Assets/Noctis/Animations/Movement/HandDust.anim
 - Assets/Noctis/Animations/Combat/WarpStrikeRoll.anim
 - Assets/Noctis/Assets/Material/white noise.png
 - Assets/Noctis/Assets/Material/Ring.png

@@ -11,54 +11,56 @@ using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
-    public class GreatswordForward : BaseMeleeAttack
+    internal class GreatswordForward: BaseSkillState
     {
-        private Vector3 direction;
+        private float baseDuration = 2f;
+        internal float radius;
+        internal Vector3 moveVec;
+        private float baseForce = 600f;
+        public float procCoefficient = StaticValues.GSProc;
+        private Animator animator;
 
-        private bool keepMoving;
+        public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
+
         private float rollSpeed;
         private float SpeedCoefficient;
         public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
-
+        private float attackStartTime = 0.2f;
+        private float attackEndTime = 0.5f;
+        private bool hasFired;
+        private Vector3 direction;
 
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
-            weaponDef = Noctis.greatswordSkillDef;
-            keepMoving = true;
-            this.hitboxName = "GreatswordHitbox";
-
-            this.damageType = DamageType.Generic;
-            this.damageCoefficient = StaticValues.GSDamage;
-            this.procCoefficient = 1f;
-            this.pushForce = 1000f;
-            this.baseDuration = 3f;
-            this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.8f;
-            this.hitStopDuration = 0.1f;
-            this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 10f;
-
-            this.swingSoundString = "ShiggyMelee";
-            this.hitSoundString = "";
-            this.muzzleString = $"SwordSlashDown";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
-
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
-            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
-            this.direction = base.GetAimRay().direction.normalized;
-
-            if (base.characterBody)
-            {
-                base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-            }
             base.OnEnter();
 
+            hasFired = false;
+            this.animator = base.GetModelAnimator();
+            this.animator.SetFloat("Attack.playbackRate", 1f);
+            base.PlayCrossfade("FullBody, Override", "GSLeapSlash", "Attack.playbackRate", baseDuration, 0.05f);
+            //if (base.isAuthority)
+            //{
+            //    AkSoundEngine.PostEvent("detroitexitvoice", this.gameObject);
+            //}
+            //AkSoundEngine.PostEvent("delawaresfx", this.gameObject);
+
+            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            this.direction = base.GetAimRay().direction.normalized;
+            this.direction.y = 0f;
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
+
         }
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Frozen;
+        }
+
         private void RecalculateRollSpeed()
         {
             float num = this.moveSpeedStat;
@@ -67,52 +69,109 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
+            RecalculateRollSpeed();
+            if (base.fixedAge <= (this.baseDuration * this.attackStartTime))
             {
-                RecalculateRollSpeed();
+
+                Vector3 velocity = this.direction * rollSpeed/2f;
+                velocity.y = base.characterMotor.velocity.y;
+                base.characterMotor.velocity = velocity;
+                base.characterDirection.forward = base.characterMotor.velocity.normalized;
+            }
+
+            if (base.fixedAge > (this.baseDuration * this.attackStartTime) && base.fixedAge <= (this.baseDuration * this.attackEndTime))
+            {
                 Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = 0;
+                velocity.y = base.characterMotor.velocity.y;
                 base.characterMotor.velocity = velocity;
                 base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
 
             }
-
-        }
-
-
-        protected override void PlayAttackAnimation()
-        {
-            base.PlayCrossfade("FullBody, Override", "GSLeapSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
-        }
-
-        protected override void PlaySwingEffect()
-        {
-            base.PlaySwingEffect();
-        }
-
-        protected override void OnHitEnemyAuthority()
-        {
-            base.OnHitEnemyAuthority();
-            keepMoving = false;
-
-        }
-
-        protected override void SetNextState()
-        {
-
-            if (base.isAuthority)
+            if (base.fixedAge > this.baseDuration * this.attackEndTime)
             {
-                if (!this.hasFired) this.FireAttack();
-                this.outer.SetNextState(new GreatswordCombo());
+                if (!hasFired)
+                {
+                    FireAttack();
+                    hasFired = true;
+                }
+                if (base.isAuthority)
+                {
+                    if (inputBank.skill1.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill2.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill3.down)
+                    {
+                        this.outer.SetNextState(new Dodge());
+                        return;
+                    }
+                    if (inputBank.skill4.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
+            if (base.fixedAge > this.baseDuration)
+            {
+                this.outer.SetNextStateToMain();
                 return;
+            }
+        }
+
+        private void FireAttack()
+        {
+
+            for (int i = 0; i <= 4; i += 1)
+            {
+                Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
+                effectPosition.y = base.characterBody.footPosition.y;
+                EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                {
+                    origin = effectPosition,
+                    scale = radius / 2f,
+                }, true);
+            }
+
+            bool isAuthority = base.isAuthority;
+            if (isAuthority)
+            {
+                BlastAttack blastAttack = new BlastAttack();
+
+                blastAttack.position = base.characterBody.corePosition;
+                blastAttack.baseDamage = this.damageStat * StaticValues.GSDamage;
+                blastAttack.baseForce = this.baseForce * StaticValues.GSDamage;
+                blastAttack.radius = this.radius;
+                blastAttack.attacker = base.gameObject;
+                blastAttack.inflictor = base.gameObject;
+                blastAttack.teamIndex = base.teamComponent.teamIndex;
+                blastAttack.crit = base.RollCrit();
+                blastAttack.procChainMask = default(ProcChainMask);
+                blastAttack.procCoefficient = procCoefficient;
+                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                blastAttack.damageColorIndex = DamageColorIndex.Default;
+                blastAttack.damageType = DamageType.Stun1s;
+                blastAttack.attackerFiltering = AttackerFiltering.Default;
+
+                for (int i = 0; i <= Mathf.RoundToInt(attackSpeedStat); i++)
+                {
+                    blastAttack.Fire();
+                }
             }
 
         }
@@ -120,10 +179,10 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-            base.characterMotor.velocity *= 0.1f;
-        }
+            this.animator.SetBool("releaseChargeSlash", false);
+            this.animator.SetBool("releaseChargeLeap", false);
 
+        }
     }
 }
 

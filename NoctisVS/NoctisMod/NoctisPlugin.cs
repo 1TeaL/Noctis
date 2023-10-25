@@ -195,7 +195,7 @@ namespace NoctisMod
 
                     if (Modules.Config.allowVoice.Value)
                     {
-                        AkSoundEngine.PostEvent("ShiggyDeath", self.gameObject);
+                        AkSoundEngine.PostEvent("NoctisDeath", self.gameObject);
                     }
                 }
                 

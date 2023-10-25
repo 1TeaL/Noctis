@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -18,31 +19,31 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
+        public static float initialSpeedCoefficient = Modules.StaticValues.swordInstaDashSpeed;
         private float finalSpeedCoefficient = 0f;
 
 
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.swordSkillDef;
             keepMoving = true;
             this.hitboxName = "SwordHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = 1f;
-            this.procCoefficient = 1f;
+            this.damageCoefficient = StaticValues.swordDamage;
+            this.procCoefficient = StaticValues.swordProc;
             this.pushForce = 300f;
-            this.baseDuration = 1.4f;
-            this.attackStartTime = 0.15f;
-            this.attackEndTime = 0.5f;
-            this.baseEarlyExitTime = 0.4f;
+            this.baseDuration = 1f;
+            this.attackStartTime = 0.3f;
+            this.attackEndTime = 0.65f;
+            this.baseEarlyExitTime = 0.65f; 
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 10f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = $"SwordSlashDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -78,9 +79,9 @@ namespace NoctisMod.SkillStates
             {
                 RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = 0;
+                velocity.y = base.characterMotor.velocity.y;
                 base.characterMotor.velocity = velocity;
-                base.characterDirection.forward = base.characterMotor.velocity.normalized;                
+                //base.characterDirection.forward = base.characterMotor.velocity.normalized;                
 
 
             }

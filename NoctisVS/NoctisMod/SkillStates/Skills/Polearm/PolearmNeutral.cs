@@ -16,14 +16,14 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            //AkSoundEngine.PostEvent("ShiggyMelee", base.gameObject);
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
             this.hitboxName = "PolearmThrustHitbox";
 
             this.damageType = DamageType.Generic;
 
             this.damageCoefficient = StaticValues.polearmDamage;
-            this.procCoefficient = 1f;
+            this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 500f;
             this.bonusForce = Vector3.zero;
             this.baseDuration = 1f;
@@ -34,7 +34,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
-            this.swingSoundString = "ShiggyMelee";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingStab";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -44,6 +44,7 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
             attackAmount += StaticValues.polearmExtraHit;
+          
         }
 
         protected override void PlayAttackAnimation()

@@ -19,19 +19,15 @@ namespace NoctisMod.SkillStates
     public class Warpstrike : BaseSkillState
     {
         private Animator animator;
+        private CharacterModel characterModel;
         public NoctisController noctisCon;
         public EnergySystem energySystem;
         private Ray aimRay;
-        private float rollSpeed;
-        private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.warpstrikeSpeed;
-        private float finalSpeedCoefficient = 0.1f;
-        public float dashSpeed = 100f;
+        public float dashSpeed = Modules.StaticValues.warpstrikeSpeed;
 
-        private float baseDuration = 0.6f;
-        private float duration;
-        private float warpStartTime = 0.4f;
-        private float warpEndTime = 0.8f;
+        private float duration = 1.5f;
+        private float warpStartTime = 0.2f;
+        private float warpEndTime = 0.55f;
         private bool keepMoving;
 
         private Vector3 direction;
@@ -39,6 +35,7 @@ namespace NoctisMod.SkillStates
         private HurtBox Target;
         private float distance;
         private Vector3 storedPosition;
+        private Transform modelTransform;
 
         public override void OnEnter()
         {
@@ -73,17 +70,19 @@ namespace NoctisMod.SkillStates
                 distance = Vector3.Magnitude(Target.transform.position - base.characterBody.corePosition);
             }
 
+            noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
+            noctisCon.WeaponAppearL(0f, NoctisController.WeaponTypeL.NONE);
 
             aimRay = base.GetAimRay();
-            noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             keepMoving = true;
 
-            direction = aimRay.direction.normalized;
-            duration = baseDuration / attackSpeedStat;
+            this.direction = aimRay.direction.normalized;
+            base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
             this.animator = base.GetModelAnimator();
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
-            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            this.modelTransform = base.GetModelTransform();
+            animator.SetFloat("Attack.playbackRate", 2f);
+            animator.SetBool("attacking", true);
 
             PlayAnimation();
             EffectManager.SpawnEffect(Assets.swordThrowParticle, new EffectData
@@ -100,6 +99,7 @@ namespace NoctisMod.SkillStates
 
         private void PlayAnimation()
         {
+            AkSoundEngine.PostEvent("Warpstrike", base.gameObject);             
             if (isTarget)
             {
                 base.PlayAnimation("FullBody, Override", "WarpStrike", "Attack.playbackRate", this.duration);
@@ -114,15 +114,37 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            animator.SetBool("attacking", false);
         }
 
-        public override void FixedUpdate()
+        public override void Update()
         {
             base.Update();                   
 
             if (base.fixedAge >= duration * warpStartTime && base.fixedAge <= duration * warpEndTime && keepMoving)
             {
-                if(isTarget)
+                if (this.modelTransform)
+                {
+                    this.animator = this.modelTransform.GetComponent<Animator>();
+                    this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay.duration = 0.3f;
+                    temporaryOverlay.animateShaderAlpha = true;
+                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay.destroyComponentOnEnd = true;
+                    temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay2.duration = 0.3f;
+                    temporaryOverlay2.animateShaderAlpha = true;
+                    temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay2.destroyComponentOnEnd = true;
+                    temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+                }
+                if (isTarget)
                 {
                     this.storedPosition = Target.transform.position;
                     if(base.isAuthority)
@@ -131,26 +153,21 @@ namespace NoctisMod.SkillStates
                         base.characterMotor.velocity = velocity;
                         base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }
-                    Vector3 position = base.characterBody.corePosition + aimRay.direction.normalized * 1f;
-                    float radius = 0.3f;
-                    LayerIndex layerIndex = LayerIndex.world;
-                    int num = layerIndex.mask;
-                    layerIndex = LayerIndex.entityPrecise;
-                    int num2 = Physics.OverlapSphere(position, radius, num | layerIndex.mask).Length;
-                    bool flag2 = num2 != 0;
-                    if (flag2)
+
+                    if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 5f)
                     {
                         new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance).Send(NetworkDestination.Clients);
                         keepMoving = false;
+                        base.PlayAnimation("FullBody, Override", "WarpStrikeAttack", "Attack.playbackRate", 0.5f);
                     }
                 }
                 else
                 {
                     if (base.isAuthority)
                     {
-                        Vector3 velocity = direction.normalized * dashSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                        base.characterDirection.forward = this.direction;
+                        base.characterMotor.velocity = Vector3.zero;
+                        base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.fixedDeltaTime;
                     }
 
                 }

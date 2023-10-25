@@ -11,19 +11,15 @@ namespace NoctisMod.Modules
             #region Shiggy
             string prefix = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_";
 
-            string desc = $"Shiggy is a multi-option survivor that can steal quirks from monster and base survivors to create his own playstyle.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + $"< ! > Steal quirk with {Config.AFOHotkey.Value}. Remove quirks with {Config.RemoveHotkey.Value}. Give quirks with {Config.AFOGiveHotkey.Value}. All rebindable in the configs." + Environment.NewLine + Environment.NewLine;
-            desc = desc + $"< ! > There's also configs to enable ALL quirks selectable in the loadout if you'd like to choose them from the beginning." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Grabbing a quirk when owning a specific quirk already will create a combination, these combinations can further combine." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > The Plus Chaos Meter in the middle increases naturally and by killing enemies, it is used for All For One and certain skills." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Some quirks are passive buffs, while others are active skills." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Try out all the quirks and craft your ultimate build!" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Aim to get a mixture of base skills, synergy skills and ultimate skills as they aren't necessarily direct upgrades. For example, the Beetle Queen's Summon Ally quirk allows you to summon the base survivors, providing you more quirks." + Environment.NewLine + Environment.NewLine;
+            string desc = $"Noctis is a high mobility melee focused survivor, switching between different weapons for different situations.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Every weapon has neutral, forwards and backwards inputs." + Environment.NewLine + Environment.NewLine;
+            desc = desc + $"< ! > Using a different weapon causes a unique swap attack to be used, for each input as well." + Environment.NewLine + Environment.NewLine;
+            desc = desc + "< ! > The Mana bar in the middle is used for jump cancels, dodging and warp strikes. It regenerates over time and per hit" + Environment.NewLine + Environment.NewLine;
 
 
 
             string outro = "..and so he left, becoming the true king.";
-            string outroFailure = "I even amaze myself sometimes...";
+            string outroFailure = "It's..more than I can take.";
 
             LanguageAPI.Add(prefix + "NAME", "Noctis Lucis Caelum");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
@@ -39,10 +35,9 @@ namespace NoctisMod.Modules
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "All For One");
-            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"Steal quirks by looking at a target and pressing {Config.AFOHotkey.Value}. Remove them with {Config.RemoveHotkey.Value}. Give passive quirks to targets by pressing {Config.AFOGiveHotkey.Value}." + Environment.NewLine +
-                Helpers.Passive("[Plus Chaos Meter] [Decay] [Air Walk]") + Environment.NewLine +
-                "<style=cIsUtility>He has a double jump. He can sprint in any direction.</style>");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Power of kings");
+            LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", $"< ! > Noctis has a mana bar which regenerates over time and through each hit. He is able to jump cancel and dodge cancel his attacks, consuming {StaticValues.dodgeCost} mana. Attacks can also cancel into attacks.. " + Environment.NewLine +
+                "<style=cIsUtility>He has a double jump.</style>");
             #endregion
 
             #region Base Skills

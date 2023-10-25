@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using EntityStates.Treebot.Weapon;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -34,12 +35,12 @@ namespace NoctisMod.SkillStates
         private OverlapAttack attack;
         protected string hitboxName2 = "SwordHitbox";
         protected string hitboxName = "PolearmThrustHitbox";
-        protected float procCoefficient = 1f;
+        protected float procCoefficient = StaticValues.polearmProc;
         protected float pushForce = 500f;
         protected Vector3 bonusForce = new Vector3(10f, 400f, 0f);
         protected float baseDuration = 0.6f;
         protected float attackStartTime = 0.2f;
-        protected float attackEndTime = 0.6f;
+        protected float attackEndTime = 0.9f;
         protected float baseEarlyExitTime = 0.4f;
         protected float hitStopDuration = 0.15f;
         protected float attackRecoil = 0.75f;
@@ -70,8 +71,8 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             this.aimRayDir = aimRay.direction;
 
-            duration = baseduration / ((this.attackSpeedStat) / 2);
-            SpeedCoefficient = initialSpeedCoefficient * (this.attackSpeedStat / 2);
+            duration = baseduration / ((this.attackSpeedStat));
+            SpeedCoefficient = initialSpeedCoefficient * (this.attackSpeedStat);
             float num = this.moveSpeedStat;
             bool isSprinting = base.characterBody.isSprinting;
             if (isSprinting)
@@ -102,14 +103,14 @@ namespace NoctisMod.SkillStates
                 this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
 
                 TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay.duration = 0.6f;
+                temporaryOverlay.duration = 0.3f;
                 temporaryOverlay.animateShaderAlpha = true;
                 temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay.destroyComponentOnEnd = true;
                 temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
                 temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
                 TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
-                temporaryOverlay2.duration = 0.7f;
+                temporaryOverlay2.duration = 0.3f;
                 temporaryOverlay2.animateShaderAlpha = true;
                 temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                 temporaryOverlay2.destroyComponentOnEnd = true;
@@ -161,6 +162,9 @@ namespace NoctisMod.SkillStates
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
             base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", duration, 0.1f);
+
+            AkSoundEngine.PostEvent("PolearmSwingSFX", base.gameObject); 
+            
 
 
 
@@ -227,19 +231,40 @@ namespace NoctisMod.SkillStates
 
                 if (base.isAuthority)
                 {
+                    if (inputBank.skill1.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.skill2.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
                     if (inputBank.skill3.down)
                     {
                         this.outer.SetNextState(new Dodge());
                         return;
                     }
-                
+                    if (inputBank.skill4.down)
+                    {
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (base.inputBank.jump.down)
+                    {
+                        Jump Jump = new Jump();
+                        this.outer.SetNextState(Jump);
+                        return;
+                    }
+
                 }
             }
 
-            bool flag7 = base.isAuthority && this.stopwatch >= duration;
-            if (flag7)
+            if (base.isAuthority && this.stopwatch >= duration)
             {
                 this.outer.SetNextStateToMain();
+                return;
             }
 
         }
