@@ -73,49 +73,56 @@ If you enjoy my work, support me on Ko-fi!
 
 - Next update(s)
     - Bug fixes. 
+    - Balance?. 
     - More Weapons? 
-<img src= "https://github.com/1TeaL/Shigaraki/assets/93917577/5682234e-9b60-489d-9f36-2a35f060fa0e" height ="256" >
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/39143b59-0050-4035-b437-c5028b7f88e0" height ="256" >
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b92a3e3b-ac4d-44ff-86f0-da1366a5119c" height ="256" >
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/f5480f7b-d296-4581-9627-be8ef994c0f3" height ="256" >
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/890a73bf-ee33-4599-bd70-c2a9f6c36526" height ="256" >
 
 ## Known Issues
 
 ## Overview    
-    Attack speed doesn't scale Noctis' animations. Instead it adds 'extra' attacks. For example, 2.5 attack speed means you'll do 3 attacks- 2 attacks that deal 100% damage and proc, while the 3rd attack deals 50% damage and 50% proc. 
-    Each weapon has unique attributes to them: 
-    Sword has usually faster attacks. Invincibility (i-frames) while using the swap attacks. 
-    Greatsword applies vulnerability (debuff on enemies so they take +50% damage per stack additively). Swap attacks always stun. 
-    Polearm has longer range and hits 1 extra time on top of attack speed scaling, allowing for more onhit builds. Pressing jump and the polearm input result in a Dragoon thrust, sending yourself towards the ground. Polearm swap attacks hit 2 extra times.
+Attack speed doesn't scale Noctis' animations. 
+
+Instead it adds 'extra' attacks. For example, 2.5 attack speed means you'll do 3 attacks- 2 attacks that deal 100% damage and proc, while the 3rd attack deals 50% damage and 50% proc. 
+
+Each weapon has unique attributes to them.
     
     
 ## Skills
 ### Passive
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/e39be057-e49d-4a5f-94e6-91d802deca7d" height ="128" >
 
-Noctis has a mana bar which regenerates over time and through each hit. He is able to jump cancel and dodge cancel his attacks, consuming 10 mana. Attacks can also cancel into attacks.
-Noctis can sprint in any direction and has a double jump.
+    Noctis has a mana bar which regenerates over time and through each hit. 
+    He is able to jump cancel and dodge cancel his attacks, consuming 10 mana. 
+    Attacks can also cancel into attacks.
+    Noctis can sprint in any direction and has a double jump.
 
 ### Base Skills
 
 #### Dodge 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f212e12-74ec-4e41-8b69-dcebf63bfc21" height ="128" >
 
-Pressing dodge grants 300 armor during the duration. 
-Allows you to cancel the endlag for attacks.
-Costs 10 mana, reducible by CDR items.
-Using it in the air will have you airstep, gaining a little bit of height.
+    Pressing dodge grants 300 armor during the duration. 
+    Allows you to cancel the endlag for attacks.
+    Costs 10 mana, reducible by CDR items.
+    Using it in the air will have you airstep, gaining a little bit of height.
 
 #### Jumping
 Only usable after an attack.
-Pressing the jump button allows you to cancel the endlag for attacks at the same point of when dodges or attacks can cancel.
-Gain as much height as a normal jump approximately.
-Costs 10 mana, reducible by CDR items.
-Holding the jump key and the polearm button results in the Double Dragoon Thrust Swap attack. 
+
+    Pressing the jump button allows you to cancel the endlag for attacks at the same point of when dodges or attacks can cancel.
+    Gain as much height as a normal jump approximately.
+    Costs 10 mana, reducible by CDR items.
+    Holding the jump key and the polearm button results in the Double Dragoon Thrust Swap attack. 
 
 #### Warpstrike 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/3f402b77-c2b7-495a-a90d-bfe9abfb99ab" height ="128" >
 
-Warps Noctis towards the target or the direction you're looking at.
-When arriving at an enemy, deal damage, scaling with distance travelled.
-Costs 30 mana, reducible by CDR items.
+    Warps Noctis towards the target or the direction you're looking at.
+    When arriving at an enemy, deal damage, scaling with distance travelled.
+    Costs 30 mana, reducible by CDR items.
 
 #### Sword- Faster attacks. Swap attacks have invincibility. All attacks have proc of 1.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39" height ="128" >
@@ -198,7 +205,7 @@ Costs 30 mana, reducible by CDR items.
   </tr>
   <tr>
     <td>Swap Backward</td>
-    <td>Vulnerability. Stun. Charge your greatsword. <br>On release, Leap and slam the ground, dealing 400%-1200% damage based on charge.</td>
+    <td>Vulnerability. Stun. Charge your greatsword. <br>On release, leap and slam the ground, dealing 400%-1200% damage based on charge.</td>
   </tr>
   <tr>
     <td>Swap Aerial</td>
@@ -231,7 +238,7 @@ Costs 30 mana, reducible by CDR items.
   </tr>
   <tr>
     <td>Aerial</td>
-    <td>Dash and thrust forward in a direction, Backhop on contact, dealing 2x150% damage.</td>
+    <td>Dash and thrust forward at your aim direction. Backhop on contact, dealing 2x150% damage.</td>
   </tr>
   <tr>
     <td>Aerial + Jump</td>
@@ -280,14 +287,12 @@ Rest of changelog on Github
 
 ## Credits
 ##### HenryMod for the template.
-##### Ethanol10(discord ethanol10)
+##### Ethanol10(discord ethanol10) for weapon shader and partial attack logic
  
 <details>
 <summary>Click to expand for OG pictures:</summary>
 
 ## OG Pictures
-
-</details>
 ![greatsword](https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5)
 ![dodge](https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f212e12-74ec-4e41-8b69-dcebf63bfc21)
 ![warpstrike](https://github.com/1TeaL/NoctisRoR2/assets/93917577/3f402b77-c2b7-495a-a90d-bfe9abfb99ab)
@@ -295,10 +300,12 @@ Rest of changelog on Github
 ![polearm](https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f)
 ![Passive](https://github.com/1TeaL/NoctisRoR2/assets/93917577/e39be057-e49d-4a5f-94e6-91d802deca7d)
 
+![Menu](https://github.com/1TeaL/NoctisRoR2/assets/93917577/39143b59-0050-4035-b437-c5028b7f88e0)
+![noctisDragoonThrust](https://github.com/1TeaL/NoctisRoR2/assets/93917577/b92a3e3b-ac4d-44ff-86f0-da1366a5119c)
+![noctisGSChargeSlash](https://github.com/1TeaL/NoctisRoR2/assets/93917577/f5480f7b-d296-4581-9627-be8ef994c0f3)
+![noctisSwordAerialSlash](https://github.com/1TeaL/NoctisRoR2/assets/93917577/890a73bf-ee33-4599-bd70-c2a9f6c36526)
 
-
-
-
+</details>
 
 
 
