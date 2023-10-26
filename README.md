@@ -75,7 +75,7 @@ If you enjoy my work, support me on Ko-fi!
         - Fixed Greatsword attacks not all applying vulnerability
         - Hid messages appearing when using sword attacks
         - Fixed sword swap forward not moving noctis far enough
-        - 
+        - Fixed the target lock on from being able to select players (meaning you could use warp strike to an ally, travelling towards them but also dealing damage.
     - Balance
         - Reduced max mana per level from 10->5. Reduced max mana given from stock based items: magazine- 10->5. lysate 15->10. afterburner 30->15. Reduced natural regen as well. Noctis was not having mana issues too fast, and through attacking gains a decent amount of mana already.
         - Changed window of using jump or dodge to cancel out of attacks to 50% earlier than what it was previously, this is to help some longer animation attacks not get Noctis killed due to enemy projectiles or puddles.
@@ -88,7 +88,8 @@ If you enjoy my work, support me on Ko-fi!
 - Next update(s)
     - Bug fixes. 
     - Balance? 
-    - More Weapons? 
+    - More Weapons?
+      
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/39143b59-0050-4035-b437-c5028b7f88e0" height ="256" >
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b92a3e3b-ac4d-44ff-86f0-da1366a5119c" height ="256" >
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/f5480f7b-d296-4581-9627-be8ef994c0f3" height ="256" >
@@ -188,7 +189,7 @@ https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdp
 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3" height ="256" >
 
-#### Greatsword- Slow but high damage. Swap attacks have stun. All attacks have proc of 2.
+#### Greatsword- Slow but high damage. All attacks apply 'Vulnerability'- each stack causes an enemy to take 25% additional damage additively. Swap attacks have stun. All attacks have proc of 2.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5" height ="128" >
 <table>
 <thead>
