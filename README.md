@@ -69,6 +69,20 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.1.0-
+    - Bug fixes
+        - Fixed polearm weapon description in lobby to appear under polearm not dodge.
+        - Fixed Greatsword attacks not all applying vulnerability
+        - Hid messages appearing when using sword attacks
+        - Fixed sword swap forward not moving noctis far enough
+        - 
+    - Balance
+        - Reduced max mana per level from 10->5. Reduced max mana given from stock based items: magazine- 10->5. lysate 15->10. afterburner 30->15. Reduced natural regen as well. Noctis was not having mana issues too fast, and through attacking gains a decent amount of mana already.
+        - Changed window of using jump or dodge to cancel out of attacks to 50% earlier than what it was previously, this is to help some longer animation attacks not get Noctis killed due to enemy projectiles or puddles.
+        - Using Dodge no longer resets his current weapon to 'None'. This means he can more easier access the weapon swap attacks.
+        - Improved hitbox sizes in general, his rootedness meant he needed larger hitboxes to reach enemies.
+        - Changed base damage from 10->12
+        - Along with the bug fixes, should make Noctis more in line with other characters in general.
 - 1.0.0- Release
 
 - Next update(s)
@@ -276,7 +290,7 @@ https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdp
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
-##### Damage = 10 + 2 per level
+##### Damage = 12 + 2.4 per level
 ##### Regen = 1 + 0.2 per level 
 ##### Health = 162 + 15 per level
 ##### Movespeed = 7
