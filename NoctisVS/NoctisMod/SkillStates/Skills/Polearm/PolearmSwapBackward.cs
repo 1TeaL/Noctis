@@ -4,6 +4,7 @@ using UnityEngine;
 using NoctisMod.Modules.Survivors;
 using EntityStates.VoidSurvivor;
 using NoctisMod.Modules;
+using System;
 
 namespace NoctisMod.SkillStates
 {
@@ -15,7 +16,7 @@ namespace NoctisMod.SkillStates
         public float earlyExitTime = 0.6f;
         private float fireTime;
         public bool hasFired;
-
+        private Ray aimRay;
         private float range = 100f;
         private float damageCoefficient = Modules.StaticValues.polearmSwapBackwardDamage;
         private float procCoefficient = Modules.StaticValues.polearmProc;
@@ -30,7 +31,7 @@ namespace NoctisMod.SkillStates
 
             this.fireTime = 0.5f * this.duration;
             hasFired = false;
-            Ray aimRay = base.GetAimRay();
+            aimRay = base.GetAimRay();
             base.StartAimMode(this.duration, true);
             animator = base.GetModelAnimator();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
@@ -38,7 +39,7 @@ namespace NoctisMod.SkillStates
 
             bulletcount = Mathf.RoundToInt(attackSpeedStat) + StaticValues.polearmSwapExtraHit;
             base.PlayCrossfade("FullBody, Override", "PolearmThrow", "Attack.playbackRate", duration, 0.05f);
-
+            base.characterDirection.forward = aimRay.direction;
 
         }
 
@@ -52,6 +53,7 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
+            base.characterDirection.forward = aimRay.direction;
             if (base.fixedAge >= this.fireTime && !hasFired)
             {
                 noctisCon.currentWeaponR.SetActive(false);

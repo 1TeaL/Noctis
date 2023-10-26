@@ -189,11 +189,11 @@ namespace NoctisMod.Modules.Survivors
             string prefix = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_";
 
             #region Passive
-            //SkillLocator skillloc = bodyPrefab.GetComponent<SkillLocator>();
-            //skillloc.passiveSkill.enabled = true;
-            //skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
-            //skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            //skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("allforone");
+            SkillLocator skillloc = bodyPrefab.GetComponent<SkillLocator>();
+            skillloc.passiveSkill.enabled = true;
+            skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
+            skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
+            skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisPassive");
             //skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_PASSIVE";
             #endregion
 
@@ -205,7 +205,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "SWORD_NAME",
                 skillNameToken = prefix + "SWORD_NAME",
                 skillDescriptionToken = prefix + "SWORD_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisSword"),
                 activationState = new SerializableEntityStateType(typeof(SwordCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -222,6 +222,7 @@ namespace NoctisMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
+                keywordTokens = new[] {prefix + "KEYWORD_SWORD"}
             });
 
             greatswordSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -230,7 +231,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "GREATSWORD_NAME",
                 skillNameToken = prefix + "GREATSWORD_NAME",
                 skillDescriptionToken = prefix + "GREATSWORD_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisGreatsword"),
                 activationState = new SerializableEntityStateType(typeof(GreatswordCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -247,6 +248,7 @@ namespace NoctisMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
+                keywordTokens = new[] { prefix + "KEYWORD_GREATSWORD" }
             });
 
             polearmSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
@@ -255,7 +257,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "POLEARM_NAME",
                 skillNameToken = prefix + "POLEARM_NAME",
                 skillDescriptionToken = prefix + "POLEARM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("decay"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisPolearm"),
                 activationState = new SerializableEntityStateType(typeof(PolearmCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -282,7 +284,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "DODGE_NAME",
                 skillNameToken = prefix + "DODGE_NAME",
                 skillDescriptionToken = prefix + "DODGE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisDodge"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Dodge)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -299,6 +301,7 @@ namespace NoctisMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
+                keywordTokens = new[] { prefix + "KEYWORD_POLEARM" }
 
             });
 
@@ -307,7 +310,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "WARPSTRIKE_NAME",
                 skillNameToken = prefix + "WARPSTRIKE_NAME",
                 skillDescriptionToken = prefix + "WARPSTRIKE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("aircannon"),
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisWarpstrike"),
                 activationState = new SerializableEntityStateType(typeof(Warpstrike)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,

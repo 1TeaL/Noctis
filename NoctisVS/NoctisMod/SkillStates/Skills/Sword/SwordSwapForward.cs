@@ -30,7 +30,8 @@ namespace NoctisMod.SkillStates
         private string muzzleString;
 
         public int numberOfHits;
-        public static float baseDuration = 3f;
+        private float partialAttack;
+        public static float baseDuration = 1.5f;
         public static float startMoving = 0.33f;
         public static float endMoving = 0.46f;
         public static float earlyExitTime = 0.7f;
@@ -44,6 +45,7 @@ namespace NoctisMod.SkillStates
         private CharacterModel characterModel;
         private float rollSpeed;
         private Vector3 direction;
+        private bool playSwing;
 
         //checking location for networking
         public Vector3 origin;
@@ -63,8 +65,12 @@ namespace NoctisMod.SkillStates
 
             numberOfHits = Mathf.RoundToInt(StaticValues.swordBaseHit + attackSpeedStat);
 
+            numberOfHits = (int)this.attackSpeedStat + StaticValues.swordBaseHit;
+            partialAttack = (float)(this.attackSpeedStat - (float)numberOfHits);
+
 
             this.animator.SetBool("attacking", true);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 2f);
             base.PlayCrossfade("FullBody, Override", "SwordInstaSlash", "Attack.playbackRate", baseDuration, 0.05f);
 
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
@@ -118,6 +124,11 @@ namespace NoctisMod.SkillStates
                     {
                         new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage).Send(NetworkDestination.Clients);
                     }
+                    if(partialAttack > 0f)
+                    {
+                        new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage * partialAttack).Send(NetworkDestination.Clients);
+
+                    }
 
                 }
             }
@@ -128,7 +139,6 @@ namespace NoctisMod.SkillStates
             Ray aimRay = base.GetAimRay();
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
             this.animator.SetBool("attacking", false);
-            Util.PlaySound(EvisDash.endSoundString, base.gameObject);
 
             base.characterMotor.mass = this.previousMass;
             base.characterMotor.useGravity = true;
@@ -138,8 +148,6 @@ namespace NoctisMod.SkillStates
             base.characterMotor.disableAirControlUntilCollision = false;
             base.characterMotor.velocity.y = 0;
 
-            final = base.transform.position;
-            DealDamage();
 
             base.OnExit();
         }
@@ -148,9 +156,17 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            if(base.fixedAge == baseDuration * endMoving)
+            if(base.fixedAge > baseDuration * endMoving)
             {
-                EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingRight", true);
+                base.characterMotor.velocity = Vector3.zero;
+                if (!playSwing)
+                {
+                    playSwing = true;
+                    EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingRight", true);
+                    Util.PlaySound(EvisDash.endSoundString, base.gameObject);
+                    final = base.transform.position;
+                    DealDamage();
+                }
             }
 
             if(base.fixedAge >= baseDuration * startMoving && base.fixedAge < baseDuration * endMoving)

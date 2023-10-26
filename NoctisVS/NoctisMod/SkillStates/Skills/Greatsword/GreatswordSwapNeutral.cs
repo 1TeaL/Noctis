@@ -58,6 +58,8 @@ namespace NoctisMod.SkillStates
             {
                 hasSlammed = true;
 
+                EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingDown", true);
+
                 for (int i = 0; i <= 4; i += 1)
                 {
                     Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
@@ -75,7 +77,7 @@ namespace NoctisMod.SkillStates
                     BlastAttack blastAttack = new BlastAttack();
 
                     blastAttack.position = base.characterBody.corePosition;
-                    blastAttack.baseDamage = this.damageStat * attackAmount;
+                    blastAttack.baseDamage = this.damageStat * damageCoefficient;
                     blastAttack.baseForce = this.pushForce;
                     blastAttack.radius = this.radius;
                     blastAttack.attacker = base.gameObject;
@@ -88,8 +90,18 @@ namespace NoctisMod.SkillStates
                     blastAttack.damageColorIndex = DamageColorIndex.Default;
                     blastAttack.damageType = DamageType.Stun1s;
                     blastAttack.attackerFiltering = AttackerFiltering.Default;
+                    blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                    blastAttack.Fire();
+                    for (int i = 0; i <= attackAmount; i++)
+                    {
+                        blastAttack.Fire();
+                    }
+                    if (partialAttack > 0f)
+                    {
+                        blastAttack.baseDamage = this.damageStat * damageCoefficient * partialAttack;
+                        blastAttack.procCoefficient = procCoefficient * partialAttack;
+                        blastAttack.Fire();
+                    }
                 }
             }
             base.FixedUpdate();

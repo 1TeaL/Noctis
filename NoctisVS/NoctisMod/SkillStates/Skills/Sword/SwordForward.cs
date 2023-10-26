@@ -19,7 +19,7 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.swordInstaDashSpeed;
+        public static float initialSpeedCoefficient = Modules.StaticValues.swordDashSpeed;
         private float finalSpeedCoefficient = 0f;
 
 
@@ -75,7 +75,7 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
+            if (this.stopwatch <= (this.baseDuration * this.attackStartTime) && keepMoving)
             {
                 RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;

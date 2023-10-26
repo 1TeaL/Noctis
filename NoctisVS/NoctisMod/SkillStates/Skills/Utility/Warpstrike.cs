@@ -37,6 +37,8 @@ namespace NoctisMod.SkillStates
         private Vector3 storedPosition;
         private Transform modelTransform;
 
+        private bool hasFired;
+
         public override void OnEnter()
         {
 
@@ -72,6 +74,7 @@ namespace NoctisMod.SkillStates
 
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             noctisCon.WeaponAppearL(0f, NoctisController.WeaponTypeL.NONE);
+            noctisCon.DashParticle.Play();
 
             aimRay = base.GetAimRay();
             keepMoving = true;
@@ -114,7 +117,10 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            noctisCon.DashParticle.Stop();
+            noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             animator.SetBool("attacking", false);
+            base.PlayAnimation("FullBody, Override", "BufferEmpty", "Attack.playbackRate", 0.5f);
         }
 
         public override void Update()
@@ -150,15 +156,21 @@ namespace NoctisMod.SkillStates
                     if(base.isAuthority)
                     {
                         Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                        //base.characterMotor.velocity = velocity;
+                        //base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                        base.characterMotor.velocity = Vector3.zero;
+                        base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.fixedDeltaTime;
                     }
 
-                    if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 5f)
+                    if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 5f && !hasFired)
                     {
+                        hasFired = true;
+
                         new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance).Send(NetworkDestination.Clients);
                         keepMoving = false;
                         base.PlayAnimation("FullBody, Override", "WarpStrikeAttack", "Attack.playbackRate", 0.5f);
+                        AkSoundEngine.PostEvent("NoctisHitSFX", base.gameObject);
+                        noctisCon.WeaponAppearR(1f, NoctisController.WeaponTypeR.SWORD);
                     }
                 }
                 else

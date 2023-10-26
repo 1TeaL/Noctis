@@ -23,6 +23,7 @@ namespace NoctisMod.Modules
         internal static float backupGain = 10f;
         internal static float afterburnerGain = 30f;
         internal static float lysateGain = 15f;
+        internal static float manaGainOnHit = 0.02f;
 
         //Sword
         internal static float swordProc = 1f;
@@ -32,24 +33,26 @@ namespace NoctisMod.Modules
         internal static float swordNeutralDamage3 = 4f;
         internal static float swordDashDistance = 3f;
         internal static float swordDashSpeed = 6f;
-        internal static float swordInstaDashSpeed = 20f;
+        internal static float swordInstaDashSpeed = 10f;
         internal static float swordBackSpeed = 6f;
-        internal static float swordBaseHit = 2f;
+        internal static int swordBaseHit = 1;
         internal static float swordSwapForwardDamage = 2f;
 
         //GS
         internal static float GSProc = 2f;
         internal static float GSDamage = 4f;
+        internal static float GSSwapForwardDamage = 10f;
         internal static float GSLeapSpeed = 6f;
         internal static float GSMaxCharge = 3f;
-        internal static float GSChargeDamage = 6f;
+        internal static float GSChargeDamage = 4f;
         internal static float GSChargeMultiplier = 2f;
         internal static float GSSlamRadius = 6f;
         internal static float GSDropSpeed = 60f;
+        internal static float GSVulnerabilityDebuff = 0.25f;
 
         //Polearm
         internal static float polearmProc = 0.3f;
-        internal static float polearmDamage = 1f;
+        internal static float polearmDamage = 1.5f;
         internal static int polearmExtraHit = 1;
         internal static int polearmSwapExtraHit = 2;
         internal static float polearmDashSpeed = 10f;

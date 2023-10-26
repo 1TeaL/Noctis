@@ -60,7 +60,7 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        Chat.AddMessage("aerial attack");
+                        //Chat.AddMessage("aerial attack");
                         GreatswordSwapAerial GreatswordSwapAerial = new GreatswordSwapAerial();
                         this.outer.SetNextState(GreatswordSwapAerial);
                         return;
@@ -71,7 +71,7 @@ namespace NoctisMod.SkillStates
                         if (base.inputBank.moveVector == Vector3.zero)
                         {
                             //neutral attack
-                            Chat.AddMessage("neutral attack- swap");
+                            //Chat.AddMessage("neutral attack- swap");
                             GreatswordSwapNeutral GreatswordSwapNeutral = new GreatswordSwapNeutral();
                             GreatswordSwapNeutral.swingIndex = currentSwingIndex;
                             this.outer.SetNextState(GreatswordSwapNeutral);
@@ -87,7 +87,7 @@ namespace NoctisMod.SkillStates
 
                             if (Vector3.Dot(base.inputBank.moveVector, normalized) >= 0.8f)
                             {
-                                Chat.AddMessage("forward attack- swap");
+                                //Chat.AddMessage("forward attack- swap");
                                 GreatswordSwapForward GreatswordSwapForward = new GreatswordSwapForward();
                                 this.outer.SetNextState(GreatswordSwapForward);
                                 return;
@@ -95,14 +95,14 @@ namespace NoctisMod.SkillStates
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {
                                 //backward attack
-                                Chat.AddMessage("backward attack- swap");
+                                //Chat.AddMessage("backward attack- swap");
                                 this.outer.SetNextState(new GreatswordSwapBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
-                                Chat.AddMessage("neutral attack- swap");
+                                //Chat.AddMessage("neutral attack- swap");
                                 GreatswordSwapNeutral GreatswordSwapNeutral = new GreatswordSwapNeutral();
                                 GreatswordSwapNeutral.swingIndex = currentSwingIndex;
                                 this.outer.SetNextState(GreatswordSwapNeutral);
@@ -122,7 +122,7 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        Chat.AddMessage("aerial attack");
+                        //Chat.AddMessage("aerial attack");
                         GreatswordAerial GreatswordAerial = new GreatswordAerial();
                         this.outer.SetNextState(GreatswordAerial);
                         return;
@@ -133,7 +133,7 @@ namespace NoctisMod.SkillStates
                         if (base.inputBank.moveVector == Vector3.zero)
                         {
                             //neutral attack
-                            Chat.AddMessage("neutral attack");
+                            //Chat.AddMessage("neutral attack");
                             GreatswordNeutral GreatswordNeutral = new GreatswordNeutral();
                             GreatswordNeutral.swingIndex = currentSwingIndex;
                             this.outer.SetNextState(GreatswordNeutral);
@@ -150,7 +150,7 @@ namespace NoctisMod.SkillStates
                             if (Vector3.Dot(base.inputBank.moveVector, normalized) >= 0.8f)
                             {
                                 //forward attack
-                                Chat.AddMessage("forward attack");
+                                //Chat.AddMessage("forward attack");
                                 GreatswordForward GreatswordForward = new GreatswordForward();
                                 this.outer.SetNextState(GreatswordForward);
                                 return;
@@ -158,14 +158,14 @@ namespace NoctisMod.SkillStates
                             else if (Vector3.Dot(base.inputBank.moveVector, normalized) <= -0.8f)
                             {
                                 //backward attack
-                                Chat.AddMessage("backward attack");
+                                //Chat.AddMessage("backward attack");
                                 this.outer.SetNextState(new GreatswordBackward());
                                 return;
                             }
                             else
                             {
                                 //neutral attack
-                                Chat.AddMessage("neutral attack");
+                                //Chat.AddMessage("neutral attack");
                                 GreatswordNeutral GreatswordNeutral = new GreatswordNeutral();
                                 GreatswordNeutral.swingIndex = currentSwingIndex;
                                 this.outer.SetNextState(GreatswordNeutral);

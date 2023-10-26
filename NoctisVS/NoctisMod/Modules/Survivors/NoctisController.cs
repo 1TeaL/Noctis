@@ -62,6 +62,7 @@ namespace NoctisMod.Modules.Survivors
 
         //Particles
         public ParticleSystem SpinningWeaponAura;
+        public ParticleSystem DashParticle;
 
         //Weapons
         public GameObject swordWeapon;
@@ -113,6 +114,7 @@ namespace NoctisMod.Modules.Survivors
             if (child)
             {
                 SpinningWeaponAura = child.FindChild("SpinningWeaponAura").GetComponent<ParticleSystem>();
+                DashParticle = child.FindChild("DashParticle").GetComponent<ParticleSystem>();
                 swordWeapon = child.FindChild("Sword").gameObject;
                 greatswordWeapon = child.FindChild("Greatsword").gameObject;
                 polearmWeapon = child.FindChild("Polearm").gameObject;
@@ -121,6 +123,7 @@ namespace NoctisMod.Modules.Survivors
             }
 
             SpinningWeaponAura.Stop();
+            DashParticle.Stop();
 
 
             activeindicator = new Indicator(gameObject, LegacyResourcesAPI.Load<GameObject>("Prefabs/HuntressTrackingIndicator"));

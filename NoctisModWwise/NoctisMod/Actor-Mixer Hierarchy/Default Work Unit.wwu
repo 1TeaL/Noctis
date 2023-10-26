@@ -228,8 +228,10 @@
 									<ChildrenList>
 										<RandomSequenceContainer Name="NoctisDeath" ID="{B0656D8D-DC77-49FD-BE1C-47BC400A6047}" ShortID="199055371">
 											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="OverrideConversion" Type="bool" Value="True"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>4</Value>
@@ -237,6 +239,9 @@
 												</Property>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Attenuation" ID="{6F99AA00-7AD4-4E3F-8930-09A568A20270}" WorkUnitID="{A024A74F-2E38-4760-B558-0C8D831B3136}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{627E9AE5-906D-43A6-AA2C-F71A9CD4379C}"/>
 												</Reference>

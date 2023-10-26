@@ -25,7 +25,7 @@ namespace NoctisMod.SkillStates
         public static float duration;
         public static float hitExtraDuration = 0.44f;
         public static float minExtraDuration = 0.2f;
-        public static float initialSpeedCoefficient = 12f;
+        public static float initialSpeedCoefficient = StaticValues.polearmDashSpeed;
         public static float SpeedCoefficient;
         public static float finalSpeedCoefficient = 0f;
         public static float bounceForce = 2000f;

@@ -18,6 +18,7 @@ namespace NoctisMod.Modules
             entityStates.Add(typeof(Dodge));
             entityStates.Add(typeof(Jump));
             entityStates.Add(typeof(Warpstrike));
+            entityStates.Add(typeof(Death));
 
             //Sword
             entityStates.Add(typeof(SwordCombo));
@@ -30,7 +31,6 @@ namespace NoctisMod.Modules
             entityStates.Add(typeof(SwordSwapForward));
             entityStates.Add(typeof(SwordSwapBackward));
             entityStates.Add(typeof(SwordSwapAerial));
-            entityStates.Add(typeof(SwordSwapAerial2));
 
             //Greatsword
             entityStates.Add(typeof(GreatswordCombo));

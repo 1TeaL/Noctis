@@ -1,4 +1,5 @@
-﻿using R2API;
+﻿using EntityStates;
+using R2API;
 using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
@@ -152,6 +153,8 @@ namespace NoctisMod.Modules
             SetupFootstepController(model);
             SetupRagdoll(model);
             SetupAimAnimator(newPrefab, model);
+            CharacterDeathBehavior characterDeathBehavior = newPrefab.GetComponent<CharacterDeathBehavior>();
+            characterDeathBehavior.deathState = new SerializableEntityStateType(typeof(NoctisMod.SkillStates.Death));
 
             bodyPrefabs.Add(newPrefab);
 

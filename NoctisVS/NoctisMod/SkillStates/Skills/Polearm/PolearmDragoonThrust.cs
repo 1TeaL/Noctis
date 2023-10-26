@@ -139,7 +139,7 @@ namespace NoctisMod.SkillStates
 
                 BlastAttack blastAttack = new BlastAttack();
                 blastAttack.radius = StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
-                blastAttack.procCoefficient = 1f;
+                blastAttack.procCoefficient = procCoefficient;
                 blastAttack.position = base.characterBody.footPosition;
                 blastAttack.attacker = base.gameObject;
                 blastAttack.crit = base.RollCrit();
@@ -152,6 +152,13 @@ namespace NoctisMod.SkillStates
 
                 for (int i =0; i <= attackAmount; i++)
                 {
+                    blastAttack.Fire();
+                }
+
+                if (partialAttack > 0f)
+                {
+                    blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2) * partialAttack;
+                    blastAttack.procCoefficient = procCoefficient * partialAttack;
                     blastAttack.Fire();
                 }
 

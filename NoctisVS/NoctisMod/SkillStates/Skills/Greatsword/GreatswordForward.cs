@@ -23,13 +23,14 @@ namespace NoctisMod.SkillStates
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
 
         private float rollSpeed;
+        private float partialAttack;
         private float SpeedCoefficient;
         public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
-        private float attackStartTime = 0.2f;
-        private float attackEndTime = 0.5f;
+        private float attackEndTime = 0.36f;
         private bool hasFired;
         private Vector3 direction;
+        private int attackAmount;
 
         public override void OnEnter()
         {
@@ -46,6 +47,12 @@ namespace NoctisMod.SkillStates
             //}
             //AkSoundEngine.PostEvent("delawaresfx", this.gameObject);
 
+            attackAmount = (int)this.attackSpeedStat;
+            if (attackAmount < 1)
+            {
+                attackAmount = 1;
+            }
+            partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
@@ -77,16 +84,8 @@ namespace NoctisMod.SkillStates
             base.FixedUpdate();
 
             RecalculateRollSpeed();
-            if (base.fixedAge <= (this.baseDuration * this.attackStartTime))
-            {
 
-                Vector3 velocity = this.direction * rollSpeed/2f;
-                velocity.y = base.characterMotor.velocity.y;
-                base.characterMotor.velocity = velocity;
-                base.characterDirection.forward = base.characterMotor.velocity.normalized;
-            }
-
-            if (base.fixedAge > (this.baseDuration * this.attackStartTime) && base.fixedAge <= (this.baseDuration * this.attackEndTime))
+            if (base.fixedAge <= (this.baseDuration * this.attackEndTime))
             {
                 Vector3 velocity = this.direction * rollSpeed;
                 velocity.y = base.characterMotor.velocity.y;
@@ -167,9 +166,16 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
                 blastAttack.damageType = DamageType.Stun1s;
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
+                blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                for (int i = 0; i <= Mathf.RoundToInt(attackSpeedStat); i++)
+                for (int i = 0; i <= attackAmount; i++)
                 {
+                    blastAttack.Fire();
+                }
+                if (partialAttack > 0f)
+                {
+                    blastAttack.baseDamage = this.damageStat * partialAttack;
+                    blastAttack.procCoefficient = procCoefficient * partialAttack;
                     blastAttack.Fire();
                 }
             }

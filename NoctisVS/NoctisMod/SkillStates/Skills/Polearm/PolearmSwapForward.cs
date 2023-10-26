@@ -55,8 +55,7 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
             attackAmount += StaticValues.polearmSwapExtraHit;
-          
-
+            keepMoving = true;
         }
         private void RecalculateRollSpeed()
         {

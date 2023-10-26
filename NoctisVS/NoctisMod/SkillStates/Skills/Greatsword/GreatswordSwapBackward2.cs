@@ -26,6 +26,7 @@ namespace NoctisMod.SkillStates
         public GameObject blastEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
 
         private float rollSpeed;
+        private float partialAttack;
         private float SpeedCoefficient;
         public static float initialSpeedCoefficient = Modules.StaticValues.GSLeapSpeed;
         private float finalSpeedCoefficient = 0f;
@@ -33,6 +34,7 @@ namespace NoctisMod.SkillStates
         private float attackEndTime = 0.38f;
         private bool hasFired;
         private Vector3 direction;
+        private int attackAmount;
 
         public override void OnEnter()
         {
@@ -43,12 +45,13 @@ namespace NoctisMod.SkillStates
             this.animator = base.GetModelAnimator();
             this.animator.SetBool("releaseChargeLeap", true);
             this.animator.SetFloat("Attack.playbackRate", 1f);
-            //if (base.isAuthority)
-            //{
-            //    AkSoundEngine.PostEvent("detroitexitvoice", this.gameObject);
-            //}
-            //AkSoundEngine.PostEvent("delawaresfx", this.gameObject);
 
+            attackAmount = (int)this.attackSpeedStat;
+            if (attackAmount < 1)
+            {
+                attackAmount = 1;
+            }
+            partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
@@ -178,9 +181,16 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
                 blastAttack.damageType = DamageType.Stun1s;
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
+                blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                for (int i = 0; i <= Mathf.RoundToInt(attackSpeedStat); i++)
+                for (int i = 0; i <= attackAmount; i++)
                 {
+                    blastAttack.Fire();
+                }
+                if(partialAttack > 0f)
+                {
+                    blastAttack.baseDamage = this.damageStat * this.damageMult * partialAttack;
+                    blastAttack.procCoefficient = procCoefficient * partialAttack;
                     blastAttack.Fire();
                 }
             }

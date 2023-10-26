@@ -16,7 +16,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="3091139405" Language="SFX" Hash="3661990182">
+		<SoundBank Id="3091139405" Language="SFX" Hash="3648525019">
 			<ObjectPath>\SoundBanks\Default Work Unit\Noctis</ObjectPath>
 			<ShortName>Noctis</ShortName>
 			<Path>Noctis.bnk</Path>

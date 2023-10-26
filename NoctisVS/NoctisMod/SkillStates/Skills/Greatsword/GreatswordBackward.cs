@@ -46,6 +46,7 @@ namespace NoctisMod.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+            characterMotor.velocity = Vector3.zero;
             if (base.fixedAge < maxCharge)
             {
                 if (inputBank.skill1.down && skillLocator.primary.skillDef == Noctis.greatswordSkillDef)

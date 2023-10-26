@@ -44,7 +44,7 @@ namespace NoctisMod
     [BepInDependency("com.bepis.r2api.networking", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.bepis.r2api.recalculatestats", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.bepis.r2api.damagetype", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("com.bepis.r2api.dot", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.bepis.r2api.dot", BepInDependency.DependencyFlags.HardDependency)]
 
     //don't need 
     //[BepInDependency("com.bepis.r2api.loadout", BepInDependency.DependencyFlags.HardDependency)]
@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "0.1";
+        public const string MODVERSION = "1.0.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -151,14 +151,15 @@ namespace NoctisMod
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             //On.RoR2.CharacterBody.Start += CharacterBody_Start;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
-            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
-            GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
+            //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
             //On.RoR2.CharacterBody.Update += CharacterBody_Update;
-            On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
+            //On.RoR2.CharacterModel.UpdateOverlays += CharacterModel_UpdateOverlays;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
-            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+            //On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+            On.RoR2.CharacterModel.Awake += CharacterModel_Awake;
            
 
             if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.CustomEmotesAPI"))
@@ -178,7 +179,27 @@ namespace NoctisMod
 
                 var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
-                
+
+                //gain mana on hit
+                if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
+                {
+                    EnergySystem energySys = attackerBody.GetComponent<EnergySystem>();
+
+                    energySys.GainMana(energySys.maxMana * StaticValues.manaGainOnHit);
+
+                }
+
+                //vulnerability modded damage
+                if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.noctisVulnerability))
+                {
+                    victimBody.ApplyBuff(Buffs.vulnerabilityDebuff.buffIndex, victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) + 1);
+                }
+
+                if (victimBody.HasBuff(Buffs.vulnerabilityDebuff.buffIndex))
+                {
+                    damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
+                }
+
             }
             
         }
@@ -191,29 +212,32 @@ namespace NoctisMod
             {
                 if (self.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
                 {
-                    var Noctiscon = self.gameObject.GetComponent<NoctisController>();
+                    NoctisController Noctiscon = self.gameObject.GetComponent<NoctisController>();
 
                     if (Modules.Config.allowVoice.Value)
                     {
                         AkSoundEngine.PostEvent("NoctisDeath", self.gameObject);
                     }
+                    
+
                 }
                 
 
             }
         }
 
-
-        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        private void CharacterModel_Awake(On.RoR2.CharacterModel.orig_Awake orig, CharacterModel self)
         {
-            orig.Invoke(self, damageReport);
-            
-
-            if (damageReport.attackerBody && damageReport.victimBody)
+            orig(self);
+            if (self.gameObject.name.Contains("NoctisDisplay"))
             {
+                if (Modules.Config.allowVoice.Value)
+                {
+                    AkSoundEngine.PostEvent("NoctisEntrance", self.gameObject);
+                }
                 
-
             }
+
         }
 
 
@@ -236,28 +260,6 @@ namespace NoctisMod
         {
 
             bool flag = !report.attacker || !report.attackerBody;
-
-
-        }
-
-        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
-        {
-            //orig(self, damageInfo);
-
-            orig(self, damageInfo);
-
-            if (self)
-            {
-                if (damageInfo.attacker)
-                {
-                    var victimBody = self.body;
-                    var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                   
-
-                }
-                
-
-            }
 
 
         }

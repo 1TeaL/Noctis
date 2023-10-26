@@ -262,7 +262,7 @@ namespace NoctisMod.Modules.Survivors
             //if (ManaCost < 0f) ManaCost = 0f;
 
             currentMana -= Mana;
-            TriggerGlow(0.3f, 0.3f, Color.magenta);
+            TriggerGlow(0.3f, 0.3f, Color.gray);
             ifEnergyUsed = true;
 
         }
@@ -275,7 +275,7 @@ namespace NoctisMod.Modules.Survivors
             //if (ManaCost < 0f) ManaCost = 0f;
 
             currentMana += Mana;
-            TriggerGlow(0.3f, 0.3f, Color.cyan);
+            TriggerGlow(0.3f, 0.3f, Color.white);
 
         }
 

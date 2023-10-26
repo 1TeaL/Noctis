@@ -64,39 +64,9 @@ namespace NoctisMod.SkillStates
                     if (!base.isGrounded)
                     {
                         //aerial attack
-                        //check distance to target if target exists
-                        if (noctisCon.GetTrackingTarget())
-                        {
-                            Target = noctisCon.GetTrackingTarget();
-                            float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                            if (distance > Modules.StaticValues.swordDashDistance)
-                            {
-                                Chat.AddMessage("aerial attack");
-                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                                SwordSwapAerial.isTarget = true;
-                                SwordSwapAerial.Target = Target;
-                                this.outer.SetNextState(SwordSwapAerial);
-                                return;
-
-                            }
-                            else
-                            {
-                                Chat.AddMessage("aerial attack");
-                                SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                                SwordSwapAerial.isTarget = false;
-                                this.outer.SetNextState(SwordSwapAerial);
-                                return;
-
-                            }
-                        }
-                        else
-                        {
-                            SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                            SwordSwapAerial.isTarget = false;
-                            this.outer.SetNextState(SwordSwapAerial);
-                            return;
-
-                        }
+                        SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                        this.outer.SetNextState(SwordSwapAerial);
+                        return;
 
                     }
                     else

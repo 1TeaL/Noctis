@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2609562423
+CRC: 1035578091
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5419915038f783a12a469b8a76647bdd
+    Hash: c7936e0f4b40e6dc555a79563c2d4af7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -60,12 +60,14 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Noctis/Assets/Particle/hitEffect.prefab
+- Assets/Noctis/Assets/GUI/NoctisDodge.png
 - Assets/Noctis/Assets/Material/Clothes.png
 - Assets/Noctis/Emotes/noctisHumanoid.prefab
 - Assets/Noctis/Animations/Combat/TwoHand4HitCombo.anim
 - Assets/Noctis/Assets/Material/nh00_010_skin_01_b_$h.btex.png
 - Assets/Noctis/Assets/NoctisDisplay.prefab
 - Assets/Noctis/Assets/Mesh/TearShapeMesh.mesh
+- Assets/Noctis/Assets/GUI/NoctisPassive.png
 - Assets/Noctis/Animations/Combat/AerialLeftflip.anim
 - Assets/Noctis/Animations/Sword/SwordRoundSlash.anim
 - Assets/Noctis/Assets/Material/faceMat.mat
@@ -80,6 +82,7 @@ Assets:
 - Assets/Noctis/Animations/Movement/Land.anim
 - Assets/Noctis/Assets/Material/Panner.shader
 - Assets/Noctis/Assets/Mesh/BootsShapeMesh.mesh
+- Assets/Noctis/Assets/GUI/NoctisPolearm.png
 - Assets/Noctis/Assets/Weapons/noctisGS.prefab
 - Assets/Noctis/Assets/mdlNoctis.prefab
 - Assets/Noctis/Assets/Weapons/polearmMatMetal.mat
@@ -104,6 +107,7 @@ Assets:
 - Assets/Noctis/Animations/Sword/SwordDownSlash.anim
 - Assets/Noctis/Animations/Sword/SwordInstaSlash.anim
 - Assets/Noctis/Assets/Particle/DashParticle.prefab
+- Assets/Noctis/Assets/GUI/NoctisSword.png
 - Assets/Noctis/Assets/Weapons/GSMesh.mesh
 - Assets/Noctis/Animations/Greatsword/GSUpper.anim
 - Assets/Noctis/Animations/Polearm/PolearmTwirlForwardThrust.anim
@@ -130,7 +134,7 @@ Assets:
 - Assets/Noctis/Animations/Greatsword/GSCharge.anim
 - Assets/Noctis/Assets/Material/ringMat.mat
 - Assets/Noctis/Animations/Polearm/PolearmNeutralThrust.anim
-- Assets/Noctis/Animations/Sword/SwordUpDownSlash.anim
+- Assets/Noctis/Animations/Sword/SwordUpDownSlashPart1.anim
 - Assets/Noctis/Assets/Weapons/greatswordImage.png
 - Assets/Noctis/Assets/Material/perlin + noise.png
 - Assets/Noctis/Assets/Weapons/greatswordNormalImage.png
@@ -145,10 +149,12 @@ Assets:
 - Assets/Noctis/Animations/NoctisAvatar.asset
 - Assets/Noctis/Animations/Combat/TripleSlash.anim
 - Assets/Noctis/Assets/noctisCustomUI.prefab
+- Assets/Noctis/Assets/GUI/texNoctisIcon.png
 - Assets/Noctis/Assets/Weapons/polearmMatR.mat
 - Assets/Noctis/Assets/Weapons/greatswordMatMetal.mat
 - Assets/Noctis/Assets/Weapons/noctisPolearm.prefab
 - Assets/Noctis/Animations/Sword/SwordLeapSlash.anim
+- Assets/Noctis/Animations/Sword/SwordUpDownSlashPart2.anim
 - Assets/Noctis/Animations/Movement/NoctisRunLooped.anim
 - Assets/Noctis/Assets/Weapons/greatswordMetallicImage.png
 - Assets/Noctis/Assets/Mesh/ShirtShapeMesh.mesh
@@ -160,11 +166,13 @@ Assets:
 - Assets/Noctis/Assets/Weapons/polearmMesh.mesh
 - Assets/Noctis/Assets/Weapons/swordMesh.mesh
 - Assets/Noctis/Animations/Polearm/PolearmLongRangeThrust.anim
+- Assets/Noctis/Assets/GUI/NoctisGreatsword.png
 - Assets/Noctis/Assets/Material/EmptyMaterial.mat
 - Assets/Noctis/Animations/Sword/AerialSwordSlash.anim
 - Assets/Noctis/Assets/Mesh/FaceShapeMesh.mesh
 - Assets/Noctis/Assets/Mesh/HairAShapeMesh.mesh
 - Assets/Noctis/Animations/Greatsword/GSOverheadSlash.anim
+- Assets/Noctis/Assets/GUI/NoctisShield.png
 - Assets/Noctis/Assets/Material/FadeIn.shader
 - Assets/Noctis/Assets/Weapons/noctisSword.prefab
 - Assets/Noctis/Assets/Weapons/swordMatMetal.mat
@@ -172,9 +180,12 @@ Assets:
 - Assets/Noctis/Emotes/NoctisHumanoidAvatar.asset
 - Assets/Noctis/Animations/Sword/SwordStab.anim
 - Assets/Noctis/Assets/Material/nh00_000_eye_00_b_$h.btex.png
+- Assets/Noctis/Assets/GUI/NoctisFirearms.png
 - Assets/Noctis/Assets/Particle/swordThrow.prefab
 - Assets/Noctis/Animations/Combat/WarpStrike.anim
+- Assets/Noctis/Assets/GUI/NoctisWarpstrike.png
 - Assets/Noctis/Assets/Mesh/ButtonShapeMesh.mesh
+- Assets/Noctis/Assets/GUI/NoctisDaggers.png
 - Assets/Noctis/Assets/Particle/polearmThrow.prefab
 - Assets/Noctis/Animations/Movement/Idle.anim
 - Assets/Noctis/Animations/Polearm/PolearmSweep.anim

@@ -28,7 +28,7 @@ namespace NoctisMod.SkillStates
             this.procCoefficient = StaticValues.swordProc;
             this.pushForce = 0f;
             this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
+            this.attackStartTime = 0.6f;
             this.attackEndTime = 0.8f;
             this.baseEarlyExitTime = 0.8f;
             this.hitStopDuration = 0.1f;
@@ -54,7 +54,7 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "SwordUpDownSlash", "Attack.playbackRate", 2f, 0.05f);
+            base.PlayCrossfade("FullBody, Override", "SwordUpDownSlashPart1", "Attack.playbackRate", baseDuration-baseEarlyExitTime, 0.05f);
         }
 
         protected override void PlaySwingEffect()

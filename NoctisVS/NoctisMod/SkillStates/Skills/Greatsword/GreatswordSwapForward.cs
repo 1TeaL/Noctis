@@ -21,13 +21,13 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = StaticValues.GSDamage;
+            this.damageCoefficient = StaticValues.GSSwapForwardDamage;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 300f;
-            this.baseDuration = 2.7f;
-            this.attackStartTime = 0.1f;
-            this.attackEndTime = 0.8f;
-            this.baseEarlyExitTime = 0.8f;
+            this.baseDuration = 1.5f;
+            this.attackStartTime = 0.27f;
+            this.attackEndTime = 0.63f;
+            this.baseEarlyExitTime = 0.63f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;

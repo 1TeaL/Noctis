@@ -6,13 +6,14 @@
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Switches\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\States\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\SoundBanks\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\SoundBanks\Default Work Unit.wwu" DateLow="1698237061" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Queries\Factory Queries.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Queries\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Presets\Factory Spatial Audio.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Presets\Factory Reflect.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Presets\Default Work Unit.wwu" DateLow="1697160700" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\NoctisMod.wproj" DateLow="1697160700" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\NoctisMod.theod.wsettings" DateLow="1698237062" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Modulators\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Mixing Sessions\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
@@ -20,7 +21,7 @@
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Game Parameters\Factory SoundSeed Air Game Syncs.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Game Parameters\Factory Motion.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Game Parameters\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Events\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Events\Default Work Unit.wwu" DateLow="1698237061" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Effects\Factory Reflect.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Effects\Factory McDSP Effects.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Effects\Factory Mastering Suite.wwu" DateLow="1697160699" DateHigh="0"/>
@@ -43,5 +44,5 @@
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Actor-Mixer Hierarchy\Factory SoundSeed Air Objects.wwu" DateLow="1697160699" DateHigh="0"/>
 	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Actor-Mixer Hierarchy\Factory Motion.wwu" DateLow="1697160699" DateHigh="0"/>
-	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1697160699" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisMod\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1698237061" DateHigh="0"/>
 </ValidationCache>

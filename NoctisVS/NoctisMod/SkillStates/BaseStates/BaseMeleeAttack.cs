@@ -51,7 +51,7 @@ namespace NoctisMod.SkillStates.BaseStates
         private Vector3 storedVelocity;
 
         public int attackAmount;
-        private float partialAttack;
+        public float partialAttack;
         private HitBoxGroup hitBoxGroup;
 
         public RoR2.Skills.SkillDef weaponDef;

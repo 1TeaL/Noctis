@@ -98,13 +98,7 @@ namespace NoctisMod.Modules.Networking
                 rotation = Quaternion.LookRotation(direction).normalized,
 
             }, true);
-            EffectManager.SpawnEffect(blastEffectPrefab, new EffectData
-            {
-                origin = enemycharBody.transform.position,
-                scale = 1f,
-                rotation = Quaternion.LookRotation(direction).normalized,
-
-            }, true);
+            AkSoundEngine.PostEvent("NoctisHitSFX", enemycharBody.gameObject);
 
 
             enemycharBody.healthComponent.TakeDamage(damageInfo);
