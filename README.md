@@ -1,4 +1,4 @@
-# ShigarakiModRor2
+# Noctis Mod RoR2
 Shigaraki Tomura mod for Ror2 https://thunderstore.io/package/TeaL/ShigarakiMod/
 
 Go Beyond, Plus Chaos!
@@ -137,6 +137,9 @@ Shigaraki can sprint in any direction and has a double jump.
 
 <details>
 <summary>Click to expand base skills</summary>	
+
+ <table><thead><tr><th>Sword: proc = 1</th><th>Description </th></tr></thead><tbody><tr><td>Sword neutral </td><td>3 hit combo dealing 200%, 100% and 400% damage.</td></tr><tr><td>Sword forward</td><td>Leap forward and slash, dealing 200% damage.</td></tr><tr><td>Sword backward </td><td>Leap backwards into the air, dealing 200% damage </td></tr><tr><td>Sword aerial</td><td>Dash towards a target and slash, dealing 200% damage.</td></tr><tr><td>Swap Sword neutral</td><td>Invincibility. Double slash up and down, dealing 200% damage each.</td></tr><tr><td>Swap Sword forward</td><td>Invincibility. Instantly dash forward. After a delay, deal 200% damage to all enemies behind. Scales with attack speed.</td></tr><tr><td>Swap Sword backward</td><td>Invincibility. Leap backwards into the air, dealing 200% damage.</td></tr><tr><td>Swap Sword aerial</td><td>Invincibility. Dash towards the target and backflip, dealing 200% damage.</td></tr></tbody></table>
+ 
 <table>
 <thead>
   <tr>
