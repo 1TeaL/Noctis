@@ -73,7 +73,7 @@ If you enjoy my work, support me on Ko-fi!
 
 - Next update(s)
     - Bug fixes. 
-    - Balance?. 
+    - Balance? 
     - More Weapons? 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/39143b59-0050-4035-b437-c5028b7f88e0" height ="256" >
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b92a3e3b-ac4d-44ff-86f0-da1366a5119c" height ="256" >
