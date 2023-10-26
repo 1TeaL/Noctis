@@ -1,9 +1,9 @@
 # Noctis Mod RoR2
-Shigaraki Tomura mod for Ror2 https://thunderstore.io/package/TeaL/ShigarakiMod/
+Noctis Lucis Caelum mod for Ror2 https://thunderstore.io/package/TeaL/NoctisMod/
 
-Go Beyond, Plus Chaos!
-## Shigaraki
-Adds Shigaraki from My Hero Academia, a multi-option survivor steal 'quirks' from enemies, gaining their abilites/skills.
+
+## Noctis
+Adds Noctis from Final Fantasy XV, a high mobility melee focused surivor with multiple weapons for different situations.
 #### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
 #### Message me on the Risk of Rain 2 Modding Discord if there are any issues- teal5571.
 #### <a href="https://ko-fi.com/tealpopcorn"><img src="https://user-images.githubusercontent.com/93917577/160220529-efed5020-90ac-467e-98f2-27b5c162d744.png"> </a>
