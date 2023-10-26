@@ -258,12 +258,8 @@ namespace NoctisMod.SkillStates.BaseStates
                 this.FireAttack();
             }
 
-            if (this.stopwatch >= (this.baseDuration * this.attackEndTime))
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime))
             {
-                if(autoStateChange)
-                {
-                    SetNextState();
-                }
                 if (inputBank.skill3.down)
                 {
                     this.outer.SetNextState(new Dodge());
@@ -280,6 +276,10 @@ namespace NoctisMod.SkillStates.BaseStates
 
             if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
             {
+                if (autoStateChange)
+                {
+                    SetNextState();
+                }
 
                 if (inputBank.skill1.down)
                 {

@@ -426,7 +426,7 @@ namespace NoctisMod.Modules.Survivors
 
         private void SearchForTarget(Ray aimRay)
 		{
-			this.search.teamMaskFilter = TeamMask.all;
+			this.search.teamMaskFilter = TeamMask.AllExcept(TeamIndex.Player);
 			this.search.filterByLoS = true;
 			this.search.searchOrigin = aimRay.origin;
 			this.search.searchDirection = aimRay.direction;

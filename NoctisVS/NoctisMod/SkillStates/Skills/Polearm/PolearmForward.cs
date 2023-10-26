@@ -22,7 +22,7 @@ namespace NoctisMod.SkillStates
         private bool keepMoving;
         private float rollSpeed;
         private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed;
+        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed*2f;
         private float finalSpeedCoefficient = 0f;
 
 
@@ -84,7 +84,7 @@ namespace NoctisMod.SkillStates
                 {
                     Vector3 velocity = direction.normalized * rollSpeed;
                     base.characterMotor.velocity = velocity;
-                    //base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                    base.characterDirection.forward = base.characterMotor.velocity.normalized;
                 }                
 
 

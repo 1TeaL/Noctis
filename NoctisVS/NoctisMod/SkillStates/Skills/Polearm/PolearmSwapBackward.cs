@@ -17,7 +17,7 @@ namespace NoctisMod.SkillStates
         private float fireTime;
         public bool hasFired;
         private Ray aimRay;
-        private float range = 100f;
+        private float range = 200f;
         private float damageCoefficient = Modules.StaticValues.polearmSwapBackwardDamage;
         private float procCoefficient = Modules.StaticValues.polearmProc;
         private string muzzleString ="RHand";
@@ -76,7 +76,7 @@ namespace NoctisMod.SkillStates
                     damageType = DamageType.Generic,
                     falloffModel = BulletAttack.FalloffModel.None,
                     maxDistance = range,
-                    force = 1000f,
+                    force =100f,
                     hitMask = LayerIndex.CommonMasks.bullet,
                     minSpread = 0f,
                     maxSpread = 0f,

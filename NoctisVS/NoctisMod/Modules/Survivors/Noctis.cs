@@ -43,7 +43,7 @@ namespace NoctisMod.Modules.Survivors
             bodyColor = Color.magenta,
             characterPortrait = Modules.Assets.LoadCharacterIcon("Noctis"),
             crosshair = Modules.Assets.LoadCrosshair("Standard"),
-            damage = 10f,
+            damage = 12f,
             healthGrowth = 15f,
             healthRegen = 1f,
             jumpCount = 2,
@@ -274,6 +274,7 @@ namespace NoctisMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
+                keywordTokens = new[] { prefix + "KEYWORD_POLEARM" }
             });
             #endregion            
 
@@ -301,7 +302,6 @@ namespace NoctisMod.Modules.Survivors
                 rechargeStock = 1,
                 requiredStock = 1,
                 stockToConsume = 1,
-                keywordTokens = new[] { prefix + "KEYWORD_POLEARM" }
 
             });
 
@@ -314,7 +314,7 @@ namespace NoctisMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(Warpstrike)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 1f,
+                baseRechargeInterval = 0f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

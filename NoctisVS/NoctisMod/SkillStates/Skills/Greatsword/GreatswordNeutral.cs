@@ -47,6 +47,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
+            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
 
         }
 

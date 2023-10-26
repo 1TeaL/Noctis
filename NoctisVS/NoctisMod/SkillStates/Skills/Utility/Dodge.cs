@@ -83,7 +83,7 @@ namespace NoctisMod.SkillStates
 
             this.animator = base.GetModelAnimator();
             aimRay = base.GetAimRay();
-            noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
+            //noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
 
             direction = base.inputBank.moveVector;
             duration = baseDuration / attackSpeedStat;

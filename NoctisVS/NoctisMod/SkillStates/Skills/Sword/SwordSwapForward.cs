@@ -32,8 +32,8 @@ namespace NoctisMod.SkillStates
         public int numberOfHits;
         private float partialAttack;
         public static float baseDuration = 1.5f;
-        public static float startMoving = 0.33f;
-        public static float endMoving = 0.46f;
+        public static float startMoving = 0.4f;
+        public static float endMoving = 0.5f;
         public static float earlyExitTime = 0.7f;
         public static float initialSpeedCoefficient = StaticValues.swordInstaDashSpeed;
         public static float finalSpeedCoefficient = 0f;
@@ -173,7 +173,7 @@ namespace NoctisMod.SkillStates
             {
                 this.RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = base.characterMotor.velocity.y;
+                velocity.y = 0f;
                 base.characterMotor.velocity = velocity;
                 base.characterDirection.forward = base.characterMotor.velocity.normalized;
 

@@ -26,7 +26,7 @@ namespace NoctisMod.SkillStates
 
             //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.greatswordSkillDef;
-            this.hitboxName = "GreatswordHitbox";
+            this.hitboxName = "AOEHitbox";
 
             this.damageType = DamageType.Generic;
 
@@ -62,6 +62,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
+            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
 
         }
 
@@ -148,6 +149,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
+                DamageAPI.AddModdedDamageType(blastAttack, Modules.Damage.noctisVulnerability);
                 for (int i = 0; i <= attackAmount; i++)
                 {
                     blastAttack.Fire();

@@ -69,6 +69,21 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.0.1-
+    - Bug fixes
+        - Fixed polearm weapon description in lobby to appear under polearm not dodge.
+        - Fixed Greatsword attacks not all applying vulnerability
+        - Hid messages appearing when using sword attacks
+        - Fixed sword swap forward not moving noctis far enough
+        - 
+    - Balance
+        - Reduced max mana per level from 10->5. Reduced max mana given from stock based items: magazine- 10->5. lysate 15->10. afterburner 30->15. Reduced natural regen as well. Noctis was not having mana issues too fast, and through attacking gains a decent amount of mana already.
+        - Changed window of using jump or dodge to cancel out of attacks to 50% earlier than what it was previously, this is to help some longer animation attacks not get Noctis killed due to enemy projectiles or puddles.
+        - Using Dodge no longer resets his current weapon to 'None'. This means he can more easier access the weapon swap attacks.
+        - Improved hitbox sizes in general, his rootedness meant he needed larger hitboxes to reach enemies.
+        - Changed base damage from 10->12
+        - Along with the bug fixes, should make Noctis more in line with other characters in general.
+
 - 1.0.0- Release
 
 - Next update(s)
@@ -124,6 +139,9 @@ Only usable after an attack.
     When arriving at an enemy, deal damage, scaling with distance travelled.
     Costs 30 mana, reducible by CDR items.
 
+#### Weapon combo routes Miro
+https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661
+
 #### Sword- Faster attacks. Swap attacks have invincibility. All attacks have proc of 1.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39" height ="128" >
 <table>
@@ -169,6 +187,8 @@ Only usable after an attack.
 </tbody>
 </table>
 
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3" height ="256" >
+
 #### Greatsword- Slow but high damage. Swap attacks have stun. All attacks have proc of 2.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5" height ="128" >
 <table>
@@ -213,6 +233,7 @@ Only usable after an attack.
   </tr>
 </tbody>
 </table>
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01" height ="256" >
 
 #### Polearm- Long range. Base attacks hit 2x minimum. Swap attacks hit 3x. Unique input of holding jump and attack. All attacks have proc of 0.3. 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f" height ="128" >
@@ -266,10 +287,11 @@ Only usable after an attack.
   </tr>
 </tbody>
 </table>
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1" height ="256" >
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
-##### Damage = 10 + 2 per level
+##### Damage = 12 + 2.4 per level
 ##### Regen = 1 + 0.2 per level 
 ##### Health = 162 + 15 per level
 ##### Movespeed = 7
@@ -288,3 +310,4 @@ Rest of changelog on Github
 ## Credits
 ##### HenryMod for the template.
 ##### Ethanol10(discord ethanol10) for weapon shader and partial attack logic
+ 

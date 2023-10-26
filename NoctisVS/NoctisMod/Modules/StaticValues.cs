@@ -15,14 +15,14 @@ namespace NoctisMod.Modules
 
         //Energy
         internal static float baseMana = 100f;
-        internal static float levelMana = 10f;
+        internal static float levelMana = 5f;
         internal static float regenManaRate = 8f;
         internal static float minimumManaCost = 1f;
         internal static float costFlatManaSpend = 5f;
-        internal static float regenManaFraction = 0.025f;
-        internal static float backupGain = 10f;
-        internal static float afterburnerGain = 30f;
-        internal static float lysateGain = 15f;
+        internal static float regenManaFraction = 0.0125f;
+        internal static float backupGain = 5f;
+        internal static float afterburnerGain = 15f;
+        internal static float lysateGain = 10f;
         internal static float manaGainOnHit = 0.02f;
 
         //Sword
@@ -33,7 +33,7 @@ namespace NoctisMod.Modules
         internal static float swordNeutralDamage3 = 4f;
         internal static float swordDashDistance = 3f;
         internal static float swordDashSpeed = 6f;
-        internal static float swordInstaDashSpeed = 10f;
+        internal static float swordInstaDashSpeed = 100f;
         internal static float swordBackSpeed = 6f;
         internal static int swordBaseHit = 1;
         internal static float swordSwapForwardDamage = 2f;
@@ -72,7 +72,7 @@ namespace NoctisMod.Modules
         internal static float jumpHop = 20f;
 
         //Warpstrike
-        internal static float warpstrikeSpeed = 100f;
+        internal static float warpstrikeSpeed = 120f;
         internal static float warpstrikeDamageScaling = 0.3f;
         internal static float warpstrikeCost = 30f;
     }
