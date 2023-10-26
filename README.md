@@ -124,6 +124,9 @@ Only usable after an attack.
     When arriving at an enemy, deal damage, scaling with distance travelled.
     Costs 30 mana, reducible by CDR items.
 
+#### Weapon combo routes Miro
+https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661
+
 #### Sword- Faster attacks. Swap attacks have invincibility. All attacks have proc of 1.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39" height ="128" >
 <table>
@@ -169,6 +172,8 @@ Only usable after an attack.
 </tbody>
 </table>
 
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3" height ="256" >
+
 #### Greatsword- Slow but high damage. Swap attacks have stun. All attacks have proc of 2.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5" height ="128" >
 <table>
@@ -213,6 +218,7 @@ Only usable after an attack.
   </tr>
 </tbody>
 </table>
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01" height ="256" >
 
 #### Polearm- Long range. Base attacks hit 2x minimum. Swap attacks hit 3x. Unique input of holding jump and attack. All attacks have proc of 0.3. 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f" height ="128" >
@@ -266,6 +272,7 @@ Only usable after an attack.
   </tr>
 </tbody>
 </table>
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1" height ="256" >
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
@@ -305,6 +312,9 @@ Rest of changelog on Github
 ![noctisGSChargeSlash](https://github.com/1TeaL/NoctisRoR2/assets/93917577/f5480f7b-d296-4581-9627-be8ef994c0f3)
 ![noctisSwordAerialSlash](https://github.com/1TeaL/NoctisRoR2/assets/93917577/890a73bf-ee33-4599-bd70-c2a9f6c36526)
 
+![SwordCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3)
+![GSCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01)
+![PolearmCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1)
 </details>
 
 
