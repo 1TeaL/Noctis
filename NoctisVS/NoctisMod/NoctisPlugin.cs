@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.1.1";
+        public const string MODVERSION = "1.2.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -129,6 +129,7 @@ namespace NoctisMod
 
             //networking
             NetworkingAPI.RegisterMessageType<TakeDamageRequest>();
+            NetworkingAPI.RegisterMessageType<SetFreezeOnBodyRequest>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -204,7 +205,6 @@ namespace NoctisMod
         {
             //orig(self, damageInfo);
 
-            orig(self, damageInfo);
 
             if (self)
             {
@@ -225,6 +225,7 @@ namespace NoctisMod
 
             }
 
+            orig(self, damageInfo);
 
         }
 

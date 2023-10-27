@@ -36,7 +36,7 @@ namespace NoctisMod.Modules
         internal static float swordNeutralDamage3 = 4f;
         internal static float swordDashDistance = 3f;
         internal static float swordDashSpeed = 6f;
-        internal static float swordInstaDashSpeed = 100f;
+        internal static float swordInstaDashSpeed = 40f;
         internal static float swordBackSpeed = 6f;
         internal static int swordBaseHit = 1;
         internal static float swordSwapForwardDamage = 2f;
@@ -75,10 +75,10 @@ namespace NoctisMod.Modules
         internal static float jumpHop = 20f;
 
         //Warpstrike
-        internal static float warpstrikeSpeed = 90f;
+        internal static float warpstrikeSpeed = 120f;
         internal static float warpstrikeDamageScaling = 0.3f;
         internal static float warpstrikeCost = 30f;
-        internal static float warpstrikeThreshold = 0.75f;
-        internal static float warpstrikeFreezeRange = 10f;
+        internal static float warpstrikeThreshold = 0.5f;
+        internal static float warpstrikeFreezeRange = 30f;
     }
 }

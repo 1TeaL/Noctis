@@ -174,8 +174,8 @@ namespace NoctisMod.SkillStates.BaseStates
                         this.attack.damage = this.damageCoefficient * this.damageStat;
                         this.attack.procCoefficient = this.procCoefficient;
                         this.attack.hitEffectPrefab = this.hitEffectPrefab;
-                        this.attack.forceVector = this.bonusForce;
-                        this.attack.pushAwayForce = this.pushForce;
+                        this.attack.forceVector = this.bonusForce / attackAmount;
+                        this.attack.pushAwayForce = this.pushForce / attackAmount;
                         this.attack.hitBoxGroup = hitBoxGroup;
                         this.attack.isCrit = base.RollCrit();
                         this.attack.impactSound = this.impactSound;
@@ -199,8 +199,8 @@ namespace NoctisMod.SkillStates.BaseStates
                         this.attack.damage = this.damageCoefficient * this.damageStat * partialAttack;
                         this.attack.procCoefficient = this.procCoefficient * partialAttack;
                         this.attack.hitEffectPrefab = this.hitEffectPrefab;
-                        this.attack.forceVector = this.bonusForce;
-                        this.attack.pushAwayForce = this.pushForce;
+                        this.attack.forceVector = this.bonusForce / attackAmount;
+                        this.attack.pushAwayForce = this.pushForce / attackAmount;
                         this.attack.hitBoxGroup = hitBoxGroup;
                         this.attack.isCrit = base.RollCrit();
                         this.attack.impactSound = this.impactSound;

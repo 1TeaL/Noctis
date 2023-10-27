@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace NoctisMod.Modules.Achievements
 {
-    [RegisterAchievement(NoctisPlugin.developerPrefix + "_NOCTIS_BODY_MASTERYUNLOCKABLE_ACHIEVEMENT",
-        NoctisPlugin.developerPrefix + "_NOCTIS_BODY_MASTERYUNLOCKABLE_REWARD_ID", null, null)]
+    //[RegisterAchievement(NoctisPlugin.developerPrefix + "_NOCTIS_BODY_MASTERYUNLOCKABLE_ACHIEVEMENT",
+    //    NoctisPlugin.developerPrefix + "_NOCTIS_BODY_MASTERYUNLOCKABLE_REWARD_ID", null, null)]
     internal class MasteryAchievement : ModdedUnlockable
     {
         public override string AchievementIdentifier { get; } = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_MASTERYUNLOCKABLE_ACHIEVEMENT_ID";

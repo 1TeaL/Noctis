@@ -80,6 +80,9 @@ namespace NoctisMod.SkillStates
 
             SpeedCoefficient = initialSpeedCoefficient;
             origin = base.transform.position;
+            base.gameObject.layer = LayerIndex.fakeActor.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
+
         }
         private void RecalculateRollSpeed()
         {
@@ -146,6 +149,8 @@ namespace NoctisMod.SkillStates
             if (base.cameraTargetParams) base.cameraTargetParams.fovOverride = -1f;
             base.characterMotor.disableAirControlUntilCollision = false;
             base.characterMotor.velocity.y = 0;
+            base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
 
 
             base.OnExit();

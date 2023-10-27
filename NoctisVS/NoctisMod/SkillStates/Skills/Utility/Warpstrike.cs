@@ -39,6 +39,7 @@ namespace NoctisMod.SkillStates
         private Transform modelTransform;
 
         private bool hasFired;
+        private bool isFreeze;
 
         public override void OnEnter()
         {
@@ -50,6 +51,7 @@ namespace NoctisMod.SkillStates
             this.modelTransform = base.GetModelTransform();
             animator.SetFloat("Attack.playbackRate", 2f);
             animator.SetBool("attacking", true);
+            base.StartAimMode(this.duration, false);
 
             //energy cost
             float manaflatCost = (StaticValues.warpstrikeCost) - (energySystem.costflatMana);
@@ -74,7 +76,12 @@ namespace NoctisMod.SkillStates
                 Target = noctisCon.GetTrackingTarget();
                 distance = Vector3.Magnitude(Target.transform.position - base.characterBody.corePosition);
                 isTarget = true;
-                this.storedPosition = Target.transform.position;                
+                this.storedPosition = Target.transform.position;   
+                
+                if(distance >= StaticValues.maxTrackingDistance * StaticValues.warpstrikeThreshold)
+                {
+                    isFreeze = true;
+                }
             }
 
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
@@ -85,7 +92,7 @@ namespace NoctisMod.SkillStates
             keepMoving = true;
 
             this.direction = aimRay.direction.normalized;
-            base.characterDirection.forward = base.characterMotor.velocity.normalized;
+            base.characterDirection.forward = direction;
 
 
             PlayAnimation();
@@ -114,7 +121,7 @@ namespace NoctisMod.SkillStates
             }
         }
 
-        public void Freeze(bool Freeze)
+        public void Freeze()
         {
             BullseyeSearch search = new BullseyeSearch
             {
@@ -138,39 +145,9 @@ namespace NoctisMod.SkillStates
                 {
                     //stop time for all enemies within this radius
 
-                    CharacterBody body = singularTarget.healthComponent.body;
+                    Chat.AddMessage("freeze enemy");
+                    new SetFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
 
-                    Animator animator = body.gameObject.GetComponent<Animator>();
-                    if (animator)
-                    {
-                        if(Freeze)
-                        {
-                            animator.enabled = false;
-                        }
-                        else if (!Freeze)
-                        {
-                            animator.enabled = true;
-                        }
-                    }
-
-                    if (body.characterDirection)
-                    {
-                        body.characterDirection.moveVector = body.characterDirection.forward;
-                    }
-                    if (body.characterMotor)
-                    {
-                        body.characterMotor.velocity = Vector3.zero;
-                        body.characterMotor.rootMotion = Vector3.zero;
-                    }
-                    else if (!body.characterMotor)
-                    {
-                        RigidbodyMotor rigidBodyMotor = body.gameObject.GetComponent<RigidbodyMotor>();
-                        rigidBodyMotor.moveVector = Vector3.zero;
-                        rigidBodyMotor.rootMotion = Vector3.zero;
-
-                        body.rigidbody.velocity = Vector3.zero;
-
-                    }
 
                 }
             }
@@ -179,7 +156,6 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            Freeze(false);
             noctisCon.DashParticle.Stop();
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             animator.SetBool("attacking", false);
@@ -212,6 +188,8 @@ namespace NoctisMod.SkillStates
                     temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
 
                 }
+
+                base.characterDirection.forward = direction;
                 if (isTarget)
                 {
                     this.storedPosition = Target.transform.position;
@@ -219,16 +197,24 @@ namespace NoctisMod.SkillStates
                     {
                         //Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
                         //base.characterMotor.velocity = velocity;
-                        //base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                        base.characterMotor.velocity = Vector3.zero;
-                        base.characterMotor.rootMotion += (this.storedPosition - base.transform.position.normalized) * this.dashSpeed * Time.fixedDeltaTime;
+                        //base.characterMotor.velocity = Vector3.zero;
+                        //base.characterMotor.rootMotion += (this.storedPosition - base.transform.position).normalized * this.dashSpeed * Time.deltaTime;
+
+                        Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
+                        base.characterMotor.velocity = velocity;
+                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }
 
                     if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 10f && !hasFired)
                     {
                         hasFired = true;
 
-                        new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance).Send(NetworkDestination.Clients);
+                        if (isFreeze)
+                        {
+                            Freeze();
+                        }
+
+                        new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance * StaticValues.warpstrikeDamageScaling).Send(NetworkDestination.Clients);
                         keepMoving = false;
                         base.PlayAnimation("FullBody, Override", "WarpStrikeAttack", "Attack.playbackRate", 0.01f);
                         AkSoundEngine.PostEvent("NoctisHitSFX", base.gameObject);
@@ -240,25 +226,22 @@ namespace NoctisMod.SkillStates
                 {
                     if (base.isAuthority)
                     {
-                        base.characterDirection.forward = this.direction;
-                        base.characterMotor.velocity = Vector3.zero;
-                        base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.fixedDeltaTime;
+                        //base.characterDirection.forward = this.direction;
+                        //base.characterMotor.velocity = Vector3.zero;
+                        //base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.deltaTime;
+
+                        Vector3 velocity = direction.normalized * dashSpeed;
+                        base.characterMotor.velocity = velocity;
+                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
                     }
 
                 }
             }
 
 
-            if (hasFired)
-            {
-                if (distance > StaticValues.maxTrackingDistance * StaticValues.warpstrikeThreshold)
-                {
-                    Freeze(true);
-                }
-            }
-
             if(base.fixedAge > duration * warpEndTime || !keepMoving)
             {
+                base.characterMotor.velocity *= 0.1f;
                 if (base.isAuthority)
                 {
                     if (inputBank.skill1.down)
