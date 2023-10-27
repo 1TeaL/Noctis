@@ -69,6 +69,19 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.2.0-
+    - Bug fixes
+        - Actually fixed Greatsword attacks not all applying vulnerability
+        - Fixed vulnerability debuff not actually increasing damage
+        - Fixed Greatsword swap attacks not stunning
+        - Fixed Greatsword forward not doing damage as it has no radius
+        - Fixed Warpstrike not aiming towards a target
+        - Dash particle should appear as you use warpstrike now
+        - Warpstrike damage scaling fixed, was doing too much damage before.
+    - Changes
+        - Warpstrike now freezes all enemies nearby on hit if the distance is greater than 50% of the max distance.
+        - Improved sword swap forward timing and movement
+        - lowered amount of particles when Noctis ground slams
 - 1.1.0-
     - Bug fixes
         - Fixed polearm weapon description in lobby to appear under polearm not dodge.
