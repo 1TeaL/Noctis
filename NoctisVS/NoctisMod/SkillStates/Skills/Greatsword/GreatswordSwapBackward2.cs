@@ -151,7 +151,7 @@ namespace NoctisMod.SkillStates
         private void FireAttack()
         {
             
-            for (int i = 0; i <= 4; i += 1)
+            for (int i = 0; i < 3; i += 1)
             {
                 Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius/2f);
                 effectPosition.y = base.characterBody.footPosition.y;
@@ -183,7 +183,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
                 blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                for (int i = 0; i <= attackAmount; i++)
+                for (int i = 0; i < attackAmount; i++)
                 {
                     blastAttack.Fire();
                 }

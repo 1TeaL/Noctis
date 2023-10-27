@@ -24,8 +24,8 @@ namespace NoctisMod.SkillStates
 
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = StaticValues.GSProc;
-            this.pushForce = 10000f;
-            this.bonusForce = new Vector3(0f, 1000f, 0f);
+            this.pushForce = 1000f;
+            this.bonusForce = new Vector3(0f, 5000f, 0f);
             this.baseDuration = 2.7f;
             this.attackStartTime = 0.2f;
             this.attackEndTime = 0.45f;
@@ -47,7 +47,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+            hasVulnerability = true;
 
         }
 

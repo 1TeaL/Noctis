@@ -154,7 +154,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.damageType = damageType;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                for (int i = 0; i <= attackAmount; i++)
+                for (int i = 0; i < attackAmount; i++)
                 {
                     blastAttack.Fire();
                 }
@@ -166,7 +166,7 @@ namespace NoctisMod.SkillStates
                     blastAttack.Fire();
                 }
 
-                for (int i = 0; i <= 4; i += 1)
+                for (int i = 0; i < 3; i += 1)
                 {
                     Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * (StaticValues.GSSlamRadius * (1 + dropTimer) * 0.5f));
                     effectPosition.y = base.characterBody.footPosition.y;

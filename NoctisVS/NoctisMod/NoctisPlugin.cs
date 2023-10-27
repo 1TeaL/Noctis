@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.1.0";
+        public const string MODVERSION = "1.1.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -151,7 +151,7 @@ namespace NoctisMod
             On.RoR2.CharacterBody.OnDeathStart += CharacterBody_OnDeathStart;
             //On.RoR2.CharacterBody.Start += CharacterBody_Start;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
-            //On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
             //On.RoR2.TeleporterInteraction.FinishedState.OnEnter += TeleporterInteraction_FinishedState;
             //GlobalEventManager.onServerDamageDealt += GlobalEventManager_OnDamageDealt;
             //On.RoR2.CharacterBody.FixedUpdate += CharacterBody_FixedUpdate;
@@ -195,13 +195,37 @@ namespace NoctisMod
                     victimBody.ApplyBuff(Buffs.vulnerabilityDebuff.buffIndex, victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) + 1);
                 }
 
-                if (victimBody.HasBuff(Buffs.vulnerabilityDebuff.buffIndex))
-                {
-                    damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
-                }
 
             }
             
+        }
+
+        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            //orig(self, damageInfo);
+
+            orig(self, damageInfo);
+
+            if (self)
+            {
+                if (damageInfo.attacker)
+                {
+                    var victimBody = self.body;
+                    var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                    if (attackerBody && victimBody)
+                    {
+                        if (victimBody.HasBuff(Buffs.vulnerabilityDebuff.buffIndex))
+                        {
+                            damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
+                        }
+                    }
+
+                }
+
+
+            }
+
+
         }
 
         private void CharacterBody_OnDeathStart(On.RoR2.CharacterBody.orig_OnDeathStart orig, CharacterBody self)

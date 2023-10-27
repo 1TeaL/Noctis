@@ -13,6 +13,7 @@ using NoctisMod.Modules;
 using HG;
 using NoctisMod.Modules.Networking;
 using R2API.Networking.Interfaces;
+using System.Linq;
 
 namespace NoctisMod.SkillStates
 {
@@ -45,6 +46,10 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             noctisCon = gameObject.GetComponent<NoctisController>();
             energySystem = gameObject.GetComponent<EnergySystem>();
+            this.animator = base.GetModelAnimator();
+            this.modelTransform = base.GetModelTransform();
+            animator.SetFloat("Attack.playbackRate", 2f);
+            animator.SetBool("attacking", true);
 
             //energy cost
             float manaflatCost = (StaticValues.warpstrikeCost) - (energySystem.costflatMana);
@@ -66,11 +71,10 @@ namespace NoctisMod.SkillStates
 
             if (noctisCon.GetTrackingTarget())
             {
-                if(Target != null)
-                {
-                    Target = noctisCon.GetTrackingTarget();
-                    distance = Vector3.Magnitude(Target.transform.position - base.characterBody.corePosition);
-                }
+                Target = noctisCon.GetTrackingTarget();
+                distance = Vector3.Magnitude(Target.transform.position - base.characterBody.corePosition);
+                isTarget = true;
+                this.storedPosition = Target.transform.position;                
             }
 
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
@@ -83,10 +87,6 @@ namespace NoctisMod.SkillStates
             this.direction = aimRay.direction.normalized;
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
-            this.animator = base.GetModelAnimator();
-            this.modelTransform = base.GetModelTransform();
-            animator.SetFloat("Attack.playbackRate", 2f);
-            animator.SetBool("attacking", true);
 
             PlayAnimation();
             EffectManager.SpawnEffect(Assets.swordThrowParticle, new EffectData
@@ -114,10 +114,72 @@ namespace NoctisMod.SkillStates
             }
         }
 
+        public void Freeze(bool Freeze)
+        {
+            BullseyeSearch search = new BullseyeSearch
+            {
+
+                teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex),
+                filterByLoS = false,
+                searchOrigin = characterBody.corePosition,
+                searchDirection = UnityEngine.Random.onUnitSphere,
+                sortMode = BullseyeSearch.SortMode.Distance,
+                maxDistanceFilter = StaticValues.warpstrikeFreezeRange,
+                maxAngleFilter = 360f
+            };
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(characterBody.gameObject);
+
+            List<HurtBox> target = search.GetResults().ToList<HurtBox>();
+            foreach (HurtBox singularTarget in target)
+            {
+                if (singularTarget.healthComponent && singularTarget.healthComponent.body)
+                {
+                    //stop time for all enemies within this radius
+
+                    CharacterBody body = singularTarget.healthComponent.body;
+
+                    Animator animator = body.gameObject.GetComponent<Animator>();
+                    if (animator)
+                    {
+                        if(Freeze)
+                        {
+                            animator.enabled = false;
+                        }
+                        else if (!Freeze)
+                        {
+                            animator.enabled = true;
+                        }
+                    }
+
+                    if (body.characterDirection)
+                    {
+                        body.characterDirection.moveVector = body.characterDirection.forward;
+                    }
+                    if (body.characterMotor)
+                    {
+                        body.characterMotor.velocity = Vector3.zero;
+                        body.characterMotor.rootMotion = Vector3.zero;
+                    }
+                    else if (!body.characterMotor)
+                    {
+                        RigidbodyMotor rigidBodyMotor = body.gameObject.GetComponent<RigidbodyMotor>();
+                        rigidBodyMotor.moveVector = Vector3.zero;
+                        rigidBodyMotor.rootMotion = Vector3.zero;
+
+                        body.rigidbody.velocity = Vector3.zero;
+
+                    }
+
+                }
+            }
+        }
 
         public override void OnExit()
         {
             base.OnExit();
+            Freeze(false);
             noctisCon.DashParticle.Stop();
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             animator.SetBool("attacking", false);
@@ -150,19 +212,19 @@ namespace NoctisMod.SkillStates
                     temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
 
                 }
-                if (Target)
+                if (isTarget)
                 {
                     this.storedPosition = Target.transform.position;
                     if(base.isAuthority)
                     {
-                        Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
+                        //Vector3 velocity = (this.storedPosition - base.transform.position).normalized * dashSpeed;
                         //base.characterMotor.velocity = velocity;
                         //base.characterDirection.forward = base.characterMotor.velocity.normalized;
                         base.characterMotor.velocity = Vector3.zero;
-                        base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.fixedDeltaTime;
+                        base.characterMotor.rootMotion += (this.storedPosition - base.transform.position.normalized) * this.dashSpeed * Time.fixedDeltaTime;
                     }
 
-                    if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 5f && !hasFired)
+                    if (Vector3.Magnitude(this.storedPosition - base.transform.position) <= 10f && !hasFired)
                     {
                         hasFired = true;
 
@@ -171,6 +233,7 @@ namespace NoctisMod.SkillStates
                         base.PlayAnimation("FullBody, Override", "WarpStrikeAttack", "Attack.playbackRate", 0.01f);
                         AkSoundEngine.PostEvent("NoctisHitSFX", base.gameObject);
                         noctisCon.WeaponAppearR(1f, NoctisController.WeaponTypeR.SWORD);
+
                     }
                 }
                 else
@@ -182,6 +245,15 @@ namespace NoctisMod.SkillStates
                         base.characterMotor.rootMotion += this.direction * this.dashSpeed * Time.fixedDeltaTime;
                     }
 
+                }
+            }
+
+
+            if (hasFired)
+            {
+                if (distance > StaticValues.maxTrackingDistance * StaticValues.warpstrikeThreshold)
+                {
+                    Freeze(true);
                 }
             }
 
@@ -224,7 +296,7 @@ namespace NoctisMod.SkillStates
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            return InterruptPriority.PrioritySkill;
+            return InterruptPriority.Skill;
         }
 
     }

@@ -13,6 +13,7 @@ namespace NoctisMod.SkillStates.BaseStates
 {
     public class BaseMeleeAttack : BaseSkillState
     {
+        public bool hasVulnerability;
         public bool autoStateChange;
         public int swingIndex;
         public NoctisController noctisCon;
@@ -178,6 +179,10 @@ namespace NoctisMod.SkillStates.BaseStates
                         this.attack.hitBoxGroup = hitBoxGroup;
                         this.attack.isCrit = base.RollCrit();
                         this.attack.impactSound = this.impactSound;
+                        if (hasVulnerability)
+                        {
+                            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+                        }
                         if (this.attack.Fire())
                         {
                             this.OnHitEnemyAuthority();
@@ -199,6 +204,10 @@ namespace NoctisMod.SkillStates.BaseStates
                         this.attack.hitBoxGroup = hitBoxGroup;
                         this.attack.isCrit = base.RollCrit();
                         this.attack.impactSound = this.impactSound;
+                        if (hasVulnerability)
+                        {
+                            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+                        }
                         if (this.attack.Fire())
                         {
                             this.OnHitEnemyAuthority();

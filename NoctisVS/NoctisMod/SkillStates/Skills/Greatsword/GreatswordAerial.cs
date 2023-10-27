@@ -62,7 +62,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+            hasVulnerability = true;
 
         }
 
@@ -145,17 +145,16 @@ namespace NoctisMod.SkillStates
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.baseForce = pushForce * (1 + dropTimer);
                 blastAttack.teamIndex = base.teamComponent.teamIndex;
-                blastAttack.damageType = damageType;
+                blastAttack.damageType = DamageType.Generic;
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                DamageAPI.AddModdedDamageType(blastAttack, Modules.Damage.noctisVulnerability);
 
-                for (int i = 0; i <= attackAmount; i++)
+                for (int i = 0; i < attackAmount; i++)
                 {
                     blastAttack.Fire();
                 }
 
-                for (int i = 0; i <= 4; i += 1)
+                for (int i = 0; i < 3; i += 1)
                 {
                     Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * (StaticValues.GSSlamRadius * (1 + dropTimer) * 0.5f));
                     effectPosition.y = base.characterBody.footPosition.y;

@@ -46,7 +46,7 @@ namespace NoctisMod.SkillStates
             //    AkSoundEngine.PostEvent("detroitexitvoice", this.gameObject);
             //}
             //AkSoundEngine.PostEvent("delawaresfx", this.gameObject);
-
+            radius = StaticValues.GSSlamRadius * attackSpeedStat;
             attackAmount = (int)this.attackSpeedStat;
             if (attackAmount < 1)
             {
@@ -136,7 +136,7 @@ namespace NoctisMod.SkillStates
         private void FireAttack()
         {
 
-            for (int i = 0; i <= 4; i += 1)
+            for (int i = 0; i < 3; i += 1)
             {
                 Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
                 effectPosition.y = base.characterBody.footPosition.y;
@@ -164,11 +164,11 @@ namespace NoctisMod.SkillStates
                 blastAttack.procCoefficient = procCoefficient;
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
-                blastAttack.damageType = DamageType.Stun1s;
+                blastAttack.damageType = DamageType.Generic;
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
                 blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                for (int i = 0; i <= attackAmount; i++)
+                for (int i = 0; i < attackAmount; i++)
                 {
                     blastAttack.Fire();
                 }

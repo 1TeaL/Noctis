@@ -23,7 +23,7 @@ namespace NoctisMod.SkillStates
             weaponDef = Noctis.greatswordSkillDef;
             this.hitboxName = "GreatswordHitbox";
 
-            this.damageType = DamageType.Generic;
+            this.damageType = DamageType.Stun1s;
 
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = StaticValues.GSProc;
@@ -49,7 +49,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+            hasVulnerability = true;
 
         }
 
@@ -61,7 +61,7 @@ namespace NoctisMod.SkillStates
 
                 EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingDown", true);
 
-                for (int i = 0; i <= 4; i += 1)
+                for (int i = 0; i < 3; i += 1)
                 {
                     Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
                     effectPosition.y = base.characterBody.footPosition.y;
@@ -93,7 +93,7 @@ namespace NoctisMod.SkillStates
                     blastAttack.attackerFiltering = AttackerFiltering.Default;
                     blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 
-                    for (int i = 0; i <= attackAmount; i++)
+                    for (int i = 0; i < attackAmount; i++)
                     {
                         blastAttack.Fire();
                     }

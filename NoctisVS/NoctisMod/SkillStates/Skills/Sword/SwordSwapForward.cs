@@ -31,10 +31,10 @@ namespace NoctisMod.SkillStates
 
         public int numberOfHits;
         private float partialAttack;
-        public static float baseDuration = 1.5f;
-        public static float startMoving = 0.4f;
-        public static float endMoving = 0.5f;
-        public static float earlyExitTime = 0.7f;
+        public static float baseDuration = 3f;
+        public static float startMoving = 0.33f;
+        public static float endMoving = 0.46f;
+        public static float earlyExitTime = 0.5f;
         public static float initialSpeedCoefficient = StaticValues.swordInstaDashSpeed;
         public static float finalSpeedCoefficient = 0f;
         public static float SpeedCoefficient;
@@ -75,9 +75,8 @@ namespace NoctisMod.SkillStates
 
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
-            base.characterMotor.useGravity = false;
-            this.previousMass = base.characterMotor.mass;
-            base.characterMotor.mass = 0f;
+            //this.previousMass = base.characterMotor.mass;
+            //base.characterMotor.mass = 0f;
 
             SpeedCoefficient = initialSpeedCoefficient;
             origin = base.transform.position;
@@ -140,9 +139,9 @@ namespace NoctisMod.SkillStates
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
             this.animator.SetBool("attacking", false);
 
-            base.characterMotor.mass = this.previousMass;
-            base.characterMotor.useGravity = true;
-            base.characterMotor.velocity = Vector3.zero;
+            //base.characterMotor.mass = this.previousMass;
+            //base.characterMotor.useGravity = true;
+            //base.characterMotor.velocity = Vector3.zero;
 
             if (base.cameraTargetParams) base.cameraTargetParams.fovOverride = -1f;
             base.characterMotor.disableAirControlUntilCollision = false;
@@ -173,7 +172,7 @@ namespace NoctisMod.SkillStates
             {
                 this.RecalculateRollSpeed();
                 Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = 0f;
+                velocity.y = base.characterMotor.velocity.y;
                 base.characterMotor.velocity = velocity;
                 base.characterDirection.forward = base.characterMotor.velocity.normalized;
 

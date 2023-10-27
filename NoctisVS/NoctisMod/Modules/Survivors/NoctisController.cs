@@ -36,7 +36,7 @@ namespace NoctisMod.Modules.Survivors
         
 
         private Ray downRay;
-        public float maxTrackingDistance = 70f;
+        public float maxTrackingDistance = StaticValues.maxTrackingDistance;
         public float maxTrackingAngle = 20f;
         public float trackerUpdateFrequency = 10f;
         private Indicator activeindicator;
@@ -426,7 +426,7 @@ namespace NoctisMod.Modules.Survivors
 
         private void SearchForTarget(Ray aimRay)
 		{
-			this.search.teamMaskFilter = TeamMask.AllExcept(TeamIndex.Player);
+			this.search.teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex);
 			this.search.filterByLoS = true;
 			this.search.searchOrigin = aimRay.origin;
 			this.search.searchDirection = aimRay.direction;

@@ -19,7 +19,7 @@ namespace NoctisMod.SkillStates
             weaponDef = Noctis.greatswordSkillDef;
             this.hitboxName = "GreatswordHitbox";
 
-            this.damageType = DamageType.Generic;
+            this.damageType = DamageType.Stun1s;
 
             this.damageCoefficient = StaticValues.GSSwapForwardDamage;
             this.procCoefficient = StaticValues.GSProc;
@@ -45,7 +45,7 @@ namespace NoctisMod.SkillStates
             {
                 if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
             }
-            DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.noctisVulnerability);
+            hasVulnerability = true;
 
         }
 
