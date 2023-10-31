@@ -42,7 +42,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
 
-            this.swingSoundString = "SwordSwingSFX";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
@@ -92,7 +92,80 @@ namespace NoctisMod.SkillStates
                 this.outer.SetNextStateToMain();
             }
 
-            base.FixedUpdate();
+            this.hitPauseTimer -= Time.fixedDeltaTime;
+
+            if (this.hitPauseTimer <= 0f && this.inHitPause)
+            {
+                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
+                this.inHitPause = false;
+                base.characterMotor.velocity = this.storedVelocity;
+            }
+
+            if (!this.inHitPause)
+            {
+                this.stopwatch += Time.fixedDeltaTime;
+            }
+            else
+            {
+                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
+                if (this.animator) this.animator.SetFloat("Attack.playbackRate", 0f);
+                this.animator.SetFloat("Slash.playbackRate", 0f);
+                this.animator.SetFloat("Swing.playbackRate", 0f);
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
+            {
+                this.FireAttack();
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
+            {
+                if (inputBank.skill1.down)
+                {
+                    if (skillLocator.primary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill2.down)
+                {
+                    if (skillLocator.secondary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill4.down)
+                {
+                    if (skillLocator.special.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
+            if (this.stopwatch >= this.baseDuration && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
         }
 
         public override void Update()

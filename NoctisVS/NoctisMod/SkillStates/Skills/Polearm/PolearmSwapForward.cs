@@ -87,6 +87,7 @@ namespace NoctisMod.SkillStates
         protected override void PlayAttackAnimation()
         {
             base.PlayCrossfade("FullBody, Override", "PolearmDashingThrust", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            //animator.Play("FullBody, Override.PolearmDashingThrust", -1, 0.1f);
         }
 
         protected override void PlaySwingEffect()

@@ -13,6 +13,7 @@ namespace NoctisMod.SkillStates
 {
     internal class GreatswordForward: BaseSkillState
     {
+        public NoctisController noctisCon;
         private float baseDuration = 2f;
         internal float radius;
         internal Vector3 moveVec;
@@ -37,6 +38,7 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
 
+            noctisCon = gameObject.GetComponent<NoctisController>();
             hasFired = false;
             this.animator = base.GetModelAnimator();
             this.animator.SetFloat("Attack.playbackRate", 1f);
@@ -56,11 +58,8 @@ namespace NoctisMod.SkillStates
             SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
+            noctisCon.SetSwapTrue(baseDuration);
 
         }
         public override InterruptPriority GetMinimumInterruptPriority()

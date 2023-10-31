@@ -13,6 +13,7 @@ namespace NoctisMod.SkillStates.BaseStates
 {
     public class BaseMeleeAttack : BaseSkillState
     {
+        public bool isSwapped;
         public bool hasVulnerability;
         public bool autoStateChange;
         public int swingIndex;
@@ -42,18 +43,18 @@ namespace NoctisMod.SkillStates.BaseStates
         protected NetworkSoundEventIndex impactSound;
 
         public bool hasFired;
-        private float hitPauseTimer;
+        public float hitPauseTimer;
         public OverlapAttack attack;
         protected bool inHitPause;
-        private bool hasHopped;
+        public bool hasHopped;
         protected float stopwatch;
         protected Animator animator;
-        private BaseState.HitStopCachedState hitStopCachedState;
-        private Vector3 storedVelocity;
+        public BaseState.HitStopCachedState hitStopCachedState;
+        public Vector3 storedVelocity;
 
         public int attackAmount;
         public float partialAttack;
-        private HitBoxGroup hitBoxGroup;
+        public HitBoxGroup hitBoxGroup;
 
         public RoR2.Skills.SkillDef weaponDef;
 
@@ -100,7 +101,9 @@ namespace NoctisMod.SkillStates.BaseStates
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
 
+            isSwapped = noctisCon.isSwapped;
             //DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
+            noctisCon.SetSwapTrue(baseDuration);
 
         }
 

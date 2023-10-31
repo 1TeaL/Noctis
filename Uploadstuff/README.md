@@ -69,6 +69,13 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.3.0-
+    - Bug fixes
+        - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
+    - Changes
+        - Overall faster animations for most attacks- mainly greatsword attacks and some polearm attacks
+        - *New* added weapon cancel animations- now when you're using a weapon swap attack to cancel an attack in it's duration, it will play an animation that starts immediately at the damage animation, making it a lot faster than before.
+        - The aim of these change is to make the transition smoother as weapon swap attacks right after a normal attack presents a dangerous gap at times that could result in Noctis being in danger. 
 - 1.2.0-
     - Bug fixes
         - Actually fixed Greatsword attacks not all applying vulnerability

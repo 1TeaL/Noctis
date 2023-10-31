@@ -58,10 +58,6 @@ namespace NoctisMod.SkillStates
             characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
 
             base.OnEnter();
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             hasVulnerability = true;
 
         }

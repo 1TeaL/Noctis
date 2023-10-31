@@ -88,6 +88,9 @@ namespace NoctisMod.Modules.Survivors
         public WeaponTypeR weaponStateR;
         public WeaponTypeL weaponStateL;
 
+        public bool isSwapped;
+        public float swappedTimer;
+
         public enum WeaponTypeR : ushort
         {
             NONE = 1,
@@ -297,12 +300,27 @@ namespace NoctisMod.Modules.Survivors
             {
                 if (characterBody.hasEffectiveAuthority)
                 {
-
+                    if(swappedTimer > 0f)
+                    {
+                        swappedTimer -= Time.fixedDeltaTime;
+                        isSwapped = true;
+                    }
+                    else if (swappedTimer <= 0f)
+                    {
+                        isSwapped = false;
+                    }
                 }
             }
         }    
 
-
+        public void SetSwapTrue(float timer)
+        {
+            swappedTimer = timer;
+            if(!isSwapped)
+            {
+                isSwapped = true;
+            }
+        }
 
 
         public void Update()

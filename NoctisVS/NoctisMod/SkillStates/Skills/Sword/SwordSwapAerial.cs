@@ -17,6 +17,7 @@ namespace NoctisMod.SkillStates
     public class SwordSwapAerial : BaseSkillState
 
     {
+        public NoctisController noctisCon;
         public float previousMass;
         private Ray aimRay;
         private Vector3 aimRayDir;
@@ -71,6 +72,7 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = gameObject.GetComponent<NoctisController>();
             this.aimRayDir = aimRay.direction;
 
             duration = baseduration / ((this.attackSpeedStat));
@@ -167,8 +169,7 @@ namespace NoctisMod.SkillStates
 
             AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
 
-
-
+            noctisCon.SetSwapTrue(baseDuration);
 
         }
 

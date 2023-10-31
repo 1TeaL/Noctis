@@ -19,7 +19,6 @@ namespace NoctisMod.SkillStates
         public int currentSwingIndex;
         public HurtBox Target;
 
-
         public override void OnEnter()
         {
 

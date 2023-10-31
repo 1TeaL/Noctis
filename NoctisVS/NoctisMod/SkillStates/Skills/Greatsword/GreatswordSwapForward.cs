@@ -24,10 +24,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = StaticValues.GSSwapForwardDamage;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 300f;
-            this.baseDuration = 1.5f;
-            this.attackStartTime = 0.27f;
-            this.attackEndTime = 0.63f;
-            this.baseEarlyExitTime = 0.63f;
+            this.baseDuration = 1f;
+            this.attackStartTime = 0.33f;
+            this.attackEndTime = 0.68f;
+            this.baseEarlyExitTime = 0.68f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -41,11 +41,14 @@ namespace NoctisMod.SkillStates
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
             base.OnEnter();
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             hasVulnerability = true;
+            if (isSwapped)
+            {
+                this.baseDuration = 0.67f;
+                this.attackStartTime = 0.01f;
+                this.attackEndTime = 0.5f;
+                this.baseEarlyExitTime = 0.5f;
+            }
 
         }
 
@@ -53,7 +56,15 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "GSOverheadSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+
+            if (isSwapped)
+            {
+                animator.Play("FullBody, Override.GSOverheadSlash", -1, 0.33f);
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "GSOverheadSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            }
         }
 
         protected override void PlaySwingEffect()

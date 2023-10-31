@@ -35,6 +35,7 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
 
+
             this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = $"SwordSwingUp";
@@ -47,6 +48,13 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
             autoStateChange = true;
+            if (isSwapped)
+            {
+                this.baseDuration = 0.4f;
+                this.attackStartTime = 0.01f;
+                this.attackEndTime = 0.5f;
+                this.baseEarlyExitTime = 0.5f;
+            }
 
         }
 
@@ -54,7 +62,14 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "SwordUpDownSlashPart1", "Attack.playbackRate", baseDuration-baseEarlyExitTime, 0.05f);
+            if (isSwapped)
+            {
+                animator.Play("FullBody, Override.SwordUpDownSlashPart1", -1, 0.6f);
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "SwordUpDownSlashPart1", "Attack.playbackRate", baseDuration - baseEarlyExitTime, 0.05f);
+            }
         }
 
         protected override void PlaySwingEffect()

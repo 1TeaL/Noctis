@@ -58,11 +58,15 @@ namespace NoctisMod.SkillStates
             characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
 
             base.OnEnter();
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             hasVulnerability = true;
+
+            if (isSwapped)
+            {
+                this.baseDuration = 1f;
+                this.attackStartTime = 0f;
+                this.attackEndTime = 0.7f;
+                this.baseEarlyExitTime = 0.7f;
+            }
 
         }
 
@@ -91,7 +95,81 @@ namespace NoctisMod.SkillStates
                 this.LandingImpact();
                 this.outer.SetNextStateToMain();
             }
-            base.FixedUpdate();
+
+            this.hitPauseTimer -= Time.fixedDeltaTime;
+
+            if (this.hitPauseTimer <= 0f && this.inHitPause)
+            {
+                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
+                this.inHitPause = false;
+                base.characterMotor.velocity = this.storedVelocity;
+            }
+
+            if (!this.inHitPause)
+            {
+                this.stopwatch += Time.fixedDeltaTime;
+            }
+            else
+            {
+                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
+                if (this.animator) this.animator.SetFloat("Attack.playbackRate", 0f);
+                this.animator.SetFloat("Slash.playbackRate", 0f);
+                this.animator.SetFloat("Swing.playbackRate", 0f);
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
+            {
+                this.FireAttack();
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
+            {
+                if (inputBank.skill1.down)
+                {
+                    if (skillLocator.primary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill2.down)
+                {
+                    if (skillLocator.secondary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill4.down)
+                {
+                    if (skillLocator.special.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
+            if (this.stopwatch >= this.baseDuration && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
         }
 
         public override void Update()
@@ -172,7 +250,15 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+
+            if (isSwapped)
+            {
+                animator.Play("FullBody, Override.GSAerialSlash", -1, 0.36f);
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            }
         }
 
         protected override void PlaySwingEffect()

@@ -25,16 +25,17 @@ namespace NoctisMod.SkillStates
     })]
     public class SwordSwapForward : BaseSkillState
     {
-
+        NoctisController noctisCon;
+        public bool isSwapped;
         public float previousMass;
         private string muzzleString;
 
         public int numberOfHits;
         private float partialAttack;
-        public static float baseDuration = 3f;
-        public static float startMoving = 0.33f;
-        public static float endMoving = 0.46f;
-        public static float earlyExitTime = 0.5f;
+        public float baseDuration = 3f;
+        public float startMoving = 0.33f;
+        public float endMoving = 0.46f;
+        public float earlyExitTime = 0.5f;
         public static float initialSpeedCoefficient = StaticValues.swordInstaDashSpeed;
         public static float finalSpeedCoefficient = 0f;
         public static float SpeedCoefficient;
@@ -56,6 +57,8 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
+            noctisCon = gameObject.GetComponent<NoctisController>();
+            isSwapped = noctisCon.isSwapped;
             this.animator = base.GetModelAnimator();
 
             this.RecalculateRollSpeed();
@@ -71,7 +74,6 @@ namespace NoctisMod.SkillStates
 
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 2f);
-            base.PlayCrossfade("FullBody, Override", "SwordInstaSlash", "Attack.playbackRate", baseDuration, 0.05f);
 
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
@@ -82,6 +84,22 @@ namespace NoctisMod.SkillStates
             origin = base.transform.position;
             base.gameObject.layer = LayerIndex.fakeActor.intVal;
             base.characterMotor.Motor.RebuildCollidableLayers();
+
+
+            if (isSwapped)
+            {
+                animator.Play("FullBody, Override.SwordInstaSlash", -1, 0.22f);
+                this.baseDuration = 2.3f;
+                this.startMoving = 0.01f;
+                this.endMoving = 0.17f;
+                this.earlyExitTime = 0.2f;
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "SwordInstaSlash", "Attack.playbackRate", baseDuration, 0.05f);
+            }
+
+            noctisCon.SetSwapTrue(baseDuration);
 
         }
         private void RecalculateRollSpeed()

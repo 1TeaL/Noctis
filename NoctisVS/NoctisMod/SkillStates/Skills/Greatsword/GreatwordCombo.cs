@@ -39,6 +39,10 @@ namespace NoctisMod.SkillStates
             }
 
             noctisCon.WeaponAppearR(5f, WeaponTypeR.GREATSWORD);
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
 
         }
 

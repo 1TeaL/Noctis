@@ -28,10 +28,10 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 1000f;
-            this.baseDuration = 4f;
-            this.attackStartTime = 0.2f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.6f;
+            this.baseDuration = 3f;
+            this.attackStartTime = 0.16f;
+            this.attackEndTime = 0.9f;
+            this.baseEarlyExitTime = 0.9f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -42,14 +42,18 @@ namespace NoctisMod.SkillStates
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
+
             this.impactSound = Modules.Assets.hitSoundEffect.index;
             hasSlammed = false;
             base.OnEnter();
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             hasVulnerability = true;
+            if (isSwapped)
+            {
+                this.baseDuration = 2.5f;
+                this.attackStartTime = 0.01f;
+                this.attackEndTime = 0.9f;
+                this.baseEarlyExitTime = 0.9f;
+            }
 
         }
 
@@ -110,7 +114,15 @@ namespace NoctisMod.SkillStates
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "GSUpDownSlam", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            if(isSwapped)
+            {
+                animator.Play("FullBody, Override.GSUpDownSlam", -1, 0.16f);
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "GSUpDownSlam", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+
+            }
         }
 
         protected override void PlaySwingEffect()
@@ -129,7 +141,8 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
-                this.outer.SetNextState(new GreatswordCombo());
+                GreatswordCombo GreatswordCombo = new GreatswordCombo();
+                this.outer.SetNextState(GreatswordCombo);
                 return;
 
             }

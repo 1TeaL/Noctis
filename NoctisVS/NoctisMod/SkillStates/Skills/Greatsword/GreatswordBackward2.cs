@@ -47,11 +47,6 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
             this.animator.SetBool("releaseChargeSlash", true);
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
-
             hasVulnerability = true;
             AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
 

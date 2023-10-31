@@ -43,10 +43,6 @@ namespace NoctisMod.SkillStates
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
             base.OnEnter();
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
             hasVulnerability = true;
 
         }

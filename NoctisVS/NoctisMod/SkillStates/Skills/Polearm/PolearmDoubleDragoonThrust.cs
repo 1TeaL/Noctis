@@ -42,13 +42,14 @@ namespace NoctisMod.SkillStates
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
 
-            this.swingSoundString = "SwordSwingSFX";
+            this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingDown";
             this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
+
 
 
             base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
@@ -68,6 +69,13 @@ namespace NoctisMod.SkillStates
 
             SmallHop(characterMotor, 40f);
 
+            if (isSwapped)
+            {
+                this.baseDuration = 1.6f;
+                this.attackStartTime = 0f;
+                this.attackEndTime = 0.95f;
+                this.baseEarlyExitTime = 0.95f;
+            }
         }
 
         public override void FixedUpdate()
@@ -96,7 +104,80 @@ namespace NoctisMod.SkillStates
                 this.outer.SetNextStateToMain();
             }
 
-            base.FixedUpdate();
+            this.hitPauseTimer -= Time.fixedDeltaTime;
+
+            if (this.hitPauseTimer <= 0f && this.inHitPause)
+            {
+                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
+                this.inHitPause = false;
+                base.characterMotor.velocity = this.storedVelocity;
+            }
+
+            if (!this.inHitPause)
+            {
+                this.stopwatch += Time.fixedDeltaTime;
+            }
+            else
+            {
+                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
+                if (this.animator) this.animator.SetFloat("Attack.playbackRate", 0f);
+                this.animator.SetFloat("Slash.playbackRate", 0f);
+                this.animator.SetFloat("Swing.playbackRate", 0f);
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
+            {
+                this.FireAttack();
+            }
+
+            if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
+            {
+                if (inputBank.skill1.down)
+                {
+                    if (skillLocator.primary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill2.down)
+                {
+                    if (skillLocator.secondary.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+                if (inputBank.skill4.down)
+                {
+                    if (skillLocator.special.skillDef == weaponDef)
+                    {
+                        SetNextState();
+                    }
+                    else
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                }
+            }
+
+            if (this.stopwatch >= this.baseDuration && base.isAuthority)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
         }
 
         public override void Update()
@@ -184,6 +265,7 @@ namespace NoctisMod.SkillStates
         protected override void PlayAttackAnimation()
         {
             base.PlayCrossfade("FullBody, Override", "PolearmDoubleDescendingThrust", "Attack.playbackRate", baseDuration, 0.05f);
+            animator.Play("FullBody, Override.PolearmDoubleDescendingThrust", -1, 0.25f);
         }
 
         protected override void PlaySwingEffect()
