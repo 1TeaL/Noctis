@@ -31,13 +31,13 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = StaticValues.polearmDamage;
+            this.damageCoefficient = StaticValues.polearmSlamDamage;
             this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 300f;
             this.baseDuration = 2f;
             this.attackStartTime = 0.33f;
             this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.6f;
+            this.baseEarlyExitTime = 0.3f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
@@ -120,6 +120,18 @@ namespace NoctisMod.SkillStates
 
             if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
             {
+                if (inputBank.skill3.down)
+                {
+                    this.outer.SetNextState(new Dodge());
+                    return;
+                }
+                if (inputBank.jump.down)
+                {
+                    this.outer.SetNextState(new Jump
+                    {
+                    });
+                    return;
+                }
                 if (inputBank.skill1.down)
                 {
                     if (skillLocator.primary.skillDef == weaponDef)

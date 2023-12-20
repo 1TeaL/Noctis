@@ -69,6 +69,11 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.4.0-
+    - Bug fixes
+        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special. 
+    - Changes
+        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. This was to improve the flow of combat.
 - 1.3.0-
     - Bug fixes
         - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
@@ -160,7 +165,7 @@ Only usable after an attack.
     Costs 30 mana, reducible by CDR items.
 
 #### Weapon combo routes Miro
-https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661
+https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576
 
 #### Sword- Faster attacks. Swap attacks have invincibility. All attacks have proc of 1.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39" height ="128" >
@@ -275,7 +280,7 @@ https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdp
   </tr>
   <tr>
     <td>Backward</td>
-    <td>Backhop, dealing 2x150% damage.</td>
+    <td>Throw your polearm, piercing and dealing 3x150% damage.</td>
   </tr>
   <tr>
     <td>Aerial</td>
@@ -295,7 +300,7 @@ https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdp
   </tr>
   <tr>
     <td>Swap Backward</td>
-    <td>Throw your polearm, piercing and dealing 3x150% damage.</td>
+    <td>Backhop, dealing 3x150% damage.</td>
   </tr>
   <tr>
     <td>Swap Aerial</td>

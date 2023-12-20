@@ -8,11 +8,14 @@ using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using NoctisMod.Modules;
+using ExtraSkillSlots;
 
 namespace NoctisMod.SkillStates
 {
     internal class GreatswordForward: BaseSkillState
     {
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
         public NoctisController noctisCon;
         private float baseDuration = 2f;
         internal float radius;
@@ -39,6 +42,8 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
 
             noctisCon = gameObject.GetComponent<NoctisController>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             hasFired = false;
             this.animator = base.GetModelAnimator();
             this.animator.SetFloat("Attack.playbackRate", 1f);
@@ -102,6 +107,20 @@ namespace NoctisMod.SkillStates
                 }
                 if (base.isAuthority)
                 {
+                    if (extrainputBankTest.extraSkill1.down)
+                    {
+                        Warpstrike warpstrike = new Warpstrike();
+                        warpstrike.weaponSwap = true;
+                        this.outer.SetNextState(warpstrike);
+                        return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        this.outer.SetNextState(new Jump
+                        {
+                        });
+                        return;
+                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();

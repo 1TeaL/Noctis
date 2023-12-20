@@ -42,6 +42,8 @@ namespace NoctisMod.SkillStates
         public static float procCoefficient = StaticValues.swordProc;
         private Animator animator;
 
+        private HurtBoxGroup hurtboxGroup;
+        private Vector3 forwardDirection;
         private Transform modelTransform;
         private CharacterModel characterModel;
         private float rollSpeed;
@@ -93,14 +95,61 @@ namespace NoctisMod.SkillStates
                 this.startMoving = 0.01f;
                 this.endMoving = 0.17f;
                 this.earlyExitTime = 0.2f;
+
+                this.modelTransform = base.GetModelTransform();
+                if (this.modelTransform)
+                {
+                    this.animator = this.modelTransform.GetComponent<Animator>();
+                    this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay.duration = 0.3f;
+                    temporaryOverlay.animateShaderAlpha = true;
+                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay.destroyComponentOnEnd = true;
+                    temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay2.duration = 0.3f;
+                    temporaryOverlay2.animateShaderAlpha = true;
+                    temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay2.destroyComponentOnEnd = true;
+                    temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+                }
             }
             else
             {
                 base.PlayCrossfade("FullBody, Override", "SwordInstaSlash", "Attack.playbackRate", baseDuration, 0.05f);
             }
 
+            if (base.inputBank && base.characterDirection)
+            {
+                base.characterDirection.forward = ((base.inputBank.moveVector == Vector3.zero) ? base.characterDirection.forward : base.inputBank.moveVector).normalized;
+            }
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount++;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
+
             noctisCon.SetSwapTrue(baseDuration);
 
+        }
+        private void CreateBlinkEffect(Vector3 origin)
+        {
+            EffectData effectData = new EffectData();
+            effectData.rotation = Util.QuaternionSafeLookRotation(this.forwardDirection);
+            effectData.origin = origin;
+            EffectManager.SpawnEffect(EvisDash.blinkPrefab, effectData, false);
         }
         private void RecalculateRollSpeed()
         {
@@ -194,10 +243,22 @@ namespace NoctisMod.SkillStates
             if(base.fixedAge >= baseDuration * startMoving && base.fixedAge < baseDuration * endMoving)
             {
                 this.RecalculateRollSpeed();
-                Vector3 velocity = this.direction * rollSpeed;
-                velocity.y = base.characterMotor.velocity.y;
-                base.characterMotor.velocity = velocity;
-                base.characterDirection.forward = base.characterMotor.velocity.normalized;
+                //Vector3 velocity = this.direction * rollSpeed;
+                //velocity.y = base.characterMotor.velocity.y;
+                //velocity.y = 0f;
+                //base.characterMotor.velocity = velocity;
+                //base.characterDirection.forward = base.characterMotor.velocity.normalized;
+
+                if (base.inputBank && base.characterDirection)
+                {
+                    base.characterDirection.moveVector = base.inputBank.moveVector;
+                    this.forwardDirection = base.characterDirection.forward;
+                }
+                if (base.characterMotor)
+                {
+                    
+                    base.characterMotor.rootMotion += rollSpeed * this.forwardDirection * Time.fixedDeltaTime;
+                }
 
                 if (this.modelTransform)
                 {

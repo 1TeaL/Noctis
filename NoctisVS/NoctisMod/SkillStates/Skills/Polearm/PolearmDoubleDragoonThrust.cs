@@ -20,6 +20,7 @@ namespace NoctisMod.SkillStates
         private GameObject slamIndicatorInstance;
 
         private bool hasDropped;
+        private bool hasImpacted;
         public float dropForce = StaticValues.polearmDropSpeed;
 
         public override void OnEnter()
@@ -31,16 +32,16 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = StaticValues.polearmDamage;
+            this.damageCoefficient = StaticValues.polearmSlamDamage;
             this.procCoefficient = StaticValues.polearmProc;
             this.pushForce = 300f;
             this.baseDuration = 2f;
             this.attackStartTime = 0.46f;
             this.attackEndTime = 0.95f;
-            this.baseEarlyExitTime = 0.95f;
-            this.hitStopDuration = 0.1f;
-            this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 4f;
+            this.baseEarlyExitTime = 0.3f;
+            this.hitStopDuration = 0f;
+            this.attackRecoil = 0f;
+            this.hitHopVelocity = 0f;
 
             this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
@@ -74,7 +75,7 @@ namespace NoctisMod.SkillStates
                 this.baseDuration = 1.6f;
                 this.attackStartTime = 0f;
                 this.attackEndTime = 0.95f;
-                this.baseEarlyExitTime = 0.95f;
+                this.baseEarlyExitTime = 0.3f;
             }
         }
 
@@ -130,8 +131,21 @@ namespace NoctisMod.SkillStates
                 this.FireAttack();
             }
 
+
             if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
             {
+                if (inputBank.skill3.down)
+                {
+                    this.outer.SetNextState(new Dodge());
+                    return;
+                }
+                if (inputBank.jump.down)
+                {
+                    this.outer.SetNextState(new Jump
+                    {
+                    });
+                    return;
+                }
                 if (inputBank.skill1.down)
                 {
                     if (skillLocator.primary.skillDef == weaponDef)
@@ -214,51 +228,54 @@ namespace NoctisMod.SkillStates
         }
         private void LandingImpact()
         {
-
-            AkSoundEngine.PostEvent("SlamSFX", base.gameObject);
-            if (base.isAuthority)
+            if (!hasImpacted)
             {
-                Ray aimRay = base.GetAimRay();
-
-                base.characterMotor.velocity *= 0.1f;
-
-                BlastAttack blastAttack = new BlastAttack();
-                blastAttack.radius = StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
-                blastAttack.procCoefficient = procCoefficient;
-                blastAttack.position = base.characterBody.footPosition;
-                blastAttack.attacker = base.gameObject;
-                blastAttack.crit = base.RollCrit();
-                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2);
-                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                blastAttack.baseForce = pushForce * (1 + dropTimer);
-                blastAttack.teamIndex = base.teamComponent.teamIndex;
-                blastAttack.damageType = damageType;
-                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                for (int i = 0; i < attackAmount; i++)
+                hasImpacted = true;
+                AkSoundEngine.PostEvent("SlamSFX", base.gameObject);
+                if (base.isAuthority)
                 {
-                    blastAttack.Fire();
-                }
+                    Ray aimRay = base.GetAimRay();
 
-                if (partialAttack > 0f)
-                {
-                    blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2) * partialAttack;
-                    blastAttack.procCoefficient = procCoefficient * partialAttack;
-                    blastAttack.Fire();
-                }
+                    base.characterMotor.velocity *= 0.1f;
 
-                for (int i = 0; i < 3; i += 1)
-                {
-                    Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * (StaticValues.GSSlamRadius * (1 + dropTimer) * 0.5f));
-                    effectPosition.y = base.characterBody.footPosition.y;
-                    EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                    BlastAttack blastAttack = new BlastAttack();
+                    blastAttack.radius = StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
+                    blastAttack.procCoefficient = procCoefficient;
+                    blastAttack.position = base.characterBody.footPosition;
+                    blastAttack.attacker = base.gameObject;
+                    blastAttack.crit = base.RollCrit();
+                    blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2);
+                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                    blastAttack.baseForce = pushForce * (1 + dropTimer);
+                    blastAttack.teamIndex = base.teamComponent.teamIndex;
+                    blastAttack.damageType = damageType;
+                    blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                    for (int i = 0; i < attackAmount; i++)
                     {
-                        origin = effectPosition,
-                        scale = StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat,
-                    }, true);
+                        blastAttack.Fire();
+                    }
+
+                    if (partialAttack > 0f)
+                    {
+                        blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2) * partialAttack;
+                        blastAttack.procCoefficient = procCoefficient * partialAttack;
+                        blastAttack.Fire();
+                    }
+
+                    for (int i = 0; i < 3; i += 1)
+                    {
+                        Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * (StaticValues.GSSlamRadius * (1 + dropTimer) * 0.5f));
+                        effectPosition.y = base.characterBody.footPosition.y;
+                        EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
+                        {
+                            origin = effectPosition,
+                            scale = StaticValues.polearmSlamRadius * (1 + dropTimer / 2) * attackSpeedStat,
+                        }, true);
+                    }
+
+
                 }
-
-
             }
         }
 
@@ -306,6 +323,8 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            LandingImpact();
+
             characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
             if (this.slamIndicatorInstance)
                 this.slamIndicatorInstance.SetActive(false);

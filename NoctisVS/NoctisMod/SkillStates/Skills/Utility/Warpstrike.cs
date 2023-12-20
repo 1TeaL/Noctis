@@ -27,7 +27,7 @@ namespace NoctisMod.SkillStates
         public float dashSpeed = Modules.StaticValues.warpstrikeSpeed;
 
         private float duration = 1.5f;
-        private float warpStartTime = 0.2f;
+        private float warpStartTime = 0.16f;
         private float warpEndTime = 0.6f;
         private bool keepMoving;
 
@@ -40,6 +40,7 @@ namespace NoctisMod.SkillStates
 
         private bool hasFired;
         private bool isFreeze;
+        public bool weaponSwap;
 
         public override void OnEnter()
         {
@@ -84,6 +85,8 @@ namespace NoctisMod.SkillStates
                 }
             }
 
+
+
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             noctisCon.WeaponAppearL(0f, NoctisController.WeaponTypeL.NONE);
             noctisCon.DashParticle.Play();
@@ -110,14 +113,39 @@ namespace NoctisMod.SkillStates
 
         private void PlayAnimation()
         {
-            AkSoundEngine.PostEvent("Warpstrike", base.gameObject);             
-            if (isTarget)
+            AkSoundEngine.PostEvent("Warpstrike", base.gameObject);
+
+            if (weaponSwap)
             {
-                base.PlayAnimation("FullBody, Override", "WarpStrike", "Attack.playbackRate", this.duration);
+                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
+
+                if (isTarget)
+                {
+                    animator.Play("FullBody, Override.WarpStrike", -1, 0.25f);
+                    duration = 1f;
+                    warpStartTime = 0.05f;
+                    warpEndTime = 0.6f;
+                }
+                else
+                {
+                    animator.Play("FullBody, Override.WarpStrikeRoll", -1, 0.15f);
+                    duration = 1f;
+                    warpStartTime = 0.05f;
+                    warpEndTime = 0.6f;
+                }
             }
             else
             {
-                base.PlayAnimation("FullBody, Override", "WarpStrikeRoll", "Attack.playbackRate", this.duration);
+                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
+
+                if (isTarget)
+                {
+                    base.PlayAnimation("FullBody, Override", "WarpStrike", "Attack.playbackRate", this.duration);
+                }
+                else
+                {
+                    base.PlayAnimation("FullBody, Override", "WarpStrikeRoll", "Attack.playbackRate", this.duration);
+                }
             }
         }
 
@@ -145,7 +173,7 @@ namespace NoctisMod.SkillStates
                 {
                     //stop time for all enemies within this radius
 
-                    Chat.AddMessage("freeze enemy");
+                    //Chat.AddMessage("freeze enemy");
                     new SetFreezeOnBodyRequest(singularTarget.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
 
 

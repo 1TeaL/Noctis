@@ -8,16 +8,21 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
+using ExtraSkillSlots;
 
 namespace NoctisMod.SkillStates.BaseStates
 {
     public class BaseMeleeAttack : BaseSkillState
     {
+        private Transform modelTransform;
+        private CharacterModel characterModel;
         public bool isSwapped;
         public bool hasVulnerability;
         public bool autoStateChange;
         public int swingIndex;
         public NoctisController noctisCon;
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
 
         protected string hitboxName = "Sword";
 
@@ -62,6 +67,8 @@ namespace NoctisMod.SkillStates.BaseStates
         {
             base.OnEnter();
             noctisCon = gameObject.GetComponent<NoctisController>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             this.hasFired = false;
             autoStateChange = false;
             this.animator = base.GetModelAnimator();
@@ -104,6 +111,31 @@ namespace NoctisMod.SkillStates.BaseStates
             isSwapped = noctisCon.isSwapped;
             //DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
             noctisCon.SetSwapTrue(baseDuration);
+            if(isSwapped)
+            {
+                this.modelTransform = base.GetModelTransform();
+                if (this.modelTransform)
+                {
+                    this.animator = this.modelTransform.GetComponent<Animator>();
+                    this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay.duration = 0.3f;
+                    temporaryOverlay.animateShaderAlpha = true;
+                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay.destroyComponentOnEnd = true;
+                    temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay2.duration = 0.3f;
+                    temporaryOverlay2.animateShaderAlpha = true;
+                    temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay2.destroyComponentOnEnd = true;
+                    temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+                }
+            }
 
         }
 
@@ -291,6 +323,14 @@ namespace NoctisMod.SkillStates.BaseStates
                 if (autoStateChange)
                 {
                     SetNextState();
+                }
+
+                if(extrainputBankTest.extraSkill1.down)
+                {
+                    Warpstrike warpstrike= new Warpstrike();
+                    warpstrike.weaponSwap = true;
+                    this.outer.SetNextState(warpstrike);
+                    return;
                 }
 
                 if (inputBank.skill1.down)

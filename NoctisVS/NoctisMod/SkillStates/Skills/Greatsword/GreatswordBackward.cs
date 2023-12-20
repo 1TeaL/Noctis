@@ -10,96 +10,90 @@ using R2API;
 using System.Runtime.CompilerServices;
 using NoctisMod.Modules;
 using System.Reflection;
-using static NoctisMod.Modules.Survivors.NoctisController;
+using R2API.Networking;
 
 namespace NoctisMod.SkillStates
 {
-    public class GreatswordBackward : BaseSkillState
+    public class GreatswordBackward : BaseMeleeAttack
     {
-        NoctisController noctisCon;
-        float baseDuration = 0.7f;
-        private Animator animator;
-        private float chargePercent;
-        private float maxCharge = StaticValues.GSMaxCharge;
-        private float damageMult;
-
         public override void OnEnter()
         {
+
+            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
+            weaponDef = Noctis.greatswordSkillDef;
+            this.hitboxName = "GreatswordBigHitbox";
+
+            this.damageType = DamageType.Generic;
+
+            this.damageCoefficient = damageStat * StaticValues.GSDamage;
+            this.procCoefficient = 1f;
+            this.pushForce = 5000f;
+            this.bonusForce = characterBody.characterDirection.forward * pushForce;
+            this.baseDuration = 1.8f;
+            this.attackStartTime = 0.15f;
+            this.attackEndTime = 0.45f;
+            this.baseEarlyExitTime = 0.45f;
+            this.hitStopDuration = 0.1f;
+            this.attackRecoil = 0.75f;
+            this.hitHopVelocity = 7f;
+
+            this.swingSoundString = "SwordSwingSFX";
+            this.hitSoundString = "";
+            this.muzzleString = "SwordSwingLeft";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
+            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
+
+            this.impactSound = Modules.Assets.hitSoundEffect.index;
+
             base.OnEnter();
-            noctisCon = gameObject.GetComponent<NoctisController>();
-            this.animator = base.GetModelAnimator();
-            base.StartAimMode(this.baseDuration, false);
-            this.animator.SetBool("releaseChargeSlash", false);
-            this.animator.SetBool("releaseChargeLeap", false);
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
+            this.animator.SetBool("releaseChargeSlash", true);
+            hasVulnerability = true;
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
 
-            base.PlayCrossfade("FullBody, Override", "GSCharge", "Attack.playbackRate", this.baseDuration, 0.05f);
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
         }
 
-        public void ChargeCalc()
+        protected override void PlayAttackAnimation()
         {
-            this.chargePercent = base.fixedAge * attackSpeedStat / this.maxCharge;
-            this.damageMult = StaticValues.GSChargeDamage + StaticValues.GSChargeMultiplier * (this.chargePercent * StaticValues.GSChargeDamage);
-            noctisCon.WeaponAppearR(3f, WeaponTypeR.GREATSWORD);
+            base.PlayCrossfade("FullBody, Override", "GSChargeSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
         }
 
-        public override void FixedUpdate()
+        protected override void PlaySwingEffect()
         {
-            base.FixedUpdate();
-            characterMotor.velocity = Vector3.zero;
-            if (base.fixedAge < maxCharge)
+            base.PlaySwingEffect();
+        }
+
+        protected override void OnHitEnemyAuthority()
+        {
+            base.OnHitEnemyAuthority();
+
+        }
+
+        protected override void SetNextState()
+        {
+            if (base.isAuthority)
             {
-                if (inputBank.skill1.down && skillLocator.primary.skillDef == Noctis.greatswordSkillDef)
-                {
-                    ChargeCalc();
-                }
-                else if (inputBank.skill2.down && skillLocator.secondary.skillDef == Noctis.greatswordSkillDef)
-                {
-                    ChargeCalc();
-                }
-                else if (inputBank.skill4.down && skillLocator.special.skillDef == Noctis.greatswordSkillDef)
-                {
-                    ChargeCalc();        
-                }
-                else
-                {
-                    GreatswordBackward2 GreatswordBackward2 = new GreatswordBackward2();
-                    GreatswordBackward2.damageMult = damageMult;
-                    this.outer.SetNextState(GreatswordBackward2);
-                    this.animator.SetBool("releaseChargeSlash", true);
-                    return;
-                }
-            }
-            else
-            {
-                GreatswordBackward2 GreatswordBackward2 = new GreatswordBackward2();
-                GreatswordBackward2.damageMult = damageMult;
-                this.outer.SetNextState(GreatswordBackward2);
-                this.animator.SetBool("releaseChargeSlash", true);
+                if (!this.hasFired) this.FireAttack();
+
+                GreatswordCombo GreatswordCombo = new GreatswordCombo();
+                this.outer.SetNextState(GreatswordCombo);
                 return;
             }
 
         }
 
-
         public override void OnExit()
         {
             base.OnExit();
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+            this.animator.SetBool("releaseChargeSlash", false);
+            this.animator.SetBool("releaseChargeLeap", false);
         }
 
-        public override void OnSerialize(NetworkWriter writer)
-        {
-            base.OnSerialize(writer);
-            writer.Write(this.damageMult);
-        }
-
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-            this.damageMult = reader.ReadInt64();
-        }
     }
+
 }
+
 
 
 

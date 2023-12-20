@@ -10,11 +10,15 @@ using R2API;
 using System.Runtime.CompilerServices;
 using NoctisMod.Modules;
 using System.Reflection;
+using R2API.Networking;
+using ExtraSkillSlots;
 
 namespace NoctisMod.SkillStates
 {
     internal class GreatswordSwapBackward2 : BaseSkillState
     {
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
         private float baseDuration = 2f;
         internal float damageMult;
         internal float radius;
@@ -41,6 +45,8 @@ namespace NoctisMod.SkillStates
 
             base.OnEnter();
 
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             hasFired = false;
             this.animator = base.GetModelAnimator();
             this.animator.SetBool("releaseChargeLeap", true);
@@ -112,6 +118,20 @@ namespace NoctisMod.SkillStates
                 }
                 if (base.isAuthority)
                 {
+                    if (extrainputBankTest.extraSkill1.down)
+                    {
+                        Warpstrike warpstrike = new Warpstrike();
+                        warpstrike.weaponSwap = true;
+                        this.outer.SetNextState(warpstrike);
+                        return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        this.outer.SetNextState(new Jump
+                        {
+                        });
+                        return;
+                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();
@@ -200,6 +220,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
             this.animator.SetBool("releaseChargeSlash", false);
             this.animator.SetBool("releaseChargeLeap", false);
 

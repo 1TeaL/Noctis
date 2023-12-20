@@ -20,6 +20,7 @@ namespace NoctisMod.SkillStates
 
         private bool hasDropped;
         public float dropForce = StaticValues.GSDropSpeed;
+        private bool hasImpacted;
 
         public override void OnEnter()
         {
@@ -206,7 +207,10 @@ namespace NoctisMod.SkillStates
         }
         private void LandingImpact()
         {
-
+            if (!hasImpacted)
+            {
+                hasImpacted = true;
+            }
             AkSoundEngine.PostEvent("SlamSFX", base.gameObject);
             if (base.isAuthority)
             {

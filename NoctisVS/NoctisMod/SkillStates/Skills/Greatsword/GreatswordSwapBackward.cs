@@ -10,14 +10,18 @@ using R2API;
 using NoctisMod.Modules;
 using EntityStates.Huntress;
 using static NoctisMod.Modules.Survivors.NoctisController;
+using R2API.Networking;
 
 namespace NoctisMod.SkillStates
 {
     public class GreatswordSwapBackward : BaseSkillState
     {
+        private Transform modelTransform;
+        private CharacterModel characterModel;
         public NoctisController noctisCon;
         float baseDuration = 0.7f;
         private Animator animator;
+        private float chargeMultiplier;
         private float chargePercent;
         private float maxCharge = StaticValues.GSMaxCharge;
         private float damageMult;
@@ -26,7 +30,7 @@ namespace NoctisMod.SkillStates
         private float hitDis;
         private GameObject areaIndicator;
         private float radius;
-        private float baseRadius = 2f;
+        private float baseRadius = StaticValues.GSChargeRadius;
         private Vector3 maxMoveVec;
 
         public override void OnEnter()
@@ -42,6 +46,40 @@ namespace NoctisMod.SkillStates
             base.PlayCrossfade("FullBody, Override", "GSCharge", "Attack.playbackRate", this.baseDuration, 0.05f);
             this.areaIndicator = UnityEngine.Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
             this.areaIndicator.SetActive(true);
+
+            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
+
+            chargeMultiplier = 1f;
+            if (noctisCon.isSwapped)
+            {
+                chargeMultiplier = 3f;
+                this.modelTransform = base.GetModelTransform();
+                if (this.modelTransform)
+                {
+                    this.animator = this.modelTransform.GetComponent<Animator>();
+                    this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay.duration = 0.3f;
+                    temporaryOverlay.animateShaderAlpha = true;
+                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay.destroyComponentOnEnd = true;
+                    temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay2.duration = 0.3f;
+                    temporaryOverlay2.animateShaderAlpha = true;
+                    temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay2.destroyComponentOnEnd = true;
+                    temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+                }
+            }
+            else
+            {
+                chargeMultiplier = 1f;
+            }
         }
 
         public void ChargeCalc()

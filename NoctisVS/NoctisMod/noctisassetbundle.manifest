@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2397474683
+CRC: 1847362125
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 060380260c7cbaa187d53c905c9abf10
+    Hash: 74bbfcf79375dfea48144051c282d7eb
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -211,6 +211,7 @@ Assets:
 - Assets/Noctis/Animations/Sword/AerialOneHandStab.anim
 - Assets/Noctis/Assets/Material/nh00_000_hair_00_b_$h.btex.png
 - Assets/Noctis/Assets/Hitbox.prefab
+- Assets/Noctis/Animations/Greatsword/GSDP.anim
 - Assets/Noctis/Assets/Weapons/polearmMetallicImage.png
 - Assets/Noctis/Animations/Combat/AerialBackflip.anim
 - Assets/Noctis/GUI/Base/Shiggybaseskin.png

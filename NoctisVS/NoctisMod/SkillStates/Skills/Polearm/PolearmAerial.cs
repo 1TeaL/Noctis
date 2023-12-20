@@ -9,12 +9,15 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using EntityStates.Treebot.Weapon;
 using NoctisMod.Modules;
+using ExtraSkillSlots;
 
 namespace NoctisMod.SkillStates
 {
     public class PolearmAerial : BaseSkillState
 
     {
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
         public NoctisController noctisCon;
         public float previousMass;
         private Ray aimRay;
@@ -71,6 +74,8 @@ namespace NoctisMod.SkillStates
         {
             base.OnEnter();
             noctisCon = gameObject.GetComponent<NoctisController>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             this.aimRayDir = aimRay.direction;
 
             duration = baseduration / ((this.attackSpeedStat));
@@ -234,6 +239,7 @@ namespace NoctisMod.SkillStates
 
                 if (base.isAuthority)
                 {
+
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();
@@ -258,6 +264,13 @@ namespace NoctisMod.SkillStates
                     {
                         Jump Jump = new Jump();
                         this.outer.SetNextState(Jump);
+                        return;
+                    }
+                    if (extrainputBankTest.extraSkill1.down)
+                    {
+                        Warpstrike warpstrike = new Warpstrike();
+                        warpstrike.weaponSwap = true;
+                        this.outer.SetNextState(warpstrike);
                         return;
                     }
 

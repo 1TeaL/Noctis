@@ -148,7 +148,7 @@ namespace NoctisMod.SkillStates
                 }
                 if (inputBank.skill2.down)
                 {
-                    if (skillLocator.primary.skillDef == Noctis.polearmSkillDef && inputBank.jump.down)
+                    if (skillLocator.secondary.skillDef == Noctis.polearmSkillDef && inputBank.jump.down)
                     {
                         this.outer.SetNextState(new PolearmDoubleDragoonThrust());
                         return;
@@ -166,7 +166,7 @@ namespace NoctisMod.SkillStates
                 }
                 if (inputBank.skill4.down)
                 {
-                    if (skillLocator.primary.skillDef == Noctis.polearmSkillDef && inputBank.jump.down)
+                    if (skillLocator.special.skillDef == Noctis.polearmSkillDef && inputBank.jump.down)
                     {
                         this.outer.SetNextState(new PolearmDoubleDragoonThrust());
                         return;
