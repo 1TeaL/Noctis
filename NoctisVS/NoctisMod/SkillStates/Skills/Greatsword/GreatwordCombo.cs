@@ -139,7 +139,7 @@ namespace NoctisMod.SkillStates
                             //neutral attack
                             //Chat.AddMessage("neutral attack");
                             GreatswordNeutral GreatswordNeutral = new GreatswordNeutral();
-                            GreatswordNeutral.swingIndex = currentSwingIndex;
+                            //GreatswordNeutral.swingIndex = currentSwingIndex;
                             this.outer.SetNextState(GreatswordNeutral);
                             return;
                         }
@@ -171,7 +171,7 @@ namespace NoctisMod.SkillStates
                                 //neutral attack
                                 //Chat.AddMessage("neutral attack");
                                 GreatswordNeutral GreatswordNeutral = new GreatswordNeutral();
-                                GreatswordNeutral.swingIndex = currentSwingIndex;
+                                //GreatswordNeutral.swingIndex = currentSwingIndex;
                                 this.outer.SetNextState(GreatswordNeutral);
                                 return;
                             }

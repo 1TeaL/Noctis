@@ -110,7 +110,7 @@ namespace NoctisMod.SkillStates.BaseStates
 
             isSwapped = noctisCon.isSwapped;
             //DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
-            noctisCon.SetSwapTrue(baseDuration);
+            noctisCon.SetSwapTrue(baseDuration + 0.2f);
             if(isSwapped)
             {
                 this.modelTransform = base.GetModelTransform();
@@ -188,7 +188,7 @@ namespace NoctisMod.SkillStates.BaseStates
             if (!this.hasFired)
             {
                 this.hasFired = true;
-                Util.PlayAttackSpeedSound(this.swingSoundString, base.gameObject, this.attackSpeedStat);
+                Util.PlayAttackSpeedSound(this.swingSoundString, base.gameObject, 1f);
 
                 if (base.isAuthority)
                 {

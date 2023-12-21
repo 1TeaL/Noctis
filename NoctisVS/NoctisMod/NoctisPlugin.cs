@@ -130,6 +130,7 @@ namespace NoctisMod
             //networking
             NetworkingAPI.RegisterMessageType<TakeDamageRequest>();
             NetworkingAPI.RegisterMessageType<SetFreezeOnBodyRequest>();
+            NetworkingAPI.RegisterMessageType<ForceCounterState>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -299,7 +300,11 @@ namespace NoctisMod
                 {
                     self.armor += StaticValues.dodgeArmor;
                 }
-                                
+                if (self.HasBuff(Buffs.counterBuff))
+                {
+                    self.armor += StaticValues.dodgeArmor;
+                }
+
             }
             
 

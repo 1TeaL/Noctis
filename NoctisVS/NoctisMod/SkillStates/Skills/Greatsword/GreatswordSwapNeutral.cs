@@ -7,15 +7,20 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
-using HG;
 using NoctisMod.Modules;
+using System.Linq;
+using NoctisMod.Modules.Networking;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
+using UnityEngine.PlayerLoop;
 
 namespace NoctisMod.SkillStates
 {
     public class GreatswordSwapNeutral : BaseMeleeAttack
     {
-        private bool hasSlammed;
-        private float radius = StaticValues.GSSlamRadius;
+        private readonly BullseyeSearch search = new BullseyeSearch();
+        public HurtBox target;
+        private bool isTarget;
         public override void OnEnter()
         {
 
@@ -23,15 +28,16 @@ namespace NoctisMod.SkillStates
             weaponDef = Noctis.greatswordSkillDef;
             this.hitboxName = "GreatswordHitbox";
 
-            this.damageType = DamageType.Stun1s;
+            this.damageType = DamageType.Generic;
 
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 1000f;
-            this.baseDuration = 3f;
-            this.attackStartTime = 0.16f;
-            this.attackEndTime = 0.9f;
-            this.baseEarlyExitTime = 0.9f;
+            this.bonusForce = new Vector3(0f, 5000f, 0f);
+            this.baseDuration = 2.7f;
+            this.attackStartTime = 0.2f;
+            this.attackEndTime = 0.45f;
+            this.baseEarlyExitTime = 0.5f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 7f;
@@ -39,89 +45,71 @@ namespace NoctisMod.SkillStates
             this.swingSoundString = "GreatswordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingUp";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffectMedium;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
-
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-            hasSlammed = false;
+
             base.OnEnter();
             hasVulnerability = true;
             if (isSwapped)
             {
-                this.baseDuration = 2.5f;
-                this.attackStartTime = 0.01f;
-                this.attackEndTime = 0.9f;
-                this.baseEarlyExitTime = 0.9f;
+                this.baseDuration = 2f;
+                this.attackStartTime = 0.05f;
+                this.attackEndTime = 0.4f;
+                this.baseEarlyExitTime = 0.45f;
             }
+
+        }
+
+        public void DealDamage()
+        {
+
+            search.teamMaskFilter = TeamMask.GetEnemyTeams(base.GetTeam());
+            search.filterByLoS = true;
+            search.searchOrigin = characterBody.corePosition;
+            search.searchDirection = base.GetAimRay().direction;
+            search.sortMode = BullseyeSearch.SortMode.Distance;
+            search.maxDistanceFilter = 10f;
+            search.maxAngleFilter = 120f;
+
+
+            search.RefreshCandidates();
+            search.FilterOutGameObject(base.gameObject);
+
+            RoR2.HurtBox target = search.GetResults().First<HurtBox>();
+
+            if (target)
+            {
+                isTarget = true;
+                new TakeDamageRequest(characterBody.masterObjectId, target.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage * partialAttack, Vector3.up, true, true).Send(NetworkDestination.Clients);
+            }
+
 
         }
 
         public override void FixedUpdate()
         {
-            if(base.fixedAge > this.baseDuration * attackEndTime && !hasSlammed)
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
             {
-                hasSlammed = true;
-
-                EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingDown", true);
-
-                for (int i = 0; i < 3; i += 1)
+                if (!isTarget)
                 {
-                    Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * radius / 2f);
-                    effectPosition.y = base.characterBody.footPosition.y;
-                    EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
-                    {
-                        origin = effectPosition,
-                        scale = radius / 2f,
-                    }, true);
-                }
-
-                bool isAuthority = base.isAuthority;
-                if (isAuthority)
-                {
-                    BlastAttack blastAttack = new BlastAttack();
-
-                    blastAttack.position = base.characterBody.corePosition;
-                    blastAttack.baseDamage = this.damageStat * damageCoefficient;
-                    blastAttack.baseForce = this.pushForce;
-                    blastAttack.radius = this.radius;
-                    blastAttack.attacker = base.gameObject;
-                    blastAttack.inflictor = base.gameObject;
-                    blastAttack.teamIndex = base.teamComponent.teamIndex;
-                    blastAttack.crit = base.RollCrit();
-                    blastAttack.procChainMask = default(ProcChainMask);
-                    blastAttack.procCoefficient = procCoefficient;
-                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                    blastAttack.damageColorIndex = DamageColorIndex.Default;
-                    blastAttack.damageType = DamageType.Stun1s;
-                    blastAttack.attackerFiltering = AttackerFiltering.Default;
-                    blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
-
-                    for (int i = 0; i < attackAmount; i++)
-                    {
-                        blastAttack.Fire();
-                    }
-                    if (partialAttack > 0f)
-                    {
-                        blastAttack.baseDamage = this.damageStat * damageCoefficient * partialAttack;
-                        blastAttack.procCoefficient = procCoefficient * partialAttack;
-                        blastAttack.Fire();
-                    }
+                    this.DealDamage();
                 }
             }
             base.FixedUpdate();
+
         }
 
         protected override void PlayAttackAnimation()
         {
-            if(isSwapped)
+            if (isSwapped)
             {
-                animator.Play("FullBody, Override.GSUpDownSlam", -1, 0.16f);
+                animator.Play("FullBody, Override.GSUpper", -1, 0.2f);
             }
             else
             {
-                base.PlayCrossfade("FullBody, Override", "GSUpDownSlam", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
-
+                base.PlayCrossfade("FullBody, Override", "GSUpper", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
             }
         }
 
@@ -141,12 +129,24 @@ namespace NoctisMod.SkillStates
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
-                GreatswordCombo GreatswordCombo = new GreatswordCombo();
-                this.outer.SetNextState(GreatswordCombo);
-                return;
+
+                if(isTarget)
+                {
+                    GreatswordFollowUpSlam GreatswordFollowUpSlam = new GreatswordFollowUpSlam();
+                    GreatswordFollowUpSlam.Target = target;
+                    this.outer.SetNextState(GreatswordFollowUpSlam);
+                    return;
+
+                }
+                else
+                {
+                    GreatswordCombo GreatswordCombo = new GreatswordCombo();
+                    this.outer.SetNextState(GreatswordCombo);
+                    return;
+
+                }
 
             }
-
 
         }
 

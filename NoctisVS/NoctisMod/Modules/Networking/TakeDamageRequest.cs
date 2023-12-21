@@ -18,6 +18,8 @@ namespace NoctisMod.Modules.Networking
         Vector3 direction;
         private float force;
         private float damage;
+        private bool causeForce;
+        private bool vulnerability;
 
         //Don't network these.
         GameObject bodyObj;
@@ -31,11 +33,14 @@ namespace NoctisMod.Modules.Networking
 
         }
 
-        public TakeDamageRequest(NetworkInstanceId netID, NetworkInstanceId enemyNetID, float damage)
+        public TakeDamageRequest(NetworkInstanceId netID, NetworkInstanceId enemyNetID, float damage, Vector3 direction, bool causeForce, bool vulnerability)
         {
             this.netID = netID;
             this.enemyNetID = enemyNetID;
             this.damage = damage;
+            this.direction = direction;
+            this.causeForce = causeForce;
+            this.vulnerability = vulnerability;
         }
 
         public void Deserialize(NetworkReader reader)
@@ -43,6 +48,9 @@ namespace NoctisMod.Modules.Networking
             netID = reader.ReadNetworkId();
             enemyNetID = reader.ReadNetworkId();
             damage = reader.ReadSingle();
+            direction = reader.ReadVector3();
+            causeForce = reader.ReadBoolean();
+            vulnerability = reader.ReadBoolean();
         }
 
         public void Serialize(NetworkWriter writer)
@@ -50,6 +58,9 @@ namespace NoctisMod.Modules.Networking
             writer.Write(netID);
             writer.Write(enemyNetID);
             writer.Write(damage);
+            writer.Write(direction);
+            writer.Write(causeForce);
+            writer.Write(vulnerability);
         }
 
         public void OnReceived()
@@ -88,8 +99,10 @@ namespace NoctisMod.Modules.Networking
                 crit = charBody.RollCrit(),
 
             };
-
-            Vector3 direction = charBody.characterDirection.forward;
+            if (vulnerability)
+            {
+                DamageAPI.AddModdedDamageType(damageInfo, Damage.noctisVulnerability);
+            }
 
             EffectManager.SpawnEffect(Modules.Assets.noctisHitEffect, new EffectData
             {
@@ -100,6 +113,21 @@ namespace NoctisMod.Modules.Networking
             }, true);
             AkSoundEngine.PostEvent("NoctisHitSFX", enemycharBody.gameObject);
 
+
+            float Weight = 1f;
+            if (enemycharBody.characterMotor)
+            {
+                Weight = enemycharBody.characterMotor.mass;
+            }
+            else if (enemycharBody.rigidbody)
+            {
+                Weight = enemycharBody.rigidbody.mass;
+            }
+
+            if (causeForce)
+            {
+                enemycharBody.healthComponent.TakeDamageForce(direction * 40f * (Weight), true, true);
+            }
 
             enemycharBody.healthComponent.TakeDamage(damageInfo);
             GlobalEventManager.instance.OnHitEnemy(damageInfo, enemycharBody.healthComponent.gameObject);

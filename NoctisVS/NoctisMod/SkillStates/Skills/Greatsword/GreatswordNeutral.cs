@@ -1,88 +1,197 @@
 ﻿using EntityStates;
+using ExtraSkillSlots;
+using NoctisMod.Modules.Networking;
+using NoctisMod.Modules.Survivors;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
 using RoR2;
 using UnityEngine;
-using NoctisMod.Modules.Survivors;
-using System;
-using System.Collections.Generic;
 using UnityEngine.Networking;
-using NoctisMod.SkillStates.BaseStates;
-using R2API;
-using NoctisMod.Modules;
+using static NoctisMod.Modules.Survivors.NoctisController;
+using Random = UnityEngine.Random;
 
 namespace NoctisMod.SkillStates
 {
-    public class GreatswordNeutral : BaseMeleeAttack
+    public class GreatswordNeutral : BaseSkillState
     {
+        public NoctisController noctisCon;
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
+        public Animator animator;
+
+        public enum DangerState {STARTBUFF, CHECKCOUNTER};
+        public DangerState state;
+        public DamageType damageType = DamageType.Freeze2s;
+
         public override void OnEnter()
         {
-
-            //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
-            weaponDef = Noctis.greatswordSkillDef;
-            this.hitboxName = "GreatswordHitbox";
-
-            this.damageType = DamageType.Generic;
-
-            this.damageCoefficient = StaticValues.GSDamage;
-            this.procCoefficient = StaticValues.GSProc;
-            this.pushForce = 1000f;
-            this.bonusForce = new Vector3(0f, 5000f, 0f);
-            this.baseDuration = 2.7f;
-            this.attackStartTime = 0.2f;
-            this.attackEndTime = 0.45f;
-            this.baseEarlyExitTime = 0.5f;
-            this.hitStopDuration = 0.1f;
-            this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 7f;
-
-            this.swingSoundString = "GreatswordSwingSFX";
-            this.hitSoundString = "";
-            this.muzzleString = "SwordSwingUp";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
-
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
-
             base.OnEnter();
-            hasVulnerability = true;
+            noctisCon = GetComponent<NoctisController>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
+
+            this.animator = base.GetModelAnimator();
+            this.animator.SetBool("releaseCounter", false);
+            this.animator.SetBool("releaseCounterSlam", false);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
+
+            base.PlayCrossfade("FullBody, Override", "GSCounterStance", "Attack.playbackRate", 1f, 0.05f);
+
+            state = DangerState.STARTBUFF;
+
+                                             
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            noctisCon.WeaponAppearR(1f, WeaponTypeR.GREATSWORD);
+
 
         }
 
-        protected override void PlayAttackAnimation()
+        private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            base.PlayCrossfade("FullBody, Override", "GSUpper", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
-        }
 
-        protected override void PlaySwingEffect()
-        {
-            base.PlaySwingEffect();
-        }
-
-        protected override void OnHitEnemyAuthority()
-        {
-            base.OnHitEnemyAuthority();
-
-        }
-
-        protected override void SetNextState()
-        {
-            if (base.isAuthority)
+            if (damageInfo != null && damageInfo.attacker && damageInfo.attacker.GetComponent<CharacterBody>())
             {
-                if (!this.hasFired) this.FireAttack();
+                bool flag = (damageInfo.damageType & DamageType.BypassArmor) > DamageType.Generic;
+                if (!flag && damageInfo.damage > 0f)
+                {
+                    if (self.body.HasBuff(Modules.Buffs.counterBuff.buffIndex))
+                    {
+                        if (damageInfo.attacker != self)
+                        {
 
-                GreatswordCombo GreatswordCombo = new GreatswordCombo();
-                this.outer.SetNextState(GreatswordCombo);
-                return;
+                            this.animator.SetBool("releaseCounterSlam", true);
+                            new ForceCounterState(self.body.masterObjectId).Send(NetworkDestination.Clients);
+                        }
+                        self.body.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
+
+                    }
+
+                }
+        
+
+            }
+            orig.Invoke(self, damageInfo);
+        }
+
+
+        public override void OnExit()
+        {
+            On.RoR2.HealthComponent.TakeDamage -= HealthComponent_TakeDamage;
+            bool active = NetworkServer.active;
+            if (active && base.characterBody.HasBuff(Modules.Buffs.counterBuff))
+            {
+                base.characterBody.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
+            }
+            base.OnExit();
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            switch (state)
+            {
+                case DangerState.STARTBUFF:
+                    if (!base.characterBody.HasBuff(Modules.Buffs.counterBuff.buffIndex))
+                    {
+                        bool active = NetworkServer.active;
+                        if (active)
+                        {
+                            base.characterBody.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 1);
+
+                        }
+                        state = DangerState.CHECKCOUNTER;
+                    }
+                    break;
+                case DangerState.CHECKCOUNTER:
+                    noctisCon.SetSwapTrue(1f);
+                    noctisCon.WeaponAppearR(1f, WeaponTypeR.GREATSWORD);
+
+                    if (inputBank.skill3.down)
+                    {
+                        this.animator.SetBool("releaseCounter", true);
+                        this.outer.SetNextState(new Dodge());
+                        return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        this.animator.SetBool("releaseCounter", true);
+                        this.outer.SetNextState(new Jump
+                        {
+                        });
+                        return;
+                    }
+                    if (extrainputBankTest.extraSkill1.down)
+                    {
+                        Warpstrike warpstrike = new Warpstrike();
+                        warpstrike.weaponSwap = true;
+                        this.outer.SetNextState(warpstrike);
+                        this.animator.SetBool("releaseCounter", true);
+                        return;
+                    }
+
+
+                    if (inputBank.skill1.down)
+                    {
+                        if(skillLocator.primary.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+                        {
+                            state = DangerState.CHECKCOUNTER;
+                            this.animator.SetBool("releaseCounter", false);
+                            this.animator.SetBool("releaseCounterSlam", false);
+                        }
+                        else
+                        {
+                            this.animator.SetBool("releaseCounter", true);
+                            this.outer.SetNextStateToMain();
+                            return;
+                        }
+                    }
+                    else
+                    if (inputBank.skill2.down)
+                    {
+                        if (skillLocator.secondary.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+                        {
+                            state = DangerState.CHECKCOUNTER;
+                            this.animator.SetBool("releaseCounter", false);
+                            this.animator.SetBool("releaseCounterSlam", false);
+                        }
+                        else
+                        {
+                            this.animator.SetBool("releaseCounter", true);
+                            this.outer.SetNextStateToMain();
+                            return;
+                        }
+                    }
+                    else
+                    if (inputBank.skill4.down)
+                    {
+                        if (skillLocator.special.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+                        {
+                            state = DangerState.CHECKCOUNTER;
+                            this.animator.SetBool("releaseCounter", false);
+                            this.animator.SetBool("releaseCounterSlam", false);
+                        }
+                        else
+                        {
+                            this.animator.SetBool("releaseCounter", true);
+                            this.outer.SetNextStateToMain();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        this.animator.SetBool("releaseCounter", true);
+                        this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    break; 
             }
 
         }
 
-        public override void OnExit()
+        public override InterruptPriority GetMinimumInterruptPriority()
         {
-            base.OnExit();
+            return InterruptPriority.Frozen;
         }
-
     }
 }
-
-
-

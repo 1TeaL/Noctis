@@ -53,7 +53,7 @@ namespace NoctisMod.Modules
         //public static Sprite tarBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdClayGoo.asset").WaitForCompletion().iconSprite;
         //public static Sprite crippleBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdCripple.asset").WaitForCompletion().iconSprite;
         //public static Sprite speedBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Bandit2/bdCloakSpeed.asset").WaitForCompletion().iconSprite;
-        //public static Sprite boostBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/RandomDamageZone/bdPowerBuff.asset").WaitForCompletion().iconSprite;
+        public static Sprite boostBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/RandomDamageZone/bdPowerBuff.asset").WaitForCompletion().iconSprite;
         //public static Sprite alphashieldonBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/BearVoid/bdBearVoidReady.asset").WaitForCompletion().iconSprite;
         //public static Sprite alphashieldoffBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/DLC1/BearVoid/bdBearVoidCooldown.asset").WaitForCompletion().iconSprite;
         //public static Sprite decayBuffIcon = Addressables.LoadAssetAsync<BuffDef>("RoR2/Base/Common/bdVoidFogStrong.asset").WaitForCompletion().iconSprite;
@@ -81,12 +81,16 @@ namespace NoctisMod.Modules
         //public static Material alphaconstructShieldBuffMat;
         //public static Material blastingZoneBurnMat;
 
+        //game effects
+        public static GameObject sonicboomEffectPrefab = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/effects/SonicBoomEffect");
 
 
         //own effects
         //melee swing
         internal static GameObject noctisHitEffect;
         internal static GameObject noctisSwingEffect;
+        internal static GameObject noctisSwingEffectMedium;
+        internal static GameObject noctisSwingEffectLarge;
 
         //particles
         internal static GameObject noctisDashEffect;
@@ -145,6 +149,8 @@ namespace NoctisMod.Modules
             //sword swing
             noctisHitEffect = Assets.LoadEffect("hitEffect");
             noctisSwingEffect = Assets.LoadEffect("swingEffect", true);
+            noctisSwingEffectMedium = Assets.LoadEffect("swingEffectMedium", true);
+            noctisSwingEffectLarge = Assets.LoadEffect("swingEffectLarge", true);
 
             //particles
             noctisDashEffect = Assets.LoadEffect("DashParticle", true);

@@ -191,11 +191,11 @@ namespace NoctisMod.SkillStates
                 {
                     for (int i = 0; i <= numberOfHits; i += 1)
                     {
-                        new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage).Send(NetworkDestination.Clients);
+                        new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage, characterBody.characterDirection.forward, false, false).Send(NetworkDestination.Clients);
                     }
                     if(partialAttack > 0f)
                     {
-                        new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage * partialAttack).Send(NetworkDestination.Clients);
+                        new TakeDamageRequest(characterBody.masterObjectId, singularTarget.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage * partialAttack, characterBody.characterDirection.forward, false, false).Send(NetworkDestination.Clients);
 
                     }
 

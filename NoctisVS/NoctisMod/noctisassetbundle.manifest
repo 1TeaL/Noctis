@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1847362125
+CRC: 3123588348
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 74bbfcf79375dfea48144051c282d7eb
+    Hash: 9db7298ddbd0c400475d25faa714b5bf
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -89,11 +89,13 @@ Assets:
 - Assets/Noctis/Assets/Material/teethMat.mat
 - Assets/Noctis/Assets/Material/nh00_010_cloth_00_n_$h.btex.png
 - Assets/Noctis/Assets/Material/bodyShapeMat.mat
+- Assets/Noctis/Animations/Greatsword/GSDownSlam.anim
 - Assets/Noctis/Assets/Material/faceNormal.png
 - Assets/Noctis/Animations/Sword/SwordKickFlip.anim
 - Assets/Noctis/Assets/Weapons/polearmNormalImage.png
 - Assets/Noctis/Assets/Mesh/TeardropVFXAShapeMesh.mesh
 - Assets/Noctis/Animations/Polearm/PolearmStabBackjump.anim
+- Assets/Noctis/Assets/Particle/swingEffectMedium.prefab
 - Assets/Noctis/Assets/Particle/weaponSwap.prefab
 - Assets/Noctis/Animations/animNoctis.controller
 - Assets/Noctis/Assets/Material/masochismWaveShaderv2.shader
@@ -146,6 +148,7 @@ Assets:
 - Assets/Noctis/Assets/Mesh/U_TeethShapeMesh.mesh
 - Assets/Noctis/Assets/Weapons/swordImage.png
 - Assets/Noctis/Animations/Combat/FrontFlip.anim
+- Assets/Noctis/Animations/Greatsword/GSCounterStanceLoop.anim
 - Assets/Noctis/Animations/NoctisAvatar.asset
 - Assets/Noctis/Animations/Combat/TripleSlash.anim
 - Assets/Noctis/Assets/noctisCustomUI.prefab
@@ -162,6 +165,7 @@ Assets:
 - Assets/Noctis/Assets/Material/hairMat.mat
 - Assets/Noctis/Assets/Weapons/fresnelMat.mat
 - Assets/Noctis/Assets/Mesh/EyeShapeMesh.mesh
+- Assets/Noctis/Animations/Greatsword/GSCounterStance.anim
 - Assets/Noctis/Assets/Material/noise3blur.png
 - Assets/Noctis/Assets/Weapons/polearmMesh.mesh
 - Assets/Noctis/Assets/Weapons/swordMesh.mesh
@@ -201,6 +205,7 @@ Assets:
 - Assets/Noctis/Assets/Material/white noise.png
 - Assets/Noctis/Assets/Material/Ring.png
 - Assets/Noctis/Animations/Polearm/PolearmJumpDescendingThrust.anim
+- Assets/Noctis/Assets/Particle/swingEffectLarge.prefab
 - Assets/Noctis/Animations/Movement/walkBackward.anim
 - Assets/Noctis/Animations/Polearm/PolearmChargingThrust.anim
 - Assets/Noctis/Assets/Mesh/EyelashShapeMesh.mesh

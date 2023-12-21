@@ -8,6 +8,7 @@ namespace NoctisMod.Modules
     public static class Damage
     {
         internal static DamageAPI.ModdedDamageType noctisVulnerability;
+        internal static DamageAPI.ModdedDamageType noctisFollowUp;
 
         internal static void SetupModdedDamage()
         {

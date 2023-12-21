@@ -40,7 +40,7 @@ namespace NoctisMod.SkillStates
             this.swingSoundString = "SwordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingLeft";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffectLarge;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;

@@ -242,7 +242,7 @@ namespace NoctisMod.SkillStates
                             Freeze();
                         }
 
-                        new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance * StaticValues.warpstrikeDamageScaling).Send(NetworkDestination.Clients);
+                        new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * distance * StaticValues.warpstrikeDamageScaling, characterDirection.forward, false, false).Send(NetworkDestination.Clients);
                         keepMoving = false;
                         base.PlayAnimation("FullBody, Override", "WarpStrikeAttack", "Attack.playbackRate", 0.01f);
                         AkSoundEngine.PostEvent("NoctisHitSFX", base.gameObject);

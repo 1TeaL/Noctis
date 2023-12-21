@@ -15,12 +15,8 @@ namespace NoctisMod.SkillStates
 {
     public class GreatswordSwapAerial : BaseMeleeAttack
     {
-        private float dropTimer;
-        private GameObject slamIndicatorInstance;
-
-        private bool hasDropped;
-        public float dropForce = StaticValues.GSDropSpeed;
-        private bool hasImpacted;
+        private HurtBox target;
+        private bool isTarget;
 
         public override void OnEnter()
         {
@@ -34,18 +30,18 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = 1f;
             this.pushForce = 300f;
-            this.baseDuration = 1f;
-            this.attackStartTime = 0.4f;
-            this.attackEndTime = 0.9f;
-            this.baseEarlyExitTime = 0.9f;
+            this.baseDuration = 0.5f;
+            this.attackStartTime = 0.25f;
+            this.attackEndTime = 0.85f;
+            this.baseEarlyExitTime = 0.5f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
 
-            this.swingSoundString = "SwordSwingSFX";
+            this.swingSoundString = "GreatswordSwingSFX";
             this.hitSoundString = "";
-            this.muzzleString = "SwordSwingDown";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
+            this.muzzleString = "SwordSwingUp";
+            this.swingEffectPrefab = Modules.Assets.noctisSwingEffectMedium;
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
@@ -63,193 +59,30 @@ namespace NoctisMod.SkillStates
 
             if (isSwapped)
             {
-                this.baseDuration = 1f;
+                this.baseDuration = 0.375f;
                 this.attackStartTime = 0f;
-                this.attackEndTime = 0.7f;
-                this.baseEarlyExitTime = 0.7f;
+                this.attackEndTime = 0.6f;
+                this.baseEarlyExitTime = 0.3f;
             }
 
+            base.SmallHop(characterMotor, 20f);
+
+            if(noctisCon.Target)
+            {
+                target = noctisCon.GetTrackingTarget();
+                isTarget = true;
+            }
+            
+            if(isTarget)
+            {
+                base.characterMotor.velocity = Vector3.zero;
+                base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - base.GetAimRay().direction, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            }
         }
 
         public override void FixedUpdate()
         {
-
-            dropTimer += Time.fixedDeltaTime;
-
-            if (!this.hasDropped)
-            {
-                base.characterMotor.velocity.y = 0f;
-            }
-
-            if (base.fixedAge >= (baseDuration * attackStartTime * 0.25f) && !this.slamIndicatorInstance)
-            {
-                this.CreateIndicator();
-            }
-
-            if (base.fixedAge >= baseDuration * attackStartTime && !this.hasDropped)
-            {
-                this.StartDrop();
-            }
-
-            if (this.hasDropped && base.isAuthority && !base.characterMotor.disableAirControlUntilCollision)
-            {
-                this.LandingImpact();
-                this.outer.SetNextStateToMain();
-            }
-
-            this.hitPauseTimer -= Time.fixedDeltaTime;
-
-            if (this.hitPauseTimer <= 0f && this.inHitPause)
-            {
-                base.ConsumeHitStopCachedState(this.hitStopCachedState, base.characterMotor, this.animator);
-                this.inHitPause = false;
-                base.characterMotor.velocity = this.storedVelocity;
-            }
-
-            if (!this.inHitPause)
-            {
-                this.stopwatch += Time.fixedDeltaTime;
-            }
-            else
-            {
-                if (base.characterMotor) base.characterMotor.velocity = Vector3.zero;
-                if (this.animator) this.animator.SetFloat("Attack.playbackRate", 0f);
-                this.animator.SetFloat("Slash.playbackRate", 0f);
-                this.animator.SetFloat("Swing.playbackRate", 0f);
-            }
-
-            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && this.stopwatch <= (this.baseDuration * this.attackEndTime))
-            {
-                this.FireAttack();
-            }
-
-            if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
-            {
-                if (inputBank.skill1.down)
-                {
-                    if (skillLocator.primary.skillDef == weaponDef)
-                    {
-                        SetNextState();
-                    }
-                    else
-                    {
-                        if (!this.hasFired) this.FireAttack();
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
-                if (inputBank.skill2.down)
-                {
-                    if (skillLocator.secondary.skillDef == weaponDef)
-                    {
-                        SetNextState();
-                    }
-                    else
-                    {
-                        if (!this.hasFired) this.FireAttack();
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
-                if (inputBank.skill4.down)
-                {
-                    if (skillLocator.special.skillDef == weaponDef)
-                    {
-                        SetNextState();
-                    }
-                    else
-                    {
-                        if (!this.hasFired) this.FireAttack();
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                }
-            }
-
-            if (this.stopwatch >= this.baseDuration && base.isAuthority)
-            {
-                this.outer.SetNextStateToMain();
-                return;
-            }
-        }
-
-        public override void Update()
-        {
-            base.Update();
-
-            if (this.slamIndicatorInstance) this.UpdateSlamIndicator();
-        }
-
-        private void StartDrop()
-        {
-            this.hasDropped = true;
-
-            base.characterMotor.disableAirControlUntilCollision = true;
-            base.characterMotor.velocity.y = -dropForce;
-        }
-
-        private void CreateIndicator()
-        {
-            if (EntityStates.Huntress.ArrowRain.areaIndicatorPrefab)
-            {
-                this.slamIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
-                this.slamIndicatorInstance.SetActive(true);
-
-            }
-        }
-        private void UpdateSlamIndicator()
-        {
-            if (this.slamIndicatorInstance)
-            {
-                this.slamIndicatorInstance.transform.localScale = Vector3.one * StaticValues.GSSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
-                this.slamIndicatorInstance.transform.localPosition = base.transform.position;
-            }
-        }
-        private void LandingImpact()
-        {
-            if (!hasImpacted)
-            {
-                hasImpacted = true;
-            }
-            AkSoundEngine.PostEvent("SlamSFX", base.gameObject);
-            if (base.isAuthority)
-            {
-                Ray aimRay = base.GetAimRay();
-
-                base.characterMotor.velocity *= 0.1f;
-
-                BlastAttack blastAttack = new BlastAttack();
-                blastAttack.radius = StaticValues.GSSlamRadius * (1 + dropTimer / 2) * attackSpeedStat;
-                blastAttack.procCoefficient = StaticValues.GSProc;
-                blastAttack.position = base.characterBody.footPosition;
-                blastAttack.attacker = base.gameObject;
-                blastAttack.crit = base.RollCrit();
-                blastAttack.baseDamage = base.characterBody.damage * damageCoefficient * (1 + dropTimer / 2) * attackSpeedStat;
-                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                blastAttack.baseForce = pushForce * (1 + dropTimer);
-                blastAttack.teamIndex = base.teamComponent.teamIndex;
-                blastAttack.damageType = DamageType.Stun1s;
-                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
-
-                DamageAPI.AddModdedDamageType(blastAttack, Modules.Damage.noctisVulnerability);
-                for (int i = 0; i < attackAmount; i++)
-                {
-                    blastAttack.Fire();
-                }
-
-                for (int i = 0; i < 3; i += 1)
-                {
-                    Vector3 effectPosition = base.characterBody.footPosition + (UnityEngine.Random.insideUnitSphere * (StaticValues.GSSlamRadius * (1 + dropTimer) * 0.5f));
-                    effectPosition.y = base.characterBody.footPosition.y;
-                    EffectManager.SpawnEffect(EntityStates.BeetleGuardMonster.GroundSlam.slamEffectPrefab, new EffectData
-                    {
-                        origin = effectPosition,
-                        scale = StaticValues.GSSlamRadius * (1 + dropTimer / 2) * attackSpeedStat,
-                    }, true);
-                }
-
-
-            }
+            base.FixedUpdate();
         }
 
         protected override void PlayAttackAnimation()
@@ -257,11 +90,11 @@ namespace NoctisMod.SkillStates
 
             if (isSwapped)
             {
-                animator.Play("FullBody, Override.GSAerialSlash", -1, 0.36f);
+                animator.Play("FullBody, Override.GSDP", -1, 0.25f);
             }
             else
             {
-                base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+                base.PlayCrossfade("FullBody, Override", "GSDP", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
             }
         }
 
@@ -282,14 +115,6 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
-                characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
-                if (this.slamIndicatorInstance)
-                    this.slamIndicatorInstance.SetActive(false);
-                EntityState.Destroy(this.slamIndicatorInstance);
-
-                base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-                base.gameObject.layer = LayerIndex.defaultLayer.intVal;
-                base.characterMotor.Motor.RebuildCollidableLayers();
 
                 GreatswordCombo GreatswordCombo = new GreatswordCombo();
                 this.outer.SetNextState(GreatswordCombo);
@@ -304,9 +129,6 @@ namespace NoctisMod.SkillStates
         {
             base.OnExit();
             characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
-            if (this.slamIndicatorInstance)
-                this.slamIndicatorInstance.SetActive(false);
-            EntityState.Destroy(this.slamIndicatorInstance);
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;

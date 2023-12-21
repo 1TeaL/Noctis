@@ -175,6 +175,9 @@ namespace NoctisMod.Modules.Survivors
             Transform hitboxTransform4 = childLocator.FindChild("AOEHitbox");
             Modules.Prefabs.SetupHitbox(model, hitboxTransform4, "AOEHitbox");
 
+            Transform hitboxTransform5 = childLocator.FindChild("GreatswordBigHitbox");
+            Modules.Prefabs.SetupHitbox(model, hitboxTransform5, "GreatswordBigHitbox");
+
             //Transform hitboxTransform5 = childLocator.FindChild("DecayHitbox");
             //Modules.Prefabs.SetupHitbox(model, hitboxTransform5, "DecayHitbox");
         }
