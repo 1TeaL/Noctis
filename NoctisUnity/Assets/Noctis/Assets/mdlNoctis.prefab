@@ -133010,6 +133010,8 @@ MonoBehaviour:
     transform: {fileID: 5542198510499102159}
   - name: SwordSwingLeft
     transform: {fileID: 857931349666020119}
+  - name: GreatswordBigHitbox
+    transform: {fileID: 1099923800396028766}
 --- !u!1 &9087208661878661363
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,7 +47,7 @@ namespace NoctisMod.SkillStates
             this.areaIndicator = UnityEngine.Object.Instantiate<GameObject>(ArrowRain.areaIndicatorPrefab);
             this.areaIndicator.SetActive(true);
 
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 1);
 
             chargeMultiplier = 1f;
             if (noctisCon.isSwapped)

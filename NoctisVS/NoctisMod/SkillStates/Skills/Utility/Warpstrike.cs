@@ -14,6 +14,7 @@ using HG;
 using NoctisMod.Modules.Networking;
 using R2API.Networking.Interfaces;
 using System.Linq;
+using ExtraSkillSlots;
 
 namespace NoctisMod.SkillStates
 {
@@ -23,6 +24,8 @@ namespace NoctisMod.SkillStates
         private CharacterModel characterModel;
         public NoctisController noctisCon;
         public EnergySystem energySystem;
+        public ExtraInputBankTest extrainputBankTest;
+        private ExtraSkillLocator extraskillLocator;
         private Ray aimRay;
         public float dashSpeed = Modules.StaticValues.warpstrikeSpeed;
 
@@ -48,6 +51,8 @@ namespace NoctisMod.SkillStates
             base.OnEnter();
             noctisCon = gameObject.GetComponent<NoctisController>();
             energySystem = gameObject.GetComponent<EnergySystem>();
+            extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
+            extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             this.animator = base.GetModelAnimator();
             this.modelTransform = base.GetModelTransform();
             animator.SetFloat("Attack.playbackRate", 2f);
@@ -109,15 +114,21 @@ namespace NoctisMod.SkillStates
                 origin = characterBody.corePosition,
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
             }, true);
+
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
         }
 
         private void PlayAnimation()
         {
             AkSoundEngine.PostEvent("Warpstrike", base.gameObject);
 
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
+            }
+
             if (weaponSwap)
             {
-                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
 
                 if (isTarget)
                 {
@@ -136,7 +147,6 @@ namespace NoctisMod.SkillStates
             }
             else
             {
-                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
 
                 if (isTarget)
                 {
@@ -290,6 +300,20 @@ namespace NoctisMod.SkillStates
                     if (inputBank.skill4.down)
                     {
                         this.outer.SetNextStateToMain();
+                        return;
+                    }
+                    if (inputBank.jump.down)
+                    {
+                        this.outer.SetNextState(new Jump
+                        {
+                        });
+                        return;
+                    }
+                    if (extrainputBankTest.extraSkill1.down)
+                    {
+                        Warpstrike warpstrike = new Warpstrike();
+                        warpstrike.weaponSwap = true;
+                        this.outer.SetNextState(warpstrike);
                         return;
                     }
                 }

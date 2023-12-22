@@ -28,7 +28,7 @@ namespace NoctisMod.SkillStates
             weaponDef = Noctis.greatswordSkillDef;
             this.hitboxName = "GreatswordHitbox";
 
-            this.damageType = DamageType.Generic;
+            this.damageType = DamageType.Stun1s;
 
             this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = StaticValues.GSProc;
@@ -70,19 +70,19 @@ namespace NoctisMod.SkillStates
             search.searchOrigin = characterBody.corePosition;
             search.searchDirection = base.GetAimRay().direction;
             search.sortMode = BullseyeSearch.SortMode.Distance;
-            search.maxDistanceFilter = 10f;
-            search.maxAngleFilter = 120f;
+            search.maxDistanceFilter = 25f;
+            search.maxAngleFilter = 360f;
 
 
             search.RefreshCandidates();
             search.FilterOutGameObject(base.gameObject);
 
-            RoR2.HurtBox target = search.GetResults().First<HurtBox>();
+            target = this.search.GetResults().FirstOrDefault<HurtBox>();
 
             if (target)
             {
                 isTarget = true;
-                new TakeDamageRequest(characterBody.masterObjectId, target.healthComponent.body.masterObjectId, damageStat * StaticValues.swordSwapForwardDamage * partialAttack, Vector3.up, true, true).Send(NetworkDestination.Clients);
+                new TakeDamageRequest(characterBody.masterObjectId, target.healthComponent.body.masterObjectId, damageStat * StaticValues.swordDamage, Vector3.up, true, true).Send(NetworkDestination.Clients);
             }
 
 
@@ -132,11 +132,8 @@ namespace NoctisMod.SkillStates
 
                 if(isTarget)
                 {
-                    GreatswordFollowUpSlam GreatswordFollowUpSlam = new GreatswordFollowUpSlam();
-                    GreatswordFollowUpSlam.Target = target;
-                    this.outer.SetNextState(GreatswordFollowUpSlam);
+                    new ForceFollowUpState(characterBody.masterObjectId, target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
                     return;
-
                 }
                 else
                 {

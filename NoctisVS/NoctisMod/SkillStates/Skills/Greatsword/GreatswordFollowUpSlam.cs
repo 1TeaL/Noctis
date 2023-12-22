@@ -25,6 +25,7 @@ namespace NoctisMod.SkillStates
         public float baseDuration = 1f;
         public float attackStartTime = 0.4f;
         public float earlyExitTime = 0.2f;
+        public float attackEndTime = 0.8f;
 
 
         private BlastAttack blastAttack;
@@ -33,7 +34,7 @@ namespace NoctisMod.SkillStates
         private Transform modelTransform;
         private readonly BullseyeSearch search = new BullseyeSearch();
 
-        public HurtBox Target;
+        public CharacterBody Target;
 
         public override void OnEnter()
         {
@@ -46,7 +47,15 @@ namespace NoctisMod.SkillStates
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
-            Util.PlayAttackSpeedSound("GreatswordSwingSFX", base.gameObject, 1f);
+
+            AkSoundEngine.PostEvent("Dodge", base.gameObject); 
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject); 
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
+            }
+
+            noctisCon.SetSwapTrue(baseDuration);
 
             base.PlayCrossfade("FullBody, Override", "GSAerialSlash", "Attack.playbackRate", this.baseDuration, 0.05f);
 
@@ -72,124 +81,137 @@ namespace NoctisMod.SkillStates
                 temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
 
             }
+            //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            Target.characterMotor.useGravity = false;
         }
 
 
         public override void OnExit()
         {
             base.OnExit();
+            if (Target)
+            {
+                Target.characterMotor.useGravity = true;
+            }
+            characterMotor.useGravity = true;
             this.PlayAnimation("FullBody, Override", "BufferEmpty");
+            if (characterBody.HasBuff(Buffs.GSarmorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (Target)
+            //if (!hasTeleported)
+            //{
+            //    hasTeleported = true;
+            //    base.characterMotor.velocity = Vector3.zero;
+            //    base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            //    //new PerformDetroitTeleportNetworkRequest(base.characterBody.masterObjectId, Target.gameObject).Send(NetworkDestination.Clients);
+
+            //}
+
+            //stop movement until hit
+            if(base.fixedAge < baseDuration * attackStartTime)
             {
-                if (!hasTeleported)
-                {
-                    hasTeleported = true;
-                    base.characterMotor.velocity = Vector3.zero;
-                    base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
-                    //new PerformDetroitTeleportNetworkRequest(base.characterBody.masterObjectId, Target.gameObject).Send(NetworkDestination.Clients);
-
-                }
-
-                //stop movement until hit
-                if(base.fixedAge < baseDuration * attackStartTime)
-                {
-                    Target.healthComponent.body.characterMotor.velocity = Vector3.zero;
-                    characterMotor.velocity = Vector3.zero;
-                }
+                Target.healthComponent.body.characterMotor.velocity = Vector3.zero;
+                characterMotor.velocity = Vector3.zero;
+                characterMotor.useGravity = false;
+                base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            }
                 
-                if (base.fixedAge >= baseDuration * attackStartTime && !hasFired && base.isAuthority)
+            if (base.fixedAge >= baseDuration * attackStartTime && !hasFired && base.isAuthority)
+            {
+                hasFired = true;
+                EffectManager.SimpleMuzzleFlash(Modules.Assets.noctisSwingEffectMedium, base.gameObject, "SwordSwingDown", true);
+                AkSoundEngine.PostEvent("NoctisHitSFX", Target.gameObject);
+                new TakeDamageRequest(characterBody.masterObjectId, Target.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.down, true, true).Send(NetworkDestination.Clients);
+
+                blastAttack = new BlastAttack();
+                blastAttack.radius = 10f;
+                blastAttack.procCoefficient = StaticValues.GSProc;
+                blastAttack.position = base.transform.position;
+                blastAttack.damageType = DamageType.Stun1s;
+                blastAttack.attacker = base.gameObject;
+                blastAttack.crit = base.RollCrit();
+                blastAttack.baseDamage = base.damageStat;
+                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                blastAttack.baseForce = 1000f;
+                blastAttack.bonusForce = Vector3.down * 1000f;
+                blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+
+                DamageAPI.AddModdedDamageType(blastAttack, Damage.noctisVulnerability);
+
+                EffectManager.SpawnEffect(Modules.Assets.sonicboomEffectPrefab, new EffectData
                 {
-                    hasFired = true;
-                    EffectManager.SimpleMuzzleFlash(Modules.Assets.noctisSwingEffectMedium, base.gameObject, "SwordSwingDown", true);
-                    AkSoundEngine.PostEvent("NoctisHitSFX", Target.gameObject);
-                    new TakeDamageRequest(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.down, true, true).Send(NetworkDestination.Clients);
+                    origin = base.transform.position,
+                    scale = 2f,
+                    rotation = Quaternion.LookRotation(Vector3.down),
 
-                    blastAttack = new BlastAttack();
-                    blastAttack.radius = 10f;
-                    blastAttack.procCoefficient = 1f;
-                    blastAttack.position = base.transform.position;
-                    blastAttack.damageType = DamageType.Stun1s;
-                    blastAttack.attacker = base.gameObject;
-                    blastAttack.crit = base.RollCrit();
-                    blastAttack.baseDamage = base.damageStat;
-                    blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                    blastAttack.baseForce = 1000f;
-                    blastAttack.bonusForce = Vector3.down * 3000f;
-                    blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                    blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                }, true);
 
-                    DamageAPI.AddModdedDamageType(blastAttack, Damage.noctisVulnerability);
+                blastAttack.Fire();
+            }
 
-                    EffectManager.SpawnEffect(Modules.Assets.sonicboomEffectPrefab, new EffectData
+            if(base.fixedAge >= baseDuration * earlyExitTime)
+            {
+
+               
+                if (inputBank.skill3.down)
+                {
+                    this.outer.SetNextState(new Dodge());
+                    return;
+                }
+                if (inputBank.jump.down)
+                {
+                    this.outer.SetNextState(new Jump
                     {
-                        origin = base.transform.position,
-                        scale = 2f,
-                        rotation = Quaternion.LookRotation(Vector3.down),
+                    });
+                    return;
+                }
+            }
 
-                    }, true);
+            if (base.fixedAge >= baseDuration * attackEndTime)
+            {
 
-                    blastAttack.Fire();
+                if (extrainputBankTest.extraSkill1.down)
+                {
+                    Warpstrike warpstrike = new Warpstrike();
+                    warpstrike.weaponSwap = true;
+                    this.outer.SetNextState(warpstrike);
+                    return;
                 }
 
-                if(base.fixedAge >= baseDuration * earlyExitTime)
-                {
-
-                    if (extrainputBankTest.extraSkill1.down)
-                    {
-                        Warpstrike warpstrike = new Warpstrike();
-                        warpstrike.weaponSwap = true;
-                        this.outer.SetNextState(warpstrike);
-                        return;
-                    }
-
-                    if (inputBank.skill1.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                    if (inputBank.skill2.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                    if (inputBank.skill3.down)
-                    {
-                        this.outer.SetNextState(new Dodge());
-                        return;
-                    }
-                    if (inputBank.skill4.down)
-                    {
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
-                    if (inputBank.jump.down)
-                    {
-                        this.outer.SetNextState(new Jump
-                        {
-                        });
-                        return;
-                    }
-                }
-
-                if ((base.fixedAge >= this.baseDuration && base.isAuthority))
+                if (inputBank.skill1.down)
                 {
                     this.outer.SetNextStateToMain();
                     return;
                 }
-
+                if (inputBank.skill2.down)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
+                if (inputBank.skill4.down)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
             }
-            else
+            if ((base.fixedAge >= this.baseDuration && base.isAuthority))
             {
-                base.skillLocator.utility.AddOneStock();
                 this.outer.SetNextStateToMain();
                 return;
-
             }
         }
 

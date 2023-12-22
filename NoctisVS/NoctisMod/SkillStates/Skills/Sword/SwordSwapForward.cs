@@ -141,6 +141,11 @@ namespace NoctisMod.SkillStates
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             Util.PlaySound(Assaulter2.endSoundString, base.gameObject);
 
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
+            }
+
             noctisCon.SetSwapTrue(baseDuration);
 
         }
@@ -159,11 +164,9 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            if(num > 20f)
-            {
-                num = 20f;
-            }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
+            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
         }
 
         public void DealDamage()
@@ -219,7 +222,26 @@ namespace NoctisMod.SkillStates
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;
             base.characterMotor.Motor.RebuildCollidableLayers();
 
+            this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
+            if (this.characterModel)
+            {
+                this.characterModel.invisibilityCount--;
+            }
+            if (this.hurtboxGroup)
+            {
+                HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
+                hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+            }
 
+            if (characterBody.HasBuff(Buffs.GSarmorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
             base.OnExit();
         }
 
@@ -232,6 +254,17 @@ namespace NoctisMod.SkillStates
                 base.characterMotor.velocity = Vector3.zero;
                 if (!playSwing)
                 {
+
+                    if (this.characterModel)
+                    {
+                        this.characterModel.invisibilityCount--;
+                    }
+                    if (this.hurtboxGroup)
+                    {
+                        HurtBoxGroup hurtBoxGroup = this.hurtboxGroup;
+                        int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter - 1;
+                        hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
+                    }
                     playSwing = true;
                     EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingRight", true);
                     Util.PlaySound(EvisDash.endSoundString, base.gameObject);
@@ -279,6 +312,8 @@ namespace NoctisMod.SkillStates
                 }
 
             }
+            
+
             if(base.fixedAge > baseDuration * earlyExitTime)
             {
 

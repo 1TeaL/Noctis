@@ -17,6 +17,7 @@ namespace NoctisMod.SkillStates
 {
     internal class GreatswordSwapBackward2 : BaseSkillState
     {
+        public NoctisController noctisCon;
         public ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
         private float baseDuration = 2f;
@@ -44,7 +45,7 @@ namespace NoctisMod.SkillStates
         {
 
             base.OnEnter();
-
+            noctisCon = characterBody.gameObject.GetComponent<NoctisController>();
             extraskillLocator = characterBody.gameObject.GetComponent<ExtraSkillLocator>();
             extrainputBankTest = characterBody.gameObject.GetComponent<ExtraInputBankTest>();
             hasFired = false;
@@ -58,14 +59,16 @@ namespace NoctisMod.SkillStates
                 attackAmount = 1;
             }
             partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
-            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            SpeedCoefficient = initialSpeedCoefficient;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
-            if (base.isAuthority)
+
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject); if (base.isAuthority)
             {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
             }
-            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
+
+            noctisCon.SetSwapTrue(baseDuration);
 
         }
         public override InterruptPriority GetMinimumInterruptPriority()
@@ -81,7 +84,9 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
+            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
         }
 
         public override void FixedUpdate()
@@ -220,10 +225,17 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
             this.animator.SetBool("releaseChargeSlash", false);
             this.animator.SetBool("releaseChargeLeap", false);
 
+            if (characterBody.HasBuff(Buffs.GSarmorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
         }
     }
 

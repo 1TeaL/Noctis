@@ -36,6 +36,7 @@ namespace NoctisMod.Modules
             //Greatsword
             entityStates.Add(typeof(GreatswordCombo));
             entityStates.Add(typeof(GreatswordNeutral));
+            entityStates.Add(typeof(GreatswordCounterSlam));
             entityStates.Add(typeof(GreatswordForward));
             entityStates.Add(typeof(GreatswordBackward));
             entityStates.Add(typeof(GreatswordFollowUpSlam));

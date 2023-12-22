@@ -9,6 +9,7 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using NoctisMod.Modules;
 using ExtraSkillSlots;
+using R2API.Networking;
 
 namespace NoctisMod.SkillStates
 {
@@ -48,11 +49,7 @@ namespace NoctisMod.SkillStates
             this.animator = base.GetModelAnimator();
             this.animator.SetFloat("Attack.playbackRate", 1f);
             base.PlayCrossfade("FullBody, Override", "GSLeapSlash", "Attack.playbackRate", baseDuration, 0.05f);
-            //if (base.isAuthority)
-            //{
-            //    AkSoundEngine.PostEvent("detroitexitvoice", this.gameObject);
-            //}
-            //AkSoundEngine.PostEvent("delawaresfx", this.gameObject);
+            
             radius = StaticValues.GSSlamRadius * attackSpeedStat;
             attackAmount = (int)this.attackSpeedStat;
             if (attackAmount < 1)
@@ -60,10 +57,14 @@ namespace NoctisMod.SkillStates
                 attackAmount = 1;
             }
             partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
-            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            SpeedCoefficient = initialSpeedCoefficient;
             this.direction = base.GetAimRay().direction.normalized;
             this.direction.y = 0f;
-            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
+            AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject); if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
+            }
+
             noctisCon.SetSwapTrue(baseDuration);
 
         }
@@ -80,7 +81,9 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
+            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
         }
 
         public override void FixedUpdate()
@@ -206,6 +209,14 @@ namespace NoctisMod.SkillStates
             this.animator.SetBool("releaseChargeSlash", false);
             this.animator.SetBool("releaseChargeLeap", false);
 
+            if (characterBody.HasBuff(Buffs.GSarmorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
         }
     }
 }

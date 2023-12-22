@@ -50,7 +50,7 @@ namespace NoctisMod.SkillStates
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-            SpeedCoefficient = initialSpeedCoefficient * attackSpeedStat;
+            SpeedCoefficient = initialSpeedCoefficient;
             this.direction = base.GetAimRay().direction.normalized;
 
             base.OnEnter();
@@ -65,7 +65,9 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
         }
 
         public override void FixedUpdate()

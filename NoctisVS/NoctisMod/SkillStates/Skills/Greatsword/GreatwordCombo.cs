@@ -9,6 +9,8 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
 using static NoctisMod.Modules.Survivors.NoctisController;
+using R2API.Networking;
+using NoctisMod.Modules;
 
 namespace NoctisMod.SkillStates
 {
@@ -39,11 +41,9 @@ namespace NoctisMod.SkillStates
             }
 
             noctisCon.WeaponAppearR(5f, WeaponTypeR.GREATSWORD);
-            if (base.isAuthority)
-            {
-                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
-            }
 
+            characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 1);
+            
         }
 
         public void Exit()

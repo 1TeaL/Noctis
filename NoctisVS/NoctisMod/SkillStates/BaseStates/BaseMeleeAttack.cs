@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
 using ExtraSkillSlots;
+using NoctisMod.Modules;
+using R2API.Networking;
 
 namespace NoctisMod.SkillStates.BaseStates
 {
@@ -76,6 +78,11 @@ namespace NoctisMod.SkillStates.BaseStates
             base.characterBody.outOfCombatStopwatch = 0f;
             this.animator.SetBool("attacking", true);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
+
+            if (base.isAuthority)
+            {
+                if (Modules.Config.allowVoice.Value) { AkSoundEngine.PostEvent("NoctisVoice", base.gameObject); }
+            }
 
             attackAmount = (int)this.attackSpeedStat;
             if (attackAmount < 1)
@@ -152,6 +159,14 @@ namespace NoctisMod.SkillStates.BaseStates
             
             base.OnExit();
 
+            if(characterBody.HasBuff(Buffs.GSarmorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
             //this.animator.SetBool("attacking", false);
         }
 

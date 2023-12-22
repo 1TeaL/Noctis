@@ -50,7 +50,7 @@ namespace NoctisMod.SkillStates
             hasVulnerability = true;
             AkSoundEngine.PostEvent("GreatswordSwingSFX", base.gameObject);
 
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 1);
         }
 
         protected override void PlayAttackAnimation()
@@ -85,7 +85,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 0);
             this.animator.SetBool("releaseChargeSlash", false);
             this.animator.SetBool("releaseChargeLeap", false);
         }

@@ -37,7 +37,7 @@ namespace NoctisMod.Modules.Survivors
 
         private Ray downRay;
         public float maxTrackingDistance = StaticValues.maxTrackingDistance;
-        public float maxTrackingAngle = 20f;
+        public float maxTrackingAngle = 50f;
         public float trackerUpdateFrequency = 10f;
         private Indicator activeindicator;
         public HurtBox trackingTarget;

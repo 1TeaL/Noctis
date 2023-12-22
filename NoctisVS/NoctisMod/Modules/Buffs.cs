@@ -14,12 +14,14 @@ namespace NoctisMod.Modules
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
         internal static BuffDef armorBuff;
+        internal static BuffDef GSarmorBuff;
         internal static BuffDef vulnerabilityDebuff;
         internal static BuffDef counterBuff;
 
         internal static void RegisterBuffs()
         {
             armorBuff = Buffs.AddNewBuff($"Armor buff", Assets.shieldBuffIcon, Color.white, false, false);
+            GSarmorBuff = Buffs.AddNewBuff($"GS Armor buff", Assets.shieldBuffIcon, Color.cyan, false, false);
             vulnerabilityDebuff = Buffs.AddNewBuff($"Vulnerability debuff", Assets.deathMarkDebuffIcon, Color.white, true, true);
             counterBuff = Buffs.AddNewBuff($"Counter buff", Assets.shieldBuffIcon, Color.black, false, false);
         }

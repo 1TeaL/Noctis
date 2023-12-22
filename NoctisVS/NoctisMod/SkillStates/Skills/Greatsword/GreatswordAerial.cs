@@ -55,7 +55,7 @@ namespace NoctisMod.SkillStates
             base.characterMotor.velocity = Vector3.zero;
             base.characterMotor.Motor.RebuildCollidableLayers();
 
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 1);
 
             base.OnEnter();
             hasVulnerability = true;
@@ -187,7 +187,7 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
-                characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+                characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 0);
                 if (this.slamIndicatorInstance)
                     this.slamIndicatorInstance.SetActive(false);
                 EntityState.Destroy(this.slamIndicatorInstance);
@@ -208,7 +208,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 0);
             if (this.slamIndicatorInstance)
                 this.slamIndicatorInstance.SetActive(false);
             EntityState.Destroy(this.slamIndicatorInstance);

@@ -8,7 +8,7 @@ namespace NoctisMod.Modules
     {
         internal static void AddTokens()
         {
-            #region Shiggy
+            #region Noctis
             string prefix = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_";
 
             string desc = $"Noctis is a technical melee focused survivor, switching between different weapons for different situations.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
@@ -46,7 +46,7 @@ namespace NoctisMod.Modules
             LanguageAPI.Add(prefix + "SWORD_DESCRIPTION", $"Swing your sword. There are neutral, forward, backward and aerial attacks. Swapping into sword has different attacks and has invincibility. Most attacks will deal {StaticValues.swordDamage * 100f}% damage and proc of {StaticValues.swordProc}. ");
 
             LanguageAPI.Add(prefix + "GREATSWORD_NAME", "Greatsword");
-            LanguageAPI.Add(prefix + "GREATSWORD_DESCRIPTION", $"<style=cIsDamage>Apply Vulnerability to enemies, making them take {StaticValues.GSVulnerabilityDebuff * 100f}% additional damage per stack, additively</style>. Swing your greatsword. There are neutral, forward, backward and aerial attacks. Swapping into greatsword has different attacks which stun. Most attacks will deal {StaticValues.GSDamage * 100f}% damage and proc of {StaticValues.GSProc}. ");
+            LanguageAPI.Add(prefix + "GREATSWORD_DESCRIPTION", $"<style=cIsDamage>Apply Vulnerability to enemies, making them take {StaticValues.GSVulnerabilityDebuff * 100f}% additional damage per stack, additively</style>. <style=cIsUtility> Gain {StaticValues.GSArmor} armor for all attacks </style>. Swing your greatsword. There are neutral, forward, backward and aerial attacks. Swapping into greatsword has different attacks which stun. Most attacks will deal {StaticValues.GSDamage * 100f}% damage and proc of {StaticValues.GSProc}. ");
 
             LanguageAPI.Add(prefix + "POLEARM_NAME", "Polearm");
             LanguageAPI.Add(prefix + "POLEARM_DESCRIPTION", $"Swing your polearm. There are neutral, forward, backward, aerial attacks AND hold jump + aerial attacks. Most attacks will deal 2x{StaticValues.polearmDamage * 100f}% damage and proc of {StaticValues.polearmProc}. Swapping into polearm attacks have 3x{StaticValues.polearmDamage * 100f}% damage. ");
@@ -78,23 +78,23 @@ namespace NoctisMod.Modules
                 $"Swap Backward:<style=cIsUtility>Invincibility</style>. Backflip into the air, dealing <style=cIsDamage>{StaticValues.swordDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Aerial:<style=cIsUtility>Invincibility</style>. Dash and slash in a direction. Backflip on contact, dealing <style=cIsDamage>{StaticValues.swordDamage * 100f}% damage</style>. ");
 
-            LanguageAPI.Add(prefix + "KEYWORD_GREATSWORD", $"Neutral: Uppercut, launching enemies up, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage damage</style>. " + Environment.NewLine +
+            LanguageAPI.Add(prefix + "KEYWORD_GREATSWORD", $"Neutral: Hold the button to enter a counter stance, gaining an <style=cIsUtility>additional {StaticValues.GSArmor} armor</style>. When hit, counter with a slam on the ground, dealing <style=cIsDamage>{StaticValues.GSCounterDamage * 100f}% damage</style>. Invincible during the slam. Release the button or press any other button to cancel it. " + Environment.NewLine +
                 $"Forward: Leap and slam the ground, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Backward: Charge your greatsword. On release, knock back enemies in front of you, dealing <style=cIsDamage>{StaticValues.GSDamage* 100f}% - {3*StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Aerial: Swing your greatsword while falling, dealing <style=cIsDamage>{StaticValues.GSDamage* 100f}% damage</style>. Deal damage based on how long you were falling when you hit the ground. " + Environment.NewLine +
-                $"Swap Neutral:<style=cIsUtility>Stun</style>. Slash up then slam it down, dealing <style=cIsDamage>2x{StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
+                $"Swap Neutral:<style=cIsUtility>Stun</style>. Uppercut, launching the enemy up, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. Continue to hold the input to warp to the target and slam the target down, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Forward:<style=cIsUtility>Stun</style>. Do a fast overhead swing, dealing <style=cIsDamage>{StaticValues.GSSwapForwardDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Backward:<style=cIsUtility>Stun</style>. Charge your greatsword. On release, leap and slam the ground dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% - {3 * StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
-                $"Swap Aerial:<style=cIsUtility>Stun</style>. Swing your greatsword while falling, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. Deal damage based on how long you were falling when you hit the ground. ");
+                $"Swap Aerial:<style=cIsUtility>Stun</style>. Warp to the Target and uppercut them, launching the enemy up, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. Continue to hold the input to warp to the target and slam the target down, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. ");
 
             LanguageAPI.Add(prefix + "KEYWORD_POLEARM", $"Neutral: Thrust forward dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Forward: Charge, then dash and thrust forward dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
-                $"Backward: Backhop, dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>.  " + Environment.NewLine +
+                $"Backward: Throw your polearm, piercing and dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>.   " + Environment.NewLine +
                 $"Aerial: Dash and thrust forward at your aim direction. Backhop on contact, dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>.  " + Environment.NewLine +
                 $"Aerial + Jump: Dragoon thrust, descending down, dealing <style=cIsDamage>2x{StaticValues.polearmDamage * 100f}% damage</style>. Deal damage based on how long you were falling when you hit the ground. " + Environment.NewLine +
                 $"Swap Neutral: Sweep your polearm from right to left, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>.  " + Environment.NewLine +
                 $"Swap Forward: Dash and thrust forward, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
-                $"Swap Backward: Throw your polearm, piercing and dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
+                $"Swap Backward: Backhop, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Aerial: Dash and thrust towards at your aim direction, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Aerial + Jump: Double Dragoon thrust, descending down, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. Deal damage based on how long you were falling when you hit the ground." );
             #endregion

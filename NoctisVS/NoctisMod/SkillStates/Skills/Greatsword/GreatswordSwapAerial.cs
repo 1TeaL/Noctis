@@ -10,6 +10,8 @@ using R2API;
 using NoctisMod.Modules;
 using R2API.Networking;
 using EntityStates.Huntress;
+using NoctisMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace NoctisMod.SkillStates
 {
@@ -17,6 +19,7 @@ namespace NoctisMod.SkillStates
     {
         private HurtBox target;
         private bool isTarget;
+        private bool hasLaunched;
 
         public override void OnEnter()
         {
@@ -28,12 +31,13 @@ namespace NoctisMod.SkillStates
             this.damageType = DamageType.Stun1s;
 
             this.damageCoefficient = StaticValues.GSDamage;
-            this.procCoefficient = 1f;
-            this.pushForce = 300f;
+            this.procCoefficient = StaticValues.GSProc;
+            this.pushForce = 1000f;
+            this.bonusForce = new Vector3(0f, 5000f, 0f);
             this.baseDuration = 0.5f;
             this.attackStartTime = 0.25f;
             this.attackEndTime = 0.85f;
-            this.baseEarlyExitTime = 0.5f;
+            this.baseEarlyExitTime = 0.8f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
             this.hitHopVelocity = 4f;
@@ -47,12 +51,7 @@ namespace NoctisMod.SkillStates
             this.impactSound = Modules.Assets.hitSoundEffect.index;
 
 
-            base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-            base.characterMotor.Motor.ForceUnground();
-            base.characterMotor.velocity = Vector3.zero;
-            base.characterMotor.Motor.RebuildCollidableLayers();
-
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 1);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 1);
 
             base.OnEnter();
             hasVulnerability = true;
@@ -71,18 +70,21 @@ namespace NoctisMod.SkillStates
             {
                 target = noctisCon.GetTrackingTarget();
                 isTarget = true;
+                base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
             
-            if(isTarget)
-            {
-                base.characterMotor.velocity = Vector3.zero;
-                base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - base.GetAimRay().direction, Quaternion.LookRotation(base.GetAimRay().direction), true);
-            }
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", -1f);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && isTarget && !hasLaunched)
+            {
+                hasLaunched = true;
+                new TakeDamageRequest(characterBody.masterObjectId, target.healthComponent.body.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.up, true, true).Send(NetworkDestination.Clients);
+            }
         }
 
         protected override void PlayAttackAnimation()
@@ -115,10 +117,18 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
+                if (hasLaunched)
+                {
+                    new ForceFollowUpState(characterBody.masterObjectId, target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+                    return;
 
-                GreatswordCombo GreatswordCombo = new GreatswordCombo();
-                this.outer.SetNextState(GreatswordCombo);
-                return;
+                }
+                else
+                {
+                    GreatswordCombo GreatswordCombo = new GreatswordCombo();
+                    this.outer.SetNextState(GreatswordCombo);
+                    return;
+                }
 
             }
 
@@ -128,7 +138,7 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            characterBody.ApplyBuff(Modules.Buffs.armorBuff.buffIndex, 0);
+            characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 0);
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
             base.gameObject.layer = LayerIndex.defaultLayer.intVal;

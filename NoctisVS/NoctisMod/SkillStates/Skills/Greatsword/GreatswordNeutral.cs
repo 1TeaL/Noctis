@@ -1,5 +1,6 @@
 ﻿using EntityStates;
 using ExtraSkillSlots;
+using NoctisMod.Modules;
 using NoctisMod.Modules.Networking;
 using NoctisMod.Modules.Survivors;
 using R2API.Networking;
@@ -18,6 +19,8 @@ namespace NoctisMod.SkillStates
         public ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
         public Animator animator;
+        private CharacterModel characterModel;
+        private Transform modelTransform;
 
         public enum DangerState {STARTBUFF, CHECKCOUNTER};
         public DangerState state;
@@ -44,6 +47,28 @@ namespace NoctisMod.SkillStates
             noctisCon.WeaponAppearR(1f, WeaponTypeR.GREATSWORD);
 
 
+            this.modelTransform = base.GetModelTransform();
+            if (this.modelTransform)
+            {
+                this.animator = this.modelTransform.GetComponent<Animator>();
+                this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
+
+                TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay.duration = 0.3f;
+                temporaryOverlay.animateShaderAlpha = true;
+                temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay.destroyComponentOnEnd = true;
+                temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+                temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+                TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                temporaryOverlay2.duration = 0.3f;
+                temporaryOverlay2.animateShaderAlpha = true;
+                temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                temporaryOverlay2.destroyComponentOnEnd = true;
+                temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
+                temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
+
+            }
         }
 
         private void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
@@ -58,11 +83,11 @@ namespace NoctisMod.SkillStates
                     {
                         if (damageInfo.attacker != self)
                         {
-
+                            
+                            self.body.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
                             this.animator.SetBool("releaseCounterSlam", true);
                             new ForceCounterState(self.body.masterObjectId).Send(NetworkDestination.Clients);
                         }
-                        self.body.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
 
                     }
 
@@ -77,10 +102,17 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             On.RoR2.HealthComponent.TakeDamage -= HealthComponent_TakeDamage;
-            bool active = NetworkServer.active;
-            if (active && base.characterBody.HasBuff(Modules.Buffs.counterBuff))
+            if (characterBody.HasBuff(Buffs.GSarmorBuff))
             {
-                base.characterBody.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
+                characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.armorBuff))
+            {
+                characterBody.ApplyBuff(Buffs.armorBuff.buffIndex, 0);
+            }
+            if (characterBody.HasBuff(Buffs.counterBuff))
+            {
+                characterBody.ApplyBuff(Buffs.counterBuff.buffIndex, 0);
             }
             base.OnExit();
         }
@@ -107,6 +139,7 @@ namespace NoctisMod.SkillStates
                     noctisCon.SetSwapTrue(1f);
                     noctisCon.WeaponAppearR(1f, WeaponTypeR.GREATSWORD);
 
+                    base.GetModelAnimator().SetFloat("Attack.playbackRate", 0.01f);
                     if (inputBank.skill3.down)
                     {
                         this.animator.SetBool("releaseCounter", true);

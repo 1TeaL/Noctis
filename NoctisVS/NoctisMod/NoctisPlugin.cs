@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.3.0";
+        public const string MODVERSION = "1.4.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -131,6 +131,7 @@ namespace NoctisMod
             NetworkingAPI.RegisterMessageType<TakeDamageRequest>();
             NetworkingAPI.RegisterMessageType<SetFreezeOnBodyRequest>();
             NetworkingAPI.RegisterMessageType<ForceCounterState>();
+            NetworkingAPI.RegisterMessageType<ForceFollowUpState>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -302,7 +303,11 @@ namespace NoctisMod
                 }
                 if (self.HasBuff(Buffs.counterBuff))
                 {
-                    self.armor += StaticValues.dodgeArmor;
+                    self.armor += StaticValues.GSArmor;
+                }
+                if (self.HasBuff(Buffs.GSarmorBuff))
+                {
+                    self.armor += StaticValues.GSArmor;
                 }
 
             }

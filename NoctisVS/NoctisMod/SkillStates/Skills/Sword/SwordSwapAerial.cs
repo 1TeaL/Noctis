@@ -24,8 +24,6 @@ namespace NoctisMod.SkillStates
         private Transform modelTransform;
         private CharacterModel characterModel;
 
-        public static float baseduration = 1f;
-        public static float duration;
         public static float hitExtraDuration = 0.44f;
         public static float minExtraDuration = 0.2f;
         public static float initialSpeedCoefficient = StaticValues.swordDashSpeed*2f;
@@ -75,8 +73,7 @@ namespace NoctisMod.SkillStates
             noctisCon = gameObject.GetComponent<NoctisController>();
             this.aimRayDir = aimRay.direction;
 
-            duration = baseduration / ((this.attackSpeedStat));
-            SpeedCoefficient = initialSpeedCoefficient * (this.attackSpeedStat);
+            SpeedCoefficient = initialSpeedCoefficient;
             float num = this.moveSpeedStat;
             bool isSprinting = base.characterBody.isSprinting;
             if (isSprinting)
@@ -88,10 +85,10 @@ namespace NoctisMod.SkillStates
             this.extraDuration = Math.Max(hitExtraDuration / (num3), minExtraDuration);
 
 
-            base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.HiddenInvincibility.buffIndex, duration / 2);
+            base.characterBody.AddTimedBuffAuthority(RoR2Content.Buffs.HiddenInvincibility.buffIndex, baseDuration / 2);
             this.animator = base.GetModelAnimator();
             this.animator.SetBool("attacking", true);
-            base.characterBody.SetAimTimer(duration);
+            base.characterBody.SetAimTimer(baseDuration);
             HitBoxGroup hitBoxGroup = null;
             HitBoxGroup hitBoxGroup2 = null;
             Transform modelTransform = base.GetModelTransform();
@@ -139,8 +136,8 @@ namespace NoctisMod.SkillStates
             this.attack.attacker = base.gameObject;
             this.attack.inflictor = base.gameObject;
             this.attack.teamIndex = base.GetTeam();
-            this.attack.damage = base.characterBody.damage * Modules.StaticValues.polearmAerialDamage * (num3);
-            this.attack.procCoefficient = this.procCoefficient;
+            this.attack.damage = base.characterBody.damage * Modules.StaticValues.swordDamage * attackSpeedStat * (num3);
+            this.attack.procCoefficient = this.procCoefficient * attackSpeedStat * (num3);
             this.attack.hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FireBarrage.hitEffectPrefab;
             this.attack.forceVector = this.bonusForce;
             this.attack.pushAwayForce = this.pushForce;
@@ -165,9 +162,13 @@ namespace NoctisMod.SkillStates
             base.characterDirection.forward = base.characterMotor.velocity.normalized;
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
-            base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", duration, 0.1f);
+            base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", baseDuration, 0.05f);
 
-            AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
+            AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject); 
+            if (base.isAuthority)
+            {
+                AkSoundEngine.PostEvent("NoctisVoice", this.gameObject);
+            }
 
             noctisCon.SetSwapTrue(baseDuration);
 
@@ -181,7 +182,9 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            this.rollSpeed = num * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / duration);
+            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
         }
 
 
@@ -229,7 +232,7 @@ namespace NoctisMod.SkillStates
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
             }
-            if (stopwatch >= duration * attackEndTime)
+            if (stopwatch >= baseDuration * attackEndTime)
             {
 
                 if (base.isAuthority)
@@ -264,7 +267,7 @@ namespace NoctisMod.SkillStates
                 }
             }
 
-            if (base.isAuthority && this.stopwatch >= duration)
+            if (base.isAuthority && this.stopwatch >= baseDuration)
             {
                 this.outer.SetNextStateToMain();
                 return;
@@ -329,8 +332,8 @@ namespace NoctisMod.SkillStates
             if (flag)
             {
 
-                base.PlayCrossfade("FullBody, Override", "AerialBackflip", "Attack.playbackRate", duration, 0.01f);
-                this.stopwatch = duration - this.extraDuration;
+                base.PlayCrossfade("FullBody, Override", "AerialBackflip", "Attack.playbackRate", baseDuration, 0.01f);
+                this.stopwatch = baseDuration - this.extraDuration;
 
                 bool flag3 = base.characterMotor;
                 if (flag3)
