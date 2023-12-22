@@ -17,8 +17,7 @@ namespace NoctisMod.SkillStates
 {
     public class GreatswordSwapAerial : BaseMeleeAttack
     {
-        private HurtBox target;
-        private bool isTarget;
+        public CharacterBody target;
         private bool hasLaunched;
 
         public override void OnEnter()
@@ -65,14 +64,11 @@ namespace NoctisMod.SkillStates
             }
 
             base.SmallHop(characterMotor, 20f);
-
-            if(noctisCon.Target)
+            if(base.isAuthority)
             {
-                target = noctisCon.GetTrackingTarget();
-                isTarget = true;
                 base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
-            
+
             base.GetModelAnimator().SetFloat("Attack.playbackRate", -1f);
         }
 
@@ -80,10 +76,10 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && isTarget && !hasLaunched)
+            if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && !hasLaunched)
             {
                 hasLaunched = true;
-                new TakeDamageRequest(characterBody.masterObjectId, target.healthComponent.body.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.up, true, true).Send(NetworkDestination.Clients);
+                new TakeDamageRequest(characterBody.masterObjectId, target.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.up, true, true).Send(NetworkDestination.Clients);
             }
         }
 

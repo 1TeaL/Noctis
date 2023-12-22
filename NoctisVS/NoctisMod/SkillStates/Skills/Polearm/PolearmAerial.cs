@@ -41,7 +41,7 @@ namespace NoctisMod.SkillStates
         protected float procCoefficient = StaticValues.polearmProc;
         protected float pushForce = 500f;
         protected Vector3 bonusForce = new Vector3(10f, 400f, 0f);
-        protected float baseDuration = 0.6f;
+        protected float baseDuration = 0.9f;
         protected float attackStartTime = 0.2f;
         protected float attackEndTime = 0.9f;
         protected float baseEarlyExitTime = 0.4f;
@@ -183,7 +183,7 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num2 = (num / base.characterBody.baseMoveSpeed) * 0.67f;
             float num3 = num2 + 1f;
             this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / baseDuration);
         }
@@ -371,7 +371,7 @@ namespace NoctisMod.SkillStates
                     {
                         num /= base.characterBody.sprintingSpeedMultiplier;
                     }
-                    float num2 = 1f + (num / base.characterBody.baseMoveSpeed - 1f);
+                    float num2 = 1f + (num / base.characterBody.baseMoveSpeed);
                     this.hitPauseTimer = this.hitStopDuration / num2;
                     this.inHitPause = true;
                 }

@@ -11,6 +11,8 @@ using System.Reflection;
 using static NoctisMod.Modules.Survivors.NoctisController;
 using R2API.Networking;
 using NoctisMod.Modules;
+using NoctisMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace NoctisMod.SkillStates
 {
@@ -65,9 +67,19 @@ namespace NoctisMod.SkillStates
                     {
                         //aerial attack
                         //Chat.AddMessage("aerial attack");
-                        GreatswordSwapAerial GreatswordSwapAerial = new GreatswordSwapAerial();
-                        this.outer.SetNextState(GreatswordSwapAerial);
-                        return;
+                        if (noctisCon.Target)
+                        {
+                            Target = noctisCon.GetTrackingTarget();
+                            new ForceGSSwapAerial(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+                            return;
+                        }
+                        else
+                        {
+                            GreatswordAerial GreatswordAerial = new GreatswordAerial();
+                            this.outer.SetNextState(GreatswordAerial);
+                            return;
+
+                        }
 
                     }
                     else

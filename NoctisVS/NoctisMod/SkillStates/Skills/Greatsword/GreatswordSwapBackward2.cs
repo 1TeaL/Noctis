@@ -84,7 +84,7 @@ namespace NoctisMod.SkillStates
             {
                 num /= base.characterBody.sprintingSpeedMultiplier;
             }
-            float num2 = (num / base.characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num2 = (num / base.characterBody.baseMoveSpeed) * 0.67f;
             float num3 = num2 + 1f;
             this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (this.baseDuration * this.attackEndTime));
         }

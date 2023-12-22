@@ -83,7 +83,7 @@ namespace NoctisMod.SkillStates
                     {
                         if (damageInfo.attacker != self)
                         {
-                            
+                            self.TakeDamage(damageInfo);
                             self.body.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
                             this.animator.SetBool("releaseCounterSlam", true);
                             new ForceCounterState(self.body.masterObjectId).Send(NetworkDestination.Clients);

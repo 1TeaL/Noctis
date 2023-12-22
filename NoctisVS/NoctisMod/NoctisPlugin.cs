@@ -132,6 +132,7 @@ namespace NoctisMod
             NetworkingAPI.RegisterMessageType<SetFreezeOnBodyRequest>();
             NetworkingAPI.RegisterMessageType<ForceCounterState>();
             NetworkingAPI.RegisterMessageType<ForceFollowUpState>();
+            NetworkingAPI.RegisterMessageType<ForceGSSwapAerial>();
 
 
             // now make a content pack and add it- this part will change with the next update

@@ -35,9 +35,9 @@ namespace NoctisMod.Modules
         internal static float swordNeutralDamage2 = 1f;
         internal static float swordNeutralDamage3 = 4f;
         internal static float swordDashDistance = 3f;
-        internal static float swordDashSpeed = 6f;
-        internal static float swordInstaDashSpeed = 10f;
-        internal static float swordBackSpeed = 6f;
+        internal static float swordDashSpeed = 42f;
+        internal static float swordInstaDashSpeed = 40f;
+        internal static float swordBackSpeed = 42f;
         internal static int swordBaseHit = 1;
         internal static float swordSwapForwardDamage = 2f;
 
@@ -47,7 +47,7 @@ namespace NoctisMod.Modules
         internal static float GSDamage = 5f;
         internal static float GSCounterDamage = 12f;
         internal static float GSSwapForwardDamage = 10f;
-        internal static float GSLeapSpeed = 6f;
+        internal static float GSLeapSpeed = 42f;
         internal static float GSMaxCharge = 3f;
         internal static float GSChargeRadius = 5f;
         internal static float GSChargeDamage = 4f;
@@ -62,7 +62,7 @@ namespace NoctisMod.Modules
         internal static float polearmSlamDamage = 2.5f;
         internal static int polearmExtraHit = 1;
         internal static int polearmSwapExtraHit = 2;
-        internal static float polearmDashSpeed = 10f;
+        internal static float polearmDashSpeed = 40f;
         internal static float polearmDropSpeed = 40f;
         internal static float polearmSlamRadius = 8f;
         internal static float polearmAerialDamage = 2f;
