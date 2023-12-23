@@ -67,7 +67,7 @@ namespace NoctisMod.SkillStates
                     {
                         //aerial attack
                         //Chat.AddMessage("aerial attack");
-                        if (noctisCon.Target)
+                        if (noctisCon.trackingTarget)
                         {
                             Target = noctisCon.GetTrackingTarget();
                             new ForceGSSwapAerial(characterBody.masterObjectId, Target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);

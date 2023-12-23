@@ -41,7 +41,6 @@ namespace NoctisMod.Modules.Survivors
         public float trackerUpdateFrequency = 10f;
         private Indicator activeindicator;
         public HurtBox trackingTarget;
-        public HurtBox Target;
 
         private CharacterBody characterBody;
         private InputBankTest inputBank;
