@@ -71,7 +71,8 @@ If you enjoy my work, support me on Ko-fi!
         - Fixed issue with Noctis' voice playing over Shigaraki (my other mod) at times.
         - Also updated Miro link to allow people to view instead of join the team
     - Changes- Overall these changes were done to help improve Noctis' flow of combat
-        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
+        - Warpstrike can now be fast canceled much like all other weapon attacks and swap attacks- this means the animation time will be shorter as well. It also grants invincibility while using as well for increased safety.
+	- Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
         - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
         - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
         - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
