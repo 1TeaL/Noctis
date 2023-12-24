@@ -69,6 +69,22 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.4.0- Lots of changes
+    - Bug fixes
+        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special.
+        - Fixed issue with Noctis' voice playing over Shigaraki (my other mod) at times.
+        - Also updated Miro link to allow people to view instead of join the team
+    - Changes- Overall these changes were done to help improve Noctis' flow of combat
+        - Warpstrike can now be fast canceled much like all other weapon attacks and swap attacks- this means the animation time will be shorter as well. It also grants invincibility while using as well for increased safety.
+        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
+        - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
+        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
+        - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
+        - Changed Greatsword neutral, swap neutral and swap aerials to new moves to help improve it's current moveset.
+    - Additions
+        - *NEW* replaced Greatsword neutral to a counter stance when held. If hit, retaliate with an AOE slam around you.
+        - *NEW* replaced Greatsword swap neutral and Greatsword swap aerials to attacks that launch an enemy up. If the input is held and the enemy is still alive, Noctis will warp to the target and slam them downwards. Greatsword swap aerial will warp to the target indicator reticle much like warpstrike.
+        - *NEW* added a new extra skill! Armiger consumes all of Noctis' mana but in turn for each 10 mana spent, grant 1 second of a buff that destroys all nearby projectiles. Can be stacked.
 - 1.3.0-
     - Bug fixes
         - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
@@ -158,6 +174,12 @@ Only usable after an attack.
     Warps Noctis towards the target or the direction you're looking at.
     When arriving at an enemy, deal damage, scaling with distance travelled.
     Costs 30 mana, reducible by CDR items.
+    
+#### Armiger 
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/92dc53e7-45cb-40a8-b8be-4ea85ceb2e95" height ="128" >
+
+    Consume all your mana- for every 10 mana add 1 second of the Armiger buff.
+    While the buff is active, all nearby projectiles will be destroyed. 
 
 #### Weapon combo routes Miro
 [https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661](https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576)
@@ -209,7 +231,7 @@ Only usable after an attack.
 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3" height ="256" >
 
-#### Greatsword- Slow but high damage. All attacks apply 'Vulnerability'- each stack causes an enemy to take 25% additional damage additively. Swap attacks have stun. All attacks have proc of 2.
+#### Greatsword- Slow but high damage. Have 150 armor during all attacks. All attacks apply 'Vulnerability'- each stack causes an enemy to take 25% additional damage additively. Swap attacks have stun. All attacks have proc of 2. 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5" height ="128" >
 <table>
 <thead>
@@ -221,7 +243,7 @@ Only usable after an attack.
 <tbody>
   <tr>
     <td>Neutral</td>
-    <td>Vulnerability. Swing your greatsword up, knocking enemies up, dealing 400% damage.</td>
+    <td>Vulnerability. Hold the button to enter a counter stance, gaining an additional 150 armor.<br>When hit, counter with a slam on the ground, dealing 800% damage. Invincible during the slam.</td>
   </tr>
   <tr>
     <td>Forward</td>
@@ -233,11 +255,11 @@ Only usable after an attack.
   </tr>
   <tr>
     <td>Aerial</td>
-    <td>Vulnerability. Swing your greatsword while falling, dealing 400% damage. <br>Deal damage based on how long you were falling when you hit the ground.</td>
+    <td>Vulnerability. Swing your greatsword while falling, dealing 400% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
   </tr>
   <tr>
     <td>Swap Neutral</td>
-    <td>Vulnerability. Stun. Swing your greatsword up, then slam it down, dealing 2x400% damage.</td>
+    <td>Vulnerability. Stun. Uppercut an enemy infront of you, launching them up for 400% damage.<br>Continue to hold the input to warp to the target and slam them down, dealing 400% damage.</td>
   </tr>
   <tr>
     <td>Swap Forward</td>
@@ -249,11 +271,11 @@ Only usable after an attack.
   </tr>
   <tr>
     <td>Swap Aerial</td>
-    <td>Vulnerability. Stun. Swing your greatsword while falling, dealing 400% damage. <br>Deal damage based on how long you were falling when you hit the ground.</td>
+    <td>Vulnerability. Stun. Warp and Uppercut the Target, launching them up for 400% damage.<br>Continue to hold the input to warp to the target and slam them down, dealing 400% damage.</td>
   </tr>
 </tbody>
 </table>
-<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01" height ="256" >
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/e360325a-59a3-4c09-a736-ff805b2e6c60" height ="256" >
 
 #### Polearm- Long range. Base attacks hit 2x minimum. Swap attacks hit 3x. Unique input of holding jump and attack. All attacks have proc of 0.3. 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f" height ="128" >
@@ -275,7 +297,7 @@ Only usable after an attack.
   </tr>
   <tr>
     <td>Backward</td>
-    <td>Backhop, dealing 2x150% damage.</td>
+    <td>Throw your polearm, piercing and dealing 2x150% damage.</td>
   </tr>
   <tr>
     <td>Aerial</td>
@@ -295,7 +317,7 @@ Only usable after an attack.
   </tr>
   <tr>
     <td>Swap Backward</td>
-    <td>Throw your polearm, piercing and dealing 3x150% damage.</td>
+    <td>Backhop, dealing 3x150% damage.</td>
   </tr>
   <tr>
     <td>Swap Aerial</td>
@@ -307,7 +329,7 @@ Only usable after an attack.
   </tr>
 </tbody>
 </table>
-<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1" height ="256" >
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/b766659f-381c-4a86-914d-966c37464cb7" height ="256" >
 
 ## Numbers
 ##### Armor = 10 + 0.5 per level
@@ -341,6 +363,7 @@ Rest of changelog on Github
 ![sword](https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39)
 ![polearm](https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f)
 ![Passive](https://github.com/1TeaL/NoctisRoR2/assets/93917577/e39be057-e49d-4a5f-94e6-91d802deca7d)
+![armiger](https://github.com/1TeaL/Noctis/assets/93917577/92dc53e7-45cb-40a8-b8be-4ea85ceb2e95)
 
 ![Menu](https://github.com/1TeaL/NoctisRoR2/assets/93917577/39143b59-0050-4035-b437-c5028b7f88e0)
 ![noctisDragoonThrust](https://github.com/1TeaL/NoctisRoR2/assets/93917577/b92a3e3b-ac4d-44ff-86f0-da1366a5119c)
@@ -348,8 +371,9 @@ Rest of changelog on Github
 ![noctisSwordAerialSlash](https://github.com/1TeaL/NoctisRoR2/assets/93917577/890a73bf-ee33-4599-bd70-c2a9f6c36526)
 
 ![SwordCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3)
-![GSCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01)
-![PolearmCombos](https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1)
+![GSCombos](https://github.com/1TeaL/Noctis/assets/93917577/e360325a-59a3-4c09-a736-ff805b2e6c60)
+![PolearmCombos](https://github.com/1TeaL/Noctis/assets/93917577/b766659f-381c-4a86-914d-966c37464cb7)
+
 </details>
 
 
