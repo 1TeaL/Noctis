@@ -221,6 +221,7 @@ namespace NoctisMod
                         {
                             damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
                         }
+
                     }
 
                 }
@@ -261,7 +262,7 @@ namespace NoctisMod
             {
                 if (Modules.Config.allowVoice.Value)
                 {
-                    AkSoundEngine.PostEvent("NoctisEntrance", self.gameObject);
+                    AkSoundEngine.PostEvent("newNoctisEntrance", self.gameObject);
                 }
                 
             }

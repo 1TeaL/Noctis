@@ -36,6 +36,8 @@ namespace NoctisMod.SkillStates
 
         public CharacterBody Target;
 
+        private Vector3 stillPosition;
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -82,7 +84,16 @@ namespace NoctisMod.SkillStates
 
             }
             //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
-            base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+
+            if (!Target)
+            {
+                this.outer.SetNextStateToMain();
+                return;
+            }
+
+            stillPosition = Target.transform.position;
+
+            base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             Target.characterMotor.useGravity = false;
         }
 
@@ -125,6 +136,7 @@ namespace NoctisMod.SkillStates
                 Target.healthComponent.body.characterMotor.velocity = Vector3.zero;
                 characterMotor.velocity = Vector3.zero;
                 characterMotor.useGravity = false;
+                Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
                 base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
                 //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
@@ -136,21 +148,21 @@ namespace NoctisMod.SkillStates
                 AkSoundEngine.PostEvent("NoctisHitSFX", Target.gameObject);
                 new TakeDamageRequest(characterBody.masterObjectId, Target.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.down, true, true).Send(NetworkDestination.Clients);
 
-                blastAttack = new BlastAttack();
-                blastAttack.radius = 10f;
-                blastAttack.procCoefficient = StaticValues.GSProc;
-                blastAttack.position = base.transform.position;
-                blastAttack.damageType = DamageType.Stun1s;
-                blastAttack.attacker = base.gameObject;
-                blastAttack.crit = base.RollCrit();
-                blastAttack.baseDamage = base.damageStat;
-                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
-                blastAttack.baseForce = 1000f;
-                blastAttack.bonusForce = Vector3.down * 1000f;
-                blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
-                blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
+                //blastAttack = new BlastAttack();
+                //blastAttack.radius = 10f;
+                //blastAttack.procCoefficient = StaticValues.GSProc;
+                //blastAttack.position = base.transform.position;
+                //blastAttack.damageType = DamageType.Stun1s;
+                //blastAttack.attacker = base.gameObject;
+                //blastAttack.crit = base.RollCrit();
+                //blastAttack.baseDamage = 1f;
+                //blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                //blastAttack.baseForce = 1000f;
+                //blastAttack.bonusForce = Vector3.down * 1000f;
+                //blastAttack.teamIndex = TeamComponent.GetObjectTeam(blastAttack.attacker);
+                //blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
-                DamageAPI.AddModdedDamageType(blastAttack, Damage.noctisVulnerability);
+                //DamageAPI.AddModdedDamageType(blastAttack, Damage.noctisVulnerability);
 
                 EffectManager.SpawnEffect(Modules.Assets.sonicboomEffectPrefab, new EffectData
                 {
@@ -160,7 +172,7 @@ namespace NoctisMod.SkillStates
 
                 }, true);
 
-                blastAttack.Fire();
+                //blastAttack.Fire();
             }
 
             if(base.fixedAge >= baseDuration * earlyExitTime)

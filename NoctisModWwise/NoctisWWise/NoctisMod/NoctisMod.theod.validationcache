@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationCache Version="1" SchemaVersion="97">
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Virtual Acoustics\Factory Reflect Acoustic Textures.wwu" DateLow="1646649460" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Virtual Acoustics\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Triggers\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Switches\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\States\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\SoundBanks\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Queries\Factory Queries.wwu" DateLow="1646649439" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Queries\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Presets\Factory Spatial Audio.wwu" DateLow="1646649439" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Presets\Factory Reflect.wwu" DateLow="1646649460" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Presets\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\NoctisMod.wproj" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Modulators\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Mixing Sessions\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Game Parameters\Factory SoundSeed Air Game Syncs.wwu" DateLow="1646649460" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Game Parameters\Factory Motion.wwu" DateLow="1646649461" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Game Parameters\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Events\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory Reflect.wwu" DateLow="1646649460" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory McDSP Effects.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory Mastering Suite.wwu" DateLow="1646649462" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Singleband Distortion.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Multiband Distortion.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Hybrid Reverb Effects.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Filters.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Dynamics.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Delay.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory iZotope Box Modeler.wwu" DateLow="1646649459" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory Effects.wwu" DateLow="1646649439" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Factory Auro Headphone.wwu" DateLow="1646649457" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Effects\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1646649439" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Conversion Settings\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Control Surface Sessions\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Audio Devices\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Attenuations\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="1646649439" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Actor-Mixer Hierarchy\Factory SoundSeed Air Objects.wwu" DateLow="1646649460" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Actor-Mixer Hierarchy\Factory Motion.wwu" DateLow="1646649461" DateHigh="0"/>
+	<ValidationCacheItem File="F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1703420104" DateHigh="0"/>
+</ValidationCache>

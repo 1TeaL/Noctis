@@ -29,11 +29,11 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Stun1s;
 
-            this.damageCoefficient = StaticValues.GSDamage;
+            this.damageCoefficient = 1f;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 1000f;
             this.bonusForce = new Vector3(0f, 5000f, 0f);
-            this.baseDuration = 0.5f;
+            this.baseDuration = 1f;
             this.attackStartTime = 0.25f;
             this.attackEndTime = 0.85f;
             this.baseEarlyExitTime = 0.8f;
@@ -57,19 +57,18 @@ namespace NoctisMod.SkillStates
 
             if (isSwapped)
             {
-                this.baseDuration = 0.375f;
+                this.baseDuration = 0.7f;
                 this.attackStartTime = 0f;
                 this.attackEndTime = 0.6f;
                 this.baseEarlyExitTime = 0.3f;
             }
 
-            base.SmallHop(characterMotor, 20f);
             if(base.isAuthority)
             {
                 base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
 
-            base.GetModelAnimator().SetFloat("Attack.playbackRate", -1f);
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
         }
 
         public override void FixedUpdate()
@@ -79,6 +78,7 @@ namespace NoctisMod.SkillStates
             if (this.stopwatch >= (this.baseDuration * this.attackStartTime) && !hasLaunched)
             {
                 hasLaunched = true;
+                base.SmallHop(characterMotor, 20f);
                 new TakeDamageRequest(characterBody.masterObjectId, target.masterObjectId, damageStat * StaticValues.GSDamage, Vector3.up, true, true).Send(NetworkDestination.Clients);
             }
         }
@@ -113,9 +113,9 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
-                if (hasLaunched)
+                if (hasLaunched && target.healthComponent.health > 1f)
                 {
-                    new ForceFollowUpState(characterBody.masterObjectId, target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
+                    new ForceFollowUpState(characterBody.masterObjectId, target.masterObjectId).Send(NetworkDestination.Clients);
                     return;
 
                 }

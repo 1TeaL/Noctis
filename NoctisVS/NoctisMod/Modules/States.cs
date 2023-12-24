@@ -18,6 +18,7 @@ namespace NoctisMod.Modules
             entityStates.Add(typeof(Dodge));
             entityStates.Add(typeof(Jump));
             entityStates.Add(typeof(Warpstrike));
+            entityStates.Add(typeof(Armiger));
             entityStates.Add(typeof(Death));
             entityStates.Add(typeof(Freeze));
 

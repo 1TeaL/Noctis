@@ -90,6 +90,9 @@ namespace NoctisMod.Modules.Survivors
         public bool isSwapped;
         public float swappedTimer;
 
+        public float armigerTimer;
+        public int armigerBuffCount;
+
         public enum WeaponTypeR : ushort
         {
             NONE = 1,
@@ -324,6 +327,55 @@ namespace NoctisMod.Modules.Survivors
 
         public void Update()
         {
+            //armiger
+            if(characterBody.HasBuff(Buffs.armigerBuff))
+            {
+                if (SpinningWeaponAura.isStopped)
+                {
+                    SpinningWeaponAura.Play();
+                }
+                if (characterBody.GetBuffCount(Buffs.armigerBuff) >= 1)
+                {                    
+                    if (armigerTimer < 1f)
+                    {
+                        armigerTimer += Time.deltaTime;
+                    }
+                    else if (armigerTimer >= 1f)
+                    {
+                        armigerTimer = 0f;
+                        armigerBuffCount = characterBody.GetBuffCount(Buffs.armigerBuff);
+                        characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, armigerBuffCount - 1);
+                    }
+                }
+
+                Collider[] array = Physics.OverlapSphere(characterBody.transform.position, 8f, LayerIndex.projectile.mask);
+                for (int i = 0; i < array.Length; i++)
+                {
+                    ProjectileController component = array[i].GetComponent<ProjectileController>();
+                    if (component)
+                    {
+                        TeamComponent component2 = component.owner.GetComponent<TeamComponent>();
+                        if (component2 && component2.teamIndex != TeamComponent.GetObjectTeam(characterBody.gameObject))
+                        {
+                            EffectData effectData = new EffectData();
+                            effectData.origin = component.transform.position;
+                            effectData.scale = 1f;
+                            EffectManager.SpawnEffect(Assets.lightningNovaEffectPrefab, effectData, false);
+                            UnityEngine.Object.Destroy(array[i].gameObject);
+                            //Object.Destroy(component.gameObject);
+                        }
+                    }
+                }
+            }
+            if(!characterBody.HasBuff(Buffs.armigerBuff))
+            {
+                if(SpinningWeaponAura.isPlaying)
+                {
+                    SpinningWeaponAura.Stop();
+                }
+            }
+
+
             if (weaponStateR != WeaponTypeR.NONE)
             {
                 if(isTransitioningR)

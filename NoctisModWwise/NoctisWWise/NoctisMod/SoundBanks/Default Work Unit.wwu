@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{3FAB7212-9C9C-4C54-9809-7AF02CA30E53}" SchemaVersion="97">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{3FAB7212-9C9C-4C54-9809-7AF02CA30E53}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Noctis" ID="{B9C1FDCE-1C75-4AB6-85F9-A597B027D181}">
+					<ObjectInclusionList>
+						<ObjectRef Name="NoctisDeath" ID="{58C7900D-7E22-4105-98DC-C2BCC097148C}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="NoctisHitSFX" ID="{62730C4B-C613-421F-9503-6F6D38E40113}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Roll" ID="{8BEF25D0-CA61-4222-9543-CFBE082A6F95}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="PolearmSwingSFX" ID="{092B53AE-A533-44C1-9CD9-8C203F7489C0}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Warpstrike" ID="{21F19D70-505E-458D-A149-452B51370114}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="SwordSwingSFX" ID="{B8626E9E-304B-46C8-B090-C5DBB6942EA5}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="NoctisVoice" ID="{9CCDDEAB-4B6B-47A5-89CA-6C76DA79B4B1}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="SlamSFX" ID="{22E36296-3B71-4872-B84A-D9B5C2D3C967}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Dodge" ID="{B1445149-A25C-487D-8C57-EAADA39A1907}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="newNoctisEntrance" ID="{A6973F09-7BE8-49BB-B5E5-ED0C5CC827DC}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Armiger" ID="{9809ECD2-C050-4CDE-AB42-6F4A88AD453A}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="GreatswordSwingSFX" ID="{65B1040D-705E-4F6A-9AB6-4E1724A0C454}" WorkUnitID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

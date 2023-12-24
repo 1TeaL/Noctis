@@ -116,7 +116,6 @@ namespace NoctisMod.SkillStates.BaseStates
             this.attack.impactSound = this.impactSound;
 
             isSwapped = noctisCon.isSwapped;
-            //DamageAPI.AddModdedDamageType(this.attack, Modules.Damage.shiggyDecay);
             noctisCon.SetSwapTrue(baseDuration + 0.2f);
             if(isSwapped)
             {

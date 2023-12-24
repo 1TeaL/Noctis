@@ -17,6 +17,7 @@ namespace NoctisMod.Modules
         internal static BuffDef GSarmorBuff;
         internal static BuffDef vulnerabilityDebuff;
         internal static BuffDef counterBuff;
+        internal static BuffDef armigerBuff;
 
         internal static void RegisterBuffs()
         {
@@ -24,6 +25,8 @@ namespace NoctisMod.Modules
             GSarmorBuff = Buffs.AddNewBuff($"GS Armor buff", Assets.shieldBuffIcon, Color.cyan, false, false);
             vulnerabilityDebuff = Buffs.AddNewBuff($"Vulnerability debuff", Assets.deathMarkDebuffIcon, Color.white, true, true);
             counterBuff = Buffs.AddNewBuff($"Counter buff", Assets.shieldBuffIcon, Color.black, false, false);
+
+            armigerBuff = Buffs.AddNewBuff($"Armiger buff", Assets.ruinDebuffIcon, Color.white, true, false);
         }
 
         // simple helper method

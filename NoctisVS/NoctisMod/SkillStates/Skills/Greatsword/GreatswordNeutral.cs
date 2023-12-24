@@ -21,6 +21,7 @@ namespace NoctisMod.SkillStates
         public Animator animator;
         private CharacterModel characterModel;
         private Transform modelTransform;
+        private bool activateCounter;
 
         public enum DangerState {STARTBUFF, CHECKCOUNTER};
         public DangerState state;
@@ -83,10 +84,7 @@ namespace NoctisMod.SkillStates
                     {
                         if (damageInfo.attacker != self)
                         {
-                            self.TakeDamage(damageInfo);
-                            self.body.ApplyBuff(Modules.Buffs.counterBuff.buffIndex, 0);
-                            this.animator.SetBool("releaseCounterSlam", true);
-                            new ForceCounterState(self.body.masterObjectId).Send(NetworkDestination.Clients);
+                            activateCounter = true;
                         }
 
                     }
@@ -138,6 +136,13 @@ namespace NoctisMod.SkillStates
                 case DangerState.CHECKCOUNTER:
                     noctisCon.SetSwapTrue(1f);
                     noctisCon.WeaponAppearR(1f, WeaponTypeR.GREATSWORD);
+
+                    if (activateCounter)
+                    {
+                        this.animator.SetBool("releaseCounterSlam", true);
+                        new ForceCounterState(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+                        return;
+                    }
 
                     base.GetModelAnimator().SetFloat("Attack.playbackRate", 0.01f);
                     if (inputBank.skill3.down)

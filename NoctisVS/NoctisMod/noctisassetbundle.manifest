@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4079850589
+CRC: 1961681067
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a245433941ace165c17b110b4697dd19
+    Hash: afed39936a9e30cd4ea2e18052c0a15c
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -187,6 +187,7 @@ Assets:
 - Assets/Noctis/Assets/GUI/NoctisFirearms.png
 - Assets/Noctis/Assets/Particle/swordThrow.prefab
 - Assets/Noctis/Animations/Combat/WarpStrike.anim
+- Assets/Noctis/Assets/GUI/NoctisArmiger.png
 - Assets/Noctis/Assets/GUI/NoctisWarpstrike.png
 - Assets/Noctis/Assets/Mesh/ButtonShapeMesh.mesh
 - Assets/Noctis/Assets/GUI/NoctisDaggers.png

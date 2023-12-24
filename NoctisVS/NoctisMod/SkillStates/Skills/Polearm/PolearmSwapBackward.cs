@@ -25,7 +25,6 @@ namespace NoctisMod.SkillStates
         public override void OnEnter()
         {
 
-            isSwapped = noctisCon.isSwapped;
             //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
             this.hitboxName = "PolearmThrustHitbox";
@@ -59,8 +58,15 @@ namespace NoctisMod.SkillStates
             }
             base.OnEnter();
             attackAmount += StaticValues.polearmSwapExtraHit;
-          
 
+            if (isSwapped)
+            {
+                this.baseDuration = 0.6f;
+                this.attackStartTime = 0f;
+                this.attackEndTime = 0.5f;
+                this.baseEarlyExitTime = 0.5f;
+                SpeedCoefficient *= 2f;
+            }
         }
         private void RecalculateRollSpeed()
         {

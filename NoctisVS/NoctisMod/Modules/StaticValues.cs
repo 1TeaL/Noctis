@@ -44,8 +44,8 @@ namespace NoctisMod.Modules
         //GS
         internal static float GSArmor = 150f;
         internal static float GSProc = 2f;
-        internal static float GSDamage = 5f;
-        internal static float GSCounterDamage = 12f;
+        internal static float GSDamage = 4f;
+        internal static float GSCounterDamage = 8f;
         internal static float GSSwapForwardDamage = 10f;
         internal static float GSLeapSpeed = 42f;
         internal static float GSMaxCharge = 3f;
@@ -84,5 +84,8 @@ namespace NoctisMod.Modules
         internal static float warpstrikeCost = 30f;
         internal static float warpstrikeThreshold = 0.5f;
         internal static float warpstrikeFreezeRange = 30f;
+
+        //Armiger
+        internal static float armigerThreshold = 10f;
     }
 }

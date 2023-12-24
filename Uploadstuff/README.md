@@ -1,7 +1,3 @@
-# Noctis Mod RoR2
-Noctis Lucis Caelum mod for Ror2 https://thunderstore.io/package/TeaL/NoctisMod/
-
-
 ## Noctis
 Adds Noctis from Final Fantasy XV, a technical melee focused surivor, switching between different weapons for different situations.
 #### Multiplayer works (hopefully). CustomEmotesAPI compatibility. Risk of Options support.
@@ -69,11 +65,21 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 1.4.0-
+- 1.4.0- Lots of changes
     - Bug fixes
-        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special. 
-    - Changes
-        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. This was to improve the flow of combat.
+        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special.
+        - Fixed issue with Noctis' voice playing over Shigaraki (my other mod) at times.
+        - Also updated Miro link to allow people to view instead of join the team
+    - Changes- Overall these changes were done to help improve Noctis' flow of combat
+        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
+        - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
+        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
+        - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
+        - Changed Greatsword neutral, swap neutral and swap aerials to new moves to help improve it's current moveset.
+    - Additions
+        - *NEW* replaced Greatsword neutral to a counter stance when held. If hit, retaliate with an AOE slam around you.
+        - *NEW* replaced Greatsword swap neutral and Greatsword swap aerials to attacks that launch an enemy up. If the input is held and the enemy is still alive, Noctis will warp to the target and slam them downwards. Greatsword swap aerial will warp to the target indicator reticle much like warpstrike.
+        - *NEW* added a new extra skill! Armiger consumes all of Noctis' mana but in turn for each 10 mana spent, grant 1 second of a buff that destroys all nearby projectiles. Can be stacked.
 - 1.3.0-
     - Bug fixes
         - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
@@ -163,9 +169,15 @@ Only usable after an attack.
     Warps Noctis towards the target or the direction you're looking at.
     When arriving at an enemy, deal damage, scaling with distance travelled.
     Costs 30 mana, reducible by CDR items.
+    
+#### Armiger 
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/92dc53e7-45cb-40a8-b8be-4ea85ceb2e95" height ="128" >
+
+    Consume all your mana- for every 10 mana add 1 second of the Armiger buff.
+    While the buff is active, all nearby projectiles will be destroyed. 
 
 #### Weapon combo routes Miro
-https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576
+[https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661](https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576)
 
 #### Sword- Faster attacks. Swap attacks have invincibility. All attacks have proc of 1.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/71e6552a-8ce3-4cfa-9dbc-44d976edcf39" height ="128" >
@@ -214,7 +226,7 @@ https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576
 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/84a61f86-f532-45d0-bd97-60de87048ec3" height ="256" >
 
-#### Greatsword- Slow but high damage. All attacks apply 'Vulnerability'- each stack causes an enemy to take 25% additional damage additively. Swap attacks have stun. All attacks have proc of 2.
+#### Greatsword- Slow but high damage. Have 150 armor during all attacks. All attacks apply 'Vulnerability'- each stack causes an enemy to take 25% additional damage additively. Swap attacks have stun. All attacks have proc of 2. 
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/1f298eb6-e15a-4729-b24c-e1d1639e92c5" height ="128" >
 <table>
 <thead>
@@ -225,114 +237,3 @@ https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576
 </thead>
 <tbody>
   <tr>
-    <td>Neutral</td>
-    <td>Vulnerability. Swing your greatsword up, knocking enemies up, dealing 400% damage.</td>
-  </tr>
-  <tr>
-    <td>Forward</td>
-    <td>Vulnerability. Leap and slam the ground, dealing 400% damage.</td>
-  </tr>
-  <tr>
-    <td>Backward</td>
-    <td>Vulnerability. Charge your greatsword. <br>On release, swing in front of you, knocking enemies back deal 400%-1200% damage based on charge.</td>
-  </tr>
-  <tr>
-    <td>Aerial</td>
-    <td>Vulnerability. Swing your greatsword while falling, dealing 400% damage. <br>Deal damage based on how long you were falling when you hit the ground.</td>
-  </tr>
-  <tr>
-    <td>Swap Neutral</td>
-    <td>Vulnerability. Stun. Swing your greatsword up, then slam it down, dealing 2x400% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Forward</td>
-    <td>Vulnerability. Stun. Do a fast overhead swing, dealing 1000% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Backward</td>
-    <td>Vulnerability. Stun. Charge your greatsword. <br>On release, leap and slam the ground, dealing 400%-1200% damage based on charge.</td>
-  </tr>
-  <tr>
-    <td>Swap Aerial</td>
-    <td>Vulnerability. Stun. Swing your greatsword while falling, dealing 400% damage. <br>Deal damage based on how long you were falling when you hit the ground.</td>
-  </tr>
-</tbody>
-</table>
-<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/8a43693a-00f6-478d-8b5d-86896e5e3a01" height ="256" >
-
-#### Polearm- Long range. Base attacks hit 2x minimum. Swap attacks hit 3x. Unique input of holding jump and attack. All attacks have proc of 0.3. 
-<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f" height ="128" >
-<table>
-<thead>
-  <tr>
-    <th>Polearm input</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Neutral</td>
-    <td>Thrust forward, dealing 2x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Forward</td>
-    <td>Charge, then dash and thrust forward, dealing 2x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Backward</td>
-    <td>Throw your polearm, piercing and dealing 3x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Aerial</td>
-    <td>Dash and thrust forward at your aim direction. Backhop on contact, dealing 2x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Aerial + Jump</td>
-    <td>Dragoon thrust, descending down, dealing 2x150% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
-  </tr>
-  <tr>
-    <td>Swap Neutral</td>
-    <td>Sweep your polearm from right to left, dealing 3x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Forward</td>
-    <td>Dash and thrust forward, dealing 3x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Backward</td>
-    <td>Backhop, dealing 3x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Aerial</td>
-    <td>Thrust forward, dealing 3x150% damage.</td>
-  </tr>
-  <tr>
-    <td>Swap Aerial + Jump</td>
-    <td>Double Dragoon thrust, descending down, dealing 3x150% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
-  </tr>
-</tbody>
-</table>
-<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/b1c887f9-43f6-40b0-b4a2-dccd644ad5d1" height ="256" >
-
-## Numbers
-##### Armor = 10 + 0.5 per level
-##### Damage = 12 + 2.4 per level
-##### Regen = 1 + 0.2 per level 
-##### Health = 162 + 15 per level
-##### Movespeed = 7
-
-These stats are prone to change.
-
-rest of changelog on github.
-## Changelog
-
-<details>
-<summary>Click to expand previous patch notes:</summary>
-
-Rest of changelog on Github
-</details>
-
-## Credits
-##### HenryMod for the template.
-##### Ethanol10(discord ethanol10) for weapon shader and partial attack logic
- 

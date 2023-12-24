@@ -57,6 +57,8 @@ namespace NoctisMod.Modules
             LanguageAPI.Add(prefix + "WARPSTRIKE_NAME", "Warpstrike");
             LanguageAPI.Add(prefix + "WARPSTRIKE_DESCRIPTION", $"<style=cIsUtility>Warp to where to a Target or where you're aiming.</style> When arriving at an enemy, deal <style=cIsDamage>damage based on distance travelled</style>. Costs {StaticValues.warpstrikeCost} mana, reducible by CDR items. ");
 
+            LanguageAPI.Add(prefix + "ARMIGER_NAME", "Armiger");
+            LanguageAPI.Add(prefix + "ARMIGER_DESCRIPTION", $"<style=cIsUtility>Activate Armiger, destroying all nearby projectiles while the buff is active.</style> Costs all your mana, for each {StaticValues.armigerThreshold} mana spent, gain 1 second of the Armiger buff. Stackable. ");
 
             #endregion
 

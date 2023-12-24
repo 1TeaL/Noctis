@@ -24,6 +24,7 @@ namespace NoctisMod.Modules.Survivors
         //utility
         internal static SkillDef dodgeSkillDef;
         internal static SkillDef warpstrikeSkillDef;
+        internal static SkillDef armigerSkillDef;
 
 
 
@@ -188,6 +189,7 @@ namespace NoctisMod.Modules.Survivors
         {
             Skills.CreateSkillFamilies(bodyPrefab);
             Modules.Skills.CreateFirstExtraSkillFamily(bodyPrefab);
+            Modules.Skills.CreateSecondExtraSkillFamily(bodyPrefab);
 
             string prefix = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_";
 
@@ -333,6 +335,30 @@ namespace NoctisMod.Modules.Survivors
 
             });
 
+            armigerSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "ARMIGER_NAME",
+                skillNameToken = prefix + "ARMIGER_NAME",
+                skillDescriptionToken = prefix + "ARMIGER_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisArmiger"),
+                activationState = new SerializableEntityStateType(typeof(Armiger)),
+                activationStateMachineName = "Slide",
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+                beginSkillCooldownOnSkillEnd = true,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+
+            });
             #endregion
 
             #region Chosen Skills
@@ -361,6 +387,10 @@ namespace NoctisMod.Modules.Survivors
             Modules.Skills.AddFirstExtraSkills(bodyPrefab, new SkillDef[]
             {
                 warpstrikeSkillDef,
+            });
+            Modules.Skills.AddSecondExtraSkills(bodyPrefab, new SkillDef[]
+            {
+                armigerSkillDef,
             });
             #endregion
 

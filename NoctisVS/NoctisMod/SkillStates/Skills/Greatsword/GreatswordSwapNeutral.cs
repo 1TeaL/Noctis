@@ -30,10 +30,10 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Stun1s;
 
-            this.damageCoefficient = StaticValues.GSDamage;
+            this.damageCoefficient = 1f;
             this.procCoefficient = StaticValues.GSProc;
             this.pushForce = 1000f;
-            this.bonusForce = new Vector3(0f, 5000f, 0f);
+            this.bonusForce = Vector3.up;
             this.baseDuration = 2.7f;
             this.attackStartTime = 0.2f;
             this.attackEndTime = 0.45f;
@@ -130,7 +130,7 @@ namespace NoctisMod.SkillStates
             {
                 if (!this.hasFired) this.FireAttack();
 
-                if(isTarget)
+                if(isTarget && target.healthComponent.health > 1f)
                 {
                     new ForceFollowUpState(characterBody.masterObjectId, target.healthComponent.body.masterObjectId).Send(NetworkDestination.Clients);
                     return;
