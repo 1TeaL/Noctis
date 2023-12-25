@@ -65,6 +65,10 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.4.1- 
+    - Bug fixes
+        - Fixed Greatsword follow up slam from swap neutral/swap aerial to work on flying enemies.
+        - Also not mentioned in 1.4.0 but Greatsword backward had increased hitbox, and all Greatsword effects were enlargened to match the hitboxes better.
 - 1.4.0- Lots of changes
     - Bug fixes
         - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special.

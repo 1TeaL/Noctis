@@ -25,7 +25,7 @@ namespace NoctisMod.SkillStates
 
             //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.greatswordSkillDef;
-            this.hitboxName = "AOEHitbox";
+            this.hitboxName = "GreatswordHitbox";
 
             this.damageType = DamageType.Stun1s;
 

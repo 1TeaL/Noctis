@@ -94,18 +94,12 @@ namespace NoctisMod.SkillStates
             stillPosition = Target.transform.position;
 
             base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
-            Target.characterMotor.useGravity = false;
         }
 
 
         public override void OnExit()
         {
             base.OnExit();
-            if (Target)
-            {
-                Target.characterMotor.useGravity = true;
-            }
-            characterMotor.useGravity = true;
             this.PlayAnimation("FullBody, Override", "BufferEmpty");
             if (characterBody.HasBuff(Buffs.GSarmorBuff))
             {
@@ -121,22 +115,17 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
-            //if (!hasTeleported)
-            //{
-            //    hasTeleported = true;
-            //    base.characterMotor.velocity = Vector3.zero;
-            //    base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
-            //    //new PerformDetroitTeleportNetworkRequest(base.characterBody.masterObjectId, Target.gameObject).Send(NetworkDestination.Clients);
-
-            //}
-
             //stop movement until hit
             if(base.fixedAge < baseDuration * attackStartTime)
             {
-                Target.healthComponent.body.characterMotor.velocity = Vector3.zero;
-                characterMotor.velocity = Vector3.zero;
-                characterMotor.useGravity = false;
-                Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                if (Target.characterMotor)
+                {
+                    Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                }
+                else if (Target.rigidbody)
+                {
+                    Target.rigidbody.MovePosition(stillPosition);
+                }
                 base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
                 //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
