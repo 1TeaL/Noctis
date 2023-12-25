@@ -65,6 +65,9 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.4.2- 
+    - Bug fixes
+        - Fixed Greatsword backwards not dealing damage.
 - 1.4.1- 
     - Bug fixes
         - Fixed Greatsword follow up slam from swap neutral/swap aerial to work on flying enemies.

@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.4.1";
+        public const string MODVERSION = "1.4.2";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";

@@ -25,7 +25,7 @@ namespace NoctisMod.SkillStates
 
             this.damageType = DamageType.Generic;
 
-            this.damageCoefficient = damageStat * StaticValues.GSDamage;
+            this.damageCoefficient = StaticValues.GSDamage;
             this.procCoefficient = 1f;
             this.pushForce = 5000f;
             this.bonusForce = characterBody.characterDirection.forward * pushForce;
