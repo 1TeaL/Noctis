@@ -68,7 +68,8 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
-
+- 1.4.3- 
+    - Changed Greatsword backwards description to match a change that happened in 1.4.0. You no longer charge it anymore and it does a flat 400% damage.
 - 1.4.2- 
     - Bug fixes
         - Fixed Greatsword backwards not dealing damage.
