@@ -65,6 +65,13 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.4.4- Bug fixes/Changes
+    - Bug fixes
+        - Fixed Armiger particles from not rotating around Noctis properly. Also should have fixed the timer so it appropriately decreases by 1 stack every second.
+    - Changes
+        - Polearm back fixed to have the appropriate damage and number of hits, was previously still dealing it's swap backwards damage and number of hits. Also made it slower as the time between attacks was too fast.
+- 1.4.3- 
+    - Changed Greatsword backwards description to match a change that happened in 1.4.0. You no longer charge it anymore and it does a flat 400% damage.
 - 1.4.2- 
     - Bug fixes
         - Fixed Greatsword backwards not dealing damage.

@@ -336,11 +336,11 @@ namespace NoctisMod.Modules.Survivors
                 }
                 if (characterBody.GetBuffCount(Buffs.armigerBuff) >= 1)
                 {                    
-                    if (armigerTimer < 1f)
+                    if (armigerTimer <= 1f)
                     {
                         armigerTimer += Time.deltaTime;
                     }
-                    else if (armigerTimer >= 1f)
+                    else if (armigerTimer > 1f)
                     {
                         armigerTimer = 0f;
                         armigerBuffCount = characterBody.GetBuffCount(Buffs.armigerBuff);

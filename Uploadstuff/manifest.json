@@ -1,8 +1,8 @@
 {
     "name": "NoctisMod",
-    "version_number": "1.4.2",
+    "version_number": "1.4.4",
     "website_url": "https://github.com/1TeaL/Noctis",
-    "description": "Above all, I'm just a man. 1.4.0- Lots of changes, new moves! Armiger!", 
+    "description": "Above all, I'm just a man. 1.4.0- Lots of changes, new moves! Armiger! 1.4.4- bug fixes", 
     "dependencies": [
          "RiskofThunder-R2API_Core-5.0.6",
          "RiskofThunder-R2API_Sound-1.0.0",

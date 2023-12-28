@@ -16,13 +16,13 @@ namespace NoctisMod.SkillStates
         public ExtraInputBankTest extrainputBankTest;
         private ExtraSkillLocator extraskillLocator;
         private Animator animator;
-        public float duration = 1f;
-        public float earlyExitTime = 0.4f;
-        private float fireTime = 0.01f;
+        public float duration = 1.2f;
+        public float earlyExitTime = 0.6f;
+        private float fireTime = 0.2f;
         public bool hasFired;
         private Ray aimRay;
         private float range = 200f;
-        private float damageCoefficient = Modules.StaticValues.polearmSwapBackwardDamage;
+        private float damageCoefficient = Modules.StaticValues.polearmDamage;
         private float procCoefficient = Modules.StaticValues.polearmProc;
         private string muzzleString ="RHand";
         private int bulletcount;
@@ -45,7 +45,8 @@ namespace NoctisMod.SkillStates
             base.characterDirection.forward = aimRay.direction;
 
             //fast animation all the time
-            animator.Play("FullBody, Override.PolearmThrow", -1, 0.34f);
+            //animator.Play("FullBody, Override.PolearmThrow", -1, 0.34f);
+            animator.Play("FullBody, Override.PolearmThrow", -1, 0.15f);
             //if (isSwapped)
             //{
             //    animator.Play("FullBody, Override.PolearmThrow", -1, 0.34f);
