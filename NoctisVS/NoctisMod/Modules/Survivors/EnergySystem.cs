@@ -1,4 +1,5 @@
 ﻿using System;
+using R2API.Networking;
 using RoR2;
 using RoR2.UI;
 using TMPro;
@@ -148,14 +149,23 @@ namespace NoctisMod.Modules.Survivors
 
             //Mana Currently have
 
-            //armiger check to disalbe energy regen
+            //armiger check to disalbe energy regen, slowly drain
             if(characterBody.HasBuff(Buffs.armigerBuff))
             {
                 ifEnergyRegenAllowed = false;
+                currentMana -= (regenMana/manaRegenMultiplier) * Time.fixedDeltaTime;
             }
             else if (!characterBody.HasBuff(Buffs.armigerBuff))
             {
                 ifEnergyRegenAllowed = true;
+            }
+
+            if(currentMana <= 1f)
+            {
+                if (characterBody.HasBuff(Buffs.armigerBuff))
+                {
+                    characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, 0);
+                }
             }
 
             //allow regen

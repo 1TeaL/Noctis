@@ -51,13 +51,13 @@ namespace NoctisMod.SkillStates
                     noctisCon.SpinningWeaponAura.Play();
                 }
 
-                int bufftoApply = Mathf.RoundToInt(energySystem.currentMana/StaticValues.armigerThreshold);
-                int buffcount = characterBody.GetBuffCount(Buffs.armigerBuff);
+                //int bufftoApply = Mathf.RoundToInt(energySystem.currentMana/StaticValues.armigerThreshold);
+                //int buffcount = characterBody.GetBuffCount(Buffs.armigerBuff);
 
-                characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, buffcount + bufftoApply);
+                //characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, buffcount + bufftoApply);
 
-                energySystem.SpendMana(energySystem.currentMana);
-
+                //energySystem.SpendMana(energySystem.currentMana);
+                characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex);
             }
             else
             {
