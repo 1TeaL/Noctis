@@ -72,7 +72,7 @@ namespace NoctisMod.SkillStates
             base.FixedUpdate();
 
             base.characterDirection.forward = aimRay.direction;
-            if (base.fixedAge >= this.fireTime * duration && !hasFired)
+            if (base.fixedAge >= this.fireTime * duration && !hasFired && base.isAuthority)
             {
                 noctisCon.currentWeaponR.SetActive(false);
                 hasFired = true;

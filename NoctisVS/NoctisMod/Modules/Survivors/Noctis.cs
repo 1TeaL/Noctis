@@ -319,7 +319,7 @@ namespace NoctisMod.Modules.Survivors
                 activationState = new SerializableEntityStateType(typeof(Warpstrike)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
-                baseRechargeInterval = 0f,
+                baseRechargeInterval = 1f,
                 beginSkillCooldownOnSkillEnd = true,
                 canceledFromSprinting = false,
                 forceSprintDuringState = false,

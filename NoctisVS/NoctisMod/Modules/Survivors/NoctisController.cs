@@ -369,6 +369,7 @@ namespace NoctisMod.Modules.Survivors
             }
             if(!characterBody.HasBuff(Buffs.armigerBuff))
             {
+                SpinningWeaponAura.Stop();
                 if(SpinningWeaponAura.isPlaying)
                 {
                     SpinningWeaponAura.Stop();

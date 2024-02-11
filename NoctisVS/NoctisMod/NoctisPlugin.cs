@@ -184,13 +184,10 @@ namespace NoctisMod
                 var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                 var victimBody = victim.GetComponent<CharacterBody>();
 
-                //gain mana on hit
+                //increased mana regen while in combat
                 if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
                 {
-                    EnergySystem energySys = attackerBody.GetComponent<EnergySystem>();
-
-                    energySys.GainMana(energySys.maxMana * StaticValues.manaGainOnHit);
-
+                    attackerBody.ApplyBuff(Buffs.manaBuff.buffIndex, 2, 1);
                 }
 
                 //vulnerability modded damage

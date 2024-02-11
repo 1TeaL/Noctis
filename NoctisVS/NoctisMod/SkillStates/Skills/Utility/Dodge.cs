@@ -47,15 +47,17 @@ namespace NoctisMod.SkillStates
             float manaCost = energySystem.costmultiplierMana * manaflatCost;
             if (manaCost < 0f) manaCost = 0f;
 
-            if (energySystem.currentMana < manaCost)
+            if (!characterBody.HasBuff(Buffs.armigerBuff))
             {
-                this.outer.SetNextStateToMain();
-                return;
-            }
-            else if (energySystem.currentMana >= manaCost)
-            {
-                energySystem.SpendMana(manaCost);
-
+                if (energySystem.currentMana < manaCost)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
+                else if (energySystem.currentMana >= manaCost)
+                {
+                    energySystem.SpendMana(manaCost);
+                }
             }
 
             this.modelTransform = base.GetModelTransform();

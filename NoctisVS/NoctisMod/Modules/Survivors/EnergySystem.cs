@@ -30,6 +30,7 @@ namespace NoctisMod.Modules.Survivors
         public float regenMana;
         public float costmultiplierMana;
         public float costflatMana;
+        public float manaRegenMultiplier;
         //public float ManaDecayTimer;
         public bool SetActiveTrue;
         //bools to stop energy regen after skill used
@@ -67,6 +68,7 @@ namespace NoctisMod.Modules.Survivors
             costflatMana = 0f;
             ifEnergyRegenAllowed = true;
             ifEnergyUsed = false;
+            manaRegenMultiplier = 1f;
 
             //UI objects 
             CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("noctisCustomUI"));
@@ -146,6 +148,16 @@ namespace NoctisMod.Modules.Survivors
 
             //Mana Currently have
 
+            //armiger check to disalbe energy regen
+            if(characterBody.HasBuff(Buffs.armigerBuff))
+            {
+                ifEnergyRegenAllowed = false;
+            }
+            else if (!characterBody.HasBuff(Buffs.armigerBuff))
+            {
+                ifEnergyRegenAllowed = true;
+            }
+
             //allow regen
             if (ifEnergyUsed)
             {
@@ -161,9 +173,18 @@ namespace NoctisMod.Modules.Survivors
                     energyDecayTimer += Time.fixedDeltaTime;
                 }
             }
-            if(ifEnergyRegenAllowed)
+            //mana regen rate
+            if(characterBody.HasBuff(Buffs.manaBuff))
             {
-                currentMana += regenMana * Time.fixedDeltaTime;
+                manaRegenMultiplier = StaticValues.manaRegenMultiplier;
+            }
+            else if (!characterBody.HasBuff(Buffs.manaBuff))
+            {
+                manaRegenMultiplier = 1f;
+            }
+            if (ifEnergyRegenAllowed)
+            {
+                currentMana += regenMana * manaRegenMultiplier * Time.fixedDeltaTime;
             }
 
 

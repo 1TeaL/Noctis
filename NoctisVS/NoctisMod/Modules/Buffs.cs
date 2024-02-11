@@ -18,6 +18,7 @@ namespace NoctisMod.Modules
         internal static BuffDef vulnerabilityDebuff;
         internal static BuffDef counterBuff;
         internal static BuffDef armigerBuff;
+        internal static BuffDef manaBuff;
 
         internal static void RegisterBuffs()
         {
@@ -27,6 +28,7 @@ namespace NoctisMod.Modules
             counterBuff = Buffs.AddNewBuff($"Counter buff", Assets.shieldBuffIcon, Color.black, false, false);
 
             armigerBuff = Buffs.AddNewBuff($"Armiger buff", Assets.ruinDebuffIcon, Color.white, true, false);
+            manaBuff = Buffs.AddNewBuff($"Mana Regen buff", Assets.jumpBuffIcon, Color.cyan, true, false);
         }
 
         // simple helper method

@@ -44,7 +44,7 @@ namespace NoctisMod.SkillStates
             //base.PlayCrossfade("RightArm, Override", "R" + randomAnim, "Attack.playbackRate", duration, 0.05f);
             //AkSoundEngine.PostEvent("NoctisArmiger", base.gameObject);
 
-            if(energySystem.currentMana >= StaticValues.armigerThreshold)
+            if(energySystem.currentMana >= energySystem.maxMana * 0.99f)
             {
                 if(noctisCon.SpinningWeaponAura.isStopped)
                 {

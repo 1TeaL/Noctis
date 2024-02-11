@@ -66,15 +66,18 @@ namespace NoctisMod.SkillStates
             float manaCost = energySystem.costmultiplierMana * manaflatCost;
             if (manaCost < 0f) manaCost = 0f;
 
-            if (energySystem.currentMana < manaCost)
+            if (!characterBody.HasBuff(Buffs.armigerBuff))
             {
-                this.outer.SetNextStateToMain();
-                return;
-            }
-            else if (energySystem.currentMana >= manaCost)
-            {
-                energySystem.SpendMana(manaCost);
+                if (energySystem.currentMana < manaCost)
+                {
+                    this.outer.SetNextStateToMain();
+                    return;
+                }
+                else if (energySystem.currentMana >= manaCost)
+                {
+                    energySystem.SpendMana(manaCost);
 
+                }
             }
 
             if (noctisCon.GetTrackingTarget())
@@ -115,7 +118,7 @@ namespace NoctisMod.SkillStates
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
             }, true);
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 2);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
         }
 
         private void PlayAnimation()
@@ -194,6 +197,8 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
+
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
             noctisCon.DashParticle.Stop();
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             animator.SetBool("attacking", false);

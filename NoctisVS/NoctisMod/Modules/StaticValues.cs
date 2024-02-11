@@ -22,11 +22,13 @@ namespace NoctisMod.Modules
         internal static float regenManaRate = 8f;
         internal static float minimumManaCost = 1f;
         internal static float costFlatManaSpend = 5f;
-        internal static float regenManaFraction = 0.0125f;
+        //internal static float regenManaFraction = 0.0125f;
+        internal static float regenManaFraction = 0.02f;
         internal static float backupGain = 5f;
         internal static float afterburnerGain = 15f;
         internal static float lysateGain = 10f;
         internal static float manaGainOnHit = 0.02f;
+        internal static float manaRegenMultiplier = 2f;
 
         //Sword
         internal static float swordProc = 1f;
@@ -69,7 +71,7 @@ namespace NoctisMod.Modules
         internal static float polearmSwapBackwardDamage = 2f;
 
         //Dodge
-        internal static float dodgeSpeed = 3f;
+        internal static float dodgeSpeed = 6f;
         internal static float dodgeArmor = 300f;
         internal static float dodgeHop = 10f;
         internal static float dodgeCost = 10f;
