@@ -339,6 +339,11 @@ namespace NoctisMod.SkillStates.BaseStates
                     SetNextState();
                 }
 
+                if(base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+
                 if(extrainputBankTest.extraSkill1.down)
                 {
                     Warpstrike warpstrike= new Warpstrike();

@@ -105,7 +105,7 @@ namespace NoctisMod.SkillStates
                     procChainMask = default(ProcChainMask),
                     procCoefficient = procCoefficient,
                     radius = 1.5f,
-                    sniper = true,
+                    sniper = false,
                     stopperMask = LayerIndex.noCollision.mask,
                     weapon = null,
                     //tracerEffectPrefab = Assets.polearmTracer,
@@ -123,6 +123,11 @@ namespace NoctisMod.SkillStates
 
                 if (base.isAuthority)
                 {
+
+                    if (base.inputBank.moveVector != Vector3.zero)
+                    {
+                        this.outer.SetNextStateToMain();
+                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();

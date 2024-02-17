@@ -9,6 +9,8 @@ using NoctisMod.SkillStates.BaseStates;
 using R2API;
 using System.Reflection;
 using static NoctisMod.Modules.Survivors.NoctisController;
+using NoctisMod.Modules.Networking;
+using R2API.Networking;
 
 namespace NoctisMod.SkillStates
 {
@@ -58,10 +60,21 @@ namespace NoctisMod.SkillStates
                     //weapon swap combos
                     if (!base.isGrounded)
                     {
-                        //aerial attack
-                        SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                        this.outer.SetNextState(SwordSwapAerial);
-                        return;
+                        if (noctisCon.trackingTarget)
+                        {
+                            Target = noctisCon.GetTrackingTarget();
+                            SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                            this.outer.SetNextState(SwordSwapAerial);
+                            return;
+                        }
+                        else
+                        {
+                            SwordAerial SwordAerial = new SwordAerial();
+                            SwordAerial.isTarget = false;
+                            this.outer.SetNextState(SwordAerial);
+                            return;
+
+                        }
 
                     }
                     else

@@ -323,6 +323,11 @@ namespace NoctisMod.SkillStates
 
                 if (base.isAuthority)
                 {
+
+                    if (base.inputBank.moveVector != Vector3.zero)
+                    {
+                        this.outer.SetNextStateToMain();
+                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();

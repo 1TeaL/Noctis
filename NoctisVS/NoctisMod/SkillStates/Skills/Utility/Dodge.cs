@@ -87,6 +87,48 @@ namespace NoctisMod.SkillStates
             aimRay = base.GetAimRay();
             //noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
 
+            if(noctisCon.weaponStateR != NoctisController.WeaponTypeR.NONE)
+            {
+
+                EffectManager.SimpleMuzzleFlash(Modules.Assets.noctisSwingEffect, base.gameObject, "SwordSwingStab", true);
+
+                BlastAttack blastAttack = new BlastAttack();
+
+                blastAttack.position = base.characterBody.corePosition;
+                blastAttack.baseDamage = this.damageStat * 1f;
+                blastAttack.baseForce = 0f;
+                blastAttack.radius = 4f;
+                blastAttack.attacker = base.gameObject;
+                blastAttack.inflictor = base.gameObject;
+                blastAttack.teamIndex = base.teamComponent.teamIndex;
+                blastAttack.crit = base.RollCrit();
+                blastAttack.procChainMask = default(ProcChainMask);
+                blastAttack.procCoefficient = 0.1f;
+                blastAttack.falloffModel = BlastAttack.FalloffModel.None;
+                blastAttack.damageColorIndex = DamageColorIndex.Default;
+                blastAttack.damageType = DamageType.Generic;
+                blastAttack.attackerFiltering = AttackerFiltering.Default;
+
+
+                int attackAmount = (int)this.attackSpeedStat;
+                if (attackAmount < 1)
+                {
+                    attackAmount = 1;
+                }
+                float partialAttack = (float)(this.attackSpeedStat - (float)attackAmount);
+
+                for (int i = 0; i < attackAmount; i++)
+                {
+                    blastAttack.Fire();
+                }
+                if (partialAttack > 0f)
+                {
+                    blastAttack.baseDamage = this.damageStat * partialAttack;
+                    blastAttack.procCoefficient = 0.1f * partialAttack;
+                    blastAttack.Fire();
+                }
+            }
+
             direction = base.inputBank.moveVector;
             duration = baseDuration / attackSpeedStat;
 

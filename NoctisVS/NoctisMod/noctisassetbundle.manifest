@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3412371796
+CRC: 1996613649
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 02d2e62174b4b5cfcbf1f1bd3570cc2b
+    Hash: 2111217ebcab157071d2692ce55de104
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -67,6 +67,7 @@ Assets:
 - Assets/Noctis/Assets/Material/nh00_010_skin_01_b_$h.btex.png
 - Assets/Noctis/Assets/NoctisDisplay.prefab
 - Assets/Noctis/Assets/Mesh/TearShapeMesh.mesh
+- Assets/Noctis/Animations/Polearm/PolearmPullOut.anim
 - Assets/Noctis/Assets/GUI/NoctisPassive.png
 - Assets/Noctis/Animations/Combat/AerialLeftflip.anim
 - Assets/Noctis/Animations/Sword/SwordRoundSlash.anim
@@ -125,8 +126,10 @@ Assets:
 - Assets/Noctis/Animations/Greatsword/GSChargeLeapSlash.anim
 - Assets/Noctis/Assets/Weapons/swordNormalImage.png
 - Assets/Noctis/Assets/Material/buttonsMat.mat
+- Assets/Noctis/Animations/Sword/AerialSwordSlash2.anim
 - Assets/Noctis/Assets/Weapons/polearmMatL.mat
 - Assets/Noctis/Animations/Movement/Death.anim
+- Assets/Noctis/Animations/Sword/AerialSwordSlash3.anim
 - Assets/Noctis/Animations/Combat/Dash.anim
 - Assets/Noctis/Animations/Greatsword/GSLeapSlash.anim
 - Assets/Noctis/Animations/Greatsword/GSUpDownSlam.anim

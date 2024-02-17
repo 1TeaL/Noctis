@@ -93,6 +93,7 @@ namespace NoctisMod.SkillStates
 
             stillPosition = Target.transform.position;
 
+            base.characterMotor.useGravity = false;
             base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
         }
 
@@ -101,6 +102,18 @@ namespace NoctisMod.SkillStates
         {
             base.OnExit();
             this.PlayAnimation("FullBody, Override", "BufferEmpty");
+            base.characterMotor.useGravity = true;
+            if(Target.healthComponent)
+            {
+                if (Target.characterMotor)
+                {
+                    Target.characterMotor.useGravity = true;
+                }
+                else if (Target.rigidbody)
+                {
+                    Target.rigidbody.useGravity = true;
+                }
+            }
             if (characterBody.HasBuff(Buffs.GSarmorBuff))
             {
                 characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
@@ -121,10 +134,12 @@ namespace NoctisMod.SkillStates
                 if (Target.characterMotor)
                 {
                     Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                    Target.characterMotor.useGravity = false;
                 }
                 else if (Target.rigidbody)
                 {
                     Target.rigidbody.MovePosition(stillPosition);
+                    Target.rigidbody.useGravity = false;
                 }
                 base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
                 //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
@@ -193,6 +208,10 @@ namespace NoctisMod.SkillStates
                     return;
                 }
 
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
                 if (inputBank.skill1.down)
                 {
                     this.outer.SetNextStateToMain();
