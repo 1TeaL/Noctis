@@ -64,6 +64,7 @@ namespace NoctisMod.SkillStates
                         {
                             Target = noctisCon.GetTrackingTarget();
                             SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
+                            SwordSwapAerial.Target = Target;
                             this.outer.SetNextState(SwordSwapAerial);
                             return;
                         }

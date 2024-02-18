@@ -29,6 +29,7 @@ namespace NoctisMod.Modules
         internal static float lysateGain = 10f;
         internal static float manaGainOnHit = 0.02f;
         internal static float manaRegenMultiplier = 2f;
+        internal static float armigerDrainMultiplier = 4f;
 
         //Sword
         internal static float swordProc = 1f;

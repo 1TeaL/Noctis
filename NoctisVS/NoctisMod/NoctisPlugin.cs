@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.4.4";
+        public const string MODVERSION = "1.5.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -133,6 +133,7 @@ namespace NoctisMod
             NetworkingAPI.RegisterMessageType<ForceCounterState>();
             NetworkingAPI.RegisterMessageType<ForceFollowUpState>();
             NetworkingAPI.RegisterMessageType<ForceGSSwapAerial>();
+            NetworkingAPI.RegisterMessageType<ExtractNetworkRequest>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -187,7 +188,7 @@ namespace NoctisMod
                 //increased mana regen while in combat
                 if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
                 {
-                    attackerBody.ApplyBuff(Buffs.manaBuff.buffIndex, 2, 1);
+                    attackerBody.ApplyBuff(Buffs.manaBuff.buffIndex, 1, 2);
                 }
 
                 //vulnerability modded damage

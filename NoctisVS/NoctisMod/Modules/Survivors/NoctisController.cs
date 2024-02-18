@@ -334,19 +334,19 @@ namespace NoctisMod.Modules.Survivors
                 {
                     SpinningWeaponAura.Play();
                 }
-                if (characterBody.GetBuffCount(Buffs.armigerBuff) >= 1)
-                {                    
-                    if (armigerTimer <= 1f)
-                    {
-                        armigerTimer += Time.deltaTime;
-                    }
-                    else if (armigerTimer > 1f)
-                    {
-                        armigerTimer = 0f;
-                        armigerBuffCount = characterBody.GetBuffCount(Buffs.armigerBuff);
-                        characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, armigerBuffCount - 1);
-                    }
-                }
+                //if (characterBody.GetBuffCount(Buffs.armigerBuff) >= 1)
+                //{                    
+                //    if (armigerTimer <= 1f)
+                //    {
+                //        armigerTimer += Time.deltaTime;
+                //    }
+                //    else if (armigerTimer > 1f)
+                //    {
+                //        armigerTimer = 0f;
+                //        armigerBuffCount = characterBody.GetBuffCount(Buffs.armigerBuff);
+                //        characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex, armigerBuffCount - 1);
+                //    }
+                //}
 
                 Collider[] array = Physics.OverlapSphere(characterBody.transform.position, 8f, LayerIndex.projectile.mask);
                 for (int i = 0; i < array.Length; i++)
@@ -369,11 +369,9 @@ namespace NoctisMod.Modules.Survivors
             }
             if(!characterBody.HasBuff(Buffs.armigerBuff))
             {
+                SpinningWeaponAura.Pause();
                 SpinningWeaponAura.Stop();
-                if(SpinningWeaponAura.isPlaying)
-                {
-                    SpinningWeaponAura.Stop();
-                }
+                SpinningWeaponAura.Clear();
             }
 
 

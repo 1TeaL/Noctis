@@ -52,13 +52,13 @@ namespace NoctisMod.Modules
             LanguageAPI.Add(prefix + "POLEARM_DESCRIPTION", $"Swing your polearm. There are neutral, forward, backward, aerial attacks AND hold jump + aerial attacks. Most attacks will deal 2x{StaticValues.polearmDamage * 100f}% damage and proc of {StaticValues.polearmProc}. Swapping into polearm attacks have 3x{StaticValues.polearmDamage * 100f}% damage. ");
 
             LanguageAPI.Add(prefix + "DODGE_NAME", "Dodge");
-            LanguageAPI.Add(prefix + "DODGE_DESCRIPTION", $"<style=cIsUtility>Dash in the direction or airstep in the direction if in the air, granting {StaticValues.dodgeArmor} armor during the dodge</style>. Useable during weapon attacks to cancel the end lag. Costs {StaticValues.dodgeCost} mana, reducible by CDR items. ");
+            LanguageAPI.Add(prefix + "DODGE_DESCRIPTION", $"<style=cIsUtility>Dash in the direction or airstep in the direction if in the air, granting {StaticValues.dodgeArmor} armor during the dodge</style>. Useable during weapon attacks to cancel the end lag. If Noctis is holding a weapon, deal <style=cIsDamage>100% damage</style> to nearby enemies. Costs {StaticValues.dodgeCost} mana, reducible by CDR items. ");
 
             LanguageAPI.Add(prefix + "WARPSTRIKE_NAME", "Warpstrike");
             LanguageAPI.Add(prefix + "WARPSTRIKE_DESCRIPTION", $"<style=cIsUtility>Warp to where to a Target or where you're aiming.</style> When arriving at an enemy, deal <style=cIsDamage>damage based on distance travelled</style>. Costs {StaticValues.warpstrikeCost} mana, reducible by CDR items. ");
 
             LanguageAPI.Add(prefix + "ARMIGER_NAME", "Armiger");
-            LanguageAPI.Add(prefix + "ARMIGER_DESCRIPTION", $"<style=cIsUtility>Activate Armiger, destroying all nearby projectiles while the buff is active.</style> Costs all your mana, for each {StaticValues.armigerThreshold} mana spent, gain 1 second of the Armiger buff. Stackable. ");
+            LanguageAPI.Add(prefix + "ARMIGER_DESCRIPTION", $"<style=cIsUtility>Activate Armiger, destroying all nearby projectiles and alleviates all mana costs while the buff is active.</style> Requires maximum mana. Constantly drains mana while active and when you run out of mana, the buff ends. Attacking will reduce the rate of drain.");
 
             #endregion
 
@@ -78,7 +78,7 @@ namespace NoctisMod.Modules
                 $"Swap Neutral:<style=cIsUtility>Invincibility</style>. Slash up then down, dealing <style=cIsDamage>2x{StaticValues.swordDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Forward:<style=cIsUtility>Invincibility</style>. Dash forward very quickly, dealing <style=cIsDamage>2x{StaticValues.swordDamage * 100f}% damage to enemies behind you</style>. " + Environment.NewLine +
                 $"Swap Backward:<style=cIsUtility>Invincibility</style>. Backflip into the air, dealing <style=cIsDamage>{StaticValues.swordDamage * 100f}% damage</style>. " + Environment.NewLine +
-                $"Swap Aerial:<style=cIsUtility>Invincibility</style>. Dash and slash in a direction. Backflip on contact, dealing <style=cIsDamage>{StaticValues.swordDamage * 100f}% damage</style>. ");
+                $"Swap Aerial:<style=cIsUtility>Invincibility</style>. Warp to the target. While holding the button, keep the enemy in spot and slash up to 3 times for <style=cIsDamage>{StaticValues.swordDamage * 100f}% damage</style> each hit. ");
 
             LanguageAPI.Add(prefix + "KEYWORD_GREATSWORD", $"Neutral: Hold the button to enter a counter stance, gaining an <style=cIsUtility>additional {StaticValues.GSArmor} armor</style>. When hit, counter with a slam on the ground, dealing <style=cIsDamage>{StaticValues.GSCounterDamage * 100f}% damage</style>. Invincible during the slam. Release the button or press any other button to cancel it. " + Environment.NewLine +
                 $"Forward: Leap and slam the ground, dealing <style=cIsDamage>{StaticValues.GSDamage * 100f}% damage</style>. " + Environment.NewLine +
@@ -97,7 +97,7 @@ namespace NoctisMod.Modules
                 $"Swap Neutral: Sweep your polearm from right to left, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>.  " + Environment.NewLine +
                 $"Swap Forward: Dash and thrust forward, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
                 $"Swap Backward: Backhop, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
-                $"Swap Aerial: Dash and thrust towards at your aim direction, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. " + Environment.NewLine +
+                $"Swap Aerial: Warp to the target, quickly stabbing then pulling out your polearm. Deal One singular hit of <style=cIsDamage>{StaticValues.polearmDamage * 100f * 3f}% armor ignoring damage</style>, dealing more the lower the health the enemy is. " + Environment.NewLine +
                 $"Swap Aerial + Jump: Double Dragoon thrust, descending down, dealing <style=cIsDamage>3x{StaticValues.polearmDamage * 100f}% damage</style>. Deal damage based on how long you were falling when you hit the ground." );
             #endregion
             #endregion

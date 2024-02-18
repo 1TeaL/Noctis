@@ -7,24 +7,20 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using NoctisMod.SkillStates.BaseStates;
 using R2API;
-using System.Reflection;
 using NoctisMod.Modules;
+using R2API.Networking;
+using EntityStates.Huntress;
+using NoctisMod.Modules.Networking;
+using R2API.Networking.Interfaces;
 
 namespace NoctisMod.SkillStates
 {
     public class PolearmSwapAerial : BaseMeleeAttack
     {
-
         public HurtBox Target;
-        private Vector3 direction;
-
-        public bool isTarget;
-
-        private bool keepMoving;
-        private float rollSpeed;
-        private float SpeedCoefficient;
-        public static float initialSpeedCoefficient = Modules.StaticValues.polearmDashSpeed;
-        private float finalSpeedCoefficient = 0f;
+        private Vector3 stillPosition;
+        private bool hasExtracted;
+        private Vector3 characterForward;
 
 
         public override void OnEnter()
@@ -32,20 +28,21 @@ namespace NoctisMod.SkillStates
 
             //AkSoundEngine.PostEvent("SwordSwingSFX", base.gameObject);
             weaponDef = Noctis.polearmSkillDef;
-            keepMoving = true;
             this.hitboxName = "PolearmThrustHitbox";
 
             this.damageType = DamageType.Generic;
-            this.damageCoefficient = StaticValues.polearmDamage;
-            this.procCoefficient = StaticValues.polearmProc;
-            this.pushForce = 0f;
-            this.baseDuration = 0.9f;
-            this.attackStartTime = 0.3f;
-            this.attackEndTime = 0.6f;
-            this.baseEarlyExitTime = 0.6f;
+
+            this.damageCoefficient = 0f;
+            this.procCoefficient = 0.1f;
+            this.pushForce = 1000f;
+            this.bonusForce = new Vector3(1000f, 500f, 0f);
+            this.baseDuration = 1.5f;
+            this.attackStartTime = 0.15f;
+            this.attackEndTime = 0.35f;
+            this.baseEarlyExitTime = 0.35f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 6f;
+            this.hitHopVelocity = 2f;
 
             this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
@@ -54,62 +51,71 @@ namespace NoctisMod.SkillStates
             this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
 
             this.impactSound = Modules.Assets.hitSoundEffect.index;
-            SpeedCoefficient = initialSpeedCoefficient;
-            this.direction = base.GetAimRay().direction.normalized;
 
-            if (base.characterBody)
-            {
-                base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
-            }
-            base.SmallHop(base.characterMotor, hitHopVelocity);
+
+
+            stillPosition = Target.healthComponent.body.transform.position;
+
             base.OnEnter();
-          
 
-        }
-        private void RecalculateRollSpeed()
-        {
-            float num = this.moveSpeedStat;
-            bool isSprinting = base.characterBody.isSprinting;
-            if (isSprinting)
+            if (isSwapped)
             {
-                num /= base.characterBody.sprintingSpeedMultiplier;
+                this.baseDuration = 1.26f;
+                this.attackStartTime = 0f;
+                this.attackEndTime = 0.24f;
+                this.baseEarlyExitTime = 0.24f;
             }
-            float num2 = (num / base.characterBody.baseMoveSpeed) * 0.67f;
-            float num3 = num2 + 1f;
-            this.rollSpeed = num3 * Mathf.Lerp(SpeedCoefficient, finalSpeedCoefficient, base.fixedAge / (base.baseDuration * this.attackEndTime));
+
+            if(base.isAuthority)
+            {
+                characterDirection.forward = characterForward;
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 6f, Quaternion.LookRotation(characterForward), true);
+            }
+
+            base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (base.age < attackEndTime)
+            {
+                //stop all movement during duration
+                if (Target.healthComponent.body.characterMotor)
+                {
+                    Target.healthComponent.body.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                }
+                else if (Target.healthComponent.body.rigidbody)
+                {
+                    Target.healthComponent.body.rigidbody.MovePosition(stillPosition);
+                }
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 6f, Quaternion.LookRotation(characterForward), true);
+            }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if (this.stopwatch <= (this.baseDuration * this.attackEndTime) && keepMoving)
+            if(base.fixedAge > attackStartTime && !hasExtracted)
             {
-                RecalculateRollSpeed();
-                if (isTarget)
-                {
-                    if (Target)
-                    {
-                        this.direction = Target.transform.position;
-                    }
-                    if (base.isAuthority)
-                    {
-                        Vector3 velocity = (this.direction - base.transform.position).normalized * rollSpeed;
-                        base.characterMotor.velocity = velocity;
-                        base.characterDirection.forward = base.characterMotor.velocity.normalized;
-                    }
-
-                }
-
-
+                hasExtracted = true;
+                new ExtractNetworkRequest(characterBody.masterObjectId, Target.healthComponent.body.corePosition, 4f, damageStat * ((StaticValues.polearmDamage * (attackAmount + StaticValues.polearmSwapExtraHit)) + (StaticValues.polearmDamage * partialAttack))).Send(NetworkDestination.Clients);
             }
-
         }
-
 
         protected override void PlayAttackAnimation()
         {
-            base.PlayCrossfade("FullBody, Override", "AerialOneHandStab", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);            
+            AkSoundEngine.PostEvent("Dodge", base.gameObject);
+            if (isSwapped)
+            {
+                animator.Play("FullBody, Override.PolearmPullOut", 1, 0.16f);
+            }
+            else
+            {
+                base.PlayCrossfade("FullBody, Override", "PolearmPullOut", "Attack.playbackRate", this.baseDuration - this.baseEarlyExitTime, 0.05f);
+            }
         }
 
         protected override void PlaySwingEffect()
@@ -120,36 +126,33 @@ namespace NoctisMod.SkillStates
         protected override void OnHitEnemyAuthority()
         {
             base.OnHitEnemyAuthority();
-            keepMoving = false;
 
         }
 
         protected override void SetNextState()
         {
-
             if (base.isAuthority)
             {
                 if (!this.hasFired) this.FireAttack();
+                     
+                if (!this.hasFired) this.FireAttack();
+                this.outer.SetNextState(new PolearmCombo());
+                return;
+                
+                
 
-                if(keepMoving)
-                {
-                    this.outer.SetNextState(new PolearmCombo());
-                    return;
-                }
-                else if(!keepMoving)
-                {
-                    this.outer.SetNextState(new PolearmDoubleDragoonThrust());
-                    return;
-                }
             }
+
 
         }
 
         public override void OnExit()
         {
             base.OnExit();
+
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;
-            base.characterMotor.velocity *= 0.1f;
+            base.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            base.characterMotor.Motor.RebuildCollidableLayers();
         }
 
     }

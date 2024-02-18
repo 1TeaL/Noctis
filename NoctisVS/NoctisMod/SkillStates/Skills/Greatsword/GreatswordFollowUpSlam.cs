@@ -93,7 +93,6 @@ namespace NoctisMod.SkillStates
 
             stillPosition = Target.transform.position;
 
-            base.characterMotor.useGravity = false;
             base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
         }
 
@@ -102,18 +101,6 @@ namespace NoctisMod.SkillStates
         {
             base.OnExit();
             this.PlayAnimation("FullBody, Override", "BufferEmpty");
-            base.characterMotor.useGravity = true;
-            if(Target.healthComponent)
-            {
-                if (Target.characterMotor)
-                {
-                    Target.characterMotor.useGravity = true;
-                }
-                else if (Target.rigidbody)
-                {
-                    Target.rigidbody.useGravity = true;
-                }
-            }
             if (characterBody.HasBuff(Buffs.GSarmorBuff))
             {
                 characterBody.ApplyBuff(Buffs.GSarmorBuff.buffIndex, 0);
@@ -124,26 +111,29 @@ namespace NoctisMod.SkillStates
             }
         }
 
-        public override void FixedUpdate()
+        public override void Update()
         {
-            base.FixedUpdate();
+            base.Update();
 
             //stop movement until hit
-            if(base.fixedAge < baseDuration * attackStartTime)
+            if (base.age < baseDuration * attackStartTime)
             {
                 if (Target.characterMotor)
                 {
                     Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
-                    Target.characterMotor.useGravity = false;
                 }
                 else if (Target.rigidbody)
                 {
                     Target.rigidbody.MovePosition(stillPosition);
-                    Target.rigidbody.useGravity = false;
                 }
                 base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
                 //base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
                 
             if (base.fixedAge >= baseDuration * attackStartTime && !hasFired && base.isAuthority)
             {
@@ -197,6 +187,15 @@ namespace NoctisMod.SkillStates
                 }
             }
 
+            //movement cancel
+            if (base.fixedAge >= baseDuration * attackEndTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
             if (base.fixedAge >= baseDuration * attackEndTime)
             {
 
@@ -208,10 +207,6 @@ namespace NoctisMod.SkillStates
                     return;
                 }
 
-                if (base.inputBank.moveVector != Vector3.zero)
-                {
-                    this.outer.SetNextStateToMain();
-                }
                 if (inputBank.skill1.down)
                 {
                     this.outer.SetNextStateToMain();

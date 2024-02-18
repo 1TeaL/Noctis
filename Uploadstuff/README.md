@@ -65,6 +65,20 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.5.0- Bug fixes/New Skills/BIG Balance Changes
+    - Bug fixes
+        - Fixed Armiger particles not disappearing properly
+        - Noted issue that sometimes Greatsword overrides Noctis' primary for some reason- can't reliably replicate it.
+    - New Skills
+        - Sword Swap Aerial has been changed- it warps Noctis to the target and you deal up to 3 attacks on the target, keeping them in spot and also keeping them in their position- use it to continue aerial combos!
+        - Polearm Swap Aerial has been changed- it warps Noctis to the target and you deal one singular hit (as strong as the normal swap attacks default 3 hits, attackspeed will still scale the damage as well), ignoring armor as well as dealing more damage the lower the health of the enemy- use it as a combo finisher and also an aerial combo continuer! 
+    - Balance Changes
+        - Noctis no longer gains 2% Mana per hit. This is due to how rapidly Noctis can gain mana without issue, resulting in him becoming broken- both to warpstrike spamming and armiger duration.
+            - Mana regen has been doubled to compensate, and it further doubles its rate if Noctis has recently attacked an enemy for 2 seconds.
+        - Armiger- Armiger now makes all mana costing abilities free during its duration. It can only be used when you have full mana and now instead constantly drains Noctis' mana, not allowing any way to gain mana while it's active. Attacking enemies does slow down the rate of drain. This is to stop armiger stacking infinitely and make it so the end point of it results in 0 mana. To compensate, mana costs are alleviated creating a more 'super' form of Noctis with some drawbacks.
+        - Warpstrike- Now has an base 2 second cooldown and warpstrike's no longer can be chain back to itself. Warpstrike also no longer gives a flat 2 second invincibility, just during the whole duration of it. Warpstrike cancels from other means are still available, just not to itself. This is to stop warpstrike spamming resutling in incredible damage and invincibility. 
+        - Polearm back fixed to have the appropriate damage, was automatically dealing bonus damage like railgunner previously.
+        - Dodge- increased dodge distance and if you have a weapon out, you will deal 100% damage around Noctis as you dash. This is to give it a bit more utility.
 - 1.4.4- Bug fixes/Changes
     - Bug fixes
         - Fixed Armiger particles from not rotating around Noctis properly. Also should have fixed the timer so it appropriately decreases by 1 stack every second.
@@ -86,7 +100,7 @@ If you enjoy my work, support me on Ko-fi!
         - Also updated Miro link to allow people to view instead of join the team
     - Changes- Overall these changes were done to help improve Noctis' flow of combat
         - Warpstrike can now be fast canceled much like all other weapon attacks and swap attacks- this means the animation time will be shorter as well. It also grants invincibility while using as well for increased safety.
-	- Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
+        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
         - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
         - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
         - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
@@ -142,6 +156,7 @@ If you enjoy my work, support me on Ko-fi!
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/890a73bf-ee33-4599-bd70-c2a9f6c36526" height ="256" >
 
 ## Known Issues
+Greatsword overrides primary sometimes- going to a new stage resets this, unknown how to reliably reproduce.
 
 ## Overview    
 Attack speed doesn't scale Noctis' animations. 
@@ -168,6 +183,7 @@ Each weapon has unique attributes to them.
     Pressing dodge grants 300 armor during the duration. 
     Allows you to cancel the endlag for attacks.
     Costs 10 mana, reducible by CDR items.
+    Attack nearby enemies if you have a weapon out for 100% damage.
     Using it in the air will have you airstep, gaining a little bit of height.
 
 #### Jumping
@@ -183,13 +199,15 @@ Only usable after an attack.
 
     Warps Noctis towards the target or the direction you're looking at.
     When arriving at an enemy, deal damage, scaling with distance travelled.
+    Can be cancelled into from attacks but not itself.
     Costs 30 mana, reducible by CDR items.
     
 #### Armiger 
 <img src= "https://github.com/1TeaL/Noctis/assets/93917577/92dc53e7-45cb-40a8-b8be-4ea85ceb2e95" height ="128" >
 
-    Consume all your mana- for every 10 mana add 1 second of the Armiger buff.
-    While the buff is active, all nearby projectiles will be destroyed. 
+    Requires maxmium mana to be used and provides the Armiger buff.
+    Constantly drains mana while active, with the rate reduced while Noctis is damaging an enemy.
+    While the buff is active, all nearby projectiles will be destroyed and all mana costs are alleviated. 
 
 #### Weapon combo routes Miro
 [https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661](https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576)
@@ -234,7 +252,7 @@ Only usable after an attack.
   </tr>
   <tr>
     <td>Swap Aerial</td>
-    <td>Invincibility. Dash and slash in a direction. Flip back on contact, dealing 200% damage.</td>
+    <td>Invincibility. Warp to the target and attack them up to 3 times for 200% damage each. While doing so, keep them in their spot.</td>
   </tr>
 </tbody>
 </table>
@@ -252,3 +270,102 @@ Only usable after an attack.
 </thead>
 <tbody>
   <tr>
+    <td>Neutral</td>
+    <td>Vulnerability. Hold the button to enter a counter stance, gaining an additional 150 armor.<br>When hit, counter with a slam on the ground, dealing 800% damage. Invincible during the slam.</td>
+  </tr>
+  <tr>
+    <td>Forward</td>
+    <td>Vulnerability. Leap and slam the ground, dealing 400% damage.</td>
+  </tr>
+  <tr>
+    <td>Backward</td>
+    <td>Vulnerability. Charge your greatsword. <br>On release, swing in front of you, knocking enemies back deal 400%-1200% damage based on charge.</td>
+  </tr>
+  <tr>
+    <td>Aerial</td>
+    <td>Vulnerability. Swing your greatsword while falling, dealing 400% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
+  </tr>
+  <tr>
+    <td>Swap Neutral</td>
+    <td>Vulnerability. Stun. Uppercut an enemy infront of you, launching them up for 400% damage.<br>Continue to hold the input to warp to the target and slam them down, dealing 400% damage.</td>
+  </tr>
+  <tr>
+    <td>Swap Forward</td>
+    <td>Vulnerability. Stun. Do a fast overhead swing, dealing 1000% damage.</td>
+  </tr>
+  <tr>
+    <td>Swap Backward</td>
+    <td>Vulnerability. Stun. Charge your greatsword. <br>On release, leap and slam the ground, dealing 400%-1200% damage based on charge.</td>
+  </tr>
+  <tr>
+    <td>Swap Aerial</td>
+    <td>Vulnerability. Stun. Warp and Uppercut the Target, launching them up for 400% damage.<br>Continue to hold the input to warp to the target and slam them down, dealing 400% damage.</td>
+  </tr>
+</tbody>
+</table>
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/e360325a-59a3-4c09-a736-ff805b2e6c60" height ="256" >
+
+#### Polearm- Long range. Base attacks hit 2x minimum. Swap attacks hit 3x. Unique input of holding jump and attack. All attacks have proc of 0.3. 
+<img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/dfabccc1-e92f-4786-a160-83e020274b9f" height ="128" >
+<table>
+<thead>
+  <tr>
+    <th>Polearm input</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Neutral</td>
+    <td>Thrust forward, dealing 2x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Forward</td>
+    <td>Charge, then dash and thrust forward, dealing 2x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Backward</td>
+    <td>Throw your polearm, piercing and dealing 2x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Aerial</td>
+    <td>Dash and thrust forward at your aim direction. Backhop on contact, dealing 2x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Aerial + Jump</td>
+    <td>Dragoon thrust, descending down, dealing 2x150% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
+  </tr>
+  <tr>
+    <td>Swap Neutral</td>
+    <td>Sweep your polearm from right to left, dealing 3x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Swap Forward</td>
+    <td>Dash and thrust forward, dealing 3x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Swap Backward</td>
+    <td>Backhop, dealing 3x150% damage.</td>
+  </tr>
+  <tr>
+    <td>Swap Aerial</td>
+    <td>Warp to the target and deal 450% damage. Attackspeed increases damage instead of adding more attacks. The attack ignores armor and deals bonus damage to low health targets.</td>
+  </tr>
+  <tr>
+    <td>Swap Aerial + Jump</td>
+    <td>Double Dragoon thrust, descending down, dealing 3x150% damage.<br>Deal damage based on how long you were falling when you hit the ground.</td>
+  </tr>
+</tbody>
+</table>
+<img src= "https://github.com/1TeaL/Noctis/assets/93917577/b766659f-381c-4a86-914d-966c37464cb7" height ="256" >
+
+## Numbers
+##### Armor = 10 + 0.5 per level
+##### Damage = 12 + 2.4 per level
+##### Regen = 1 + 0.2 per level 
+##### Health = 162 + 15 per level
+##### Movespeed = 7
+
+These stats are prone to change.
+
+rest of changelog on github.

@@ -132,6 +132,15 @@ namespace NoctisMod.SkillStates
             }
 
 
+            //movement cancel
+            if (base.fixedAge >= baseDuration * attackEndTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
             if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
             {
                 if (inputBank.skill3.down)
@@ -147,10 +156,6 @@ namespace NoctisMod.SkillStates
                     return;
                 }
 
-                if (base.inputBank.moveVector != Vector3.zero)
-                {
-                    this.outer.SetNextStateToMain();
-                }
                 if (inputBank.skill1.down)
                 {
                     if (skillLocator.primary.skillDef == weaponDef)

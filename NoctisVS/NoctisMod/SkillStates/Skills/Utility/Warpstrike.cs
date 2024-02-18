@@ -281,17 +281,22 @@ namespace NoctisMod.SkillStates
                 }
             }
 
+            //movement cancel
+            if (base.fixedAge >= duration * warpEndTime * 1.3f)
+            {
 
-            if(base.fixedAge > duration * warpEndTime || !keepMoving)
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
+
+            if (base.fixedAge > duration * warpEndTime || !keepMoving)
             {
                 base.characterMotor.velocity *= 0.1f;
                 if (base.isAuthority)
                 {
 
-                    if (base.inputBank.moveVector != Vector3.zero)
-                    {
-                        this.outer.SetNextStateToMain();
-                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();
@@ -319,13 +324,13 @@ namespace NoctisMod.SkillStates
                         });
                         return;
                     }
-                    if (extrainputBankTest.extraSkill1.down)
-                    {
-                        Warpstrike warpstrike = new Warpstrike();
-                        warpstrike.weaponSwap = true;
-                        this.outer.SetNextState(warpstrike);
-                        return;
-                    }
+                    //if (extrainputBankTest.extraSkill1.down)
+                    //{
+                    //    Warpstrike warpstrike = new Warpstrike();
+                    //    warpstrike.weaponSwap = true;
+                    //    this.outer.SetNextState(warpstrike);
+                    //    return;
+                    //}
                 }
 
             }

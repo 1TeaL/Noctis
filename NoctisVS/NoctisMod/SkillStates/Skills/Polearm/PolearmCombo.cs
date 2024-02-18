@@ -74,32 +74,16 @@ namespace NoctisMod.SkillStates
                             if (noctisCon.GetTrackingTarget())
                             {
                                 Target = noctisCon.GetTrackingTarget();
-                                float distance = Vector3.Distance(base.transform.position, Target.transform.position);
-                                if (distance > Modules.StaticValues.polearmDashSpeed)
-                                {
-                                    //Chat.AddMessage("aerial attack");
-                                    PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
-                                    PolearmSwapAerial.isTarget = true;
-                                    PolearmSwapAerial.Target = Target;
-                                    this.outer.SetNextState(PolearmSwapAerial);
-                                    return;
-
-                                }
-                                else
-                                {
-                                    //Chat.AddMessage("aerial attack");
-                                    PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
-                                    PolearmSwapAerial.isTarget = false;
-                                    this.outer.SetNextState(PolearmSwapAerial);
-                                    return;
-
-                                }
+                                //Chat.AddMessage("aerial attack");
+                                PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
+                                PolearmSwapAerial.Target = Target;
+                                this.outer.SetNextState(PolearmSwapAerial);
+                                return;
                             }
                             else
                             {
-                                PolearmSwapAerial PolearmSwapAerial = new PolearmSwapAerial();
-                                PolearmSwapAerial.isTarget = false;
-                                this.outer.SetNextState(PolearmSwapAerial);
+                                PolearmAerial PolearmAerial = new PolearmAerial();
+                                this.outer.SetNextState(PolearmAerial);
                                 return;
 
                             }

@@ -153,7 +153,7 @@ namespace NoctisMod.Modules.Survivors
             if(characterBody.HasBuff(Buffs.armigerBuff))
             {
                 ifEnergyRegenAllowed = false;
-                currentMana -= (regenMana/manaRegenMultiplier) * Time.fixedDeltaTime;
+                currentMana -= ((regenMana * StaticValues.armigerDrainMultiplier)/ manaRegenMultiplier) * Time.fixedDeltaTime;
             }
             else if (!characterBody.HasBuff(Buffs.armigerBuff))
             {
@@ -187,6 +187,8 @@ namespace NoctisMod.Modules.Survivors
             if(characterBody.HasBuff(Buffs.manaBuff))
             {
                 manaRegenMultiplier = StaticValues.manaRegenMultiplier;
+
+                TriggerGlow(0.1f, 0.1f, Color.white);
             }
             else if (!characterBody.HasBuff(Buffs.manaBuff))
             {

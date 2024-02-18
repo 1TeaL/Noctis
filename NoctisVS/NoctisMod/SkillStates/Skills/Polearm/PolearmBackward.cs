@@ -117,17 +117,22 @@ namespace NoctisMod.SkillStates
                 };
                 bulletAttack.Fire();
             }
-            
-            if(base.fixedAge > this.duration * earlyExitTime)
+
+            //movement cancel
+            if (base.fixedAge >= duration * earlyExitTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
+            if (base.fixedAge > this.duration * earlyExitTime)
             {
 
                 if (base.isAuthority)
                 {
 
-                    if (base.inputBank.moveVector != Vector3.zero)
-                    {
-                        this.outer.SetNextStateToMain();
-                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();

@@ -233,16 +233,22 @@ namespace NoctisMod.SkillStates
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.rootMotion += this.direction * this.rollSpeed * Time.fixedDeltaTime;
             }
-            if(stopwatch >= baseDuration * attackEndTime)
+
+            //movement cancel
+            if (base.fixedAge >= baseDuration * attackEndTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
+            if (stopwatch >= baseDuration * attackEndTime)
             {
 
                 if (base.isAuthority)
                 {
 
-                    if (base.inputBank.moveVector != Vector3.zero)
-                    {
-                        this.outer.SetNextStateToMain();
-                    }
                     if (inputBank.skill1.down)
                     {
                         this.outer.SetNextStateToMain();

@@ -332,6 +332,16 @@ namespace NoctisMod.SkillStates.BaseStates
                 }
             }
 
+            //movement cancel
+            if(stopwatch >= baseDuration * attackEndTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
+
             if (this.stopwatch >= (this.baseDuration * this.baseEarlyExitTime) && base.isAuthority)
             {
                 if (autoStateChange)
@@ -339,10 +349,6 @@ namespace NoctisMod.SkillStates.BaseStates
                     SetNextState();
                 }
 
-                if(base.inputBank.moveVector != Vector3.zero)
-                {
-                    this.outer.SetNextStateToMain();
-                }
 
                 if(extrainputBankTest.extraSkill1.down)
                 {

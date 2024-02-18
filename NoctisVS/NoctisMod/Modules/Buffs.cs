@@ -27,8 +27,8 @@ namespace NoctisMod.Modules
             vulnerabilityDebuff = Buffs.AddNewBuff($"Vulnerability debuff", Assets.deathMarkDebuffIcon, Color.white, true, true);
             counterBuff = Buffs.AddNewBuff($"Counter buff", Assets.shieldBuffIcon, Color.black, false, false);
 
-            armigerBuff = Buffs.AddNewBuff($"Armiger buff", Assets.ruinDebuffIcon, Color.white, true, false);
-            manaBuff = Buffs.AddNewBuff($"Mana Regen buff", Assets.jumpBuffIcon, Color.cyan, true, false);
+            armigerBuff = Buffs.AddNewBuff($"Armiger buff", Assets.ruinDebuffIcon, Color.white, false, false);
+            manaBuff = Buffs.AddNewBuff($"Mana Regen buff", Assets.jumpBuffIcon, Color.cyan, false, false);
         }
 
         // simple helper method

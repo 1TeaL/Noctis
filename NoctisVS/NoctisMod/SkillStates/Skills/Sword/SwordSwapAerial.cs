@@ -17,8 +17,9 @@ namespace NoctisMod.SkillStates
 {
     public class SwordSwapAerial : BaseMeleeAttack
     {
-        public CharacterBody Target;
+        public HurtBox Target;
         private Vector3 stillPosition;
+        private Vector3 characterForward;
 
 
         public override void OnEnter()
@@ -40,7 +41,7 @@ namespace NoctisMod.SkillStates
             this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 6f;
+            this.hitHopVelocity = 4f;
 
 
             if (swingIndex == 0)
@@ -76,7 +77,7 @@ namespace NoctisMod.SkillStates
 
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1);
 
-            stillPosition = Target.transform.position;
+            stillPosition = Target.healthComponent.body.transform.position;
 
             base.OnEnter();
 
@@ -90,8 +91,8 @@ namespace NoctisMod.SkillStates
 
             if(base.isAuthority)
             {
-                base.characterMotor.useGravity = false;
-                base.characterMotor.Motor.SetPositionAndRotation(Target.healthComponent.body.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                characterDirection.forward = characterForward;
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 4f, Quaternion.LookRotation(characterForward), true);
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
@@ -116,23 +117,20 @@ namespace NoctisMod.SkillStates
             return returnVal;
         }
 
-        public override void FixedUpdate()
+        public override void Update()
         {
-            base.FixedUpdate();
-
+            base.Update();
 
             //stop all movement during duration
-            if (Target.characterMotor)
+            if (Target.healthComponent.body.characterMotor)
             {
-                Target.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
-                Target.characterMotor.useGravity = false;
+                Target.healthComponent.body.characterMotor.Motor.SetPositionAndRotation(stillPosition, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
-            else if (Target.rigidbody)
+            else if (Target.healthComponent.body.rigidbody)
             {
-                Target.rigidbody.MovePosition(stillPosition);
-                Target.rigidbody.useGravity = false;
+                Target.healthComponent.body.rigidbody.MovePosition(stillPosition);
             }
-            base.characterMotor.Motor.SetPositionAndRotation(Target.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+            base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 4f, Quaternion.LookRotation(characterForward), true);
 
         }
 
@@ -182,7 +180,10 @@ namespace NoctisMod.SkillStates
                 if(swingIndex < 2)
                 {
                     SwordSwapAerial SwordSwapAerial = new SwordSwapAerial();
-                    SwordSwapAerial.swingIndex++;
+                    int index = this.swingIndex;
+                    index += 1;
+                    SwordSwapAerial.swingIndex = index;
+                    SwordSwapAerial.Target = Target;
                     this.outer.SetNextState(SwordSwapAerial);
                     return;
                 }
@@ -202,7 +203,6 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            base.characterMotor.useGravity = true;
             characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0);
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;

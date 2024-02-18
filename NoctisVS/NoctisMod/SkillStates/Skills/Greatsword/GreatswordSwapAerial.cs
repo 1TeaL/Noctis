@@ -65,7 +65,6 @@ namespace NoctisMod.SkillStates
 
             if(base.isAuthority)
             {
-                base.characterMotor.useGravity = false;
                 base.characterMotor.Motor.SetPositionAndRotation(target.healthComponent.body.transform.position - characterDirection.forward * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
 
@@ -135,7 +134,6 @@ namespace NoctisMod.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-            base.characterMotor.useGravity = true;
             characterBody.ApplyBuff(Modules.Buffs.GSarmorBuff.buffIndex, 0);
 
             base.characterBody.bodyFlags &= ~CharacterBody.BodyFlags.IgnoreFallDamage;

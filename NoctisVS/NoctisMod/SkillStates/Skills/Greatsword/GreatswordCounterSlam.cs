@@ -102,6 +102,15 @@ namespace NoctisMod.SkillStates
         {
             base.FixedUpdate();
 
+            //movement cancel
+            if (base.fixedAge >= baseDuration * attackEndTime * 1.3f)
+            {
+
+                if (base.inputBank.moveVector != Vector3.zero)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+            }
             if (base.fixedAge > this.baseDuration * this.attackEndTime)
             {
                 if (!hasFired)
@@ -126,10 +135,6 @@ namespace NoctisMod.SkillStates
                         return;
                     }
 
-                    if (base.inputBank.moveVector != Vector3.zero)
-                    {
-                        this.outer.SetNextStateToMain();
-                    }
 
                     if (inputBank.skill1.down)
                     {
