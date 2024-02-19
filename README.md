@@ -69,6 +69,12 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.5.2- Changes
+    - Changes
+        - Pressing jump after you're out of jumps to use aerial dodge (still cost 10 mana).
+        - Made Armiger swords looked better and come from any angle.
+        - Increased sword hitbox so it can more reliably hit enemies.
+        - Increased height of where you warp to with polearm swap aerial for less glitchy positioning.
 - 1.5.1- Bug fixes/Changes
     - Bug fixes
         - Fixed Camera snapping with Sword Swap Aerial and Polearm Aerial.
