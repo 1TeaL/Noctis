@@ -92,7 +92,7 @@ namespace NoctisMod.SkillStates
             {
                 //base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
 
-                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 3f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 2f + Vector3.up, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);

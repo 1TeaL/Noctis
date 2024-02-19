@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.5.1";
+        public const string MODVERSION = "1.5.2";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -134,6 +134,7 @@ namespace NoctisMod
             NetworkingAPI.RegisterMessageType<ForceFollowUpState>();
             NetworkingAPI.RegisterMessageType<ForceGSSwapAerial>();
             NetworkingAPI.RegisterMessageType<ExtractNetworkRequest>();
+            NetworkingAPI.RegisterMessageType<ForceDodgeState>();
 
 
             // now make a content pack and add it- this part will change with the next update
@@ -200,7 +201,15 @@ namespace NoctisMod
                 //armiger extra damage buff
                 if (attackerBody.HasBuff(Buffs.armigerBuff) && damageInfo.procCoefficient > 0f)
                 {
-                    Vector3 randRelPos = new Vector3((float)UnityEngine.Random.Range(5f, 6f), (float)UnityEngine.Random.Range(5f, 6f), (float)UnityEngine.Random.Range(5f, 6f));
+                    float radianS = UnityEngine.Random.Range(0f , 360f * Mathf.PI/180f);
+                    float radianT = UnityEngine.Random.Range(0f , 360f * Mathf.PI/180f);
+                    float radius = 8f;
+
+                    float circleX = radius * Mathf.Cos(radianS) * Mathf.Sin(radianT);
+                    float circleY = radius * Mathf.Sin(radianS) * Mathf.Sin(radianT);
+                    float circleZ = radius * Mathf.Cos(radianT);
+
+                    Vector3 randRelPos = new Vector3(circleX, circleY, circleZ);
 
                     EffectData effectData = new EffectData
                     {

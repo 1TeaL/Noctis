@@ -327,8 +327,18 @@ namespace NoctisMod.Modules.Survivors
 
         public void Update()
         {
-            //armiger
-            if(characterBody.HasBuff(Buffs.armigerBuff))
+            //go into dodge if you have no more jumps- costs mana as usual
+            //if (characterBody.characterMotor.jumpCount == characterBody.maxJumpCount)
+            //{
+            //    if(characterBody.inputBank.jump.justPressed)
+            //    {
+            //        new ForceDodgeState(characterBody.masterObjectId).Send(NetworkDestination.Clients);
+            //    }
+            //}
+
+
+                //armiger
+            if (characterBody.HasBuff(Buffs.armigerBuff))
             {
                 if (SpinningWeaponAura.isStopped)
                 {

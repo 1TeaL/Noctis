@@ -8167,7 +8167,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BonusJump
-  m_Speed: 0.7
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3991499597346400777}
@@ -8180,7 +8180,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: be678ab74bfbd0248b1801e1240bf10d, type: 2}
+  m_Motion: {fileID: 7400000, guid: 6e3ee629c3777c74c9c7f5ed8e59b7a4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

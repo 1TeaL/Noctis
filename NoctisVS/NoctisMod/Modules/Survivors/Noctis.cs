@@ -132,7 +132,7 @@ namespace NoctisMod.Modules.Survivors
 
 
 
-        internal override Type characterMainState { get; set; } = typeof(EntityStates.GenericCharacterMain);
+        internal override Type characterMainState { get; set; } = typeof(NoctisCharacterMain);
 
         //item display stuffs
         internal override ItemDisplayRuleSet itemDisplayRuleSet { get; set; }
