@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.5.0";
+        public const string MODVERSION = "1.5.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -102,7 +102,7 @@ namespace NoctisMod
         //public static Dictionary<ItemBase, bool> ItemStatusDictionary = new Dictionary<ItemBase, bool>();
         //public static Dictionary<EquipmentBase, bool> EquipmentStatusDictionary = new Dictionary<EquipmentBase, bool>();
         private BlastAttack blastAttack;
-        
+        private GameObject armigerEffectPrefab = Modules.Assets.armigerSwordParticle;
 
         private void Awake()
         {
@@ -197,6 +197,54 @@ namespace NoctisMod
                     victimBody.ApplyBuff(Buffs.vulnerabilityDebuff.buffIndex, victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) + 1);
                 }
 
+                //armiger extra damage buff
+                if (attackerBody.HasBuff(Buffs.armigerBuff) && damageInfo.procCoefficient > 0f)
+                {
+                    Vector3 randRelPos = new Vector3((float)UnityEngine.Random.Range(5f, 6f), (float)UnityEngine.Random.Range(5f, 6f), (float)UnityEngine.Random.Range(5f, 6f));
+
+                    EffectData effectData = new EffectData
+                    {
+                        scale = 1f,
+                        origin = victimBody.corePosition + randRelPos,
+                        rotation = Quaternion.LookRotation(victimBody.corePosition - (victimBody.corePosition+randRelPos))
+                    };
+                    if (Modules.Assets.armigerSwordParticle)
+                    {
+                        print("armiger effect spawn");
+                        EffectManager.SpawnEffect(Modules.Assets.armigerSwordParticle, effectData, true);
+                    }
+
+                    var bulletAttack = new BulletAttack
+                    {
+                        bulletCount = 1,
+                        aimVector = victimBody.corePosition - (victimBody.corePosition + randRelPos),
+                        origin = victimBody.corePosition + randRelPos,
+                        damage = damageInfo.damage * Modules.StaticValues.armigerDamageBonus,
+                        damageColorIndex = DamageColorIndex.Fragile,
+                        damageType = DamageType.Generic,
+                        falloffModel = BulletAttack.FalloffModel.DefaultBullet,
+                        maxDistance = 10f,
+                        force = 0f,
+                        hitMask = LayerIndex.CommonMasks.bullet,
+                        minSpread = 0f,
+                        maxSpread = 0f,
+                        isCrit = attackerBody.RollCrit(),
+                        owner = attackerBody.gameObject,
+                        smartCollision = false,
+                        procChainMask = default(ProcChainMask),
+                        procCoefficient = 0f,
+                        radius = 1f,
+                        sniper = false,
+                        stopperMask = LayerIndex.noCollision.mask,
+                        weapon = null,
+                        spreadPitchScale = 0f,
+                        spreadYawScale = 0f,
+                        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                        hitEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.hitEffectPrefab,
+
+                    };
+                    bulletAttack.Fire();
+                }
 
             }
             

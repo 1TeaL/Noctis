@@ -58,7 +58,7 @@ namespace NoctisMod.Modules
             LanguageAPI.Add(prefix + "WARPSTRIKE_DESCRIPTION", $"<style=cIsUtility>Warp to where to a Target or where you're aiming.</style> When arriving at an enemy, deal <style=cIsDamage>damage based on distance travelled</style>. Costs {StaticValues.warpstrikeCost} mana, reducible by CDR items. ");
 
             LanguageAPI.Add(prefix + "ARMIGER_NAME", "Armiger");
-            LanguageAPI.Add(prefix + "ARMIGER_DESCRIPTION", $"<style=cIsUtility>Activate Armiger, destroying all nearby projectiles and alleviates all mana costs while the buff is active.</style> Requires maximum mana. Constantly drains mana while active and when you run out of mana, the buff ends. Attacking will reduce the rate of drain.");
+            LanguageAPI.Add(prefix + "ARMIGER_DESCRIPTION", $"<style=cIsUtility>Activate Armiger, destroying all nearby projectiles, alleviates all mana costs, and all attacks will produce an extra sword that attacks the enemy for {StaticValues.armigerDamageBonus*100f}% damage while the buff is active.</style> Requires maximum mana. Constantly drains mana while active and when you run out of mana, the buff ends. Attacking will reduce the rate of drain.");
 
             #endregion
 

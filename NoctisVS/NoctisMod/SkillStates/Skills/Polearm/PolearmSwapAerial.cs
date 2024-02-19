@@ -20,7 +20,6 @@ namespace NoctisMod.SkillStates
         public HurtBox Target;
         private Vector3 stillPosition;
         private bool hasExtracted;
-        private Vector3 characterForward;
 
 
         public override void OnEnter()
@@ -42,7 +41,7 @@ namespace NoctisMod.SkillStates
             this.baseEarlyExitTime = 0.35f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 2f;
+            this.hitHopVelocity = 8f;
 
             this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
@@ -68,8 +67,9 @@ namespace NoctisMod.SkillStates
 
             if(base.isAuthority)
             {
-                characterDirection.forward = characterForward;
-                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 6f, Quaternion.LookRotation(characterForward), true);
+                //base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 3f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
@@ -90,7 +90,7 @@ namespace NoctisMod.SkillStates
                 {
                     Target.healthComponent.body.rigidbody.MovePosition(stillPosition);
                 }
-                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 6f, Quaternion.LookRotation(characterForward), true);
+                //base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
         }
 

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4157026389
+CRC: 1676515178
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cc1fe207d4be0c788040c78fd049e590
+    Hash: 1eb048a0643b31e967d2d8506df1085f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 93f871c5ac69fe758eb73a4013d76e26
@@ -89,6 +89,7 @@ Assets:
 - Assets/Noctis/Assets/Weapons/polearmMatMetal.mat
 - Assets/Noctis/Assets/Material/teethMat.mat
 - Assets/Noctis/Assets/Material/nh00_010_cloth_00_n_$h.btex.png
+- Assets/Noctis/Assets/Particle/ArmigerSword.prefab
 - Assets/Noctis/Assets/Material/bodyShapeMat.mat
 - Assets/Noctis/Animations/Greatsword/GSDownSlam.anim
 - Assets/Noctis/Assets/Material/faceNormal.png

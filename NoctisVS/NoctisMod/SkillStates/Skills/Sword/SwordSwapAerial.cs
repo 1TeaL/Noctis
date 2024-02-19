@@ -19,7 +19,6 @@ namespace NoctisMod.SkillStates
     {
         public HurtBox Target;
         private Vector3 stillPosition;
-        private Vector3 characterForward;
 
 
         public override void OnEnter()
@@ -34,14 +33,14 @@ namespace NoctisMod.SkillStates
             this.damageCoefficient = StaticValues.swordDamage;
             this.procCoefficient = StaticValues.swordProc;
             this.pushForce = 400f;
-            this.bonusForce = new Vector3(0f, 500f, 0f);
+            this.bonusForce = new Vector3(0f, 1000f, 0f);
             this.baseDuration = 0.9f;
             this.attackStartTime = 0.3f;
             this.attackEndTime = 0.6f;
             this.baseEarlyExitTime = 0.6f;
             this.hitStopDuration = 0.1f;
             this.attackRecoil = 0.75f;
-            this.hitHopVelocity = 4f;
+            this.hitHopVelocity = 8f;
 
 
             if (swingIndex == 0)
@@ -89,10 +88,11 @@ namespace NoctisMod.SkillStates
                 this.baseEarlyExitTime = 0.3f;
             }
 
-            if(base.isAuthority)
+            if(base.isAuthority && Vector3.Distance(stillPosition, characterBody.corePosition) > 5f)
             {
-                characterDirection.forward = characterForward;
-                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 4f, Quaternion.LookRotation(characterForward), true);
+                //base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
+
+                base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 3f, Quaternion.LookRotation(base.GetAimRay().direction), true);
             }
 
             base.GetModelAnimator().SetFloat("Attack.playbackRate", 1f);
@@ -130,7 +130,7 @@ namespace NoctisMod.SkillStates
             {
                 Target.healthComponent.body.rigidbody.MovePosition(stillPosition);
             }
-            base.characterMotor.Motor.SetPositionAndRotation(stillPosition - characterDirection.forward * 4f, Quaternion.LookRotation(characterForward), true);
+            //base.characterMotor.Motor.SetPositionAndRotation(stillPosition + Vector3.up * 2f, Quaternion.LookRotation(base.GetAimRay().direction), true);
 
         }
 

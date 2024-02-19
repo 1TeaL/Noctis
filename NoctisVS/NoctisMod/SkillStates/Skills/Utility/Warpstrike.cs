@@ -118,7 +118,7 @@ namespace NoctisMod.SkillStates
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
             }, true);
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 0);
+            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
         }
 
         private void PlayAnimation()
@@ -198,7 +198,6 @@ namespace NoctisMod.SkillStates
         {
             base.OnExit();
 
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 0, 0);
             noctisCon.DashParticle.Stop();
             noctisCon.WeaponAppearR(0f, NoctisController.WeaponTypeR.NONE);
             animator.SetBool("attacking", false);

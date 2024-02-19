@@ -95,7 +95,7 @@ namespace NoctisMod.Modules
             bodyComponent._defaultCrosshairPrefab = bodyInfo.crosshair;
 
             bodyComponent.bodyFlags |= CharacterBody.BodyFlags.ImmuneToExecutes;
-            //bodyComponent.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+            bodyComponent.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
             bodyComponent.bodyFlags |= CharacterBody.BodyFlags.SprintAnyDirection;
 
             bodyComponent.rootMotionInMainState = false;

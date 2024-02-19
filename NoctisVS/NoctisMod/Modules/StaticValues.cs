@@ -23,13 +23,12 @@ namespace NoctisMod.Modules
         internal static float minimumManaCost = 1f;
         internal static float costFlatManaSpend = 5f;
         //internal static float regenManaFraction = 0.0125f;
-        internal static float regenManaFraction = 0.02f;
+        internal static float regenManaFraction = 0.05f;
         internal static float backupGain = 5f;
         internal static float afterburnerGain = 15f;
         internal static float lysateGain = 10f;
         internal static float manaGainOnHit = 0.02f;
         internal static float manaRegenMultiplier = 2f;
-        internal static float armigerDrainMultiplier = 4f;
 
         //Sword
         internal static float swordProc = 1f;
@@ -90,5 +89,7 @@ namespace NoctisMod.Modules
 
         //Armiger
         internal static float armigerThreshold = 10f;
+        internal static float armigerDrainMultiplier = 6f;
+        internal static float armigerDamageBonus = 0.2f;
     }
 }

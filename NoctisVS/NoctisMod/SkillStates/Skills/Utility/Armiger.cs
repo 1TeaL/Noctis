@@ -36,7 +36,6 @@ namespace NoctisMod.SkillStates
                 rotation = Quaternion.LookRotation(aimRay.direction),
 
             }, true);
-            characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
 
             AkSoundEngine.PostEvent("Armiger", base.gameObject);
             base.GetModelAnimator().SetFloat("Attack.playbackRate", attackSpeedStat);
@@ -58,6 +57,8 @@ namespace NoctisMod.SkillStates
 
                 //energySystem.SpendMana(energySystem.currentMana);
                 characterBody.ApplyBuff(Buffs.armigerBuff.buffIndex);
+
+                characterBody.ApplyBuff(RoR2Content.Buffs.HiddenInvincibility.buffIndex, 1, 1);
             }
             else
             {

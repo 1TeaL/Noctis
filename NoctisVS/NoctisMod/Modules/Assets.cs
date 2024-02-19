@@ -100,6 +100,7 @@ namespace NoctisMod.Modules
         internal static GameObject swordThrowParticle;
         internal static GameObject polearmThrowParticle;
         internal static GameObject polearmTracer;
+        internal static GameObject armigerSwordParticle;
 
         internal static void Initialize()
         {
@@ -159,6 +160,7 @@ namespace NoctisMod.Modules
             //fake projectiles
             swordThrowParticle = Assets.LoadEffect("swordThrow", true);
             polearmThrowParticle = Assets.LoadEffect("polearmThrow", true);
+            armigerSwordParticle = Assets.LoadEffect("ArmigerSword", true);
 
             polearmTracer = LoadEffect("polearmParticle");
 

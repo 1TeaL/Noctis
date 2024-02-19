@@ -153,7 +153,7 @@ namespace NoctisMod.Modules.Survivors
             if(characterBody.HasBuff(Buffs.armigerBuff))
             {
                 ifEnergyRegenAllowed = false;
-                currentMana -= ((regenMana * StaticValues.armigerDrainMultiplier)/ manaRegenMultiplier) * Time.fixedDeltaTime;
+                currentMana -= (StaticValues.armigerDrainMultiplier/ manaRegenMultiplier) * Time.fixedDeltaTime;
             }
             else if (!characterBody.HasBuff(Buffs.armigerBuff))
             {
