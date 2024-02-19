@@ -69,6 +69,17 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
+- 1.5.1- Bug fixes/Changes
+    - Bug fixes
+        - Fixed Camera snapping with Sword Swap Aerial and Polearm Aerial.
+        - Fixed Warpstrike not giving 1 second of invulnerability.
+        - Fixed bug of providing 1 second of invulnerability with Armiger even though you didn't have enough mana to use it.
+    - Balance Changes
+        - Buffed energy regen, now it takes 20 seconds to get to max mana (10 seconds if in combat).
+        - Armiger- previously matched the energy regen but in reverse so it would last the same regardless of max mana.
+            - Now drains at a flat rate, at 100 mana it will last for 16 seconds (32 seconds if in combat), and increasing max mana will increase it's duration.
+            - *NEW* attacking enemies with an attack with proc chance will now summon a sword that deals 20% of the damage of the attack.
+        - Overall these changes should make armiger and mana regen feel better- will monitor the mana costs of the dodge/jump/warpstrike though.
 - 1.5.0- Bug fixes/New Skills/BIG Balance Changes
     - Bug fixes
         - Fixed Armiger particles not disappearing properly
@@ -202,6 +213,7 @@ Only usable after an attack.
 <img src= "https://github.com/1TeaL/NoctisRoR2/assets/93917577/3f402b77-c2b7-495a-a90d-bfe9abfb99ab" height ="128" >
 
     Warps Noctis towards the target or the direction you're looking at.
+    Gain 1 second of invulnerability on use.
     When arriving at an enemy, deal damage, scaling with distance travelled.
     Can be cancelled into from attacks but not itself.
     Costs 30 mana, reducible by CDR items.
@@ -211,7 +223,7 @@ Only usable after an attack.
 
     Requires maxmium mana to be used and provides the Armiger buff.
     Constantly drains mana while active, with the rate reduced while Noctis is damaging an enemy.
-    While the buff is active, all nearby projectiles will be destroyed and all mana costs are alleviated. 
+    While the buff is active, all nearby projectiles will be destroyed, all mana costs are alleviated and every attack with a proc chance will summon a sword to deal 20% additional damage on the enemy. 
 
 #### Weapon combo routes Miro
 [https://miro.com/welcomeonboard/VFdWblM1NlFXaWh6amxZbVNNYm8xbzh4N1JCQ1JUS251QVdpWXU4S3FxZVBXeXlTUFhQRlp0TktMOUYyMThBUHwzNDU4NzY0NTY3MDExNjcwNzY1fDI=?share_link_id=355693524661](https://miro.com/app/board/uXjVNZppqMY=/?share_link_id=610619879576)
