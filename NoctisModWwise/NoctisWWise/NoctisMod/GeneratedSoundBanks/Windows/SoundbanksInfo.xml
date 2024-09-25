@@ -1,271 +1,482 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="135">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\</ProjectRoot>
-		<SourceFilesRoot>F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>F:\Theodore 3\GameDev\Mods\NoctisRoR2\NoctisModWwise\NoctisWWise\NoctisMod\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
-	<StreamedFiles/>
-	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Language="SFX" Hash="673798854">
-			<ObjectPath>Init</ObjectPath>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{7A53894E-1E5C-003D-9A56-BA8A692E79C6}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="985987111" Name="Motion Factory Bus"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="796049864" Name="RPM"/>
+				<GameParameter Id="822163944" Name="SS_Air_RPM"/>
+				<GameParameter Id="1029930033" Name="SS_Air_Fury"/>
+				<GameParameter Id="1351367891" Name="SS_Air_Fear"/>
+				<GameParameter Id="1524500807" Name="Playback_Rate"/>
+				<GameParameter Id="2648548617" Name="SS_Air_Month"/>
+				<GameParameter Id="3002758120" Name="SS_Air_Freefall"/>
+				<GameParameter Id="3074696722" Name="SS_Air_Size"/>
+				<GameParameter Id="3203397129" Name="SS_Air_TimeOfDay"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3695994288" Name="Volume_Master"/>
+				<GameParameter Id="3715662592" Name="SS_Air_Storm"/>
+				<GameParameter Id="3847924954" Name="SS_Air_Presence"/>
+				<GameParameter Id="4160247818" Name="SS_Air_Turbulence"/>
+			</GameParameters>
+			<AcousticTextures>
+				<AcousticTexture Id="504532776" Name="Brick">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="12"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="18"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="23"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="513139656" Name="Mountain">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="0"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="841620460" Name="Concrete">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="6"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="14"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1755085759" Name="Wood_Deep">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="1"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="8"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="20"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1873957695" Name="Anechoic">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="1970351858" Name="Fabric">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="3"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="13"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="48"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="72"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2058049674" Name="Wood">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="32"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="25"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="20"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="35"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2412606308" Name="Carpet">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="46"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="45"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="76"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2637588553" Name="Tile">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="67"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="41"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="12"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="0"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="2928161104" Name="Curtains">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="7"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="60"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="0"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="84"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="3195498748" Name="Cork_Tiles">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="14"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="30"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="73"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="3670307564" Name="Drywall">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="2"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="2"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="4168643977" Name="Acoustic_Banner">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="37"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="100"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="100"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+				<AcousticTexture Id="4262522749" Name="Wood_Bright">
+					<Properties>
+						<Property Name="AbsorptionLow" Type="Real32" Value="32"/>
+						<Property Name="AbsorptionMidLow" Type="Real32" Value="25"/>
+						<Property Name="AbsorptionMidHigh" Type="Real32" Value="10"/>
+						<Property Name="AbsorptionHigh" Type="Real32" Value="9"/>
+						<Property Name="Scattering" Type="Real32" Value="0"/>
+					</Properties>
+				</AcousticTexture>
+			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3091139405" Language="SFX" Hash="4240480434">
-			<ObjectPath>\SoundBanks\Default Work Unit\Noctis</ObjectPath>
+		<SoundBank Id="3091139405" Type="User" Language="SFX" Hash="{9CD5B2B0-E843-F031-2938-0C1D761BC0C9}">
 			<ShortName>Noctis</ShortName>
 			<Path>Noctis.bnk</Path>
-			<IncludedEvents>
-				<Event Id="1252362508" Name="Armiger" ObjectPath="\Events\Default Work Unit\Armiger">
-					<IncludedMemoryFiles>
-						<File Id="220382952" Language="SFX">
-							<ShortName>btl_phantom_shiftbreak01.win#1 (SE_weaponskill_nh00-btl_phantom_shiftbreak01).wav</ShortName>
-							<Path>SFX\btl_phantom_shiftbreak01.win#1 (SE_weaponskill_nh00-btl_phantom_shiftbreak01)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="232935841" Language="SFX">
-							<ShortName>btl_phantom_shiftbreak06.win [1].wav</ShortName>
-							<Path>SFX\btl_phantom_shiftbreak06.win [1]_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+			<Media>
+				<File Id="10358252" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#14.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#14_8E324C96.wem</CachePath>
+				</File>
+				<File Id="42939336" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#60.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#60_8E324C96.wem</CachePath>
+				</File>
+				<File Id="103493049" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>we02_throw.win (SE_weaponskill_ex-we02_throw).wav</ShortName>
+					<CachePath>SFX/we02_throw.win (SE_weaponskill_ex-we02_throw)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="135070158" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#55.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#55_8E324C96.wem</CachePath>
+				</File>
+				<File Id="150603162" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_swish_sword.win [1].wav</ShortName>
+					<CachePath>SFX/btl_swish_sword.win [1]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="154958111" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win [167].wav</ShortName>
+					<CachePath>SFX/se_combat.win [167]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="168208587" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#176 (SE_Combat-btl_swish_largesword).wav</ShortName>
+					<CachePath>SFX/se_combat.win#176 (SE_Combat-btl_swish_largesword)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="168509080" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win [163].wav</ShortName>
+					<CachePath>SFX/se_combat.win [163]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="217316843" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_waap_appear.win#1 (SE_Combat-btl_waap_appear).wav</ShortName>
+					<CachePath>SFX/btl_waap_appear.win#1 (SE_Combat-btl_waap_appear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="220382952" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_phantom_shiftbreak01.win#1 (SE_weaponskill_nh00-btl_phantom_shiftbreak01).wav</ShortName>
+					<CachePath>SFX/btl_phantom_shiftbreak01.win#1 (SE_weaponskill_nh00-btl_phantom_shiftbreak01)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="232935841" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_phantom_shiftbreak06.win [1].wav</ShortName>
+					<CachePath>SFX/btl_phantom_shiftbreak06.win [1]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="254269044" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#44.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#44_8E324C96.wem</CachePath>
+				</File>
+				<File Id="287299326" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#64.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#64_8E324C96.wem</CachePath>
+				</File>
+				<File Id="302716700" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_swish_sword.win [2].wav</ShortName>
+					<CachePath>SFX/btl_swish_sword.win [2]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="319584673" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_waap_appear.win#3 (SE_Combat-btl_waap_appear).wav</ShortName>
+					<CachePath>SFX/btl_waap_appear.win#3 (SE_Combat-btl_waap_appear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="343199490" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#177 (SE_Combat-btl_swish_largesword).wav</ShortName>
+					<CachePath>SFX/se_combat.win#177 (SE_Combat-btl_swish_largesword)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="360761837" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_waap_appear.win#4 (SE_Combat-btl_waap_appear).wav</ShortName>
+					<CachePath>SFX/btl_waap_appear.win#4 (SE_Combat-btl_waap_appear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="370445218" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#101 (SE_Combat-btl_halberd_hit).wav</ShortName>
+					<CachePath>SFX/se_combat.win#101 (SE_Combat-btl_halberd_hit)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="375454455" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>roll.win [1].wav</ShortName>
+					<CachePath>SFX/roll.win [1]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="409039722" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#9.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#9_8E324C96.wem</CachePath>
+				</File>
+				<File Id="461162884" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#158 (SE_Combat-btl_critical_hit).wav</ShortName>
+					<CachePath>SFX/se_combat.win#158 (SE_Combat-btl_critical_hit)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="464823038" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#55.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#55_8E324C96.wem</CachePath>
+				</File>
+				<File Id="496096525" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#71.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#71_8E324C96.wem</CachePath>
+				</File>
+				<File Id="545841293" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#1 (SE_Combat-btl_swish_sword).wav</ShortName>
+					<CachePath>SFX/se_combat.win#1 (SE_Combat-btl_swish_sword)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="554548089" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#13.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#13_8E324C96.wem</CachePath>
+				</File>
+				<File Id="601593659" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#22.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#22_8E324C96.wem</CachePath>
+				</File>
+				<File Id="617179727" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#16 (SE_Combat-btl_swish_largesword_gradio).wav</ShortName>
+					<CachePath>SFX/se_combat.win#16 (SE_Combat-btl_swish_largesword_gradio)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="641730086" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_swish_sword.win [6].wav</ShortName>
+					<CachePath>SFX/btl_swish_sword.win [6]_8E324C96.wem</CachePath>
+				</File>
+				<File Id="646844481" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#51.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#51_8E324C96.wem</CachePath>
+				</File>
+				<File Id="668278762" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#9 (SE_Combat-btl_swish_spear).wav</ShortName>
+					<CachePath>SFX/se_combat.win#9 (SE_Combat-btl_swish_spear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="689853380" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#23.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#23_8E324C96.wem</CachePath>
+				</File>
+				<File Id="701034366" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#28.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#28_8E324C96.wem</CachePath>
+				</File>
+				<File Id="706875581" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#157 (SE_Combat-btl_critical_hit).wav</ShortName>
+					<CachePath>SFX/se_combat.win#157 (SE_Combat-btl_critical_hit)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="719545501" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#3 (SE_Combat-btl_swish_sword).wav</ShortName>
+					<CachePath>SFX/se_combat.win#3 (SE_Combat-btl_swish_sword)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="729807932" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#23 (SE_Combat-btl_swish_spear).wav</ShortName>
+					<CachePath>SFX/se_combat.win#23 (SE_Combat-btl_swish_spear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="739241105" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#12.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#12_8E324C96.wem</CachePath>
+				</File>
+				<File Id="791755818" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>se_combat.win#179 (SE_Combat-btl_swish_largesword).wav</ShortName>
+					<CachePath>SFX/se_combat.win#179 (SE_Combat-btl_swish_largesword)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="799492660" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#29.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#29_8E324C96.wem</CachePath>
+				</File>
+				<File Id="804053182" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#66.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#66_8E324C96.wem</CachePath>
+				</File>
+				<File Id="854695307" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#54.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#54_8E324C96.wem</CachePath>
+				</File>
+				<File Id="876646344" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#57.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#57_8E324C96.wem</CachePath>
+				</File>
+				<File Id="899238591" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#52.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#52_8E324C96.wem</CachePath>
+				</File>
+				<File Id="919283739" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_waap_appear.win#2 (SE_Combat-btl_waap_appear).wav</ShortName>
+					<CachePath>SFX/btl_waap_appear.win#2 (SE_Combat-btl_waap_appear)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="953623832" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>btl_largesword_break.win (SE_Combat-btl_largesword_break).wav</ShortName>
+					<CachePath>SFX/btl_largesword_break.win (SE_Combat-btl_largesword_break)_8E324C96.wem</CachePath>
+				</File>
+				<File Id="956678694" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>boost_attack_hit01.wav</ShortName>
+					<CachePath>SFX/boost_attack_hit01_8E324C96.wem</CachePath>
+				</File>
+				<File Id="976545697" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_chatvoice_e#4.wav</ShortName>
+					<CachePath>SFX/p_fit100_chatvoice_e#4_8E324C96.wem</CachePath>
+				</File>
+				<File Id="1012851409" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>p_fit100_voice_e#30.wav</ShortName>
+					<CachePath>SFX/p_fit100_voice_e#30_8E324C96.wem</CachePath>
+				</File>
+				<File Id="1054265244" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>boost_attack_shift01.win (SE_weaponskill_nh00-boost_attack_shift01).wav</ShortName>
+					<CachePath>SFX/boost_attack_shift01.win (SE_weaponskill_nh00-boost_attack_shift01)_8E324C96.wem</CachePath>
+				</File>
+			</Media>
+			<Plugins>
+				<Custom>
+					<Plugin Id="298142401" Name="Wwise Silence" LibName="Wwise Silence" LibId="6619138"/>
+				</Custom>
+			</Plugins>
+			<Events>
+				<Event Id="1252362508" Name="Armiger">
+					<MediaRefs>
+						<MediaRef Id="220382952"/>
+						<MediaRef Id="232935841"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="1799292946" Name="Dodge" ObjectPath="\Events\Default Work Unit\Dodge">
-					<IncludedMemoryFiles>
-						<File Id="217316843" Language="SFX">
-							<ShortName>btl_waap_appear.win#1 (SE_Combat-btl_waap_appear).wav</ShortName>
-							<Path>SFX\btl_waap_appear.win#1 (SE_Combat-btl_waap_appear)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="319584673" Language="SFX">
-							<ShortName>btl_waap_appear.win#3 (SE_Combat-btl_waap_appear).wav</ShortName>
-							<Path>SFX\btl_waap_appear.win#3 (SE_Combat-btl_waap_appear)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="360761837" Language="SFX">
-							<ShortName>btl_waap_appear.win#4 (SE_Combat-btl_waap_appear).wav</ShortName>
-							<Path>SFX\btl_waap_appear.win#4 (SE_Combat-btl_waap_appear)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="919283739" Language="SFX">
-							<ShortName>btl_waap_appear.win#2 (SE_Combat-btl_waap_appear).wav</ShortName>
-							<Path>SFX\btl_waap_appear.win#2 (SE_Combat-btl_waap_appear)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="1799292946" Name="Dodge">
+					<MediaRefs>
+						<MediaRef Id="217316843"/>
+						<MediaRef Id="319584673"/>
+						<MediaRef Id="360761837"/>
+						<MediaRef Id="919283739"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3132817712" Name="GreatswordSwingSFX" ObjectPath="\Events\Default Work Unit\GreatswordSwingSFX">
-					<IncludedMemoryFiles>
-						<File Id="154958111" Language="SFX">
-							<ShortName>se_combat.win [167].wav</ShortName>
-							<Path>SFX\se_combat.win [167]_3F75BDB9.wem</Path>
-						</File>
-						<File Id="168208587" Language="SFX">
-							<ShortName>se_combat.win#176 (SE_Combat-btl_swish_largesword).wav</ShortName>
-							<Path>SFX\se_combat.win#176 (SE_Combat-btl_swish_largesword)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="168509080" Language="SFX">
-							<ShortName>se_combat.win [163].wav</ShortName>
-							<Path>SFX\se_combat.win [163]_3F75BDB9.wem</Path>
-						</File>
-						<File Id="343199490" Language="SFX">
-							<ShortName>se_combat.win#177 (SE_Combat-btl_swish_largesword).wav</ShortName>
-							<Path>SFX\se_combat.win#177 (SE_Combat-btl_swish_largesword)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="617179727" Language="SFX">
-							<ShortName>se_combat.win#16 (SE_Combat-btl_swish_largesword_gradio).wav</ShortName>
-							<Path>SFX\se_combat.win#16 (SE_Combat-btl_swish_largesword_gradio)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="791755818" Language="SFX">
-							<ShortName>se_combat.win#179 (SE_Combat-btl_swish_largesword).wav</ShortName>
-							<Path>SFX\se_combat.win#179 (SE_Combat-btl_swish_largesword)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3132817712" Name="GreatswordSwingSFX">
+					<MediaRefs>
+						<MediaRef Id="154958111"/>
+						<MediaRef Id="168208587"/>
+						<MediaRef Id="168509080"/>
+						<MediaRef Id="343199490"/>
+						<MediaRef Id="617179727"/>
+						<MediaRef Id="791755818"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3238668823" Name="newNoctisEntrance" ObjectPath="\Events\Default Work Unit\newNoctisEntrance">
-					<IncludedMemoryFiles>
-						<File Id="254269044" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#44.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#44_3F75BDB9.wem</Path>
-						</File>
-						<File Id="409039722" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#9.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#9_3F75BDB9.wem</Path>
-						</File>
-						<File Id="464823038" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#55.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#55_3F75BDB9.wem</Path>
-						</File>
-						<File Id="976545697" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#4.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#4_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3238668823" Name="newNoctisEntrance">
+					<MediaRefs>
+						<MediaRef Id="254269044"/>
+						<MediaRef Id="409039722"/>
+						<MediaRef Id="464823038"/>
+						<MediaRef Id="976545697"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="3524697753" Name="NoctisDeath" ObjectPath="\Events\Default Work Unit\NoctisDeath">
-					<IncludedMemoryFiles>
-						<File Id="10358252" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#14.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#14_3F75BDB9.wem</Path>
-						</File>
-						<File Id="554548089" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#13.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#13_3F75BDB9.wem</Path>
-						</File>
-						<File Id="601593659" Language="SFX">
-							<ShortName>p_fit100_voice_e#22.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#22_3F75BDB9.wem</Path>
-						</File>
-						<File Id="689853380" Language="SFX">
-							<ShortName>p_fit100_voice_e#23.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#23_3F75BDB9.wem</Path>
-						</File>
-						<File Id="739241105" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#12.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#12_3F75BDB9.wem</Path>
-						</File>
-						<File Id="854695307" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#54.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#54_3F75BDB9.wem</Path>
-						</File>
-						<File Id="876646344" Language="SFX">
-							<ShortName>p_fit100_chatvoice_e#57.wav</ShortName>
-							<Path>SFX\p_fit100_chatvoice_e#57_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="3524697753" Name="NoctisDeath">
+					<MediaRefs>
+						<MediaRef Id="10358252"/>
+						<MediaRef Id="554548089"/>
+						<MediaRef Id="601593659"/>
+						<MediaRef Id="689853380"/>
+						<MediaRef Id="739241105"/>
+						<MediaRef Id="854695307"/>
+						<MediaRef Id="876646344"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="4079179005" Name="NoctisHitSFX" ObjectPath="\Events\Default Work Unit\NoctisHitSFX">
-					<IncludedMemoryFiles>
-						<File Id="461162884" Language="SFX">
-							<ShortName>se_combat.win#158 (SE_Combat-btl_critical_hit).wav</ShortName>
-							<Path>SFX\se_combat.win#158 (SE_Combat-btl_critical_hit)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="706875581" Language="SFX">
-							<ShortName>se_combat.win#157 (SE_Combat-btl_critical_hit).wav</ShortName>
-							<Path>SFX\se_combat.win#157 (SE_Combat-btl_critical_hit)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="4079179005" Name="NoctisHitSFX">
+					<MediaRefs>
+						<MediaRef Id="461162884"/>
+						<MediaRef Id="706875581"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="4002145769" Name="NoctisVoice" ObjectPath="\Events\Default Work Unit\NoctisVoice">
-					<IncludedMemoryFiles>
-						<File Id="42939336" Language="SFX">
-							<ShortName>p_fit100_voice_e#60.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#60_3F75BDB9.wem</Path>
-						</File>
-						<File Id="135070158" Language="SFX">
-							<ShortName>p_fit100_voice_e#55.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#55_3F75BDB9.wem</Path>
-						</File>
-						<File Id="287299326" Language="SFX">
-							<ShortName>p_fit100_voice_e#64.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#64_3F75BDB9.wem</Path>
-						</File>
-						<File Id="496096525" Language="SFX">
-							<ShortName>p_fit100_voice_e#71.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#71_3F75BDB9.wem</Path>
-						</File>
-						<File Id="646844481" Language="SFX">
-							<ShortName>p_fit100_voice_e#51.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#51_3F75BDB9.wem</Path>
-						</File>
-						<File Id="701034366" Language="SFX">
-							<ShortName>p_fit100_voice_e#28.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#28_3F75BDB9.wem</Path>
-						</File>
-						<File Id="799492660" Language="SFX">
-							<ShortName>p_fit100_voice_e#29.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#29_3F75BDB9.wem</Path>
-						</File>
-						<File Id="804053182" Language="SFX">
-							<ShortName>p_fit100_voice_e#66.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#66_3F75BDB9.wem</Path>
-						</File>
-						<File Id="899238591" Language="SFX">
-							<ShortName>p_fit100_voice_e#52.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#52_3F75BDB9.wem</Path>
-						</File>
-						<File Id="1012851409" Language="SFX">
-							<ShortName>p_fit100_voice_e#30.wav</ShortName>
-							<Path>SFX\p_fit100_voice_e#30_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="4002145769" Name="NoctisVoice">
+					<MediaRefs>
+						<MediaRef Id="42939336"/>
+						<MediaRef Id="135070158"/>
+						<MediaRef Id="287299326"/>
+						<MediaRef Id="496096525"/>
+						<MediaRef Id="646844481"/>
+						<MediaRef Id="701034366"/>
+						<MediaRef Id="799492660"/>
+						<MediaRef Id="804053182"/>
+						<MediaRef Id="899238591"/>
+						<MediaRef Id="1012851409"/>
+					</MediaRefs>
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="298142401"/>
+						</Custom>
+					</PluginRefs>
 				</Event>
-				<Event Id="4067689284" Name="PolearmSwingSFX" ObjectPath="\Events\Default Work Unit\PolearmSwingSFX">
-					<IncludedMemoryFiles>
-						<File Id="103493049" Language="SFX">
-							<ShortName>we02_throw.win (SE_weaponskill_ex-we02_throw).wav</ShortName>
-							<Path>SFX\we02_throw.win (SE_weaponskill_ex-we02_throw)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="370445218" Language="SFX">
-							<ShortName>se_combat.win#101 (SE_Combat-btl_halberd_hit).wav</ShortName>
-							<Path>SFX\se_combat.win#101 (SE_Combat-btl_halberd_hit)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="668278762" Language="SFX">
-							<ShortName>se_combat.win#9 (SE_Combat-btl_swish_spear).wav</ShortName>
-							<Path>SFX\se_combat.win#9 (SE_Combat-btl_swish_spear)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="729807932" Language="SFX">
-							<ShortName>se_combat.win#23 (SE_Combat-btl_swish_spear).wav</ShortName>
-							<Path>SFX\se_combat.win#23 (SE_Combat-btl_swish_spear)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="4067689284" Name="PolearmSwingSFX">
+					<MediaRefs>
+						<MediaRef Id="103493049"/>
+						<MediaRef Id="370445218"/>
+						<MediaRef Id="668278762"/>
+						<MediaRef Id="729807932"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="2026920480" Name="Roll" ObjectPath="\Events\Default Work Unit\Roll">
-					<IncludedMemoryFiles>
-						<File Id="375454455" Language="SFX">
-							<ShortName>roll.win [1].wav</ShortName>
-							<Path>SFX\roll.win [1]_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="2026920480" Name="Roll">
+					<MediaRefs>
+						<MediaRef Id="375454455"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="317328359" Name="SlamSFX" ObjectPath="\Events\Default Work Unit\SlamSFX">
-					<IncludedMemoryFiles>
-						<File Id="953623832" Language="SFX">
-							<ShortName>btl_largesword_break.win (SE_Combat-btl_largesword_break).wav</ShortName>
-							<Path>SFX\btl_largesword_break.win (SE_Combat-btl_largesword_break)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="317328359" Name="SlamSFX">
+					<MediaRefs>
+						<MediaRef Id="953623832"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="678577415" Name="SwordSwingSFX" ObjectPath="\Events\Default Work Unit\SwordSwingSFX">
-					<IncludedMemoryFiles>
-						<File Id="150603162" Language="SFX">
-							<ShortName>btl_swish_sword.win [1].wav</ShortName>
-							<Path>SFX\btl_swish_sword.win [1]_3F75BDB9.wem</Path>
-						</File>
-						<File Id="302716700" Language="SFX">
-							<ShortName>btl_swish_sword.win [2].wav</ShortName>
-							<Path>SFX\btl_swish_sword.win [2]_3F75BDB9.wem</Path>
-						</File>
-						<File Id="545841293" Language="SFX">
-							<ShortName>se_combat.win#1 (SE_Combat-btl_swish_sword).wav</ShortName>
-							<Path>SFX\se_combat.win#1 (SE_Combat-btl_swish_sword)_3F75BDB9.wem</Path>
-						</File>
-						<File Id="641730086" Language="SFX">
-							<ShortName>btl_swish_sword.win [6].wav</ShortName>
-							<Path>SFX\btl_swish_sword.win [6]_3F75BDB9.wem</Path>
-						</File>
-						<File Id="719545501" Language="SFX">
-							<ShortName>se_combat.win#3 (SE_Combat-btl_swish_sword).wav</ShortName>
-							<Path>SFX\se_combat.win#3 (SE_Combat-btl_swish_sword)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="678577415" Name="SwordSwingSFX">
+					<MediaRefs>
+						<MediaRef Id="150603162"/>
+						<MediaRef Id="302716700"/>
+						<MediaRef Id="545841293"/>
+						<MediaRef Id="641730086"/>
+						<MediaRef Id="719545501"/>
+					</MediaRefs>
 				</Event>
-				<Event Id="815564649" Name="Warpstrike" ObjectPath="\Events\Default Work Unit\Warpstrike">
-					<IncludedMemoryFiles>
-						<File Id="956678694" Language="SFX">
-							<ShortName>boost_attack_hit01.wav</ShortName>
-							<Path>SFX\boost_attack_hit01_3F75BDB9.wem</Path>
-						</File>
-						<File Id="1054265244" Language="SFX">
-							<ShortName>boost_attack_shift01.win (SE_weaponskill_nh00-boost_attack_shift01).wav</ShortName>
-							<Path>SFX\boost_attack_shift01.win (SE_weaponskill_nh00-boost_attack_shift01)_3F75BDB9.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
+				<Event Id="815564649" Name="Warpstrike">
+					<MediaRefs>
+						<MediaRef Id="956678694"/>
+						<MediaRef Id="1054265244"/>
+					</MediaRefs>
 				</Event>
-			</IncludedEvents>
+			</Events>
 			<GameParameters>
-				<GameParameter Id="3673881719" Name="Volume_SFX" ObjectPath="\Game Parameters\Default Work Unit\Volume_SFX"/>
-				<GameParameter Id="3695994288" Name="Volume_Master" ObjectPath="\Game Parameters\Default Work Unit\Volume_Master"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3695994288" Name="Volume_Master"/>
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
+	<FileHash>{06E41C1F-8AF6-AAB0-A289-82767C5C8101}</FileHash>
 </SoundBanksInfo>

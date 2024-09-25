@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.5.2";
+        public const string MODVERSION = "1.6.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -102,7 +102,7 @@ namespace NoctisMod
         //public static Dictionary<ItemBase, bool> ItemStatusDictionary = new Dictionary<ItemBase, bool>();
         //public static Dictionary<EquipmentBase, bool> EquipmentStatusDictionary = new Dictionary<EquipmentBase, bool>();
         private BlastAttack blastAttack;
-        private GameObject armigerEffectPrefab = Modules.Assets.armigerSwordParticle;
+        private GameObject armigerEffectPrefab = Modules.NoctisAssets.armigerSwordParticle;
 
         private void Awake()
         {
@@ -111,7 +111,7 @@ namespace NoctisMod
             NoctisPlugin.instance = this;
 
             // load assets and read config
-            Modules.Assets.Initialize();
+            Modules.NoctisAssets.Initialize();
             Modules.Config.ReadConfig();
             Modules.Damage.SetupModdedDamage(); //setup modded damage
             if (Chainloader.PluginInfos.ContainsKey("com.rune580.riskofoptions")) //risk of options support
@@ -217,10 +217,10 @@ namespace NoctisMod
                         origin = victimBody.corePosition + randRelPos,
                         rotation = Quaternion.LookRotation(victimBody.corePosition - (victimBody.corePosition+randRelPos))
                     };
-                    if (Modules.Assets.armigerSwordParticle)
+                    if (Modules.NoctisAssets.armigerSwordParticle)
                     {
                         print("armiger effect spawn");
-                        EffectManager.SpawnEffect(Modules.Assets.armigerSwordParticle, effectData, true);
+                        EffectManager.SpawnEffect(Modules.NoctisAssets.armigerSwordParticle, effectData, true);
                     }
 
                     var bulletAttack = new BulletAttack
@@ -335,7 +335,7 @@ namespace NoctisMod
                 Debug.Log(item.bodyPrefab.name);
                 if (item.bodyPrefab.name == "NoctisBody")
                 {
-                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("noctisHumanoid"));
+                    CustomEmotesAPI.ImportArmature(item.bodyPrefab, Modules.NoctisAssets.mainAssetBundle.LoadAsset<GameObject>("noctisHumanoid"));
                 }
             }
         }

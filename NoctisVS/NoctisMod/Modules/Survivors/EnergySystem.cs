@@ -72,7 +72,7 @@ namespace NoctisMod.Modules.Survivors
             manaRegenMultiplier = 1f;
 
             //UI objects 
-            CustomUIObject = UnityEngine.Object.Instantiate(Modules.Assets.mainAssetBundle.LoadAsset<GameObject>("noctisCustomUI"));
+            CustomUIObject = UnityEngine.Object.Instantiate(Modules.NoctisAssets.mainAssetBundle.LoadAsset<GameObject>("noctisCustomUI"));
             CustomUIObject.SetActive(false);
             SetActiveTrue = false;
 

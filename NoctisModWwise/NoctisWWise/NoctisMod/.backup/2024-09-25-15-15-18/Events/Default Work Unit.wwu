@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{0FDBD51F-A74F-4132-A57D-EE9B5521F745}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Armiger" ID="{9809ECD2-C050-4CDE-AB42-6F4A88AD453A}">
+					<ChildrenList>
+						<Action Name="" ID="{B18B07A5-72F7-41EB-BBDB-E74F2CA830AA}" ShortID="245311113">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisArmiger" ID="{B80BD3F9-7225-4398-94E9-7E52940109F9}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Dodge" ID="{B1445149-A25C-487D-8C57-EAADA39A1907}">
+					<ChildrenList>
+						<Action Name="" ID="{6458C80E-9570-4BA0-BBDB-4A8A53ECBDE2}" ShortID="69988777">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisDodge" ID="{7A616039-1282-49DE-B946-919EB83504F2}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="GreatswordSwingSFX" ID="{65B1040D-705E-4F6A-9AB6-4E1724A0C454}">
+					<ChildrenList>
+						<Action Name="" ID="{7D4D6B63-E137-47E9-B9CD-B9BF6171CA84}" ShortID="218141746">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GreatswordSwingSFX" ID="{07B8F673-B424-483F-8E6D-01ED8B68AC56}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="newNoctisEntrance" ID="{A6973F09-7BE8-49BB-B5E5-ED0C5CC827DC}">
+					<ChildrenList>
+						<Action Name="" ID="{BA339C4A-B406-47BE-BED9-2B9B8520485D}" ShortID="12155780">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisEntrance" ID="{BA59F95A-148C-4570-8B63-EE402D29B574}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="NoctisDeath" ID="{58C7900D-7E22-4105-98DC-C2BCC097148C}">
+					<ChildrenList>
+						<Action Name="" ID="{A533BBA5-5DB5-4856-9018-D9FCD1FCA239}" ShortID="592601483">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisDeath" ID="{0697AFDC-9132-49B7-97E4-7AAA5BAE6C11}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="NoctisHitSFX" ID="{62730C4B-C613-421F-9503-6F6D38E40113}">
+					<ChildrenList>
+						<Action Name="" ID="{6B4AF168-AC10-4468-8C40-5BCBAB13DB60}" ShortID="417229394">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisHitSFX" ID="{E0D009F7-8ADF-40E1-BD99-447E35DB8D8C}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="NoctisVoice" ID="{9CCDDEAB-4B6B-47A5-89CA-6C76DA79B4B1}">
+					<ChildrenList>
+						<Action Name="" ID="{75EF0673-6469-4264-BB34-6B4486E9E28B}" ShortID="465308168">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisHitVoice" ID="{53D742E8-82F8-48F8-81A5-C90E313BB89D}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PolearmSwingSFX" ID="{092B53AE-A533-44C1-9CD9-8C203F7489C0}">
+					<ChildrenList>
+						<Action Name="" ID="{D79F7644-493B-456E-8A85-C487B34C6953}" ShortID="817249129">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PolearmSwingSFX" ID="{CE252E32-BBA7-40C9-A9DC-690BDEA1F967}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Roll" ID="{8BEF25D0-CA61-4222-9543-CFBE082A6F95}">
+					<ChildrenList>
+						<Action Name="" ID="{B7568264-FC03-4138-B171-BB5C08E4192B}" ShortID="55360152">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisRoll" ID="{797035B0-D299-4D75-A4C9-F0111EAB5A2E}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SlamSFX" ID="{22E36296-3B71-4872-B84A-D9B5C2D3C967}">
+					<ChildrenList>
+						<Action Name="" ID="{6E9C703F-34E8-4876-846B-89F4B0E0151C}" ShortID="610763383">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SlamSFX" ID="{7AFBE7B8-DD0F-4B5E-9653-8D6B7F9006A9}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SwordSwingSFX" ID="{B8626E9E-304B-46C8-B090-C5DBB6942EA5}">
+					<ChildrenList>
+						<Action Name="" ID="{20885D78-4728-4F29-B2E1-F2FF956D5B04}" ShortID="692572029">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SwordSwingSFX" ID="{B5EB7A99-B781-4B9C-8264-8409C01E42DC}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Warpstrike" ID="{21F19D70-505E-458D-A149-452B51370114}">
+					<ChildrenList>
+						<Action Name="" ID="{6A20282C-0F86-4DD0-9583-5FAA0F62E229}" ShortID="946143846">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="NoctisWarpstrike" ID="{F4F837E0-CB86-4374-89B7-BC024D47B522}" WorkUnitID="{30094D73-622D-4642-ADEE-8D65AF519D70}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

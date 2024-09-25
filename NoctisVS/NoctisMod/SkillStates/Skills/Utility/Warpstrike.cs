@@ -107,12 +107,12 @@ namespace NoctisMod.SkillStates
 
 
             PlayAnimation();
-            EffectManager.SpawnEffect(Assets.swordThrowParticle, new EffectData
+            EffectManager.SpawnEffect(NoctisAssets.swordThrowParticle, new EffectData
             {
                 origin = aimRay.origin,
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
             }, true);
-            EffectManager.SpawnEffect(Assets.noctisDashEffect, new EffectData
+            EffectManager.SpawnEffect(NoctisAssets.noctisDashEffect, new EffectData
             {
                 origin = characterBody.corePosition,
                 rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),
@@ -214,20 +214,18 @@ namespace NoctisMod.SkillStates
                     this.animator = this.modelTransform.GetComponent<Animator>();
                     this.characterModel = this.modelTransform.GetComponent<CharacterModel>();
 
-                    TemporaryOverlay temporaryOverlay = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    TemporaryOverlayInstance temporaryOverlay = TemporaryOverlayManager.AddOverlay(new GameObject());
                     temporaryOverlay.duration = 0.3f;
                     temporaryOverlay.animateShaderAlpha = true;
                     temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay.destroyComponentOnEnd = true;
                     temporaryOverlay.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
-                    temporaryOverlay.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
-                    TemporaryOverlay temporaryOverlay2 = this.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                    TemporaryOverlayInstance temporaryOverlay2 = TemporaryOverlayManager.AddOverlay(new GameObject());
                     temporaryOverlay2.duration = 0.3f;
                     temporaryOverlay2.animateShaderAlpha = true;
                     temporaryOverlay2.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
                     temporaryOverlay2.destroyComponentOnEnd = true;
                     temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
-                    temporaryOverlay2.AddToCharacerModel(this.modelTransform.GetComponent<CharacterModel>());
 
                 }
 

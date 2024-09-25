@@ -33,7 +33,7 @@ namespace NoctisMod.Modules
             ModSettingsManager.AddOption(new CheckBoxOption(
                 allowVoice));
             ModSettingsManager.SetModDescription("Noctis Mod");
-            Sprite icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("Noctis");
+            Sprite icon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("Noctis");
             ModSettingsManager.SetModIcon(icon);
 
         }

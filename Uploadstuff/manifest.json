@@ -1,8 +1,8 @@
 {
     "name": "NoctisMod",
-    "version_number": "1.5.2",
+    "version_number": "1.6.0",
     "website_url": "https://github.com/1TeaL/Noctis",
-    "description": "Above all, I'm just a man. 1.5.0- Big balance changes, new skills!", 
+    "description": "Above all, I'm just a man. 1.6.0- SOTS update", 
     "dependencies": [
          "RiskofThunder-R2API_Core-5.0.6",
          "RiskofThunder-R2API_Sound-1.0.0",
@@ -11,7 +11,6 @@
          "RiskofThunder-R2API_Networking-1.0.2",
          "RiskofThunder-R2API_RecalculateStats-1.2.0",
          "RiskofThunder-R2API_DamageType-1.0.4",
-         "RiskofThunder-R2API_Dot-1.0.0",
          "KingEnderBrine-ExtraSkillSlots-1.5.1"
     ]
 }

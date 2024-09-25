@@ -37,10 +37,10 @@ namespace NoctisMod.SkillStates
             this.swingSoundString = "PolearmSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingStab";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.swingEffectPrefab = Modules.NoctisAssets.noctisSwingEffect;
+            this.hitEffectPrefab = Modules.NoctisAssets.noctisHitEffect;
 
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
+            this.impactSound = Modules.NoctisAssets.hitSoundEffect.index;
 
             base.OnEnter();
             attackAmount += StaticValues.polearmExtraHit;

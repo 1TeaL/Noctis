@@ -22,13 +22,13 @@ namespace NoctisMod.Modules
 
         internal static void RegisterBuffs()
         {
-            armorBuff = Buffs.AddNewBuff($"Armor buff", Assets.shieldBuffIcon, Color.white, false, false);
-            GSarmorBuff = Buffs.AddNewBuff($"GS Armor buff", Assets.shieldBuffIcon, Color.cyan, false, false);
-            vulnerabilityDebuff = Buffs.AddNewBuff($"Vulnerability debuff", Assets.deathMarkDebuffIcon, Color.white, true, true);
-            counterBuff = Buffs.AddNewBuff($"Counter buff", Assets.shieldBuffIcon, Color.black, false, false);
+            armorBuff = Buffs.AddNewBuff($"Armor buff", NoctisAssets.shieldBuffIcon, Color.white, false, false);
+            GSarmorBuff = Buffs.AddNewBuff($"GS Armor buff", NoctisAssets.shieldBuffIcon, Color.cyan, false, false);
+            vulnerabilityDebuff = Buffs.AddNewBuff($"Vulnerability debuff", NoctisAssets.deathMarkDebuffIcon, Color.white, true, true);
+            counterBuff = Buffs.AddNewBuff($"Counter buff", NoctisAssets.shieldBuffIcon, Color.black, false, false);
 
-            armigerBuff = Buffs.AddNewBuff($"Armiger buff", Assets.ruinDebuffIcon, Color.white, false, false);
-            manaBuff = Buffs.AddNewBuff($"Mana Regen buff", Assets.jumpBuffIcon, Color.cyan, false, false);
+            armigerBuff = Buffs.AddNewBuff($"Armiger buff", NoctisAssets.ruinDebuffIcon, Color.white, false, false);
+            manaBuff = Buffs.AddNewBuff($"Mana Regen buff", NoctisAssets.jumpBuffIcon, Color.cyan, false, false);
         }
 
         // simple helper method

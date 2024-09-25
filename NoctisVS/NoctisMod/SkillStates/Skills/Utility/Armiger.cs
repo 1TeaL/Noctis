@@ -18,7 +18,7 @@ namespace NoctisMod.SkillStates
         private NoctisController noctisCon;
         private EnergySystem energySystem;
         public float baseDuration = 1f;
-        private GameObject blastEffectPrefab = Assets.lightningNovaEffectPrefab;
+        private GameObject blastEffectPrefab = NoctisAssets.lightningNovaEffectPrefab;
 
         public override void OnEnter()
         {

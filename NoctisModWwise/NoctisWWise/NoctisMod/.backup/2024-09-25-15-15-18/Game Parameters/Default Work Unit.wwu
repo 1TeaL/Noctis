@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{73306EE0-6A02-4BEA-909C-066F10AA5CAF}" SchemaVersion="97">
+	<GameParameters>
+		<WorkUnit Name="Default Work Unit" ID="{73306EE0-6A02-4BEA-909C-066F10AA5CAF}" PersistMode="Standalone">
+			<ChildrenList>
+				<GameParameter Name="Volume_Master" ID="{D5347B64-DD6A-4E6F-99CB-4B44B3CB20D5}"/>
+				<GameParameter Name="Volume_SFX" ID="{E47BE45E-716D-4BD2-A369-5FB366B50D9E}"/>
+			</ChildrenList>
+		</WorkUnit>
+	</GameParameters>
+</WwiseDocument>

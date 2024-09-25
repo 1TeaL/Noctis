@@ -39,11 +39,11 @@ namespace NoctisMod.SkillStates
             this.swingSoundString = "GreatswordSwingSFX";
             this.hitSoundString = "";
             this.muzzleString = "SwordSwingUp";
-            this.swingEffectPrefab = Modules.Assets.noctisSwingEffect;
-            this.hitEffectPrefab = Modules.Assets.noctisHitEffect;
+            this.swingEffectPrefab = Modules.NoctisAssets.noctisSwingEffect;
+            this.hitEffectPrefab = Modules.NoctisAssets.noctisHitEffect;
 
 
-            this.impactSound = Modules.Assets.hitSoundEffect.index;
+            this.impactSound = Modules.NoctisAssets.hitSoundEffect.index;
             hasSlammed = false;
             base.OnEnter();
             hasVulnerability = true;
@@ -63,7 +63,7 @@ namespace NoctisMod.SkillStates
             {
                 hasSlammed = true;
 
-                EffectManager.SimpleMuzzleFlash(Assets.noctisSwingEffect, base.gameObject, "SwordSwingDown", true);
+                EffectManager.SimpleMuzzleFlash(NoctisAssets.noctisSwingEffect, base.gameObject, "SwordSwingDown", true);
 
                 for (int i = 0; i < 3; i += 1)
                 {

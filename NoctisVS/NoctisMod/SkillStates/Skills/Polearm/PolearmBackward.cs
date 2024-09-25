@@ -78,7 +78,7 @@ namespace NoctisMod.SkillStates
                 hasFired = true;
                 AkSoundEngine.PostEvent("PolearmSwingSFX", base.gameObject);
                 Ray aimRay = base.GetAimRay();
-                EffectManager.SpawnEffect(Assets.polearmThrowParticle, new EffectData
+                EffectManager.SpawnEffect(NoctisAssets.polearmThrowParticle, new EffectData
                 {
                     origin = aimRay.origin,
                     rotation = Quaternion.LookRotation(new Vector3(aimRay.direction.x, aimRay.direction.y, aimRay.direction.z)),

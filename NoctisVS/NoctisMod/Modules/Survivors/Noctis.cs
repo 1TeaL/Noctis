@@ -42,8 +42,8 @@ namespace NoctisMod.Modules.Survivors
             bodyName = "NoctisBody",
             bodyNameToken = NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME",
             bodyColor = Color.magenta,
-            characterPortrait = Modules.Assets.LoadCharacterIcon("Noctis"),
-            crosshair = Modules.Assets.LoadCrosshair("Standard"),
+            characterPortrait = Modules.NoctisAssets.LoadCharacterIcon("Noctis"),
+            crosshair = Modules.NoctisAssets.LoadCrosshair("Standard"),
             damage = 12f,
             healthGrowth = 15f,
             healthRegen = 1f,
@@ -56,15 +56,15 @@ namespace NoctisMod.Modules.Survivors
 
         internal override int mainRendererIndex { get; set; } = 1;
 
-        public static Material bodyShapeMat = Assets.mainAssetBundle.LoadAsset<Material>("bodyShapeMat");
-        public static Material bootsShapeMat = Assets.mainAssetBundle.LoadAsset<Material>("bootsShapeMat");
-        public static Material eyeMat = Assets.mainAssetBundle.LoadAsset<Material>("eyeMat");
-        public static Material faceMat = Assets.mainAssetBundle.LoadAsset<Material>("faceMat");
-        public static Material hairMat = Assets.mainAssetBundle.LoadAsset<Material>("hairMat");
-        public static Material shirtShapeMat = Assets.mainAssetBundle.LoadAsset<Material>("shirtShapeMat");
-        public static Material buttonsMat = Assets.mainAssetBundle.LoadAsset<Material>("buttonsMat");
-        public static Material ringMat = Assets.mainAssetBundle.LoadAsset<Material>("ringMat");
-        public static Material teethMat = Assets.mainAssetBundle.LoadAsset<Material>("teethMat");
+        public static Material bodyShapeMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("bodyShapeMat");
+        public static Material bootsShapeMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("bootsShapeMat");
+        public static Material eyeMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("eyeMat");
+        public static Material faceMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("faceMat");
+        public static Material hairMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("hairMat");
+        public static Material shirtShapeMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("shirtShapeMat");
+        public static Material buttonsMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("buttonsMat");
+        public static Material ringMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("ringMat");
+        public static Material teethMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>("teethMat");
 
         internal override CustomRendererInfo[] customRendererInfos { get; set; } = new CustomRendererInfo[] {
 
@@ -198,7 +198,7 @@ namespace NoctisMod.Modules.Survivors
             skillloc.passiveSkill.enabled = true;
             skillloc.passiveSkill.skillNameToken = prefix + "PASSIVE_NAME";
             skillloc.passiveSkill.skillDescriptionToken = prefix + "PASSIVE_DESCRIPTION";
-            skillloc.passiveSkill.icon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisPassive");
+            skillloc.passiveSkill.icon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisPassive");
             //skillloc.passiveSkill.keywordToken = prefix + "KEYWORD_PASSIVE";
             #endregion
 
@@ -210,7 +210,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "SWORD_NAME",
                 skillNameToken = prefix + "SWORD_NAME",
                 skillDescriptionToken = prefix + "SWORD_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisSword"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisSword"),
                 activationState = new SerializableEntityStateType(typeof(SwordCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -236,7 +236,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "GREATSWORD_NAME",
                 skillNameToken = prefix + "GREATSWORD_NAME",
                 skillDescriptionToken = prefix + "GREATSWORD_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisGreatsword"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisGreatsword"),
                 activationState = new SerializableEntityStateType(typeof(GreatswordCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -262,7 +262,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "POLEARM_NAME",
                 skillNameToken = prefix + "POLEARM_NAME",
                 skillDescriptionToken = prefix + "POLEARM_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisPolearm"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisPolearm"),
                 activationState = new SerializableEntityStateType(typeof(PolearmCombo)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -290,7 +290,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "DODGE_NAME",
                 skillNameToken = prefix + "DODGE_NAME",
                 skillDescriptionToken = prefix + "DODGE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisDodge"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisDodge"),
                 activationState = new SerializableEntityStateType(typeof(SkillStates.Dodge)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -315,7 +315,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "WARPSTRIKE_NAME",
                 skillNameToken = prefix + "WARPSTRIKE_NAME",
                 skillDescriptionToken = prefix + "WARPSTRIKE_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisWarpstrike"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisWarpstrike"),
                 activationState = new SerializableEntityStateType(typeof(Warpstrike)),
                 activationStateMachineName = "Body",
                 baseMaxStock = 1,
@@ -340,7 +340,7 @@ namespace NoctisMod.Modules.Survivors
                 skillName = prefix + "ARMIGER_NAME",
                 skillNameToken = prefix + "ARMIGER_NAME",
                 skillDescriptionToken = prefix + "ARMIGER_DESCRIPTION",
-                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisArmiger"),
+                skillIcon = Modules.NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisArmiger"),
                 activationState = new SerializableEntityStateType(typeof(Armiger)),
                 activationStateMachineName = "Slide",
                 baseMaxStock = 1,
@@ -414,7 +414,7 @@ namespace NoctisMod.Modules.Survivors
             #region DefaultSkin
             CharacterModel.RendererInfo[] defaultRendererinfos = prefabCharacterModel.baseRendererInfos;
             SkinDef defaultSkin = Modules.Skins.CreateSkinDef(NoctisPlugin.developerPrefix + "_NOCTIS_BODY_DEFAULT_SKIN_NAME",
-                Assets.mainAssetBundle.LoadAsset<Sprite>("NoctisBaseSkin"),
+                NoctisAssets.mainAssetBundle.LoadAsset<Sprite>("NoctisBaseSkin"),
                 defaultRendererinfos,
                 mainRenderer,
                 model);

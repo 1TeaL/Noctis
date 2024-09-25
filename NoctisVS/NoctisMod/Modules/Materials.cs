@@ -20,7 +20,7 @@ namespace NoctisMod.Modules
             if (tempMat)
                 return tempMat;
 
-            tempMat = Assets.mainAssetBundle.LoadAsset<Material>(materialName);
+            tempMat = NoctisAssets.mainAssetBundle.LoadAsset<Material>(materialName);
 
             if (!tempMat)
             {

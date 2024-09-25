@@ -104,7 +104,7 @@ namespace NoctisMod.Modules.Networking
                 DamageAPI.AddModdedDamageType(damageInfo, Damage.noctisVulnerability);
             }
 
-            EffectManager.SpawnEffect(Modules.Assets.noctisHitEffect, new EffectData
+            EffectManager.SpawnEffect(Modules.NoctisAssets.noctisHitEffect, new EffectData
             {
                 origin = enemycharBody.transform.position,
                 scale = 1f,

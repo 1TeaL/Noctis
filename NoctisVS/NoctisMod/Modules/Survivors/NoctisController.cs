@@ -370,7 +370,7 @@ namespace NoctisMod.Modules.Survivors
                             EffectData effectData = new EffectData();
                             effectData.origin = component.transform.position;
                             effectData.scale = 1f;
-                            EffectManager.SpawnEffect(Assets.lightningNovaEffectPrefab, effectData, false);
+                            EffectManager.SpawnEffect(NoctisAssets.lightningNovaEffectPrefab, effectData, false);
                             UnityEngine.Object.Destroy(array[i].gameObject);
                             //Object.Destroy(component.gameObject);
                         }
