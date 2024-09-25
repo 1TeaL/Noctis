@@ -12,20 +12,14 @@ If you enjoy my work, support me on Ko-fi!
 <details>
 <summary>Check out other mods from the Popcorn Factory team!</summary>	
 <div>
-    <a href="https://thunderstore.io/package/PopcornFactory/ShigarakiMod/">
-        <img src="https://user-images.githubusercontent.com/93917577/168004591-39480a52-c7fe-4962-997f-cd9460bb4d4a.png"><br>
-        <p>ShigarakiMod (My other Mod!)</p>
-    </a>
-</div>	
-<div>
     <a href="https://thunderstore.io/package/PopcornFactory/Arsonist_Mod/">
-      <img width="130" src="https://cdn.discordapp.com/attachments/928130606662049892/1088442099432706068/PopcornFactory-Arsonist_Mod-1.png"/>
+      <img width="130" src="https://github.com/user-attachments/assets/5928595d-ac4a-4bb7-9ef2-1e56d74ccb7d"/>
       <p>Arsonist Mod (Popcorn Factory Team)</p>
     </a>
 </div>	
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Rimuru_Tempest_Mod/">
-      <img width="130" src="https://cdn.discordapp.com/attachments/399901440023330816/1033003173759164467/unknown.png"/>
+      <img width="130" src="https://github.com/user-attachments/assets/7ca86047-1bbb-4b2c-8b98-3cb6f65f86b3"/>
       <p>Rimuru Tempest Mod (Popcorn Factory Team)</p>
     </a>
 </div>
@@ -43,25 +37,31 @@ If you enjoy my work, support me on Ko-fi!
 </div>
 <div>
     <a href="https://thunderstore.io/package/TeaL/DekuMod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043614036168784/TeaL-DekuMod-3.1.1.png.128x128_q95.png"><br>
+        <img width ="130" src="https://github.com/user-attachments/assets/117f7100-e25d-4d34-8811-71d4fdf94c61" ><br>
         <p>DekuMod (My other Mod!)</p>
     </a>
 </div>
 <div>
+    <a href="https://thunderstore.io/package/TeaL/ShigarakiMod/">
+        <img width ="130" src="https://github.com/user-attachments/assets/ab1e17d8-21ba-4f2f-a152-3fea5949ebe4"><br>
+        <p>ShigarakiMod (My other Mod!)</p>
+    </a>
+</div>
+<div>
     <a href="https://thunderstore.io/package/Ethanol10/Ganondorf_Mod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043613428011079/Ethanol10-Ganondorf_Mod-2.1.5.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/79f2ce62-04a0-4f89-a4e9-13d351401f37"><br>
         <p>Ganondorf Mod (Ethanol 10)</p>
     </a>
 </div>
 <div>
     <a href="https://thunderstore.io/package/BokChoyWithSoy/Phoenix_Wright_Mod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960054458790850570/BokChoyWithSoy-Phoenix_Wright_Mod-1.6.2.png.128x128_q95.png"><br>
+        <img src="https://github.com/user-attachments/assets/74f85c95-5ae5-4017-af33-afbbbafc868f"><br>
         <p>Phoenix Wright Mod (BokChoyWithSoy)</p>
     </a>
 </div>
 <div>
     <a href="https://thunderstore.io/package/PopcornFactory/Wisp_WarframeSurvivorMod/">
-        <img src="https://cdn.discordapp.com/attachments/399901440023330816/960043613692239942/PopcornFactory-Wisp_WarframeSurvivorMod-1.0.2.png.128x128_q95.png"><br>
+        <img width ="130" src="https://github.com/user-attachments/assets/5cde736a-4c63-4a8f-84f7-72c787cf40b4" ><br>
         <p>Wisp Mod (Popcorn Factory Team)</p>
     </a>
 </div>
@@ -69,102 +69,7 @@ If you enjoy my work, support me on Ko-fi!
 
 ## Latest Changelog, Next update(s)
 
-- 1.5.2- Changes
-    - Changes
-        - Pressing jump after you're out of jumps to use aerial dodge (still cost 10 mana).
-        - Made Armiger swords looked better and come from any angle.
-        - Increased sword hitbox so it can more reliably hit enemies.
-        - Increased height of where you warp to with polearm swap aerial for less glitchy positioning.
-- 1.5.1- Bug fixes/Changes
-    - Bug fixes
-        - Fixed Camera snapping with Sword Swap Aerial and Polearm Aerial.
-        - Fixed Warpstrike not giving 1 second of invulnerability.
-        - Fixed bug of providing 1 second of invulnerability with Armiger even though you didn't have enough mana to use it.
-    - Balance Changes
-        - Buffed energy regen, now it takes 20 seconds to get to max mana (10 seconds if in combat).
-        - Armiger- previously matched the energy regen but in reverse so it would last the same regardless of max mana.
-            - Now drains at a flat rate, at 100 mana it will last for 16 seconds (32 seconds if in combat), and increasing max mana will increase it's duration.
-            - *NEW* attacking enemies with an attack with proc chance will now summon a sword that deals 20% of the damage of the attack.
-        - Overall these changes should make armiger and mana regen feel better- will monitor the mana costs of the dodge/jump/warpstrike though.
-- 1.5.0- Bug fixes/New Skills/BIG Balance Changes
-    - Bug fixes
-        - Fixed Armiger particles not disappearing properly
-        - Noted issue that sometimes Greatsword overrides Noctis' primary for some reason- can't reliably replicate it.
-    - New Skills
-        - Sword Swap Aerial has been changed- it warps Noctis to the target and you deal up to 3 attacks on the target, keeping them in spot and also keeping them in their position- use it to continue aerial combos!
-        - Polearm Swap Aerial has been changed- it warps Noctis to the target and you deal one singular hit (as strong as the normal swap attacks default 3 hits, attackspeed will still scale the damage as well), ignoring armor as well as dealing more damage the lower the health of the enemy- use it as a combo finisher and also an aerial combo continuer! 
-    - Balance Changes
-        - Noctis no longer gains 2% Mana per hit. This is due to how rapidly Noctis can gain mana without issue, resulting in him becoming broken- both to warpstrike spamming and armiger duration.
-            - Mana regen has been doubled to compensate, and it further doubles its rate if Noctis has recently attacked an enemy for 2 seconds.
-        - Armiger- Armiger now makes all mana costing abilities free during its duration. It can only be used when you have full mana and now instead constantly drains Noctis' mana, not allowing any way to gain mana while it's active. Attacking enemies does slow down the rate of drain. This is to stop armiger stacking infinitely and make it so the end point of it results in 0 mana. To compensate, mana costs are alleviated creating a more 'super' form of Noctis with some drawbacks.
-        - Warpstrike- Now has an base 2 second cooldown and warpstrike's no longer can be chain back to itself. Warpstrike also no longer gives a flat 2 second invincibility, just during the whole duration of it. Warpstrike cancels from other means are still available, just not to itself. This is to stop warpstrike spamming resutling in incredible damage and invincibility. 
-        - Polearm back fixed to have the appropriate damage, was automatically dealing bonus damage like railgunner previously.
-        - Dodge- increased dodge distance and if you have a weapon out, you will deal 100% damage around Noctis as you dash. This is to give it a bit more utility.
-- 1.4.4- Bug fixes/Changes
-    - Bug fixes
-        - Fixed Armiger particles from not rotating around Noctis properly. Also should have fixed the timer so it appropriately decreases by 1 stack every second.
-    - Changes
-        - Polearm back fixed to have the appropriate damage and number of hits, was previously still dealing it's swap backwards damage and number of hits. Also made it slower as the time between attacks was too fast.
-- 1.4.3- 
-    - Changed Greatsword backwards description to match a change that happened in 1.4.0. You no longer charge it anymore and it does a flat 400% damage.
-- 1.4.2- 
-    - Bug fixes
-        - Fixed Greatsword backwards not dealing damage.
-- 1.4.1- 
-    - Bug fixes
-        - Fixed Greatsword follow up slam from swap neutral/swap aerial to work on flying enemies.
-        - Also not mentioned in 1.4.0 but Greatsword backward had increased hitbox, and all Greatsword effects were enlargened to match the hitboxes better.
-- 1.4.0- Lots of changes
-    - Bug fixes
-        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special.
-        - Fixed issue with Noctis' voice playing over Shigaraki (my other mod) at times.
-        - Also updated Miro link to allow people to view instead of join the team
-    - Changes- Overall these changes were done to help improve Noctis' flow of combat
-        - Warpstrike can now be fast canceled much like all other weapon attacks and swap attacks- this means the animation time will be shorter as well. It also grants invincibility while using as well for increased safety.
-        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
-        - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
-        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
-        - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
-        - Changed Greatsword neutral, swap neutral and swap aerials to new moves to help improve it's current moveset.
-    - Additions
-        - *NEW* replaced Greatsword neutral to a counter stance when held. If hit, retaliate with an AOE slam around you.
-        - *NEW* replaced Greatsword swap neutral and Greatsword swap aerials to attacks that launch an enemy up. If the input is held and the enemy is still alive, Noctis will warp to the target and slam them downwards. Greatsword swap aerial will warp to the target indicator reticle much like warpstrike.
-        - *NEW* added a new extra skill! Armiger consumes all of Noctis' mana but in turn for each 10 mana spent, grant 1 second of a buff that destroys all nearby projectiles. Can be stacked.
-- 1.3.0-
-    - Bug fixes
-        - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
-    - Changes
-        - Overall faster animations for most attacks- mainly greatsword attacks and some polearm attacks
-        - *New* added weapon cancel animations- now when you're using a weapon swap attack to cancel an attack in it's duration, it will play an animation that starts immediately at the damage animation, making it a lot faster than before.
-        - The aim of these change is to make the transition smoother as weapon swap attacks right after a normal attack presents a dangerous gap at times that could result in Noctis being in danger. 
-- 1.2.0-
-    - Bug fixes
-        - Actually fixed Greatsword attacks not all applying vulnerability
-        - Fixed vulnerability debuff not actually increasing damage
-        - Fixed Greatsword swap attacks not stunning
-        - Fixed Greatsword forward not doing damage as it has no radius
-        - Fixed Warpstrike not aiming towards a target
-        - Dash particle should appear as you use warpstrike now
-        - Warpstrike damage scaling fixed, was doing too much damage before.
-    - Changes
-        - Warpstrike now freezes all enemies nearby on hit if the distance is greater than 50% of the max distance.
-        - Improved sword swap forward timing and movement
-        - lowered amount of particles when Noctis ground slams
-- 1.1.0-
-    - Bug fixes
-        - Fixed polearm weapon description in lobby to appear under polearm not dodge.
-        - Fixed Greatsword attacks not all applying vulnerability
-        - Hid messages appearing when using sword attacks
-        - Fixed sword swap forward not moving noctis far enough
-        - Fixed the target lock on from being able to select players (meaning you could use warp strike to an ally, travelling towards them but also dealing damage.
-    - Balance
-        - Reduced max mana per level from 10->5. Reduced max mana given from stock based items: magazine- 10->5. lysate 15->10. afterburner 30->15. Reduced natural regen as well. Noctis was not having mana issues too fast, and through attacking gains a decent amount of mana already.
-        - Changed window of using jump or dodge to cancel out of attacks to 50% earlier than what it was previously, this is to help some longer animation attacks not get Noctis killed due to enemy projectiles or puddles.
-        - Using Dodge no longer resets his current weapon to 'None'. This means he can more easier access the weapon swap attacks.
-        - Improved hitbox sizes in general, his rootedness meant he needed larger hitboxes to reach enemies.
-        - Changed base damage from 10->12
-        - Along with the bug fixes, should make Noctis more in line with other characters in general.
-- 1.0.0- Release
+- 1.6.0- SOTS update!
 
 - Next update(s)
     - Bug fixes. 
@@ -390,18 +295,114 @@ Only usable after an attack.
 
 These stats are prone to change.
 
+## Credits
+##### HenryMod for the template.
+##### Ethanol10(discord ethanol10) for weapon shader and partial attack logic
+
 rest of changelog on github.
 ## Changelog
 
 <details>
 <summary>Click to expand previous patch notes:</summary>
+- 1.5.2- Changes
+    - Changes
+        - Pressing jump after you're out of jumps to use aerial dodge (still cost 10 mana).
+        - Made Armiger swords looked better and come from any angle.
+        - Increased sword hitbox so it can more reliably hit enemies.
+        - Increased height of where you warp to with polearm swap aerial for less glitchy positioning.
+- 1.5.1- Bug fixes/Changes
+    - Bug fixes
+        - Fixed Camera snapping with Sword Swap Aerial and Polearm Aerial.
+        - Fixed Warpstrike not giving 1 second of invulnerability.
+        - Fixed bug of providing 1 second of invulnerability with Armiger even though you didn't have enough mana to use it.
+    - Balance Changes
+        - Buffed energy regen, now it takes 20 seconds to get to max mana (10 seconds if in combat).
+        - Armiger- previously matched the energy regen but in reverse so it would last the same regardless of max mana.
+            - Now drains at a flat rate, at 100 mana it will last for 16 seconds (32 seconds if in combat), and increasing max mana will increase it's duration.
+            - *NEW* attacking enemies with an attack with proc chance will now summon a sword that deals 20% of the damage of the attack.
+        - Overall these changes should make armiger and mana regen feel better- will monitor the mana costs of the dodge/jump/warpstrike though.
+- 1.5.0- Bug fixes/New Skills/BIG Balance Changes
+    - Bug fixes
+        - Fixed Armiger particles not disappearing properly
+        - Noted issue that sometimes Greatsword overrides Noctis' primary for some reason- can't reliably replicate it.
+    - New Skills
+        - Sword Swap Aerial has been changed- it warps Noctis to the target and you deal up to 3 attacks on the target, keeping them in spot and also keeping them in their position- use it to continue aerial combos!
+        - Polearm Swap Aerial has been changed- it warps Noctis to the target and you deal one singular hit (as strong as the normal swap attacks default 3 hits, attackspeed will still scale the damage as well), ignoring armor as well as dealing more damage the lower the health of the enemy- use it as a combo finisher and also an aerial combo continuer! 
+    - Balance Changes
+        - Noctis no longer gains 2% Mana per hit. This is due to how rapidly Noctis can gain mana without issue, resulting in him becoming broken- both to warpstrike spamming and armiger duration.
+            - Mana regen has been doubled to compensate, and it further doubles its rate if Noctis has recently attacked an enemy for 2 seconds.
+        - Armiger- Armiger now makes all mana costing abilities free during its duration. It can only be used when you have full mana and now instead constantly drains Noctis' mana, not allowing any way to gain mana while it's active. Attacking enemies does slow down the rate of drain. This is to stop armiger stacking infinitely and make it so the end point of it results in 0 mana. To compensate, mana costs are alleviated creating a more 'super' form of Noctis with some drawbacks.
+        - Warpstrike- Now has an base 2 second cooldown and warpstrike's no longer can be chain back to itself. Warpstrike also no longer gives a flat 2 second invincibility, just during the whole duration of it. Warpstrike cancels from other means are still available, just not to itself. This is to stop warpstrike spamming resutling in incredible damage and invincibility. 
+        - Polearm back fixed to have the appropriate damage, was automatically dealing bonus damage like railgunner previously.
+        - Dodge- increased dodge distance and if you have a weapon out, you will deal 100% damage around Noctis as you dash. This is to give it a bit more utility.
+- 1.4.4- Bug fixes/Changes
+    - Bug fixes
+        - Fixed Armiger particles from not rotating around Noctis properly. Also should have fixed the timer so it appropriately decreases by 1 stack every second.
+    - Changes
+        - Polearm back fixed to have the appropriate damage and number of hits, was previously still dealing it's swap backwards damage and number of hits. Also made it slower as the time between attacks was too fast.
+- 1.4.3- 
+    - Changed Greatsword backwards description to match a change that happened in 1.4.0. You no longer charge it anymore and it does a flat 400% damage.
+- 1.4.2- 
+    - Bug fixes
+        - Fixed Greatsword backwards not dealing damage.
+- 1.4.1- 
+    - Bug fixes
+        - Fixed Greatsword follow up slam from swap neutral/swap aerial to work on flying enemies.
+        - Also not mentioned in 1.4.0 but Greatsword backward had increased hitbox, and all Greatsword effects were enlargened to match the hitboxes better.
+- 1.4.0- Lots of changes
+    - Bug fixes
+        - Fixed issue with Polearm Double Dragoon Thrust when used during a jump cancel- only worked when polearm was set to primary, not secondary or special.
+        - Fixed issue with Noctis' voice playing over Shigaraki (my other mod) at times.
+        - Also updated Miro link to allow people to view instead of join the team
+    - Changes- Overall these changes were done to help improve Noctis' flow of combat
+        - Warpstrike can now be fast canceled much like all other weapon attacks and swap attacks- this means the animation time will be shorter as well. It also grants invincibility while using as well for increased safety.
+        - Reworked movement speed calculations for most skills so they don't get as absurd scaling like previously. Sword swap forward should move less.
+        - Sword swap aerial and Polearm aerial also don't increase in speed and decrease in duration based on attackspeed anymore. Instead, attackspeed increases damage and proc much like other skills. 
+        - Swapped Polearm backward (the backhop) and Polearm swap backward (the polearm throw) inputs. Now polearm backward will throw the polearm with the fast animation, and now does less damage instead. 
+        - Added 150 armor to all of Greatsword attacks to help with it's slow speed at times. 
+        - Changed Greatsword neutral, swap neutral and swap aerials to new moves to help improve it's current moveset.
+    - Additions
+        - *NEW* replaced Greatsword neutral to a counter stance when held. If hit, retaliate with an AOE slam around you.
+        - *NEW* replaced Greatsword swap neutral and Greatsword swap aerials to attacks that launch an enemy up. If the input is held and the enemy is still alive, Noctis will warp to the target and slam them downwards. Greatsword swap aerial will warp to the target indicator reticle much like warpstrike.
+        - *NEW* added a new extra skill! Armiger consumes all of Noctis' mana but in turn for each 10 mana spent, grant 1 second of a buff that destroys all nearby projectiles. Can be stacked.
+- 1.3.0-
+    - Bug fixes
+        - Previously not mentioned but Greatsword neutral properly sends enemies up, and attackspeed does not increase the amount of force for any attack anymore
+    - Changes
+        - Overall faster animations for most attacks- mainly greatsword attacks and some polearm attacks
+        - *New* added weapon cancel animations- now when you're using a weapon swap attack to cancel an attack in it's duration, it will play an animation that starts immediately at the damage animation, making it a lot faster than before.
+        - The aim of these change is to make the transition smoother as weapon swap attacks right after a normal attack presents a dangerous gap at times that could result in Noctis being in danger. 
+- 1.2.0-
+    - Bug fixes
+        - Actually fixed Greatsword attacks not all applying vulnerability
+        - Fixed vulnerability debuff not actually increasing damage
+        - Fixed Greatsword swap attacks not stunning
+        - Fixed Greatsword forward not doing damage as it has no radius
+        - Fixed Warpstrike not aiming towards a target
+        - Dash particle should appear as you use warpstrike now
+        - Warpstrike damage scaling fixed, was doing too much damage before.
+    - Changes
+        - Warpstrike now freezes all enemies nearby on hit if the distance is greater than 50% of the max distance.
+        - Improved sword swap forward timing and movement
+        - lowered amount of particles when Noctis ground slams
+- 1.1.0-
+    - Bug fixes
+        - Fixed polearm weapon description in lobby to appear under polearm not dodge.
+        - Fixed Greatsword attacks not all applying vulnerability
+        - Hid messages appearing when using sword attacks
+        - Fixed sword swap forward not moving noctis far enough
+        - Fixed the target lock on from being able to select players (meaning you could use warp strike to an ally, travelling towards them but also dealing damage.
+    - Balance
+        - Reduced max mana per level from 10->5. Reduced max mana given from stock based items: magazine- 10->5. lysate 15->10. afterburner 30->15. Reduced natural regen as well. Noctis was not having mana issues too fast, and through attacking gains a decent amount of mana already.
+        - Changed window of using jump or dodge to cancel out of attacks to 50% earlier than what it was previously, this is to help some longer animation attacks not get Noctis killed due to enemy projectiles or puddles.
+        - Using Dodge no longer resets his current weapon to 'None'. This means he can more easier access the weapon swap attacks.
+        - Improved hitbox sizes in general, his rootedness meant he needed larger hitboxes to reach enemies.
+        - Changed base damage from 10->12
+        - Along with the bug fixes, should make Noctis more in line with other characters in general.
+- 1.0.0- Release
 
-Rest of changelog on Github
 </details>
 
-## Credits
-##### HenryMod for the template.
-##### Ethanol10(discord ethanol10) for weapon shader and partial attack logic
  
 <details>
 <summary>Click to expand for OG pictures:</summary>
