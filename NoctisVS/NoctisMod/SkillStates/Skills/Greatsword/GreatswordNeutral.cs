@@ -22,6 +22,7 @@ namespace NoctisMod.SkillStates
         private CharacterModel characterModel;
         private Transform modelTransform;
         private bool activateCounter;
+        private int skillslot;
 
         public enum DangerState {STARTBUFF, CHECKCOUNTER};
         public DangerState state;
@@ -68,6 +69,20 @@ namespace NoctisMod.SkillStates
                 temporaryOverlay2.destroyComponentOnEnd = true;
                 temporaryOverlay2.originalMaterial = RoR2.LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashExpanded");
 
+            }
+
+            //check which skillslot Greatsword is in
+            if(skillLocator.primary.skillDef == Noctis.greatswordSkillDef)
+            {
+                skillslot = 1;
+            }
+            if (skillLocator.secondary.skillDef == Noctis.greatswordSkillDef)
+            {
+                skillslot = 2;
+            }
+            if (skillLocator.special.skillDef == Noctis.greatswordSkillDef)
+            {
+                skillslot = 4;
             }
         }
 
@@ -167,60 +182,60 @@ namespace NoctisMod.SkillStates
                         return;
                     }
 
+                    if(skillslot == 1)
+                    {
 
-                    if (inputBank.skill1.down)
-                    {
-                        if(skillLocator.primary.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+                        if (inputBank.skill1.down)
                         {
                             state = DangerState.CHECKCOUNTER;
                             this.animator.SetBool("releaseCounter", false);
                             this.animator.SetBool("releaseCounterSlam", false);
                         }
-                        else
+                        else if (!inputBank.skill1.down)
                         {
                             this.animator.SetBool("releaseCounter", true);
                             this.outer.SetNextStateToMain();
                             return;
+
                         }
                     }
-                    else
-                    if (inputBank.skill2.down)
+
+                    if (skillslot == 2)
                     {
-                        if (skillLocator.secondary.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+
+                        if (inputBank.skill2.down)
                         {
                             state = DangerState.CHECKCOUNTER;
                             this.animator.SetBool("releaseCounter", false);
                             this.animator.SetBool("releaseCounterSlam", false);
                         }
-                        else
+                        else if (!inputBank.skill2.down)
                         {
                             this.animator.SetBool("releaseCounter", true);
                             this.outer.SetNextStateToMain();
                             return;
+
                         }
                     }
-                    else
-                    if (inputBank.skill4.down)
+
+                    if (skillslot == 4)
                     {
-                        if (skillLocator.special.skillDef = Modules.Survivors.Noctis.greatswordSkillDef)
+
+                        if (inputBank.skill4.down)
                         {
                             state = DangerState.CHECKCOUNTER;
                             this.animator.SetBool("releaseCounter", false);
                             this.animator.SetBool("releaseCounterSlam", false);
                         }
-                        else
+                        else if (!inputBank.skill4.down)
                         {
                             this.animator.SetBool("releaseCounter", true);
                             this.outer.SetNextStateToMain();
                             return;
+
                         }
                     }
-                    else
-                    {
-                        this.animator.SetBool("releaseCounter", true);
-                        this.outer.SetNextStateToMain();
-                        return;
-                    }
+                    
                     break; 
             }
 

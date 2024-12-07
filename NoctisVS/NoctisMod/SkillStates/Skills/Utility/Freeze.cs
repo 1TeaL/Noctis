@@ -17,6 +17,7 @@ namespace NoctisMod.SkillStates
     {
         Animator animator;
         private float duration = 1f;
+        Vector3 startPos;
 
         public override void OnEnter()
         {
@@ -28,6 +29,8 @@ namespace NoctisMod.SkillStates
                 animator.enabled= false;
             }
             attackSpeedStat = 0f;
+            startPos = characterBody.corePosition;
+
 
             if (base.characterDirection)
             {
@@ -38,18 +41,32 @@ namespace NoctisMod.SkillStates
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.rootMotion = Vector3.zero;
             }
-            else if (!base.characterMotor)
+            if (base.rigidbody != null)
             {
-                RigidbodyMotor rigidBodyMotor = base.gameObject.GetComponent<RigidbodyMotor>();
-                rigidBodyMotor.moveVector = Vector3.zero;
-                rigidBodyMotor.rootMotion = Vector3.zero;
+                //RigidbodyMotor rigidBodyMotor = base.gameObject.GetComponent<RigidbodyMotor>();
+                //rigidBodyMotor.moveVector = Vector3.zero;
+                //rigidBodyMotor.rootMotion = Vector3.zero;
 
                 base.rigidbody.velocity = Vector3.zero;
 
             }
+            SetPosition(startPos, characterBody);
 
 
         }
+
+        private void SetPosition(Vector3 newPosition, CharacterBody charBody)
+        {
+            if (charBody.characterMotor)
+            {
+                charBody.characterMotor.Motor.SetPositionAndRotation(newPosition, Quaternion.identity, true);
+            }
+            else if (charBody.rigidbody)
+            {
+                charBody.rigidbody.MovePosition(newPosition);
+            }
+        }
+
         public override void OnExit()
         {
             base.OnExit();
@@ -69,22 +86,23 @@ namespace NoctisMod.SkillStates
 
             if (base.characterDirection)
             {
-                base.characterDirection.moveVector = base.characterDirection.forward;
+                base.characterDirection.moveVector = Vector3.zero;
             }
             if (base.characterMotor)
             {
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.rootMotion = Vector3.zero;
             }
-            else if (!base.characterMotor)
+            if (base.rigidbody != null)
             {
-                RigidbodyMotor rigidBodyMotor = base.gameObject.GetComponent<RigidbodyMotor>();
-                rigidBodyMotor.moveVector = Vector3.zero;
-                rigidBodyMotor.rootMotion = Vector3.zero;
+                //RigidbodyMotor rigidBodyMotor = base.gameObject.GetComponent<RigidbodyMotor>();
+                //rigidBodyMotor.moveVector = Vector3.zero;
+                //rigidBodyMotor.rootMotion = Vector3.zero;
 
                 base.rigidbody.velocity = Vector3.zero;
 
             }
+            SetPosition(startPos, characterBody);
 
             if (base.fixedAge > duration)
             {

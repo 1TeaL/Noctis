@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.6.0";
+        public const string MODVERSION = "1.6.1";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -180,11 +180,12 @@ namespace NoctisMod
         {
             orig.Invoke(self, damageInfo, victim);
 
-            if (damageInfo.attacker)
+            var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+            var victimBody = victim.GetComponent<CharacterBody>();
+
+            if (damageInfo.attacker && victimBody && attackerBody)
             {
 
-                var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                var victimBody = victim.GetComponent<CharacterBody>();
 
                 //increased mana regen while in combat
                 if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
@@ -219,7 +220,7 @@ namespace NoctisMod
                     };
                     if (Modules.NoctisAssets.armigerSwordParticle)
                     {
-                        print("armiger effect spawn");
+                        //print("armiger effect spawn");
                         EffectManager.SpawnEffect(Modules.NoctisAssets.armigerSwordParticle, effectData, true);
                     }
 
