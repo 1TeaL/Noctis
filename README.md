@@ -68,7 +68,11 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
-
+- 1.6.1- Fixes/Changes
+    - Fixed Greatsword Neutral overriding other skillslots with Greatsword.
+    - Fixed repeated thunderbolts in the Prime Meridian.
+    - Fixed the freezing effect from far warpstrikes causing errors.
+    - Narrowed the aiming of the reticle to help with targeting the right enemies, the range remains the same. Movespeed now also increases the range of Noctis' warpstrike.
 - 1.6.0- SOTS update!
 
 - Next update(s)
