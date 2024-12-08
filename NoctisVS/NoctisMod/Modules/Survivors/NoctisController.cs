@@ -503,13 +503,22 @@ namespace NoctisMod.Modules.Survivors
 
 
         private void SearchForTarget(Ray aimRay)
-		{
-			this.search.teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex);
+        {
+            float num = characterBody.moveSpeed;
+            bool isSprinting = characterBody.isSprinting;
+            if (isSprinting)
+            {
+                num /= characterBody.sprintingSpeedMultiplier;
+            }
+            float num2 = (num / characterBody.baseMoveSpeed - 1f) * 0.67f;
+            float num3 = num2 + 1f;
+
+            this.search.teamMaskFilter = TeamMask.GetEnemyTeams(characterBody.teamComponent.teamIndex);
 			this.search.filterByLoS = true;
 			this.search.searchOrigin = aimRay.origin;
 			this.search.searchDirection = aimRay.direction;
 			this.search.sortMode = BullseyeSearch.SortMode.Distance;
-			this.search.maxDistanceFilter = this.maxTrackingDistance;
+			this.search.maxDistanceFilter = this.maxTrackingDistance * num3;
 			this.search.maxAngleFilter = this.maxTrackingAngle;
 			this.search.RefreshCandidates();
 			this.search.FilterOutGameObject(base.gameObject);
