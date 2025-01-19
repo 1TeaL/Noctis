@@ -104,7 +104,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.procCoefficient = 0.1f;
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
-                blastAttack.damageType = DamageType.Generic;
+                blastAttack.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
 
 

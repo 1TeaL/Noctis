@@ -196,7 +196,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.procCoefficient = procCoefficient;
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.damageColorIndex = DamageColorIndex.Default;
-                blastAttack.damageType = DamageType.Stun1s;
+                blastAttack.damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary);
                 blastAttack.attackerFiltering = AttackerFiltering.Default;
                 blastAttack.AddModdedDamageType(Modules.Damage.noctisVulnerability);
 

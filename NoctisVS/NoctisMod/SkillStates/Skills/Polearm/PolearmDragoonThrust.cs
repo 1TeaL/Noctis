@@ -29,7 +29,7 @@ namespace NoctisMod.SkillStates
             weaponDef = Noctis.polearmSkillDef;
             this.hitboxName = "AOEHitbox";
 
-            this.damageType = DamageType.Generic;
+            this.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
 
             this.damageCoefficient = StaticValues.polearmSlamDamage;
             this.procCoefficient = StaticValues.polearmProc;

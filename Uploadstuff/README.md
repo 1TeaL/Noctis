@@ -68,6 +68,8 @@ If you enjoy my work, support me on Ko-fi!
 </details>
 
 ## Latest Changelog, Next update(s)
+- 1.6.2- Bug fixes
+	- Hopefully fixed issues with damage such as infinite lightning strikes on Prime Meridian.
 - 1.6.1- Fixes/Changes
     - Fixed Greatsword Neutral overriding other skillslots with Greatsword.
     - Fixed repeated thunderbolts in the Prime Meridian.

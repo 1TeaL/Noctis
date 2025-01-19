@@ -85,7 +85,7 @@ namespace NoctisMod
 
         public const string MODUID = "com.TeaL.NoctisMod";
         public const string MODNAME = "NoctisMod";
-        public const string MODVERSION = "1.6.1";
+        public const string MODVERSION = "1.6.2";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string developerPrefix = "TEAL";
@@ -179,83 +179,90 @@ namespace NoctisMod
         private void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
             orig.Invoke(self, damageInfo, victim);
+            
 
-            var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-            var victimBody = victim.GetComponent<CharacterBody>();
-
-            if (damageInfo.attacker && victimBody && attackerBody)
+            if (damageInfo.attacker)
             {
-
-
-                //increased mana regen while in combat
-                if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
+                if(damageInfo.attacker.GetComponent<CharacterBody>() != null)
                 {
-                    attackerBody.ApplyBuff(Buffs.manaBuff.buffIndex, 1, 2);
-                }
-
-                //vulnerability modded damage
-                if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.noctisVulnerability))
-                {
-                    victimBody.ApplyBuff(Buffs.vulnerabilityDebuff.buffIndex, victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) + 1);
-                }
-
-                //armiger extra damage buff
-                if (attackerBody.HasBuff(Buffs.armigerBuff) && damageInfo.procCoefficient > 0f)
-                {
-                    float radianS = UnityEngine.Random.Range(0f , 360f * Mathf.PI/180f);
-                    float radianT = UnityEngine.Random.Range(0f , 360f * Mathf.PI/180f);
-                    float radius = 8f;
-
-                    float circleX = radius * Mathf.Cos(radianS) * Mathf.Sin(radianT);
-                    float circleY = radius * Mathf.Sin(radianS) * Mathf.Sin(radianT);
-                    float circleZ = radius * Mathf.Cos(radianT);
-
-                    Vector3 randRelPos = new Vector3(circleX, circleY, circleZ);
-
-                    EffectData effectData = new EffectData
+                    var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                    var victimBody = victim.GetComponent<CharacterBody>();
+                    if (attackerBody && victimBody)
                     {
-                        scale = 1f,
-                        origin = victimBody.corePosition + randRelPos,
-                        rotation = Quaternion.LookRotation(victimBody.corePosition - (victimBody.corePosition+randRelPos))
-                    };
-                    if (Modules.NoctisAssets.armigerSwordParticle)
-                    {
-                        //print("armiger effect spawn");
-                        EffectManager.SpawnEffect(Modules.NoctisAssets.armigerSwordParticle, effectData, true);
+                        if (attackerBody && victimBody && damageInfo.damage > 0 && (damageInfo.damageType & DamageType.DoT) != DamageType.DoT)
+                        {
+                            //increased mana regen while in combat
+                            if (attackerBody.baseNameToken == NoctisPlugin.developerPrefix + "_NOCTIS_BODY_NAME")
+                            {
+                                attackerBody.ApplyBuff(Buffs.manaBuff.buffIndex, 1, 2);
+                            }
+
+                            //vulnerability modded damage
+                            if (DamageAPI.HasModdedDamageType(damageInfo, Modules.Damage.noctisVulnerability))
+                            {
+                                victimBody.ApplyBuff(Buffs.vulnerabilityDebuff.buffIndex, victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) + 1);
+                            }
+
+                            //armiger extra damage buff
+                            if (attackerBody.HasBuff(Buffs.armigerBuff) && damageInfo.procCoefficient > 0f)
+                            {
+                                float radianS = UnityEngine.Random.Range(0f, 360f * Mathf.PI / 180f);
+                                float radianT = UnityEngine.Random.Range(0f, 360f * Mathf.PI / 180f);
+                                float radius = 8f;
+
+                                float circleX = radius * Mathf.Cos(radianS) * Mathf.Sin(radianT);
+                                float circleY = radius * Mathf.Sin(radianS) * Mathf.Sin(radianT);
+                                float circleZ = radius * Mathf.Cos(radianT);
+
+                                Vector3 randRelPos = new Vector3(circleX, circleY, circleZ);
+
+                                EffectData effectData = new EffectData
+                                {
+                                    scale = 1f,
+                                    origin = victimBody.corePosition + randRelPos,
+                                    rotation = Quaternion.LookRotation(victimBody.corePosition - (victimBody.corePosition + randRelPos))
+                                };
+                                if (Modules.NoctisAssets.armigerSwordParticle)
+                                {
+                                    //print("armiger effect spawn");
+                                    EffectManager.SpawnEffect(Modules.NoctisAssets.armigerSwordParticle, effectData, true);
+                                }
+
+                                var bulletAttack = new BulletAttack
+                                {
+                                    bulletCount = 1,
+                                    aimVector = victimBody.corePosition - (victimBody.corePosition + randRelPos),
+                                    origin = victimBody.corePosition + randRelPos,
+                                    damage = damageInfo.damage * Modules.StaticValues.armigerDamageBonus,
+                                    damageColorIndex = DamageColorIndex.Fragile,
+                                    damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
+                                    falloffModel = BulletAttack.FalloffModel.DefaultBullet,
+                                    maxDistance = 10f,
+                                    force = 0f,
+                                    hitMask = LayerIndex.CommonMasks.bullet,
+                                    minSpread = 0f,
+                                    maxSpread = 0f,
+                                    isCrit = attackerBody.RollCrit(),
+                                    owner = attackerBody.gameObject,
+                                    smartCollision = false,
+                                    procChainMask = default(ProcChainMask),
+                                    procCoefficient = 0f,
+                                    radius = 1f,
+                                    sniper = false,
+                                    stopperMask = LayerIndex.noCollision.mask,
+                                    weapon = null,
+                                    spreadPitchScale = 0f,
+                                    spreadYawScale = 0f,
+                                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                                    hitEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.hitEffectPrefab,
+
+                                };
+                                bulletAttack.Fire();
+                            }
+                        }
                     }
-
-                    var bulletAttack = new BulletAttack
-                    {
-                        bulletCount = 1,
-                        aimVector = victimBody.corePosition - (victimBody.corePosition + randRelPos),
-                        origin = victimBody.corePosition + randRelPos,
-                        damage = damageInfo.damage * Modules.StaticValues.armigerDamageBonus,
-                        damageColorIndex = DamageColorIndex.Fragile,
-                        damageType = DamageType.Generic,
-                        falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                        maxDistance = 10f,
-                        force = 0f,
-                        hitMask = LayerIndex.CommonMasks.bullet,
-                        minSpread = 0f,
-                        maxSpread = 0f,
-                        isCrit = attackerBody.RollCrit(),
-                        owner = attackerBody.gameObject,
-                        smartCollision = false,
-                        procChainMask = default(ProcChainMask),
-                        procCoefficient = 0f,
-                        radius = 1f,
-                        sniper = false,
-                        stopperMask = LayerIndex.noCollision.mask,
-                        weapon = null,
-                        spreadPitchScale = 0f,
-                        spreadYawScale = 0f,
-                        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                        hitEffectPrefab = EntityStates.Sniper.SniperWeapon.FireRifle.hitEffectPrefab,
-
-                    };
-                    bulletAttack.Fire();
                 }
-
+               
             }
             
         }
@@ -267,19 +274,23 @@ namespace NoctisMod
 
             if (self)
             {
-                if (damageInfo.attacker)
+                if (self.body)
                 {
-                    var victimBody = self.body;
-                    var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
-                    if (attackerBody && victimBody)
+
+                    if (damageInfo.attacker)
                     {
-                        if (victimBody.HasBuff(Buffs.vulnerabilityDebuff.buffIndex))
+                        var victimBody = self.body;
+                        var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                        if (attackerBody && victimBody)
                         {
-                            damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
+                            if (victimBody.HasBuff(Buffs.vulnerabilityDebuff.buffIndex))
+                            {
+                                damageInfo.damage += damageInfo.damage * victimBody.GetBuffCount(Buffs.vulnerabilityDebuff) * StaticValues.GSVulnerabilityDebuff;
+                            }
+
                         }
 
                     }
-
                 }
 
 

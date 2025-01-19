@@ -91,7 +91,7 @@ namespace NoctisMod.SkillStates
                     origin = aimRay.origin,
                     damage = this.damageStat * damageCoefficient,
                     damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageType.Generic,
+                    damageType = new DamageTypeCombo(DamageType.Stun1s, DamageTypeExtended.Generic, DamageSource.Secondary),
                     falloffModel = BulletAttack.FalloffModel.None,
                     maxDistance = range,
                     force =100f,

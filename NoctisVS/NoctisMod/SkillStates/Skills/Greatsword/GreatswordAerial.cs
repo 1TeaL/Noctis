@@ -141,7 +141,7 @@ namespace NoctisMod.SkillStates
                 blastAttack.falloffModel = BlastAttack.FalloffModel.None;
                 blastAttack.baseForce = pushForce * (1 + dropTimer);
                 blastAttack.teamIndex = base.teamComponent.teamIndex;
-                blastAttack.damageType = DamageType.Generic;
+                blastAttack.damageType = new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Secondary);
                 blastAttack.attackerFiltering = AttackerFiltering.NeverHitSelf;
 
 
